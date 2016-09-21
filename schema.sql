@@ -42,6 +42,8 @@ CREATE TABLE `patient` (
 --
 -- ---
 
+
+-- problem here
 DROP TABLE IF EXISTS `physician`;
 
 CREATE TABLE `physician` (
@@ -50,9 +52,9 @@ CREATE TABLE `physician` (
   `last` VARCHAR(20) NOT NULL,
   `email` VARCHAR(20) NOT NULL,
   `password` VARCHAR(20) NOT NULL,
-  `institition_id` INTEGER DEFAULT NULL,
+  `institition_id` INTEGER DEFAULT NULL, --problem here
   PRIMARY KEY (`id`),
-KEY (`institition_id`)
+KEY (`institition_id`) --problem here
 );
 
 -- ---
