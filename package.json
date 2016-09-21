@@ -1,0 +1,43 @@
+{
+  "name": "greenfield",
+  "version": "1.0.0",
+  "description": "yolo",
+  "main": "./server/server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Enter-36-chambers-of-wu-tang-fam/Ilera-health"
+  },
+  "contributors": [
+    "harris Lee",
+    "Yara Tercero-Parker",
+    "Kent Moreland",
+    "Michael Olorunnisola",
+    "Neekon Etemad"
+  ],
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Enter-36-chambers-of-wu-tang-fam/Ilera-health"
+  },
+  "homepage": "https://github.com/Enter-36-chambers-of-wu-tang-fam/Ilera-health",
+  "dependencies": {
+    "bcrypt-nodejs": "0.0.3",
+    "bluebird": "^3.4.6",
+    "body-parser": "1.14.1",
+    "express": "4.13.3",
+    "express-session": "^1.14.1",
+    "fs": "0.0.2",
+    "multer": "1.1.0",
+    "mysql": "^2.11.1"
+  },
+  "devDependencies": {
+    "grunt": "^1.0.1",
+    "grunt-contrib-concat": "^1.0.1",
+    "grunt-contrib-cssmin": "^1.0.1",
+    "grunt-contrib-jshint": "^1.0.0",
+    "grunt-contrib-uglify": "^2.0.0",
+    "grunt-contrib-watch": "^1.0.0"
+  }
+}

@@ -1,6 +1,11 @@
 -- ---
 -- Globals
 -- ---
+DROP DATABASE IF EXISTS `Ilera`;
+
+CREATE DATABASE `Ilera`;
+
+USE Ilera;
 
 -- SET SQL_MODE="NO_AUTO_VALUE_ON_ZERO";
 -- SET FOREIGN_KEY_CHECKS=0;
@@ -13,22 +18,22 @@
 DROP TABLE IF EXISTS `patient`;
 
 CREATE TABLE `patient` (
-  `id` INTEGER NULL AUTO_INCREMENT DEFAULT NULL,
-  `first` VARCHAR NOT NULL,
-  `last` VARCHAR NOT NULL,
-  `email` VARCHAR NOT NULL,
-  `password` VARCHAR NOT NULL,
-  `pin` INTEGER(4) NULL DEFAULT NULL,
+  `id` INTEGER UNSIGNED NOT NULL AUTO_INCREMENT,
+  `first` VARCHAR(30) NOT NULL,
+  `last` VARCHAR(30) NOT NULL,
+  `email` VARCHAR(30) NOT NULL,
+  `password` VARCHAR(30) NOT NULL,
+  `pin` INTEGER(4) DEFAULT NULL,
   `data_of_birth` DATE NULL,
   `address` VARCHAR(255) NULL,
-  `city` VARCHAR NULL,
+  `city` VARCHAR(30) NULL,
   `state` VARCHAR(2) NULL,
   `zip` INTEGER NULL,
   `phone_number` INTEGER NULL,
-  `weight` INTEGER NULL,
-  `height` INTEGER NULL,
-  `blood_type` VARCHAR NULL,
-  `id_insurance` INTEGER NULL DEFAULT NULL,
+  `weight` INTEGER(10) NULL,
+  `height` INTEGER(10) NULL,
+  `blood_type` VARCHAR(3) NULL,
+  `id_insurance` INTEGER UNSIGNED DEFAULT NULL,
   PRIMARY KEY (`id`)
 );
 
@@ -40,12 +45,12 @@ CREATE TABLE `patient` (
 DROP TABLE IF EXISTS `physician`;
 
 CREATE TABLE `physician` (
-  `id` INTEGER NULL AUTO_INCREMENT DEFAULT NULL,
-  `first` VARCHAR NOT NULL,
-  `last` VARCHAR NOT NULL,
-  `email` VARCHAR NOT NULL,
-  `password` VARCHAR NOT NULL,
-  `institition_id` INTEGER NULL DEFAULT NULL,
+  `id` INTEGER UNSIGNED NOT NULL AUTO_INCREMENT,
+  `first` VARCHAR(20) NOT NULL,
+  `last` VARCHAR(20) NOT NULL,
+  `email` VARCHAR(20) NOT NULL,
+  `password` VARCHAR(20) NOT NULL,
+  `institition_id` INTEGER DEFAULT NULL,
   PRIMARY KEY (`id`),
 KEY (`institition_id`)
 );
@@ -58,10 +63,10 @@ KEY (`institition_id`)
 DROP TABLE IF EXISTS `appointment`;
 
 CREATE TABLE `appointment` (
-  `id` INTEGER NOT NULL AUTO_INCREMENT DEFAULT NULL,
+  `id` INTEGER UNSIGNED NOT NULL AUTO_INCREMENT,
   `date` DATE NOT NULL,
   `time` TIME NULL,
-  `notes` VARCHAR NULL,
+  `notes` VARCHAR(200) NULL,
   `id_physician` INTEGER NULL,
   `id_patient` INTEGER NULL DEFAULT NULL,
   `id_institution` INTEGER NULL,
@@ -76,8 +81,8 @@ CREATE TABLE `appointment` (
 DROP TABLE IF EXISTS `Patient_Form`;
 
 CREATE TABLE `Patient_Form` (
-  `id` INTEGER NULL AUTO_INCREMENT DEFAULT NULL,
-  `doctor_notes` VARCHAR NULL,
+  `id` INTEGER UNSIGNED NOT NULL AUTO_INCREMENT,
+  `doctor_notes` VARCHAR(200) NULL,
   `id_physician` INTEGER NULL DEFAULT NULL,
   `id_patient` INTEGER NULL DEFAULT NULL,
   PRIMARY KEY (`id`)
@@ -91,9 +96,9 @@ CREATE TABLE `Patient_Form` (
 DROP TABLE IF EXISTS `medication`;
 
 CREATE TABLE `medication` (
-  `id` INTEGER NULL AUTO_INCREMENT DEFAULT NULL,
-  `drug_name` VARCHAR NULL,
-  `dosage` VARCHAR NULL,
+  `id` INTEGER UNSIGNED NOT NULL AUTO_INCREMENT,
+  `drug_name` VARCHAR(20) NULL,
+  `dosage` VARCHAR(20) NULL,
   `details` INTEGER NULL,
   `physician_id` INTEGER NULL DEFAULT NULL,
   `id_patient` INTEGER NULL DEFAULT NULL,
@@ -108,10 +113,10 @@ CREATE TABLE `medication` (
 DROP TABLE IF EXISTS `institution`;
 
 CREATE TABLE `institution` (
-  `id` INTEGER NULL AUTO_INCREMENT DEFAULT NULL,
-  `inst_name` VARCHAR NULL,
-  `type` VARCHAR NULL,
-  `description` VARCHAR NULL,
+  `id` INTEGER UNSIGNED NOT NULL AUTO_INCREMENT,
+  `inst_name` VARCHAR(200) NULL,
+  `type` VARCHAR(200) NULL,
+  `description` VARCHAR(200) NULL,
   `rating` INTEGER(1) NULL,
   PRIMARY KEY (`id`)
 );
@@ -124,10 +129,10 @@ CREATE TABLE `institution` (
 DROP TABLE IF EXISTS `payment`;
 
 CREATE TABLE `payment` (
-  `id` INTEGER NULL AUTO_INCREMENT DEFAULT NULL,
+  `id` INTEGER UNSIGNED NOT NULL AUTO_INCREMENT,
   `copay` INTEGER NULL,
   `bill` INTEGER NULL,
-  `bill_statement` VARCHAR NULL,
+  `bill_statement` VARCHAR(200) NULL,
   `due_date` DATE NULL,
   `id_physician` INTEGER NULL DEFAULT NULL,
   `id_patient` INTEGER NULL DEFAULT NULL,
@@ -142,9 +147,9 @@ CREATE TABLE `payment` (
 DROP TABLE IF EXISTS `health_log`;
 
 CREATE TABLE `health_log` (
-  `id` INTEGER NULL AUTO_INCREMENT DEFAULT NULL,
+  `id` INTEGER UNSIGNED NOT NULL AUTO_INCREMENT,
   `date` DATE NULL,
-  `note` VARCHAR NULL,
+  `note` VARCHAR(300) NULL,
   `id_physician` INTEGER NULL,
   `id_patient` INTEGER NULL DEFAULT NULL,
   PRIMARY KEY (`id`)
@@ -158,9 +163,9 @@ CREATE TABLE `health_log` (
 DROP TABLE IF EXISTS `appointment_document`;
 
 CREATE TABLE `appointment_document` (
-  `id` INTEGER NULL AUTO_INCREMENT DEFAULT NULL,
+  `id` INTEGER UNSIGNED NOT NULL AUTO_INCREMENT,
   `document` BLOB NULL,
-  `id_appointment` INTEGER NOT NULL DEFAULT NULL,
+  `id_appointment` INTEGER UNSIGNED DEFAULT NULL,
   PRIMARY KEY (`id`)
 );
 
@@ -172,10 +177,10 @@ CREATE TABLE `appointment_document` (
 DROP TABLE IF EXISTS `insurance_client`;
 
 CREATE TABLE `insurance_client` (
-  `id` INTEGER NULL AUTO_INCREMENT DEFAULT NULL,
-  `company_name` VARCHAR NULL,
+  `id` INTEGER UNSIGNED NOT NULL AUTO_INCREMENT,
+  `company_name` VARCHAR(20) NULL,
   `username` INTEGER NULL,
-  `password` VARCHAR NULL,
+  `password` VARCHAR(30) NULL,
   PRIMARY KEY (`id`)
 );
 
@@ -187,9 +192,9 @@ CREATE TABLE `insurance_client` (
 DROP TABLE IF EXISTS `insurance`;
 
 CREATE TABLE `insurance` (
-  `id` INTEGER NULL AUTO_INCREMENT DEFAULT NULL,
-  `company_name` VARCHAR NULL,
-  `type` VARCHAR NULL DEFAULT NULL,
+  `id` INTEGER UNSIGNED NOT NULL AUTO_INCREMENT,
+  `company_name` VARCHAR(40) NULL,
+  `type` VARCHAR(40) NULL DEFAULT NULL,
   `policy_number` INTEGER NULL,
   `id_insurance_client` INTEGER NULL DEFAULT NULL,
   PRIMARY KEY (`id`)
@@ -203,8 +208,8 @@ CREATE TABLE `insurance` (
 DROP TABLE IF EXISTS `administration`;
 
 CREATE TABLE `administration` (
-  `id` INTEGER NULL AUTO_INCREMENT DEFAULT NULL,
-  `login` VARCHAR NULL,
+  `id` INTEGER UNSIGNED NOT NULL AUTO_INCREMENT,
+  `login` VARCHAR(40) NULL,
   `password` INTEGER NULL,
   PRIMARY KEY (`id`)
 );
@@ -217,12 +222,12 @@ CREATE TABLE `administration` (
 DROP TABLE IF EXISTS `emergency_contact`;
 
 CREATE TABLE `emergency_contact` (
-  `id` INTEGER NULL AUTO_INCREMENT DEFAULT NULL,
-  `first` VARCHAR NULL,
-  `last` VARCHAR NULL,
+  `id` INTEGER UNSIGNED NOT NULL AUTO_INCREMENT,
+  `first` VARCHAR(30) NULL,
+  `last` VARCHAR(30) NULL,
   `phone` INTEGER NULL,
-  `email` VARCHAR NULL,
-  `relationship` VARCHAR NULL,
+  `email` VARCHAR(40) NULL,
+  `relationship` VARCHAR(30) NULL,
   `id_patient` INTEGER NULL DEFAULT NULL,
   PRIMARY KEY (`id`)
 );
@@ -231,22 +236,22 @@ CREATE TABLE `emergency_contact` (
 -- Foreign Keys
 -- ---
 
-ALTER TABLE `patient` ADD FOREIGN KEY (id_insurance) REFERENCES `insurance` (`id`);
-ALTER TABLE `physician` ADD FOREIGN KEY (institition_id) REFERENCES `institution` (`id`);
-ALTER TABLE `appointment` ADD FOREIGN KEY (id_physician) REFERENCES `physician` (`id`);
-ALTER TABLE `appointment` ADD FOREIGN KEY (id_patient) REFERENCES `patient` (`id`);
-ALTER TABLE `appointment` ADD FOREIGN KEY (id_institution) REFERENCES `institution` (`id`);
-ALTER TABLE `Patient_Form` ADD FOREIGN KEY (id_physician) REFERENCES `physician` (`id`);
-ALTER TABLE `Patient_Form` ADD FOREIGN KEY (id_patient) REFERENCES `patient` (`id`);
-ALTER TABLE `medication` ADD FOREIGN KEY (physician_id) REFERENCES `physician` (`id`);
-ALTER TABLE `medication` ADD FOREIGN KEY (id_patient) REFERENCES `patient` (`id`);
-ALTER TABLE `payment` ADD FOREIGN KEY (id_physician) REFERENCES `physician` (`id`);
-ALTER TABLE `payment` ADD FOREIGN KEY (id_patient) REFERENCES `patient` (`id`);
-ALTER TABLE `health_log` ADD FOREIGN KEY (id_physician) REFERENCES `physician` (`id`);
-ALTER TABLE `health_log` ADD FOREIGN KEY (id_patient) REFERENCES `patient` (`id`);
-ALTER TABLE `appointment_document` ADD FOREIGN KEY (id_appointment) REFERENCES `appointment` (`id`);
-ALTER TABLE `insurance` ADD FOREIGN KEY (id_insurance_client) REFERENCES `insurance_client` (`id`);
-ALTER TABLE `emergency_contact` ADD FOREIGN KEY (id_patient) REFERENCES `patient` (`id`);
+-- ALTER TABLE `patient` ADD FOREIGN KEY (id_insurance) REFERENCES `insurance` (`id`);
+-- ALTER TABLE `physician` ADD FOREIGN KEY (institition_id) REFERENCES `institution` (`id`);
+-- ALTER TABLE `appointment` ADD FOREIGN KEY (id_physician) REFERENCES `physician` (`id`);
+-- ALTER TABLE `appointment` ADD FOREIGN KEY (id_patient) REFERENCES `patient` (`id`);
+-- ALTER TABLE `appointment` ADD FOREIGN KEY (id_institution) REFERENCES `institution` (`id`);
+-- ALTER TABLE `Patient_Form` ADD FOREIGN KEY (id_physician) REFERENCES `physician` (`id`);
+-- ALTER TABLE `Patient_Form` ADD FOREIGN KEY (id_patient) REFERENCES `patient` (`id`);
+-- ALTER TABLE `medication` ADD FOREIGN KEY (physician_id) REFERENCES `physician` (`id`);
+-- ALTER TABLE `medication` ADD FOREIGN KEY (id_patient) REFERENCES `patient` (`id`);
+-- ALTER TABLE `payment` ADD FOREIGN KEY (id_physician) REFERENCES `physician` (`id`);
+-- ALTER TABLE `payment` ADD FOREIGN KEY (id_patient) REFERENCES `patient` (`id`);
+-- ALTER TABLE `health_log` ADD FOREIGN KEY (id_physician) REFERENCES `physician` (`id`);
+-- ALTER TABLE `health_log` ADD FOREIGN KEY (id_patient) REFERENCES `patient` (`id`);
+-- ALTER TABLE `appointment_document` ADD FOREIGN KEY (id_appointment) REFERENCES `appointment` (`id`);
+-- ALTER TABLE `insurance` ADD FOREIGN KEY (id_insurance_client) REFERENCES `insurance_client` (`id`);
+-- ALTER TABLE `emergency_contact` ADD FOREIGN KEY (id_patient) REFERENCES `patient` (`id`);
 
 -- ---
 -- Table Properties
