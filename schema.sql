@@ -13,20 +13,21 @@
 DROP TABLE IF EXISTS `patient`;
 
 CREATE TABLE `patient` (
-  `id` INTEGER NULL AUTO_INCREMENT,
+  `id` INTEGER NULL AUTO_INCREMENT DEFAULT NULL,
   `first` VARCHAR NOT NULL,
   `last` VARCHAR NOT NULL,
   `email` VARCHAR NOT NULL,
   `password` VARCHAR NOT NULL,
-  `pin` INTEGER(4) NULL,
-  `date_of_birth` DATE NULL,
+  `pin` INTEGER(4) NULL DEFAULT NULL,
+  `data_of_birth` DATE NULL,
+  `address` VARCHAR(255) NULL,
   `city` VARCHAR NULL,
   `state` VARCHAR(2) NULL,
-  `zip` INTEGER(7) NULL,
+  `zip` INTEGER NULL,
   `phone_number` INTEGER NULL,
   `weight` INTEGER NULL,
-  `height` INTEGER NULL DEFAULT NULL,
-  `blood_type` VARCHAR(3) NULL,
+  `height` INTEGER NULL,
+  `blood_type` VARCHAR NULL,
   `id_insurance` INTEGER NULL DEFAULT NULL,
   PRIMARY KEY (`id`)
 );
@@ -44,9 +45,9 @@ CREATE TABLE `physician` (
   `last` VARCHAR NOT NULL,
   `email` VARCHAR NOT NULL,
   `password` VARCHAR NOT NULL,
-  `id_institution` INTEGER NULL DEFAULT NULL,
+  `institition_id` INTEGER NULL DEFAULT NULL,
   PRIMARY KEY (`id`),
-KEY ()
+KEY (`institition_id`)
 );
 
 -- ---
@@ -59,11 +60,11 @@ DROP TABLE IF EXISTS `appointment`;
 CREATE TABLE `appointment` (
   `id` INTEGER NOT NULL AUTO_INCREMENT DEFAULT NULL,
   `date` DATE NOT NULL,
-  `time` TIME NULL DEFAULT NULL,
-  `notes` VARCHAR NOT NULL DEFAULT 'NULL',
-  `id_institution` INTEGER NULL DEFAULT NULL,
-  `id_physician` INTEGER NULL DEFAULT NULL,
-  `id_patient` INTEGER NULL,
+  `time` TIME NULL,
+  `notes` VARCHAR NULL,
+  `id_physician` INTEGER NULL,
+  `id_patient` INTEGER NULL DEFAULT NULL,
+  `id_institution` INTEGER NULL,
   PRIMARY KEY (`id`)
 );
 
@@ -78,7 +79,7 @@ CREATE TABLE `Patient_Form` (
   `id` INTEGER NULL AUTO_INCREMENT DEFAULT NULL,
   `doctor_notes` VARCHAR NULL,
   `id_physician` INTEGER NULL DEFAULT NULL,
-  `id_patient` INTEGER NULL,
+  `id_patient` INTEGER NULL DEFAULT NULL,
   PRIMARY KEY (`id`)
 );
 
@@ -94,8 +95,8 @@ CREATE TABLE `medication` (
   `drug_name` VARCHAR NULL,
   `dosage` VARCHAR NULL,
   `details` INTEGER NULL,
-  `id_physician` INTEGER NULL DEFAULT NULL,
-  `id_patient` INTEGER NULL,
+  `physician_id` INTEGER NULL DEFAULT NULL,
+  `id_patient` INTEGER NULL DEFAULT NULL,
   PRIMARY KEY (`id`)
 );
 
@@ -111,7 +112,7 @@ CREATE TABLE `institution` (
   `inst_name` VARCHAR NULL,
   `type` VARCHAR NULL,
   `description` VARCHAR NULL,
-  `rating` INTEGER NULL,
+  `rating` INTEGER(1) NULL,
   PRIMARY KEY (`id`)
 );
 
@@ -141,11 +142,11 @@ CREATE TABLE `payment` (
 DROP TABLE IF EXISTS `health_log`;
 
 CREATE TABLE `health_log` (
-  `id` INTEGER NULL AUTO_INCREMENT,
+  `id` INTEGER NULL AUTO_INCREMENT DEFAULT NULL,
   `date` DATE NULL,
   `note` VARCHAR NULL,
-  `id_physician` INTEGER NULL DEFAULT NULL,
-  `id_patient` INTEGER NULL,
+  `id_physician` INTEGER NULL,
+  `id_patient` INTEGER NULL DEFAULT NULL,
   PRIMARY KEY (`id`)
 );
 
@@ -189,7 +190,7 @@ CREATE TABLE `insurance` (
   `id` INTEGER NULL AUTO_INCREMENT DEFAULT NULL,
   `company_name` VARCHAR NULL,
   `type` VARCHAR NULL DEFAULT NULL,
-  `policy_number` INTEGER NULL DEFAULT NULL,
+  `policy_number` INTEGER NULL,
   `id_insurance_client` INTEGER NULL DEFAULT NULL,
   PRIMARY KEY (`id`)
 );
@@ -209,18 +210,6 @@ CREATE TABLE `administration` (
 );
 
 -- ---
--- Table 'user_relationships'
---
--- ---
-
-DROP TABLE IF EXISTS `user_relationships`;
-
-CREATE TABLE `user_relationships` (
-  `id` INTEGER NULL AUTO_INCREMENT DEFAULT NULL,
-  PRIMARY KEY (`id`)
-);
-
--- ---
 -- Table 'emergency_contact'
 --
 -- ---
@@ -233,8 +222,8 @@ CREATE TABLE `emergency_contact` (
   `last` VARCHAR NULL,
   `phone` INTEGER NULL,
   `email` VARCHAR NULL,
-  `ralationship` VARCHAR NULL,
-  `id_patient` INTEGER NULL,
+  `relationship` VARCHAR NULL,
+  `id_patient` INTEGER NULL DEFAULT NULL,
   PRIMARY KEY (`id`)
 );
 
@@ -243,13 +232,13 @@ CREATE TABLE `emergency_contact` (
 -- ---
 
 ALTER TABLE `patient` ADD FOREIGN KEY (id_insurance) REFERENCES `insurance` (`id`);
-ALTER TABLE `physician` ADD FOREIGN KEY (id_institution) REFERENCES `institution` (`id`);
-ALTER TABLE `appointment` ADD FOREIGN KEY (id_institution) REFERENCES `institution` (`id`);
+ALTER TABLE `physician` ADD FOREIGN KEY (institition_id) REFERENCES `institution` (`id`);
 ALTER TABLE `appointment` ADD FOREIGN KEY (id_physician) REFERENCES `physician` (`id`);
 ALTER TABLE `appointment` ADD FOREIGN KEY (id_patient) REFERENCES `patient` (`id`);
+ALTER TABLE `appointment` ADD FOREIGN KEY (id_institution) REFERENCES `institution` (`id`);
 ALTER TABLE `Patient_Form` ADD FOREIGN KEY (id_physician) REFERENCES `physician` (`id`);
 ALTER TABLE `Patient_Form` ADD FOREIGN KEY (id_patient) REFERENCES `patient` (`id`);
-ALTER TABLE `medication` ADD FOREIGN KEY (id_physician) REFERENCES `physician` (`id`);
+ALTER TABLE `medication` ADD FOREIGN KEY (physician_id) REFERENCES `physician` (`id`);
 ALTER TABLE `medication` ADD FOREIGN KEY (id_patient) REFERENCES `patient` (`id`);
 ALTER TABLE `payment` ADD FOREIGN KEY (id_physician) REFERENCES `physician` (`id`);
 ALTER TABLE `payment` ADD FOREIGN KEY (id_patient) REFERENCES `patient` (`id`);
@@ -257,8 +246,6 @@ ALTER TABLE `health_log` ADD FOREIGN KEY (id_physician) REFERENCES `physician` (
 ALTER TABLE `health_log` ADD FOREIGN KEY (id_patient) REFERENCES `patient` (`id`);
 ALTER TABLE `appointment_document` ADD FOREIGN KEY (id_appointment) REFERENCES `appointment` (`id`);
 ALTER TABLE `insurance` ADD FOREIGN KEY (id_insurance_client) REFERENCES `insurance_client` (`id`);
-ALTER TABLE `user_relationships` ADD FOREIGN KEY (id) REFERENCES `patient` (`id`);
-ALTER TABLE `user_relationships` ADD FOREIGN KEY (id) REFERENCES `physician` (`id`);
 ALTER TABLE `emergency_contact` ADD FOREIGN KEY (id_patient) REFERENCES `patient` (`id`);
 
 -- ---
@@ -277,22 +264,21 @@ ALTER TABLE `emergency_contact` ADD FOREIGN KEY (id_patient) REFERENCES `patient
 -- ALTER TABLE `insurance_client` ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
 -- ALTER TABLE `insurance` ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
 -- ALTER TABLE `administration` ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
--- ALTER TABLE `user_relationships` ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
 -- ALTER TABLE `emergency_contact` ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
 
 -- ---
 -- Test Data
 -- ---
 
--- INSERT INTO `patient` (`id`,`first`,`last`,`email`,`password`,`pin`,`date_of_birth`,`city`,`state`,`zip`,`phone_number`,`weight`,`height`,`blood_type`,`id_insurance`) VALUES
--- ('','','','','','','','','','','','','','','');
--- INSERT INTO `physician` (`id`,`first`,`last`,`email`,`password`,`id_institution`) VALUES
+-- INSERT INTO `patient` (`id`,`first`,`last`,`email`,`password`,`pin`,`data_of_birth`,`address`,`city`,`state`,`zip`,`phone_number`,`weight`,`height`,`blood_type`,`id_insurance`) VALUES
+-- ('','','','','','','','','','','','','','','','');
+-- INSERT INTO `physician` (`id`,`first`,`last`,`email`,`password`,`institition_id`) VALUES
 -- ('','','','','','');
--- INSERT INTO `appointment` (`id`,`date`,`time`,`notes`,`id_institution`,`id_physician`,`id_patient`) VALUES
+-- INSERT INTO `appointment` (`id`,`date`,`time`,`notes`,`id_physician`,`id_patient`,`id_institution`) VALUES
 -- ('','','','','','','');
 -- INSERT INTO `Patient_Form` (`id`,`doctor_notes`,`id_physician`,`id_patient`) VALUES
 -- ('','','','');
--- INSERT INTO `medication` (`id`,`drug_name`,`dosage`,`details`,`id_physician`,`id_patient`) VALUES
+-- INSERT INTO `medication` (`id`,`drug_name`,`dosage`,`details`,`physician_id`,`id_patient`) VALUES
 -- ('','','','','','');
 -- INSERT INTO `institution` (`id`,`inst_name`,`type`,`description`,`rating`) VALUES
 -- ('','','','','');
@@ -308,7 +294,5 @@ ALTER TABLE `emergency_contact` ADD FOREIGN KEY (id_patient) REFERENCES `patient
 -- ('','','','','');
 -- INSERT INTO `administration` (`id`,`login`,`password`) VALUES
 -- ('','','');
--- INSERT INTO `user_relationships` (`id`) VALUES
--- ('');
--- INSERT INTO `emergency_contact` (`id`,`first`,`last`,`phone`,`email`,`ralationship`,`id_patient`) VALUES
+-- INSERT INTO `emergency_contact` (`id`,`first`,`last`,`phone`,`email`,`relationship`,`id_patient`) VALUES
 -- ('','','','','','','');
