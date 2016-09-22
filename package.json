@@ -38,6 +38,8 @@
     "mysql": "^2.11.1",
     "react": "^15.3.2",
     "react-dom": "^15.3.2",
+    "react-router": "^2.8.1",
+    "redux": "^3.6.0",
     "session": "^0.1.0",
     "webpack": "^1.13.2",
     "webpack-dev-middleware": "^1.8.1",
