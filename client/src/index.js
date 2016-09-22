@@ -7,7 +7,7 @@ import { render } from 'react-dom';
 import App from './components/app.js';
 
 // Router
-import { Router, browserHistory } from 'react-router';
+import { Router, browserHistory, hashHistory } from 'react-router';
 import routes from './routes';
 
 // Redux
@@ -35,6 +35,6 @@ let rootElement = document.getElementById('app');
 
 ReactDOM.render(
   <Provider store={ store }>
-    <Router history={ browserHistory } routes={ routes } />
+    <Router history={ hashHistory} routes={ routes } />
   </Provider>
   , rootElement);
