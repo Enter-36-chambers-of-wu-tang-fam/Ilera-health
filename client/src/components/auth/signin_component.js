@@ -1,7 +1,7 @@
 // React
 import React, { Component } from 'react';
 
-const login = () => {
+const Signin = () => {
     return (
         <form>
             <label>Username</label>
@@ -14,4 +14,4 @@ const login = () => {
     );
 }
 
-export default login; 
+export default Signin; 
