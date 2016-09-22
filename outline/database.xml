@@ -56,7 +56,7 @@
 <row name="pin" null="1" autoincrement="0">
 <datatype>INTEGER(4)</datatype>
 <default>NULL</default></row>
-<row name="data_of_birth" null="1" autoincrement="0">
+<row name="date_of_birth" null="1" autoincrement="0">
 <datatype>DATE</datatype>
 <default>NULL</default></row>
 <row name="address" null="1" autoincrement="0">
@@ -131,17 +131,17 @@
 <row name="notes" null="1" autoincrement="0">
 <datatype>VARCHAR(10000)</datatype>
 <default>NULL</default></row>
-<row name="id_physician" null="1" autoincrement="0">
+<row name="id_physician" null="0" autoincrement="0">
 <datatype>INTEGER</datatype>
-<default>NULL</default><relation table="physician" row="id" />
+<default>NOT NULL</default><relation table="physician" row="id" />
 </row>
-<row name="id_patient" null="1" autoincrement="0">
+<row name="id_patient" null="0" autoincrement="0">
 <datatype>INTEGER</datatype>
-<default>NULL</default><relation table="patient" row="id" />
+<default>NOT NULL</default><relation table="patient" row="id" />
 </row>
-<row name="id_institution" null="1" autoincrement="0">
+<row name="id_institution" null="0" autoincrement="0">
 <datatype>INTEGER</datatype>
-<default>NULL</default><relation table="institution" row="id" />
+<default>NOT NULL</default><relation table="institution" row="id" />
 </row>
 <key type="PRIMARY" name="">
 <part>id</part>
@@ -154,13 +154,13 @@
 <row name="doctor_notes" null="1" autoincrement="0">
 <datatype>VARCHAR(5000)</datatype>
 <default>NULL</default></row>
-<row name="id_physician" null="1" autoincrement="0">
+<row name="id_physician" null="0" autoincrement="0">
 <datatype>INTEGER</datatype>
-<default>NULL</default><relation table="physician" row="id" />
+<default>NOT NULL</default><relation table="physician" row="id" />
 </row>
-<row name="id_patient" null="1" autoincrement="0">
+<row name="id_patient" null="0" autoincrement="0">
 <datatype>INTEGER</datatype>
-<default>NULL</default><relation table="patient" row="id" />
+<default>NOT NULL</default><relation table="patient" row="id" />
 </row>
 <key type="PRIMARY" name="">
 <part>id</part>
@@ -218,11 +218,11 @@
 <default>NULL</default></row>
 <row name="id_physician" null="1" autoincrement="0">
 <datatype>INTEGER</datatype>
-<default>NULL</default><relation table="physician" row="id" />
+<default>NOT NULL</default><relation table="physician" row="id" />
 </row>
-<row name="id_patient" null="1" autoincrement="0">
+<row name="id_patient" null="0" autoincrement="0">
 <datatype>INTEGER</datatype>
-<default>NULL</default><relation table="patient" row="id" />
+<default>NOT NULL</default><relation table="patient" row="id" />
 </row>
 <key type="PRIMARY" name="">
 <part>id</part>
@@ -241,13 +241,13 @@
 <row name="photo_path" null="1" autoincrement="0">
 <datatype>VARCHAR(100)</datatype>
 </row>
-<row name="id_physician" null="1" autoincrement="0">
+<row name="id_physician" null="0" autoincrement="0">
 <datatype>INTEGER</datatype>
-<default>NULL</default><relation table="physician" row="id" />
+<default>NOT NULL</default><relation table="physician" row="id" />
 </row>
-<row name="id_patient" null="1" autoincrement="0">
+<row name="id_patient" null="0" autoincrement="0">
 <datatype>INTEGER</datatype>
-<default>NULL</default><relation table="patient" row="id" />
+<default>NOT NULL</default><relation table="patient" row="id" />
 </row>
 <key type="PRIMARY" name="">
 <part>id</part>
@@ -262,7 +262,7 @@
 <default>NULL</default></row>
 <row name="id_appointment" null="0" autoincrement="0">
 <datatype>INTEGER</datatype>
-<default>NULL</default><relation table="appointment" row="id" />
+<default>NOT NULL</default><relation table="appointment" row="id" />
 </row>
 <key type="PRIMARY" name="">
 <part>id</part>
@@ -297,10 +297,10 @@
 <default>NULL</default></row>
 <row name="policy_number" null="1" autoincrement="0">
 <datatype>INTEGER</datatype>
-<default>NULL</default></row>
+<default>NOT NULL</default></row>
 <row name="id_insurance_client" null="1" autoincrement="0">
 <datatype>INTEGER</datatype>
-<default>NULL</default><relation table="insurance_company_client" row="id" />
+<default>NOT NULL</default><relation table="insurance_company_client" row="id" />
 </row>
 <row name="id_patient" null="0" autoincrement="0">
 <datatype>INTEGER</datatype>
@@ -343,9 +343,9 @@
 <row name="relationship" null="1" autoincrement="0">
 <datatype>VARCHAR(30)</datatype>
 <default>NULL</default></row>
-<row name="id_patient" null="1" autoincrement="0">
+<row name="id_patient" null="0" autoincrement="0">
 <datatype>INTEGER</datatype>
-<default>NULL</default><relation table="patient" row="id" />
+<default>NOT NULL</default><relation table="patient" row="id" />
 </row>
 <key type="PRIMARY" name="">
 <part>id</part>
@@ -365,9 +365,9 @@
 <datatype>INTEGER</datatype>
 <default>NOT NULL</default><relation table="medication" row="id" />
 </row>
-<row name="id_physician" null="1" autoincrement="0">
+<row name="id_physician" null="0" autoincrement="0">
 <datatype>INTEGER</datatype>
-<default>NULL</default><relation table="physician" row="id" />
+<default>NOT NULL</default><relation table="physician" row="id" />
 </row>
 <row name="id_patient" null="0" autoincrement="0">
 <datatype>INTEGER</datatype>
@@ -377,7 +377,7 @@
 <part>id</part>
 </key>
 </table>
-<table x="225" y="306" name="physician_institution">
+<table x="225" y="305" name="physician_institution">
 <row name="id" null="1" autoincrement="1">
 <datatype>INTEGER</datatype>
 <default>NULL</default></row>
@@ -385,9 +385,9 @@
 <datatype>INTEGER</datatype>
 <default>NOT NULL</default><relation table="institution" row="id" />
 </row>
-<row name="id_physician" null="1" autoincrement="0">
+<row name="id_physician" null="0" autoincrement="0">
 <datatype>INTEGER</datatype>
-<default>NULL</default><relation table="physician" row="id" />
+<default>NOT NULL</default><relation table="physician" row="id" />
 </row>
 <key type="PRIMARY" name="">
 <part>id</part>
@@ -403,23 +403,23 @@
 <row name="date" null="1" autoincrement="0">
 <datatype>TIMESTAMP</datatype>
 </row>
-<row name="sender_id" null="1" autoincrement="0">
+<row name="sender_id" null="0" autoincrement="0">
 <datatype>INTEGER</datatype>
-</row>
-<row name="receiver_id" null="1" autoincrement="0">
+<default>NOT NULL</default></row>
+<row name="receiver_id" null="0" autoincrement="0">
 <datatype>INTEGER</datatype>
-</row>
+<default>NOT NULL</default></row>
 <key type="PRIMARY" name="">
 <part>id</part>
 </key>
 </table>
-<table x="633" y="433" name="patient_physician">
+<table x="633" y="432" name="patient_physician">
 <row name="id" null="1" autoincrement="1">
 <datatype>INTEGER</datatype>
 <default>NULL</default></row>
-<row name="id_physician" null="1" autoincrement="0">
+<row name="id_physician" null="0" autoincrement="0">
 <datatype>INTEGER</datatype>
-<default>NULL</default><relation table="physician" row="id" />
+<default>NOT NULL</default><relation table="physician" row="id" />
 </row>
 <row name="id_patient" null="0" autoincrement="0">
 <datatype>INTEGER</datatype>
