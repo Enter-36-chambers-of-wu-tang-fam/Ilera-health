@@ -23,7 +23,7 @@ CREATE TABLE `patient` (
   `email` VARCHAR(30) NOT NULL,
   `password` VARCHAR(30) NOT NULL,
   `pin` INTEGER(4) NULL DEFAULT NULL,
-  `data_of_birth` DATE NULL DEFAULT NULL,
+  `date_of_birth` DATE NULL DEFAULT NULL,
   `address` VARCHAR(60) NULL DEFAULT NULL,
   `city` VARCHAR(60) NULL DEFAULT NULL,
   `state` VARCHAR(2) NULL DEFAULT NULL,
@@ -342,7 +342,7 @@ ALTER TABLE `patient_physician` ADD FOREIGN KEY (id_patient) REFERENCES `patient
 -- Test Data
 -- ---
 
--- INSERT INTO `patient` (`id`,`first`,`last`,`email`,`password`,`pin`,`data_of_birth`,`address`,`city`,`state`,`zip`,`phone_number`,`weight`,`height`,`blood_type`,`photo_path`) VALUES
+-- INSERT INTO `patient` (`id`,`first`,`last`,`email`,`password`,`pin`,`date_of_birth`,`address`,`city`,`state`,`zip`,`phone_number`,`weight`,`height`,`blood_type`,`photo_path`) VALUES
 -- ('','','','','','','','','','','','','','','','');
 -- INSERT INTO `physician` (`id`,`first`,`last`,`email`,`password`,`photo_path`,`specialty`) VALUES
 -- ('','','','','','','');
