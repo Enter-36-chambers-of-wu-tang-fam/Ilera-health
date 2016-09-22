@@ -1,11 +1,15 @@
 // React
 import React, { Component, PropTypes } from 'react';
 
+// Components
+import Signin from './auth/signin_component.js';
+
 const App = () => {
     
     return (
         <div>
-            We're in business!
+            Test test test
+            { this.props.children }
         </div>
     );    
 };
