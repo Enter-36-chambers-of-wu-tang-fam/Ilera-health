@@ -6,8 +6,8 @@ const db = require('../db/dbConnect/connection.js');
 const path = require('path');
 
 // this was just to test that the server worked feel free to delete
-app.use(bodyParser.json());
-app.use(express.static(__dirname + './../'));
+
+app.use(express.static(__dirname + '/../client'));
 
 
 app.use(session({
@@ -41,8 +41,8 @@ app.use(session({
 
 
 // INSERTED TEMPORARLILY TO TEST OUT ROUTING ON FRONT END
-app.get('/*', (req,res) => {
-    res.sendFile(path.join(__dirname, '../index.html'))
+app.get('/', (req,res) => {
+    res.sendFile(path.join(__dirname, '/../client/'))
   })
 
 app.listen(3636);
