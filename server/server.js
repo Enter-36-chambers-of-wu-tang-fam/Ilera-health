@@ -49,6 +49,12 @@ app.get('/', (req,res) => {
     res.sendFile(path.join(__dirname, '/../client/'))
   })
 
+//catch all
+app.use('*', function (req, res) {
+  res.sendFile(path.resolve(__dirname, './'));
+});
+
+
 app.listen(3636);
 console.log("Server is Doing Big ThIngs You can Now Enter the 36 Chambers of the WU on PORT 3636");
 
