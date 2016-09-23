@@ -5,12 +5,12 @@ import React, { Component, PropTypes } from 'react';
 import Signin from './auth/signin_component.js';
 
 export default class App extends Component {
-  render(){
-    return (
-        <div>
-            Test test test
-            { this.props.children }
-        </div>
-    );    
-  }
+    render(){
+        return (
+            <div>
+                Test test test
+                { this.props.children }
+            </div>
+        );
+    }   
 };
