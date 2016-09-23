@@ -1,33 +1,43 @@
-// ================== PATIENT/USER ====================
-// Sign Up - Patient User
-export const SIGNUP_USER_REQUEST = 'SIGNUP_USER_REQUEST'; 
-export const SIGNUP_USER_SUCCESS = 'SIGNUP_USER_SUCCESS'; 
-export const SIGNUP_USER_FAILURE = 'SIGNUP_USER_FAILURE'; 
+// ================== SHARED ACTION TYPES ====================
 
-// Log-in - Patient User
-export const LOGIN_USER_REQUEST = 'LOGIN_USER_REQUEST'; 
-export const LOGIN_USER_SUCCESS = 'LOGIN_USER_SUCCESS'; 
-export const LOGIN_USER_FAILURE = 'LOGIN_USER_FAILURE'; 
+// Log-in
+export const LOGIN_REQUEST = 'LOGIN_REQUEST'; 
+export const LOGIN_SUCCESS = 'LOGIN_SUCCESS'; 
+export const LOGIN_FAILURE = 'LOGIN_FAILURE'; 
 
-// Log-out - Patient User
-export const LOGOUT_USER_REQUEST = 'LOGOUT_USER_REQUEST'; 
-export const LOGOUT_USER_SUCCESS = 'LOGOUT_USER_SUCCESS'; 
-export const LOGOUT_USER_FAILURE = 'LOGOUT_USER_FAILURE'; 
+// Sign Up
+export const SIGNUP_REQUEST = 'SIGNUP_REQUEST'; 
+export const SIGNUP_SUCCESS = 'SIGNUP_SUCCESS'; 
+export const SIGNUP_FAILURE = 'SIGNUP_FAILURE'; 
+
+// Contact Info Post
+export const CONTACT_POST_REQUEST = 'CONTACT_POST_REQUEST'; 
+export const CONTACT_POST_SUCCESS = 'CONTACT_POST_SUCCESS'; 
+export const CONTACT_POST_FAILURE = 'CONTACT_POST_FAILURE'; 
 
 
+// Log-out
+export const LOGOUT_REQUEST = 'LOGOUT_REQUEST'; 
+export const LOGOUT_SUCCESS = 'LOGOUT_SUCCESS'; 
+export const LOGOUT_FAILURE = 'LOGOUT_FAILURE'; 
+
+
+
+// =================== PATIENT ======================
+// Health-Post - Patient
+export const HEALTH_POST_REQUEST = 'HEALTH_POST_REQUEST'; 
+export const HEALTH_POST_SUCCESS = 'HEALTH_POST_SUCCESS'; 
+export const HEALTH_POST_FAILURE = 'HEALTH_POST_FAILURE';
+
+
+// Emergency Contact - Patient
+export const EMERGENCY_CONTACT_REQUEST = 'EMERGENCY_CONTACT_REQUEST'; 
+export const EMERGENCY_CONTACT_SUCCESS = 'EMERGENCY_CONTACT_SUCCESS'; 
+export const EMERGENCY_CONTACT_FAILURE = 'EMERGENCY_CONTACT_FAILURE';
+
+// Insurance Post - Patient
+export const INSURANCE_POST_REQUEST = 'INSURANCE_POST_REQUEST'; 
+export const INSURANCE_POST_SUCCESS = 'INSURANCE_POST_SUCCESS'; 
+export const INSURANCE_POST_FAILURE = 'INSURANCE_POST_FAILURE';
 
 // =================== PHYSICIAN ======================
-// Sign Up - Physician 
-export const SIGNUP_PHYSICIAN_REQUEST = 'SIGNUP_PHYSICIAN_REQUEST'; 
-export const SIGNUP_PHYSICIAN_SUCCESS = 'SIGNUP_PHYSICIAN_SUCCESS'; 
-export const SIGNUP_PHYSICIAN_FAILURE = 'SIGNUP_PHYSICIAN_FAILURE'; 
-
-// Log-in - Physician
-export const LOGIN_PHYSICIAN_REQUEST = 'LOGIN_PHYSICIAN_REQUEST'; 
-export const LOGIN_PHYSICIAN_SUCCESS = 'LOGIN_PHYSICIAN_SUCCESS'; 
-export const LOGIN_PHYSICIAN_FAILURE = 'LOGIN_PHYSICIAN_FAILURE'; 
-
-// Log-OUT - Physician
-export const LOGOUT_PHYSICIAN_REQUEST = 'LOGOUT_PHYSICIAN_REQUEST'; 
-export const LOGOUT_PHYSICIAN_SUCCESS = 'LOGOUT_PHYSICIAN_SUCCESS'; 
-export const LOGOUT_PHYSICIAN_FAILURE = 'LOGOUT_PHYSICIAN_FAILURE'; 
