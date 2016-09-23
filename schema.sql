@@ -21,7 +21,7 @@ CREATE TABLE `patient` (
   `first` VARCHAR(30) NOT NULL,
   `last` VARCHAR(30) NOT NULL,
   `email` VARCHAR(30) NOT NULL,
-  `password` VARCHAR(30) NOT NULL,
+  `password` VARCHAR(100) NOT NULL,
   `pin` INTEGER(4) NULL DEFAULT NULL,
   `date_of_birth` DATE NULL DEFAULT NULL,
   `address` VARCHAR(60) NULL DEFAULT NULL,
