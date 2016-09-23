@@ -4,6 +4,7 @@ const hashHelp = require("../security/hash.js");
 const Patient = require("../../db/controller/patient-helpers.js");
 
 module.exports = {
+
   signIn: (req, res) => {
     Patient.signIn(req.body, (error, data) => {
       if(!data.length){
@@ -23,6 +24,7 @@ module.exports = {
       }
     })
   },
+
   signUp: (req, res) => {
     Patient.checkPatient(req.body,(error,data)=> {
 
@@ -48,6 +50,41 @@ module.exports = {
     });
   },
 
+  post_init_form: (req, res) => {
+    Patient.initform_patient(req.body, (err,data)=>{
+      if(err) console.log(err);
+      res.json(data);
+    });
+  },
+
+  post_emer_contact: (req, res) => {
+    Patient.emergency_contact_form(req.body, (err,data)=>{
+      if(err) console.log(err);
+      res.json(data);
+    });
+  },
+
+
+  post_insurance_info: (req, res) => {
+    Patient.init_insurance(req.body, (err,data)=>{
+      if(err) console.log(err);
+      res.json(data);
+    });
+  },
+
+  get_patient_info: (req, res) => {
+    Patient.patient_info(req.body, (err,data)=>{
+      if(err) console.log(err);
+      res.json(data);
+    });
+  },
+  //
+  // (req, res) => {
+  //   Patient.funcHere(req.body, (err,data)=>{
+  //     if(err) console.log(err);
+  //     res.json(data);
+  //   });
+  // },
   logout: (req, res) => {
     sess = undefined;
     req.session.destroy();
