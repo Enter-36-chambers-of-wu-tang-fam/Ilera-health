@@ -4,14 +4,14 @@ const hashHelp = require("../security/hash.js");
 const Patient = require("../../db/controller/patient-helpers.js");
 
 module.exports = {
-  signIn = (req, res) => {
+  signIn: (req, res) => {
     Patient.signIn(req.body, (error, data) => {
       if(!data.length){
         bcrypt.compare(req.body.password, data[0].password, (error, result) => {
           if(result){
             sess = req.session;
             sess.email = data[0].email;
-            sess.user = data[0].id;
+            sess.patient = data[0].id;
             module.exports.sess = sess;
             res.status(202).send();
           } else{
@@ -24,14 +24,14 @@ module.exports = {
     })
   },
   signUp: (req, res) => {
-    Patient.checkUser(req.body,(error,data) => {
+    Patient.checkPatient(req.body,(error,data)=> {
 
       if(error){ throw error;}
 
       if(data.length > 0){
         res.status(409).send("The email address you specified is already in use.");
       } else {
-        hashHelpers.hashPassword(req.body.password)
+        hashHelp.hashPassword(req.body.password)
         .then(hashed=>{
           req.body.password = hashed;
 
@@ -39,7 +39,7 @@ module.exports = {
             if(error) console.log(error);
             sess = req.session;
             sess.email = req.body.email;
-            sess.user = data.insertId;
+            sess.patient = data.insertId;
             module.exports.sess = sess;
             res.status(200).send();
           });

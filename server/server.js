@@ -3,8 +3,9 @@ const bodyParser = require('body-parser');
 const app = express();
 const session = require('express-session');
 const db = require('../db/dbConnect/connection.js');
-const path = require('path');
-
+const
+// const path = require('path');
+const patient = require('./routes/patient.js');
 // this was just to test that the server worked feel free to delete
 
 app.use(express.static(__dirname + '/../client'));
@@ -19,7 +20,7 @@ app.use(session({
 
 
 // Post Request to: api/user/signup  =>   { Patient Table}
-// app.post('/api/user/signup', something);
+app.post('/api/user/signup', patient.signUp);
 
 // Post request to: /api/user/emergency_contacts => { Emergency Table }
 // app.post('/api/user/emergency_contacts', Emergency Table);
