@@ -1,104 +1,78 @@
 import _ from 'lodash';
 import React, { Component, PropTypes } from 'react';
-import { reduxForm } from 'redux-form';
+import { Field, reduxForm } from 'redux-form';
 // Actions
-import { createEmergencyContact } from '..actions/..'
+import { emergencyContact } from '../../actions/actions.js';
 
-const FIELDS = {
-    first : {
-        type: 'input',
-        label: 'First Name',
-        specific: 'text',
-        error: 'Enter a first name'
-    },
-    last : {
-        type: 'input',
-        label: 'Last Name',
-        specific: 'text',
-        error: 'Enter a last name'
-    },
-    phone : {
-        type: 'input',
-        label: 'Phone Number',
-        specific: 'text',
-        error: 'Enter a phone number'
-    },
-    email : {
-        type: 'input',
-        label: 'Email',
-        specific: 'email',
-        error: 'Enter an email'
-    },
-    relationship : {
-        type: 'input',
-        label: 'Relationship',
-        specific: 'text',
-        error: 'Enter a value'
-    }
+const validate = values => {
+  const errors = {}
+  if (!values.first) {
+    errors.first = 'Please enter a first name'
+  }
+  if (!values.last) {
+    errors.last = 'Please enter a last name'
+  }
+  if (!values.phone) {
+    errors.phone = 'Please enter a phone number'
+  }
+  if (!values.email) {
+    errors.email = 'Please enter an email'
+  }
+  if (!values.relationship) {
+    errors.relationship = 'Please enter a value'
+  }
+  return errors
 }
 
 class EmergencyContactForm extends Component {
 
-    static contextTypes = {
-        router: PropTypes.object
+    onSubmit(props) {
+        console.log("EMERGENCY", emergencyContact)
+        console.log("PROPS", props)
+        axios.post(`api/patient/emergency_contacts/1`, props)
+            .then(success => {
+                console.log(getState());
+            })
+            .catch(err => {
+                console.log(store.getState());
+            })
+        
     }
 
-    onFormSubmit(props) {
-        this.props.createEmergencyContact(props)
-            .then(() => {
-                // if form submitted successfully, send user 
-                // to next form
-                this.context.router.push('/patient/insurance')
-            });
-    }
-
-    renderFormField(fieldConfig, field) {
-        const fieldHelper = this.props.fields[field];
-
-        return (
-            <div className={ `${fieldHelper.touched && fieldHelper.invalid ? 'invalidInput' : ''}` }>
-                <label>{fieldConfig.label}</label>
-                <fieldConfig.type type={fieldConfig.specific} {...fieldHelper} />
+    renderField = ({ input, label, type, meta: { touched, error } }) => {
+        return(
+            <div key={label}>
+                <label>{label}</label>
+                <input {...input} placeholder={label} type={type} />
                 <div className='formErrors'>
-                    { fieldHelper.touched ? fieldHelper.error : '' }
+                    { touched && error && <span>{error}</span> }
                 </div>
             </div>
         )
     }
 
     render() {
-        const { fields: { first, last, phone, email, relationship }, handleSubmit } = this.props;
+        const { error, handleSubmit, pristine, reset, submitting } = this.props;
 
         return (
             <div>
                 <h2>Emergency Contact Info</h2>
-                <form onSubmit={ handleSubmit(this.onFormSubmit.bind(this)) }>
-                    
-                    {_.map(FIELDS, this.renderFormField.bind(this))}
-
-                    <button type='submit' className='btn'>Next</button>
+                <form onSubmit={ handleSubmit(props => this.onSubmit(props)) }>
+                    <Field name="first" type="text" component={this.renderField} label="First Name"/>
+                    <Field name="last" type="text" component={this.renderField} label="Last Name"/>
+                    <Field name="phone" type="text" component={this.renderField} label="Phone Number"/>
+                    <Field name="email" type="email" component={this.renderField} label="Email"/>
+                    <Field name="relationship" type="text" component={this.renderField} label="Relationship"/>
+                    {error && <strong>{error}</strong>}
+                    <button type='submit'  className='btn'>Next</button>
                 </form>
             </div>
         );
     }   
 };
 
-// form validation run before submit
-function validate(values) {
-    const errors = {};
-
-    _.each(FIELDS, (type, field) => {
-        if(!values[field]) {
-            errors[field] = field.error
-        }
-    })
-
-    return errors;
-}
-
 // user types...recorded on application state
 export default reduxForm({
     form: 'EmergencyContactForm',
-    fields: _.keys(FIELDS),
     validate
-}, null, { createEmergencyContact })(EmergencyContactForm);
+}, null, { emergencyContact })(EmergencyContactForm);

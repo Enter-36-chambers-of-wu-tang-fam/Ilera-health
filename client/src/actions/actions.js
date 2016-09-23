@@ -3,14 +3,14 @@
 
 import axios from 'axios';
 import { browserHistory } from 'react-router'
-import * as types from '../constants/ActionTypes';
+import * as types from './action-types';
 
 /***********************SIGN IN | SIGN IN | SIGN IN *****************************/
 
 
 ////////////////LOGIN LOGIN LOGIN ///////////////
 
-requestLogin = (creds) => {
+const requestLogin = (creds) => {
   return {
     type: types.LOGIN_REQUEST,
     isFetching: true,
@@ -20,7 +20,7 @@ requestLogin = (creds) => {
 };
 
 
-verifiedLogin = (creds) =>{
+const verifiedLogin = (creds) =>{
   return {
       type: types.LOGIN_SUCCESS,
       isFetching: false,
@@ -29,7 +29,7 @@ verifiedLogin = (creds) =>{
     }
 };
 
-failedLogin = (message) => {
+const failedLogin = (message) => {
   return {
     type: types.LOGIN_FAILURE,
     isFetching: false,
@@ -62,7 +62,7 @@ export const signIn = (user, userType) => {
 
 ////////////////SIGN UP | SIGN UP | SIGN UP ///////////////
 
-requestSignUp = (creds) => {
+const requestSignUp = (creds) => {
   return {
     type: types.SIGNUP_REQUEST,
     isFetching: true,
@@ -72,7 +72,7 @@ requestSignUp = (creds) => {
 };
 
 
-verifiedSignUp = (creds) =>{
+const verifiedSignUp = (creds) =>{
   return {
       type: types.SIGNUP_SUCCESS,
       isFetching: false,
@@ -81,7 +81,7 @@ verifiedSignUp = (creds) =>{
     }
 };
 
-failedSignUp = (message) => {
+const failedSignUp = (message) => {
   return {
     type: types.SIGNUP_FAILURE,
     isFetching: false,
@@ -114,7 +114,7 @@ export const signUp = (user, userType) => {
 
 ///////////////CONTACT INFO | CONTACT INFO | CONTACT INFO ///////////////
 
-requestContactPost = (info) => {
+const requestContactPost = (info) => {
   return {
     type: types.CONTACT_POST_REQUEST,
     payload: info
@@ -122,14 +122,14 @@ requestContactPost = (info) => {
 };
 
 
-verifiedContactPost = (info) =>{
+const verifiedContactPost = (info) =>{
   return {
       type: types.CONTACT_POST_SUCCESS,
       payload: info
     }
 };
 
-failedContactPost = (message) => {
+const failedContactPost = (message) => {
   return {
     type: types.CONTACT_POST_FAILURE,
     payload: message
@@ -165,7 +165,7 @@ export const contactPost = (id, info, userType) => {
 ////////////////lOGOUT | LOGOUT | LOGOUT///////////////
 
 
-requestLogout = () =>{
+const requestLogout = () =>{
   return {
     type: types.LOGOUT_REQUEST,
     isFetching: true,
@@ -175,7 +175,7 @@ requestLogout = () =>{
 
 // Called upon successfull logout request, info sent to reducers.
 
-receiveLogout = () => {
+const receiveLogout = () => {
   return {
     type: types.LOGOUT_SUCCESS,
     isFetching: false,
@@ -184,7 +184,7 @@ receiveLogout = () => {
 }
 
 
-receiveLogout = () => {
+const failedLogout = () => {
   return {
     type: types.LOGOUT_SUCCESS,
     isFetching: false,
@@ -203,7 +203,7 @@ export const logout = () => {
 
 ////////////////HEALTH POST INFO | HEALTH POST INFO | HEALTH POST INFO ///////////////
 
-requestHealthPost = (health) => {
+const requestHealthPost = (health) => {
   return {
     type: types.HEALTH_POST_REQUEST,
     payload: health
@@ -211,14 +211,14 @@ requestHealthPost = (health) => {
 };
 
 
-verifiedHealthPost = (health) =>{
+const verifiedHealthPost = (health) =>{
   return {
       type: types.HEALTH_POST_SUCCESS,
       payload: health
     }
 };
 
-failedHealthPost = (message) => {
+const failedHealthPost = (message) => {
   return {
     type: types.HEALTH_POST_FAILURE,
     payload: message
@@ -251,7 +251,7 @@ export const healthPost = (id, healthInfo) => {
 
 ///////////////EMERGENCY CONTACT INFO | EMERGENCY CONTACT INFO | EMERGENCY CONTACT INFO ///////////////
 
-requestEmergencyContact = (contact) => {
+const requestEmergencyContact = (contact) => {
   return {
     type: types.EMERGENCY_CONTACT_REQUEST,
     payload: contact
@@ -259,14 +259,14 @@ requestEmergencyContact = (contact) => {
 };
 
 
-verifiedEmergencyContact = (contact) =>{
+const verifiedEmergencyContact = (contact) =>{
   return {
       type: types.EMERGENCY_CONTACT_SUCCESS,
       payload: contact
     }
 };
 
-failedEmergencyContact = (message) => {
+const failedEmergencyContact = (message) => {
   return {
     type: types.EMERGENCY_CONTACT_FAILURE,
     payload: message
@@ -275,30 +275,40 @@ failedEmergencyContact = (message) => {
 
 //Action call below for sign up --> uncomment export default
 
-export const emergencyContact = (id, contact) => {
-  return (dispatch) => {
-    dispatch(requestEmergencyContact(contact));
+export function emergencyContact(id, contact) {
+console.log("IN ACTION")
+  return {
+      type: types.EMERGENCY_CONTACT_SUCCESS,
+      payload: contact
+    }
+   
+  // return function(dispatch) {
+  //  console.log("HERE", id, contact)
+  //   dispatch(requestEmergencyContact(contact));
 
-    let emergencyContact = {
-      first: contact.first,
-      last: contact.last,
-      phone: contact.phone,
-      email: contact.email,
-      relationship: contact.relationship
-    };
-    axios.post(`api/patient/emergency_contacts/${id}`).then(contact =>{
-      dispatch(verifiedEmergencyContact(contact));
-    })
-    .catch(response => {
-      dispatch(failedEmergencyContact(response));
-    });
-  }
+  //   let emergencyContact = {
+  //     first: contact.first,
+  //     last: contact.last,
+  //     phone: contact.phone,
+  //     email: contact.email,
+  //     relationship: contact.relationship
+  //   };
+  //   return axios.post(`api/patient/emergency_contacts/${id}`).then(contact =>{
+  //       dispatch(verifiedEmergencyContact(contact));
+  //       browserHistory.push('/provider/insurance');
+  //     })
+  //     .catch(response => {
+  //       console.log("ERRROORRRR")
+  //       dispatch(failedEmergencyContact(response));
+  //     });
+    
+  // }
 }
 
 
 ///////////////INSURANCE INFO | INSURANCE INFO | INSURANCE INFO ///////////////
 
-requestInsurancePost = (insurance) => {
+const requestInsurancePost = (insurance) => {
   return {
     type: types.INSURANCE_POST_REQUEST,
     payload: insurance
@@ -306,14 +316,14 @@ requestInsurancePost = (insurance) => {
 };
 
 
-verifiedInsurancePost = (insurance) =>{
+const verifiedInsurancePost = (insurance) =>{
   return {
       type: types.INSURANCE_POST_SUCCESS,
       payload: insurance
     }
 };
 
-failedInsurancePost = (message) => {
+const failedInsurancePost = (message) => {
   return {
     type: types.INSURANCE_POST_FAILURE,
     payload: message
