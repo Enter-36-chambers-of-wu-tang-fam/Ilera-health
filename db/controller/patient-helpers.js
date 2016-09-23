@@ -2,7 +2,8 @@
 
 const db = require('../dbConnect/connection.js');
 
-const Patients = {
+
+module.exports.Patients = {
 
   signIn: (params, cb) => {
     let data = [params.email];
@@ -52,61 +53,6 @@ const Patients = {
     db.query(queryString, data, (error, results) => cb(error, results) );
   },
 
-  get_messages: (params, cb) => {
-    // Get Request → /api/messages/:physid/:patid  [limit 5]
-    let data = [params.receiver_id, params.sender_id];
-    const queryString = 'SELECT * FROM messages WHERE receiver_id=? AND sender_id=? LIMIT 5';
-    db.query(queryString, data, (error, results) => cb(error, results) );
-  },
-
-  add_health_log: (params, cb) => {
-    //  post to health_log
-    let data = [params.date, params.note, params.photo_path, params.id_physician, params.id_patient];
-    const queryString = 'INSERT INTO health_log(date, note, photo_path, id_physician, id_patient) \
-      value (?, ?, ?, ?, ?)';
-    db.query(queryString, data, (error, results) => cb(error, results) );
-  },
-
-  get_health_logs: (params, cb) => {
-    // Get Request → /api/healthlog/:physid/:patid  [ limit 5]
-    let data = [params.id_patient];
-    const queryString = 'SELECT * FROM health_log WHERE id_patient=? LIMIT 5';
-    db.query(queryString, data, (error, results) => cb(error, results) );
-  },
-
-  (params, cb) => {
-    let data = [params]
-
-    db.query(queryString, data, (error, results) => cb(error, results) );
-  },
-
-  make_appointment:(params, cb) => {
-    let data = [params.date, params.time, params.notes];
-    const queryString = 'INSERT INTO appointment(date, time, notes) value (?, ?, ?)';
-    db.query(queryString, data, (error, results) => cb(error, results) );
-  },
-
-  new_medication: (params, cb) => {
-    let data = [params.drug_name, params.dosage];
-    const queryString = 'INSERT INTO patient_medication(drug_name, dosage)';
-    db.query(queryString, data, (error, results) => cb(error, results) );
-  },
-
-  physician_signUp: (params, cb) => {
-    // Post Request To: /api/physician/signup i think this is a guess
-    let data = [params.first, params.last, params.email, params.password];
-    const queryString = 'INSERT INTO physician(first, last, email, password) \
-      value (?, ?, ?, ?)';
-    db.query(queryString, data, (error, results) => cb(error, results) );
-  },
-
-  patient_physician_relation: (params, cb) => {
-    // Get Request → /api/patient_physician/:physicianid  [limit 5] =>  { patient_physician }
-    let data = [params.id_patient, params.id_physician];
-    const queryString = 'SELECT * FROM patient_physician WHERE id_patient=? \
-      AND id_physician=? LIMIT 5';
-    db.query(queryString, data, (error, results) => cb(error, results) );
-  },
 
   patient_info: (params, cb) => {
     // Post Request to : api/user/main  =>   { Patient main page }
@@ -121,10 +67,15 @@ const Patients = {
       JOIN patient_medication p_m ON p_m.id_patient = p.id';
     db.query(queryString, data, (error, results) => cb(error, results) );
   }
-  
+  // (params, cb) => {
+  //   let data = [params]
+  //
+  //   db.query(queryString, data, (error, results) => cb(error, results) );
+  // },
+
 };
 
-module.exports = Patients;
+
 
 
 
