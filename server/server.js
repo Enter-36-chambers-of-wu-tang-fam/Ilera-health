@@ -3,9 +3,12 @@ const bodyParser = require('body-parser');
 const app = express();
 const session = require('express-session');
 const db = require('../db/dbConnect/connection.js');
-const
+const Institution = require('./routes/institution.js');
+const Physician = require('./routes/physician.js');
+const Message = require('./routes/messages.js');
+const HealthLog = require('./routes/health_log.js');
 // const path = require('path');
-const patient = require('./routes/patient.js');
+const Patient = require('./routes/patient.js');
 // this was just to test that the server worked feel free to delete
 
 app.use(express.static(__dirname + '/../client'));
@@ -20,25 +23,25 @@ app.use(session({
 
 
 // Post Request to: api/user/signup  =>   { Patient Table}
-app.post('/api/user/signup', patient.signUp);
+app.post('/api/user/signup', Patient.signUp);
 
 // Post request to: /api/user/emergency_contacts => { Emergency Table }
-// app.post('/api/user/emergency_contacts', Emergency Table);
+app.post('/api/user/emergency_contacts', Patient.post_emer_contact);
 // Post Request To: api/user/insurance => { insurance }
-// app.post('/api/user/insurance', something);
+app.post('/api/user/insurance', Patient.post_insurance_info);
 
 // Post Request To: /api/physician/signup i think this is a guess
-// app.post('/api/physician/signup', something);
+app.post('/api/physician/signup', Physician.signUp);
 
 //  post to health_log
-// app.post('/api/health_log', something);
+app.post('/api/health_log', HealthLog.postHealthLog);
 
 // Get Request → /api/healthlog/:physid/:patid  [ limit 5]
-// app.get('/api/healthlog/:physid/:patid', something);
+app.get('/api/healthlog/:physid/:patid', Institution.get_patient_physician_relation);
 // Get Request → /api/patient_physician/:physicianid  [limit 5] =>  { patient_physician }
 // app.get('/api/patient_physician/:physicianid', something);
 // Get Request → /api/messages/:physid/:patid  [limit 5]
-// app.get('/api/messages/:physid/:patid', somehting);
+app.get('/api/messages/:physid/:patid', Message.getMessages);
 
 
 // INSERTED TEMPORARLILY TO TEST OUT ROUTING ON FRONT END

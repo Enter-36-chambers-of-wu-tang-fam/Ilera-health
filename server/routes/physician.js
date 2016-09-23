@@ -4,6 +4,7 @@ const hashHelp = require("../security/hash.js");
 const Physician = require("../../db/controller/physician-helpers.js");
 
 module.exports = {
+  
   signIn = (req, res) => {
     Physician.signIn(req.body, (error, data) => {
       if(!data.length){
@@ -23,6 +24,7 @@ module.exports = {
       }
     })
   },
+
   signUp: (req, res) => {
     Physician.checkUser(req.body,(error,data) => {
 
