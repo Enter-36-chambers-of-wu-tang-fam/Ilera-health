@@ -13,8 +13,8 @@ import ProviderApp from './components/physician-app/physician-app.jsx';
 import UpdatePatient from './components/patient-app/updatePatient.js';
 import UpdatePhysician from './components/physician-app/updatePhysician.js';
 
-// import EmergencyContactForm from './containers/forms/emergency-contact-form.js';
-// import InsuranceForm from './containers/forms/insurance-policy-form.js';
+import EmergencyContactForm from './containers/forms/emergency-contact-form.js';
+import InsuranceForm from './containers/forms/insurance-policy-form.js';
 
 export default (
     <Router path='/' component= { App } >
