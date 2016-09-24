@@ -48,7 +48,7 @@ module.exports = {
         })
       }
     });
-  }
+  },
   // (req, res) => {
   //   Patient.funcHere(req.body, (err,data)=>{
   //     if(err) console.log(err);
