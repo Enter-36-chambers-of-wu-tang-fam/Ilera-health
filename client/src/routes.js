@@ -8,6 +8,7 @@ import { Router, Route, IndexRoute } from 'react-router';
 // Components
 import App from './components/app.js';
 import Signin from './components/auth/signin-component.js';
+import Signup from './components/auth/signup-component.js';
 import PatientApp from './components/patient-app/patient-app.jsx';
 import ProviderApp from './components/physician-app/physician-app.jsx';
 import UpdatePatient from './components/patient-app/updatePatient.js';
@@ -20,7 +21,8 @@ import FormParent from './components/form-parent.js';
 
 export default (
     <Router path='/' component= { App } >
-        <IndexRoute component={ Signin }/>
+        <IndexRoute component={ Signup }/>
+        <Route path='signup' component={ Signup } />
         <Route path='signin' component={ Signin } />
         <Route path='provider' component={ ProviderApp } >
         </Route>
