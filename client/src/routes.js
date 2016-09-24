@@ -24,17 +24,37 @@ export default (
         <IndexRoute component={ Signup }/>
         <Route path='signup' component={ Signup } />
         <Route path='signin' component={ Signin } />
+        
         <Route path='provider' component={ ProviderApp } >
+            <Route path="dashboard" component={ PhysicianDashboard } />  (component) (appointment --> container)
+            <Route path="patients" component={ AllUsers } >
+              <Route path=':first:last' component={ Profile } />
+            </Route>
+            <Route path="notes" component={ Notes } />
+            <Route path="messages" component={ Messages } />
+            <Route path="profile" component={ Profile } />
+            <Route path="calendar" component ={ Calendar }/>  
         </Route>
+        
         <Route path='patient' component={ PatientApp } >
             <Route path="form" > 
-                <IndexRoute component={ BackgroundForm }/>
+                <IndexRoute component={ BackgroundForm } />
                 <Route path='background' component={ BackgroundForm } />
                 <Route path='emergencyContact' component={ EmergencyContactForm } />
                 <Route path='insurance' component={ InsuranceForm } />
             </Route>
-            <Route path='updatePatient' component={ UpdatePatient } />
-            <Route path='updatePhysician' component={ UpdatePhysician } />
+            <Route path="dashboard" component={ PatientDashboard } />
+            <Route path="healthlog" component={ HealthLog } />
+            <Route path="physicians" component={ AllUsers } >
+              <Route path=':first:last' component={ Profile } />
+            </Route>
+            <Route path="messages" component={ Messages } />
+            <Route path="profile" component={ Profile } />
+            <Route path="medications" component ={ Medications }/>                  
         </Route>
+
+
+
+
     </Router>
 );
