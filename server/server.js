@@ -7,7 +7,7 @@ const Institution = require('./routes/institution.js');
 const Physician = require('./routes/physician.js');
 const Message = require('./routes/messages.js');
 const HealthLog = require('./routes/health_log.js');
-// const path = require('path');
+const path = require('path');
 const Patient = require('./routes/patient.js');
 // this was just to test that the server worked feel free to delete
 
@@ -49,13 +49,13 @@ app.get('/api/messages/:physid/:patid', Message.getMessages);
 
 
 // INSERTED TEMPORARLILY TO TEST OUT ROUTING ON FRONT END
-app.get('/', (req,res) => {
-    res.sendFile(path.join(__dirname, '/../client/'))
-  })
+// app.get('/', (req,res) => {
+//     res.sendFile(path.join(__dirname, '/../client/'))
+//   })
 
 //catch all
 app.use('*', function (req, res) {
-  res.sendFile(path.resolve(__dirname, './'));
+  res.sendFile(path.resolve(__dirname, '../client/index.html'));
 });
 
 
