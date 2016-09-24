@@ -54,8 +54,8 @@ app.post('/api/user/insurance', Patient.post_insurance_info);
 //   })
 
 //catch all
-app.use('*', function (req, res) {
-  res.sendFile(path.join(__dirname, '/../client/'));
+app.get('*', function (req, res) {
+  res.sendFile(path.join(__dirname, '/../client/index.html'));
 });
 
 
