@@ -3,7 +3,7 @@
 const db = require('../dbConnect/connection.js');
 
 
-module.exports.Patients = {
+module.exports = {
 
   signIn: (params, cb) => {
     let data = [params.email];

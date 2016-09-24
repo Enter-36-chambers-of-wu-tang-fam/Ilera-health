@@ -21,7 +21,7 @@ class InsuranceForm extends Component {
 
     onSubmit = (props) => {
         console.log(props);
-        axios.post('/api/patient/insurance/1', props)       
+        // axios.post('/api/patient/insurance/1', props)       
     }
 
     renderField = ({ input, label, type, meta: { touched, error } }) => {
@@ -47,7 +47,10 @@ class InsuranceForm extends Component {
                     <Field name="insurance_type" type="text" component={this.renderField} label="Insurance Type"/>
                     <Field name="policy_number" type="number" component={this.renderField} label="Policy Number"/>
                     {error && <strong>{error}</strong>}
-                    <button type='submit'  className='btn'>Next</button>
+                    <Link to='/patient/form/emergencyContact' >
+                        <div className='btn'> Back </div>
+                    </Link>
+                    <button type='submit' className='btn'>Go to Dashboard</button>
                 </form>
             </div>
         );

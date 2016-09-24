@@ -21,7 +21,7 @@ app.use(session({
   cookie: {}
 }));
 
-app.get('/api/user/signin', Patient.signIn);
+app.post('/api/user/signin', Patient.signIn);
 
 //not for now but this will get all of the patient info eventually we are still in stage 1
 app.get('/api/user/dashboard', Patient.get_patient_info);
@@ -35,17 +35,17 @@ app.post('/api/user/emergency_contacts', Patient.post_emer_contact);
 app.post('/api/user/insurance', Patient.post_insurance_info);
 
 // Post Request To: /api/physician/signup i think this is a guess
-app.post('/api/physician/signup', Physician.signUp);
+// app.post('/api/physician/signup', Physician.signUp);
 
 //  post to health_log
-app.post('/api/health_log', HealthLog.postHealthLog);
+// app.post('/api/health_log', HealthLog.postHealthLog);
 
 // Get Request → /api/healthlog/:physid/:patid  [ limit 5]
-app.get('/api/healthlog/:physid/:patid', Institution.get_patient_physician_relation);
+// app.get('/api/healthlog/:physid/:patid', Institution.get_patient_physician_relation);
 // Get Request → /api/patient_physician/:physicianid  [limit 5] =>  { patient_physician }
 // app.get('/api/patient_physician/:physicianid', something);
 // Get Request → /api/messages/:physid/:patid  [limit 5]
-app.get('/api/messages/:physid/:patid', Message.getMessages);
+// app.get('/api/messages/:physid/:patid', Message.getMessages);
 
 
 // INSERTED TEMPORARLILY TO TEST OUT ROUTING ON FRONT END
@@ -55,7 +55,7 @@ app.get('/api/messages/:physid/:patid', Message.getMessages);
 
 //catch all
 app.use('*', function (req, res) {
-  res.sendFile(path.resolve(__dirname, '../client/index.html'));
+  res.sendFile(path.join(__dirname, '/../client/'));
 });
 
 

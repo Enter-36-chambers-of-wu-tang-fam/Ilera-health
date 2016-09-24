@@ -18,10 +18,10 @@ DROP TABLE IF EXISTS `patient`;
 
 CREATE TABLE `patient` (
   `id` INTEGER UNSIGNED NOT NULL AUTO_INCREMENT,
-  `first` VARCHAR(30) NOT NULL,
-  `last` VARCHAR(30) NOT NULL,
-  `email` VARCHAR(30) NOT NULL,
-  `password` VARCHAR(100) NOT NULL,
+  `first` VARCHAR(30) NULL,
+  `last` VARCHAR(30) NULL,
+  `email` VARCHAR(30) NULL,
+  `password` VARCHAR(100) NULL,
   `pin` INTEGER(4) NULL DEFAULT NULL,
   `date_of_birth` DATE NULL DEFAULT NULL,
   `address` VARCHAR(60) NULL DEFAULT NULL,

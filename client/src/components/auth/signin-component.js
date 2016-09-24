@@ -11,17 +11,32 @@ const validate = values => {
   if (!values.password) {
     errors.password = 'Password required'
   }
-  if (!values.phone) {
-    errors.phone = 'Please re-type your password'
+  if (!values.userType) {
+    errors.phone = 'Please select an option'
   }
   return errors
 }
 
 class SigninForm extends Component {
 
+    static contextTypes = {
+        router: React.PropTypes.object
+    }
+
     onSubmit = (props) => {
         console.log(props);
-        axios.post('/api/signin', props)       
+        if(props.userType === 'Patient') {
+            axios.post('/api/user/signin', props)  
+                .then( found => {
+                    console.log("SUCCESS");
+                    this.context.router.push('patient/form/background')
+                })
+                .catch( err => {
+                    console.log("LOGIN ERROR")
+                })
+        } else if(props.userType === 'Provider'){
+            this.context.router.push('provider/')
+        }
     }
 
     renderField = ({ input, label, type, meta: { touched, error } }) => {
@@ -43,11 +58,16 @@ class SigninForm extends Component {
             <div>
                 <h2>Sign In</h2>
                 <form onSubmit={ handleSubmit(props => this.onSubmit(props)) }>
-                    <Field name="username" type="text" component={this.renderField} label="Username"/>
+                    <Field name="email" type="text" component={this.renderField} label="Username"/>
                     <Field name="password" type="password" component={this.renderField} label="Password"/>
                     <Field name="reTypePassword" type="password" component={this.renderField} label="Re-Type Password"/>
+                    <Field name="userType" component="select">
+                        <option></option>
+                        <option value="Patient">Patient</option>
+                        <option value="Provider">Provider</option>
+                    </Field>
                     {error && <strong>{error}</strong>}
-                    <button type='submit'  className='btn'>Next</button>
+                    <button type='submit' className='btn'>Sign In</button>
                 </form>
             </div>
         );

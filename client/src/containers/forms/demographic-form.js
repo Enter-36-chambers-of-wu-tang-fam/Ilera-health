@@ -28,9 +28,14 @@ const validate = values => {
 
 class DemographicForm extends Component {
 
+    static contextTypes = {
+        router: React.PropTypes.object
+    }
+
     onSubmit = (props) => {
         console.log(props);
-        axios.post('/api/patient/emergency_contacts/1', props)       
+        // axios.post('/api/patient/emergency_contacts/1', props)
+        this.context.router.push('/emergencyContact')       
     }
 
     renderField = ({ input, label, type, meta: { touched, error } }) => {
