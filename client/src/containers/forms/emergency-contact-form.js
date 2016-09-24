@@ -1,6 +1,8 @@
 import _ from 'lodash';
+import axios from 'axios';
 import React, { Component, PropTypes } from 'react';
 import { Field, reduxForm } from 'redux-form';
+
 // Actions
 import { emergencyContact } from '../../actions/actions.js';
 
@@ -26,17 +28,9 @@ const validate = values => {
 
 class EmergencyContactForm extends Component {
 
-    onSubmit(props) {
-        console.log("EMERGENCY", emergencyContact)
-        console.log("PROPS", props)
-        axios.post(`api/patient/emergency_contacts/1`, props)
-            .then(success => {
-                console.log(getState());
-            })
-            .catch(err => {
-                console.log(store.getState());
-            })
-        
+    onSubmit = (props) => {
+        console.log(props);
+        axios.post('/api/patient/emergency_contacts/1', props)       
     }
 
     renderField = ({ input, label, type, meta: { touched, error } }) => {

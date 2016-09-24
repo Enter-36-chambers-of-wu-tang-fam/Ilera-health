@@ -11,10 +11,11 @@ import Signin from './components/auth/signin-component.js';
 import PatientApp from './components/patient-app/patient-app.jsx';
 import ProviderApp from './components/physician-app/physician-app.jsx';
 import EmergencyContactForm from './containers/forms/emergency-contact-form.js';
+import InsuranceForm from './containers/forms/insurance-policy-form.js';
 
 export default (
     <Router path='/' component= { App } >
-        <Route path='provider' component={ EmergencyContactForm } >
+        <Route path='provider' component={ InsuranceForm } >
             <Route path='signin' component={ Signin} />
         </Route>
         <Route path='patient' component={ PatientApp } >
