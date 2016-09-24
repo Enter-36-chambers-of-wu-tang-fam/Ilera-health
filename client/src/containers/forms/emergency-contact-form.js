@@ -29,8 +29,7 @@ const validate = values => {
 class EmergencyContactForm extends Component {
 
     onSubmit = (props) => {
-        console.log(props);
-        axios.post('/api/patient/emergency_contacts/1', props)       
+        axios.post('/api/patient/emergency_contacts/1', props)
     }
 
     renderField = ({ input, label, type, meta: { touched, error } }) => {
@@ -62,7 +61,7 @@ class EmergencyContactForm extends Component {
                 </form>
             </div>
         );
-    }   
+    }
 };
 
 // user types...recorded on application state

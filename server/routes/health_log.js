@@ -1,6 +1,6 @@
 const Health_log = require('../../db/controller/health_log-helpers.js');
 
-module.exports.healthLog = {
+module.exports = {
 
   getHealthLog: (req, res) => {
     Health_log.get_health_logs(req.body, (err,data)=>{

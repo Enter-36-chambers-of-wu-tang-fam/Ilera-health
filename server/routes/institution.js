@@ -2,7 +2,7 @@
 
 const Institution = require('../../db/controller/institution-helpers.js');
 
-module.exports.institution = {
+module.exports = {
 
   postAppointment: (req, res) => {
     Institution.make_appointment(req.body, (err,data)=>{

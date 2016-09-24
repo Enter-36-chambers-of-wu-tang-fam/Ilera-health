@@ -2,7 +2,7 @@
 
 const Message = require("../../db/controller/messages-helpers.js");
 
-module.exports.messages = {
+module.exports = {
 
   getMessages: (req, res) => {
     Message.get_messages(req.body, (err,data)=>{
