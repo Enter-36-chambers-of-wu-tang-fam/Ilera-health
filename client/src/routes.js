@@ -15,14 +15,22 @@ import UpdatePhysician from './components/physician-app/updatePhysician.js';
 
 import EmergencyContactForm from './containers/forms/emergency-contact-form.js';
 import InsuranceForm from './containers/forms/insurance-policy-form.js';
+import BackgroundForm from './containers/forms/demographic-form.js';
+import FormParent from './components/form-parent.js';
 
 export default (
     <Router path='/' component= { App } >
+        <IndexRoute component={ Signin }/>
+        <Route path='signin' component={ Signin } />
         <Route path='provider' component={ ProviderApp } >
-            <Route path='signin' component={ Signin} />
         </Route>
         <Route path='patient' component={ PatientApp } >
-            <Route path='signin' component={ Signin} />
+            <Route path="form" > 
+                <IndexRoute component={ BackgroundForm }/>
+                <Route path='background' component={ BackgroundForm } />
+                <Route path='emergencyContact' component={ EmergencyContactForm } />
+                <Route path='insurance' component={ InsuranceForm } />
+            </Route>
             <Route path='updatePatient' component={ UpdatePatient } />
             <Route path='updatePhysician' component={ UpdatePhysician } />
         </Route>

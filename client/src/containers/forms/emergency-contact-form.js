@@ -2,9 +2,7 @@ import _ from 'lodash';
 import axios from 'axios';
 import React, { Component, PropTypes } from 'react';
 import { Field, reduxForm } from 'redux-form';
-
-// Actions
-import { emergencyContact } from '../../actions/actions.js';
+import { Router, Route, Link, browserHistory } from 'react-router';
 
 const validate = values => {
   const errors = {}
@@ -28,44 +26,52 @@ const validate = values => {
 
 class EmergencyContactForm extends Component {
 
-    onSubmit = (props) => {
-        axios.post('/api/patient/emergency_contacts/1', props)
-    }
+  static contextTypes = {
+    router: React.PropTypes.object
+  }
 
-    renderField = ({ input, label, type, meta: { touched, error } }) => {
-        return(
-            <div key={label}>
-                <label>{label}</label>
-                <input {...input} placeholder={label} type={type} />
-                <div className='formErrors'>
-                    { touched && error && <span>{error}</span> }
-                </div>
-            </div>
-        )
-    }
+  onSubmit = (props) => {
+    console.log(props);
+    // axios.post('/api/patient/emergency_contacts/1', props)
+    this.context.router.push('/insurance')       
+  }
 
-    render() {
-        const { error, handleSubmit, pristine, reset, submitting } = this.props;
+  renderField = ({ input, label, type, meta: { touched, error } }) => {
+    return(
+      <div key={label}>
+        <label>{label}</label>
+        <input {...input} placeholder={label} type={type} />
+        <div className='formErrors'>
+          { touched && error && <span>{error}</span> }
+        </div>
+      </div>
+    )
+  }
 
-        return (
-            <div>
-                <h2>Emergency Contact Info</h2>
-                <form onSubmit={ handleSubmit(props => this.onSubmit(props)) }>
-                    <Field name="first" type="text" component={this.renderField} label="First Name"/>
-                    <Field name="last" type="text" component={this.renderField} label="Last Name"/>
-                    <Field name="phone" type="text" component={this.renderField} label="Phone Number"/>
-                    <Field name="email" type="email" component={this.renderField} label="Email"/>
-                    <Field name="relationship" type="text" component={this.renderField} label="Relationship"/>
-                    {error && <strong>{error}</strong>}
-                    <button type='submit'  className='btn'>Next</button>
-                </form>
-            </div>
-        );
-    }
+  render() {
+      const { error, handleSubmit, pristine, reset, submitting } = this.props;
+      return (
+        <div>
+          <h2>Emergency Contact Info</h2>
+          <form onSubmit={ handleSubmit(props => this.onSubmit(props)) }>
+            <Field name="first" type="text" component={this.renderField} label="First Name"/>
+            <Field name="last" type="text" component={this.renderField} label="Last Name"/>
+            <Field name="phone" type="text" component={this.renderField} label="Phone Number"/>
+            <Field name="email" type="email" component={this.renderField} label="Email"/>
+            <Field name="relationship" type="text" component={this.renderField} label="Relationship"/>
+            {error && <strong>{error}</strong>}
+            <Link to='/patient/form/background' >
+              <div className='btn'> Back </div>
+            </Link>
+            <button type='submit'  className='btn'>Next</button>
+          </form>
+        </div>
+      );
+  }   
 };
 
 // user types...recorded on application state
 export default reduxForm({
-    form: 'EmergencyContactForm',
-    validate
-}, null, { emergencyContact })(EmergencyContactForm);
+  form: 'EmergencyContactForm',
+  validate
+}, null, { })(EmergencyContactForm);
