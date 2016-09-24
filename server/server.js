@@ -12,7 +12,7 @@ const Patient = require('./routes/patient.js');
 // this was just to test that the server worked feel free to delete
 
 app.use(express.static(__dirname + '/../client'));
-
+app.use(bodyParser.json());
 
 app.use(session({
   secret: 'Welcome to the 36 chambers',
@@ -21,6 +21,10 @@ app.use(session({
   cookie: {}
 }));
 
+app.get('/api/user/signin', Patient.signIn);
+
+//not for now but this will get all of the patient info eventually we are still in stage 1
+app.get('/api/user/dashboard', Patient.get_patient_info);
 
 // Post Request to: api/user/signup  =>   { Patient Table}
 app.post('/api/user/signup', Patient.signUp);

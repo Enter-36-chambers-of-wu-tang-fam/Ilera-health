@@ -4,8 +4,8 @@ const hashHelp = require("../security/hash.js");
 const Physician = require("../../db/controller/physician-helpers.js");
 
 module.exports = {
-  
-  signIn = (req, res) => {
+
+  signIn: (req, res) => {
     Physician.signIn(req.body, (error, data) => {
       if(!data.length){
         bcrypt.compare(req.body.password, data[0].password, (error, result) => {
@@ -48,13 +48,13 @@ module.exports = {
         })
       }
     });
-  },
-  (req, res) => {
-    Patient.funcHere(req.body, (err,data)=>{
-      if(err) console.log(err);
-      res.json(data);
-    });
-  },
+  }
+  // (req, res) => {
+  //   Patient.funcHere(req.body, (err,data)=>{
+  //     if(err) console.log(err);
+  //     res.json(data);
+  //   });
+  // },
   // (req, res) => {
   //   Patient.funcHere(req.body, (err,data)=>{
   //     if(err) console.log(err);
