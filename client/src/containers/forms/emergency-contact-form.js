@@ -50,6 +50,7 @@ class EmergencyContactForm extends Component {
 
   render() {
       const { error, handleSubmit, pristine, reset, submitting } = this.props;
+
       return (
         <div>
           <h2>Emergency Contact Info</h2>
