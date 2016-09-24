@@ -1,26 +1,64 @@
-// React
+import _ from 'lodash';
+import axios from 'axios';
 import React, { Component, PropTypes } from 'react';
+import { Field, reduxForm } from 'redux-form';
 
-// Components
+// Actions
+import { emergencyContact } from '../../actions/actions.js';
 
-export default class DemographicForm extends Component {
-    render(){
+const validate = values => {
+  const errors = {}
+  if (!values.first) {
+    errors.first = 'Please enter a first name'
+  }
+  if (!values.last) {
+    errors.last = 'Please enter a last name'
+  }
+  if (!values.phone) {
+    errors.phone = 'Please enter a phone number'
+  }
+  if (!values.email) {
+    errors.email = 'Please enter an email'
+  }
+  if (!values.city) {
+    errors.city = 'Please enter a city'
+  }
+  return errors
+}
+
+class DemographicForm extends Component {
+
+    onSubmit = (props) => {
+        console.log(props);
+        axios.post('/api/patient/emergency_contacts/1', props)       
+    }
+
+    renderField = ({ input, label, type, meta: { touched, error } }) => {
+        return(
+            <div key={label}>
+                <label>{label}</label>
+                <input {...input} placeholder={label} type={type} />
+                <div className='formErrors'>
+                    { touched && error && <span>{error}</span> }
+                </div>
+            </div>
+        )
+    }
+
+    render() {
+        const { error, handleSubmit, pristine, reset, submitting } = this.props;
+
         return (
             <div>
                 <h2>Basic User Info</h2>
-                <form>
-                    <label>First Name</label>
-                    <input type="text" placeholder="First name..." />
-                    <label>Last Name</label>
-                    <input type="text" placeholder="Last name..." />
-                    <label>Date of Birth</label>
-                    <input type="date" placeholder="Date of birth..." />
-                    <label>Address</label>
-                    <input type="text" placeholder="Street address..." />
-                    <label>City</label>
-                    <input type="text" placeholder="City..." />
-                    <label>State</label>
-                    <select>
+                <form onSubmit={ handleSubmit(props => this.onSubmit(props)) }>
+                    <Field name="first" type="text" component={this.renderField} label="First Name"/>
+                    <Field name="last" type="text" component={this.renderField} label="Last Name"/>
+                    <Field name="phone" type="text" component={this.renderField} label="Date of Birth"/>
+                    <Field name="email" type="email" component={this.renderField} label="Street Address"/>
+                    <Field name="city" type="text" component={this.renderField} label="City"/>
+                    <Field name="state" component="select">
+                        <option></option>
                         <option value="AL">Alabama</option>
                         <option value="AK">Alaska</option>
                         <option value="AZ">Arizona</option>
@@ -72,20 +110,14 @@ export default class DemographicForm extends Component {
                         <option value="WV">West Virginia</option>
                         <option value="WI">Wisconsin</option>
                         <option value="WY">Wyoming</option>
-                    </select>
-                    <label>Zip</label>
-                    <input type="number" placeholder="Zip code..." />
-                    <label>Email</label>
-                    <input type="email" placeholder="Email..." />
-                    <label>Phone Number</label>
-                    <input type="number" placeholder="Phone number..." />
-                    <label>Weight</label>
-                    <input type="number" placeholder="Weight..." />
-                    <label>Height</label>
-                    <input type="height" placeholder="Height..." />
-                    <label>Blood Type</label>
-                    <input type="text" placeholder="Zip code..." />
-                    <select>
+                    </Field>
+                    <Field name="zip" type="text" component={this.renderField} label="Zip Code"/>
+                    <Field name="email" type="text" component={this.renderField} label="Email"/> 
+                    <Field name="phone" type="text" component={this.renderField} label="Phone Number"/>
+                    <Field name="weight" type="text" component={this.renderField} label="Weight"/>
+                    <Field name="height" type="text" component={this.renderField} label="Height"/>   
+                    <Field name="bloodType" component="select">
+                        <option></option>
                         <option value="A+">A+</option>
                         <option value="A-">A-</option>
                         <option value="B+">B+</option>
@@ -94,13 +126,18 @@ export default class DemographicForm extends Component {
                         <option value="AB-">AB-</option>
                         <option value="O+">O+</option>
                         <option value="O-">O-</option>
-                    </select>
-                    
+                    </Field>
+
+                    {error && <strong>{error}</strong>}
+                    <button type='submit'  className='btn'>Next</button>
                 </form>
             </div>
         );
     }   
 };
 
-
-// NOTE: for optimization, could make components be types of inputs to be mapped over. Would allow doctors to create forms, add questions to forms, etc.
+// user types...recorded on application state
+export default reduxForm({
+    form: 'DemographicForm',
+    validate
+}, null, { })(DemographicForm);

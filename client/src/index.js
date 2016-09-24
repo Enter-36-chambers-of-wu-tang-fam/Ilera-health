@@ -16,6 +16,8 @@ import { createStore, applyMiddleware } from 'redux';
 
 // Middleware
 import thunkMiddleware from 'redux-thunk';
+import createLogger from 'redux-logger';
+const logger = createLogger();
 
 // Reducers
 import rootReducer from './reducers/index.js';
@@ -26,7 +28,8 @@ const store = createStore(
     applyMiddleware(
         // allows us to dispatch() functions
         // helps with asynchronous actions
-        thunkMiddleware
+        thunkMiddleware,
+        logger
     )
  );
 
@@ -35,6 +38,6 @@ let rootElement = document.getElementById('app');
 
 ReactDOM.render(
   <Provider store={ store }>
-    <Router history={ hashHistory} routes={ routes } />
+    <Router history={ browserHistory} routes={ routes } />
   </Provider>
   , rootElement);
