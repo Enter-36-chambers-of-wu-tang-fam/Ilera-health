@@ -4,15 +4,44 @@ const db = require('../dbConnect/connection.js');
 
 
 module.exports.messages = {
-  get_messages: (params, cb) => {
+
+  // changed
+  get_all_messages: (params, cb) => {
     // Get Request → /api/messages/:physid/:patid  [limit 5]
     let data = [params.receiver_id, params.sender_id];
     const queryString = 'SELECT * FROM messages WHERE receiver_id=? AND sender_id=? LIMIT 5';
     db.query(queryString, data, (error, results) => cb(error, results) );
+  },
+
+  // added
+  // may not need this
+  get_one_message: (params, cb) => {
+    // Get Request → /api/messages/:physid/:patid  [limit 5]
+    let data = [params.id];
+    const queryString = 'SELECT * FROM messages WHERE id=? LIMIT 1';
+    db.query(queryString, data, (error, results) => cb(error, results) );
+  },
+
+  // added
+  post_message: (params, cb) => {
+    let data = [ params.direct_message, params.sender_id,
+      params.receiver_id, (params.previous_message_id || null) ];
+    const queryString = 'INSERT INTO messages(direct_message, sender_id, \
+      receiver_id, previous_message_id, date) value (?,?,?,?, NOW())';
+    db.query(queryString, data, (error, results) => cb(error, results) );
+  },
+
+  // added
+  // this can allow sent and recieved user to delete messages
+  delete_one_message: (params, cb) => {
+    let data = [params.id];
+    const queryString = 'DELETE FROM messages WHERE id=? LIMIT 1';
+    db.query(queryString, data, (error, results) => cb(error, results) );
   }
+
   // (params, cb) => {
-  //   let data = [params]
-  //
+  //   let data = [params];
+  //   const queryString = '';
   //   db.query(queryString, data, (error, results) => cb(error, results) );
   // },
 
