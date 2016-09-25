@@ -21,7 +21,10 @@ export const LOGOUT_REQUEST = 'LOGOUT_REQUEST';
 export const LOGOUT_SUCCESS = 'LOGOUT_SUCCESS'; 
 export const LOGOUT_FAILURE = 'LOGOUT_FAILURE'; 
 
-
+// Messages
+export const MESSAGE_ADD_REQUEST = 'MESSAGE_ADD_REQUEST'; 
+export const MESSAGE_ADD_SUCCESS = 'MESSAGE_ADD_SUCCESS'; 
+export const MESSAGE_ADD_FAILURE = 'MESSAGE_ADD_FAILURE'; 
 
 // =================== PATIENT ======================
 // Health-Post - Patient

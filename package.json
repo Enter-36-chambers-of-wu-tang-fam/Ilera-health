@@ -50,6 +50,8 @@
     "redux-logger": "^2.6.1",
     "redux-thunk": "^2.1.0",
     "session": "^0.1.0",
+    "socket.io": "^1.4.8",
+    "socket.io-client": "^1.4.8",
     "webpack": "^1.13.2",
     "webpack-dev-middleware": "^1.8.1",
     "webpack-hot-middleware": "^2.12.2"
