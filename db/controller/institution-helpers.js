@@ -49,7 +49,15 @@ module.exports.institution = {
   },
 
   // added
-  // check get_patient_physician_relation to make sure they do not alread have a relation
+  getAll_patient_medication: (params, cb)=>{
+    let data = [params.id_patient];
+    const = queryString = 'SELECT * FROM patient_medication WHERE \
+      id_patient=? LIMIT 40';
+    db.query(queryString, data, (error, results) => cb(error, results) );
+  },
+
+  // added
+  // use get_patient_physician_relation to make sure they do not alread have a relation
   create_patient_physician_relation: (params, cb) => {
     let data = [params.id_physician, params.id_patient];
     const queryString = "INSERT INTO patient_physician(id_physician, id_patient) \
@@ -61,9 +69,10 @@ module.exports.institution = {
     // Get Request → /api/patient_physician/:physicianid  [limit 5] =>  { patient_physician }
     let data = [params.id_patient, params.id_physician];
     const queryString = 'SELECT * FROM patient_physician WHERE id_patient=? \
-      AND id_physician=? LIMIT 5';
+      AND id_physician=? LIMIT 50';
     db.query(queryString, data, (error, results) => cb(error, results) );
   }
+  
   // (params, cb) => {
   //   let data = [params];
   //   const queryString = ;

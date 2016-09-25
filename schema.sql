@@ -53,9 +53,9 @@ CREATE TABLE `physician` (
   `phone_number` VARCHAR(20) NULL,
   `password` VARCHAR(30) NULL,
   `photo_path` VARCHAR NULL,
-  `specialty` VARCHAR(500) NULL,
-  PRIMARY KEY (`id`),
-KEY ()
+  `specialty` VARCHAR(40) NULL,
+  `sub_specialties` VARCHAR(500) NULL,
+  PRIMARY KEY (`id`)
 );
 
 -- ---

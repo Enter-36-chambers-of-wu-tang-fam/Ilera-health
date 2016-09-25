@@ -26,7 +26,7 @@ module.exports = {
   },
 
   signUp: (req, res) => {
-    Physician.checkUser(req.body,(error,data) => {
+    Physician.checkPhysician(req.body,(error,data) => {
 
       if(error){ throw error;}
 

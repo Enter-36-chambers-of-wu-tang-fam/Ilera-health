@@ -3,7 +3,7 @@
 const db = require('../dbConnect/connection.js');
 
 
-const Physician = {
+module.exports = {
 
   signIn: (params, cb) => {
     let data = [params.email];
@@ -14,15 +14,32 @@ const Physician = {
   signUp: (params, cb) => {
     // Post Request To: /api/physician/signup i think this is a guess
     let data = [params.first, params.last, params.email, params.password];
-    const queryString = "INSERT INTO physician (first, last, email, password) VALUE (?,?,?,?)";
+    const queryString = "INSERT INTO physician (first, last, email, \
+      password) VALUE (?,?,?,?)";
     db.query(queryString, data, (error, results) => cb(error, results) );
   },
 
-  checkPatient: (params, cb) => {
+  // to see if the email is already taken when signing up
+  checkPhysician: (params, cb) => {
     let data = [params.email];
     const queryString = "SELECT * FROM physician WHERE email=? LIMIT 1";
     db.query(queryString, data, (error, results) => cb(error, results) );
+  },
+
+  // added
+  getAllPhysicians: (cb) => {
+    const queryString = 'SELECT * FROM physician LIMIT 50'
+    db.query(queryString, (error, results) => cb(error, results) );
+  },
+
+  // added
+  getSpecialtyPhysician: (params, cb) => {
+    let data = [params.specialty];
+    const queryString = 'SELECT * FROM physician WHERE specialty=? LIMIT 20'
+    db.query(queryString, data, (error, results) => cb(error, results) );
   }
+
+
 
   // (params, cb) => {
   //   let data = [params]
@@ -32,5 +49,3 @@ const Physician = {
 
 
 };
-
-module.exports = Physician;
