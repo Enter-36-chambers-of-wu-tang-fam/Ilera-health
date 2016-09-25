@@ -3,6 +3,8 @@ import axios from 'axios';
 import React, { Component, PropTypes } from 'react';
 import { Field, reduxForm } from 'redux-form';
 import { Router, Route, Link, browserHistory } from 'react-router';
+import CryptoJS from 'crypto-js';
+
 
 const validate = values => {
   const errors = {}
@@ -26,14 +28,27 @@ const validate = values => {
 
 class EmergencyContactForm extends Component {
 
+  constructor(props){
+    super(props);
+  }
+
   static contextTypes = {
-    router: React.PropTypes.object
+    router: React.PropTypes.objects
   }
 
   onSubmit = (props) => {
-    console.log(props);
-    // axios.post('/api/patient/emergency_contacts/1', props)
-    this.context.router.push('/insurance')       
+    //get encoded id from local storage
+    let id = localStorage.getItem('uid');
+    //code to decode user id stored in local storage
+    let code  = CryptoJS.AES.decrypt(id.toString(), 'key'); //need to change key
+    props.uid = code.toString(CryptoJS.enc.Utf8);
+    axios.post('/api/patient/emergency_contacts', props)
+      .then( found => {
+        this.context.router.push('/patient/form/insurance/');
+      })
+      .catch( err => {
+          console.log("ERROR ENTERING INFORMATION");
+      })         
   }
 
   renderField = ({ input, label, type, meta: { touched, error } }) => {

@@ -21,18 +21,20 @@ app.use(session({
   cookie: {}
 }));
 
-app.post('/api/user/signin', Patient.signIn);
+app.post('/api/patient/signin', Patient.signIn);
 
 //not for now but this will get all of the patient info eventually we are still in stage 1
-app.get('/api/user/dashboard', Patient.get_patient_info);
+app.get('/api/patient/dashboard', Patient.get_patient_info);
 
-// Post Request to: api/user/signup  =>   { Patient Table}
-app.post('/api/user/signup', Patient.signUp);
+// Post Request to: api/patient/signup  =>   { Patient Table}
+app.post('/api/patient/signup', Patient.signUp);
 
-// Post request to: /api/user/emergency_contacts => { Emergency Table }
-app.post('/api/user/emergency_contacts', Patient.post_emer_contact);
-// Post Request To: api/user/insurance => { insurance }
-app.post('/api/user/insurance', Patient.post_insurance_info);
+// Post request to: /api/patient/background => { Patient }
+app.put('/api/patient/background', Patient.post_init_form);
+// Post request to: /api/patient/emergency_contacts => { Emergency Table }
+app.post('/api/patient/emergency_contacts', Patient.post_emer_contact);
+// Post Request To: api/patient/insurance => { insurance }
+app.post('/api/patient/insurance', Patient.post_insurance_info);
 
 // Post Request To: /api/physician/signup i think this is a guess
 // app.post('/api/physician/signup', Physician.signUp);
