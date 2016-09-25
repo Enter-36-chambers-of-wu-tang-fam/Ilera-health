@@ -2,6 +2,7 @@ import _ from 'lodash';
 import axios from 'axios';
 import React, { Component, PropTypes } from 'react';
 import { Field, reduxForm } from 'redux-form';
+import CryptoJS from 'crypto-js';
 
 // Actions
 import { emergencyContact } from '../../actions/actions.js';
@@ -27,6 +28,10 @@ const validate = values => {
 }
 
 class DemographicForm extends Component {
+  
+  constructor(props){
+    super(props);
+  }
 
     static contextTypes = {
         router: React.PropTypes.object
@@ -34,8 +39,19 @@ class DemographicForm extends Component {
 
     onSubmit = (props) => {
         console.log(props);
-        // axios.post('/api/patient/emergency_contacts/1', props)
-        this.context.router.push('/emergencyContact')       
+
+        //get encoded id from local storage
+        let id = localStorage.getItem('uid');
+        //code to decode user id stored in local storage
+        let code  = CryptoJS.AES.decrypt(id.toString(), 'key'); //need to change key
+        props.uid = code.toString(CryptoJS.enc.Utf8);
+        axios.put('/api/patient/background', props)
+          .then( found => {
+            this.context.router.push('/patient/form/emergencyContact/');
+          })
+          .catch( err => {
+              console.log("ERROR ENTERING INFORMATION");
+          })   
     }
 
     renderField = ({ input, label, type, meta: { touched, error } }) => {
@@ -59,11 +75,11 @@ class DemographicForm extends Component {
                 <form onSubmit={ handleSubmit(props => this.onSubmit(props)) }>
                     <Field name="first" type="text" component={this.renderField} label="First Name"/>
                     <Field name="last" type="text" component={this.renderField} label="Last Name"/>
-                    <Field name="phone" type="text" component={this.renderField} label="Date of Birth"/>
-                    <Field name="email" type="email" component={this.renderField} label="Street Address"/>
+                    <Field name="date_of_birth" type="date" component={this.renderField} label="Date of Birth"/>
+                    <Field name="address" type="text" component={this.renderField} label="Street Address"/>
                     <Field name="city" type="text" component={this.renderField} label="City"/>
                     <Field name="state" component="select">
-                        <option></option>
+                        <option value="">Select A State</option>
                         <option value="AL">Alabama</option>
                         <option value="AK">Alaska</option>
                         <option value="AZ">Arizona</option>
@@ -118,11 +134,11 @@ class DemographicForm extends Component {
                     </Field>
                     <Field name="zip" type="text" component={this.renderField} label="Zip Code"/>
                     <Field name="email" type="text" component={this.renderField} label="Email"/> 
-                    <Field name="phone" type="text" component={this.renderField} label="Phone Number"/>
+                    <Field name="phone_number" type="text" component={this.renderField} label="Phone Number"/>
                     <Field name="weight" type="text" component={this.renderField} label="Weight"/>
                     <Field name="height" type="text" component={this.renderField} label="Height"/>   
-                    <Field name="bloodType" component="select">
-                        <option></option>
+                    <Field name="blood_type" component="select">
+                        <option value="">Blood Type</option>
                         <option value="A+">A+</option>
                         <option value="A-">A-</option>
                         <option value="B+">B+</option>

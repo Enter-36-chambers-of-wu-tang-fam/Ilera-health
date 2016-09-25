@@ -32,7 +32,7 @@ module.exports = {
   signUp: (req, res) => {
     Patient.checkPatient(req.body,(error,data)=> {
 
-      if(error){ throw error;}
+      if(error){ console.log(error);}
 
       if(data.length > 0){
         res.status(409).send("The email address you specified is already in use.");
@@ -48,7 +48,7 @@ module.exports = {
             sess.email = req.body.email;
             sess.patient = data.insertId;
             module.exports.sess = sess;
-            res.status(200).send();
+            res.json(data.insertId);
           });
         })
       }

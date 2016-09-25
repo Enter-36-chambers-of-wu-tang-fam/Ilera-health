@@ -14,7 +14,9 @@ module.exports = {
   signUp: (params, cb) => {
     let data = [params.first, params.last, params.email, params.password];
     const queryString = "INSERT INTO patient (first, last, email, password) VALUES (?,?,?,?)";
-    db.query(queryString, data, (error, results) => cb(error, results) );
+    db.query(queryString, data, (error, results) => { 
+      cb(error, results) 
+    });
   },
 
   checkPatient: (params, cb) => {
@@ -26,18 +28,18 @@ module.exports = {
   initform_patient: (params, cb) => {
     // Post Request to: api/user/initform  =>   { Patient Table}
     let data = [ params.first, params.last, params.date_of_birth, params.address,
-      params.city, params.state, params.zip, params.email, params.password,
+      params.city, params.state, params.zip, params.email,
       params.phone_number, params.photo_path, params.weight, params.height,
       params.blood_type];
-    const queryString ='INSERT INTO patient(first, last, date_of_birth, address \
-      city, state, zip, email, password, phone_number, photo_path, \
-      weight, height, blood_type) value (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)';
+    const queryString ='UPDATE patient SET first=?, last=?, date_of_birth=?, address=?, \
+      city=?, state=?, zip=?, email=?, phone_number=?, photo_path=?, \
+      weight=?, height=?, blood_type=? WHERE id='+ params.uid;
     db.query(queryString, data, (error, results) => cb(error, results) );
   },
 
   emergency_contact_form:(params, cb) => {
     let data = [params.first, params.last, params.phone, params.email,
-      params.relationship, params.id_patient];
+      params.relationship, params.uid];
     // Post request to: /api/user/emergency_contacts => { Emergency Table }
     const queryString = 'INSERT INTO emergency_contact(first, last, phone, email, \
       relationship, id_patient) value (?, ?, ?, ?, ?, ?)';
@@ -46,7 +48,7 @@ module.exports = {
 
   init_insurance: (params, cb) => {
     // Post Request To: api/user/insurance => { insurance }
-    let data = [params.id_patient, params.id_insurance_client, params.type,
+    let data = [params.uid, params.id_insurance_client, params.type,
       params.policy_number];
     const queryString = 'INSERT INTO insurance(id_patient, id_insurance_client, type, \
       policy_number) value (?, ?, ?, ?)';

@@ -2,6 +2,7 @@ import _ from 'lodash';
 import axios from 'axios';
 import React, { Component, PropTypes } from 'react';
 import { Field, reduxForm } from 'redux-form';
+import CryptoJS from 'crypto-js';
 
 const validate = values => {
   const errors = {}
@@ -19,9 +20,33 @@ const validate = values => {
 
 class SignupForm extends Component {
 
+  constructor(props){
+    super(props);
+  }
+
+  static contextTypes = {
+      router: React.PropTypes.object
+  }
+
 	onSubmit = (props) => {
 		console.log(props);
-		axios.post('/api/user/signup', props)       
+    if(props.userType === 'Patient') {
+      axios.post('/api/patient/signup', props)
+      .then( found => {
+        //CryptoJS Encoding for user id --> May need to store key in database
+        //We can create a random key and add it to props to store in the database above
+        //Maybe defeats the purpose though as the key will be stored on the front end here...
+
+        let encodedId = CryptoJS.AES.encrypt(String(found.data), 'key');  //need to change key to actual key 
+        localStorage.setItem('uid',encodedId);
+        this.context.router.push('patient/form/background');
+      })
+      .catch( err => {
+          console.log("LOGIN ERROR")
+      })
+    }else if(props.userType === 'Provider'){
+        this.context.router.push('provider/')
+    }  
 	}
 
 	renderField = ({ input, label, type, meta: { touched, error } }) => {
