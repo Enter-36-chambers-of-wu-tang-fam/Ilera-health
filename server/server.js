@@ -43,7 +43,7 @@ app.post('/api/patient/insurance', Patient.post_insurance_info);
 // app.post('/api/health_log', HealthLog.postHealthLog);
 
 // Get Request → /api/healthlog/:physid/:patid  [ limit 5]
-// app.get('/api/healthlog/:physid/:patid', Institution.get_patient_physician_relation);
+// app.get('/api/healthlog/:physid/:patid', Institution.getPatientPhysicianRelation);
 // Get Request → /api/patient_physician/:physicianid  [limit 5] =>  { patient_physician }
 // app.get('/api/patient_physician/:physicianid', something);
 // Get Request → /api/messages/:physid/:patid  [limit 5]

@@ -39,6 +39,13 @@ module.exports.messages = {
     db.query(queryString, data, (error, results) => cb(error, results) );
   }
 
+  // added
+  edit_one_message: (params, cb) => {
+    let data = [params.direct_message];
+    const queryString = 'UPDATE messages SET direct_message=? WHERE \
+      id ="'+params.id+'" LIMIT 1';
+    db.query(queryString, data, (error, results) => cb(error, results) );
+  }
   // (params, cb) => {
   //   let data = [params];
   //   const queryString = '';
