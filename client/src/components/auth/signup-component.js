@@ -4,10 +4,15 @@ import React, { Component, PropTypes } from 'react';
 import { Field, reduxForm } from 'redux-form';
 import CryptoJS from 'crypto-js';
 
+// Components
+import PatientSignupForm from '../patient-app/patient-signup.jsx';
+import PhysicianSignupForm from '../physician-app/physician-signup.jsx';
+
+
 const validate = values => {
   const errors = {}
-  if (!values.username) {
-    errors.username = 'Please enter your username'
+  if (!values.email) {
+    errors.email = 'Please enter your email'
   }
   if (!values.password) {
     errors.password = 'Password required'
@@ -22,13 +27,16 @@ class SignupForm extends Component {
 
   constructor(props){
     super(props);
+		this.state = {
+			userType: 'Select'
+		}
   }
 
-  static contextTypes = {
+  static contextTypes() {
       router: React.PropTypes.object
   }
 
-	onSubmit = (props) => {
+	onSubmit (props) {
 		console.log(props);
     if(props.userType === 'Patient') {
       axios.post('/api/patient/signup', props)
@@ -49,7 +57,11 @@ class SignupForm extends Component {
     }  
 	}
 
-	renderField = ({ input, label, type, meta: { touched, error } }) => {
+	handleChange(event) {
+		this.setState({ userType: event.target.value })
+	}
+
+	renderField ({ input, label, type, meta: { touched, error } }) {
 		return(
 			<div key={label}>
 				<label>{label}</label>
@@ -63,26 +75,56 @@ class SignupForm extends Component {
 
 	render() {
 		const { error, handleSubmit, pristine, reset, submitting } = this.props;
-
-		return (
-			<div>
-				<h2>Sign Up</h2>
-				<form onSubmit={ handleSubmit(props => this.onSubmit(props)) }>
-					<Field name="userType" component="select">
-						<option></option>
-						<option value="Patient">Patient</option>
-						<option value="Provider">Provider</option>
-					</Field>
-					<Field name="first" type="text" component={this.renderField} label="First"/>
-					<Field name="last" type="text" component={this.renderField} label="Last"/>
-					<Field name="email" type="text" component={this.renderField} label="Email"/>
-					<Field name="password" type="password" component={this.renderField} label="Password"/>
-					<Field name="reTypePassword" type="password" component={this.renderField} label="Re-Type Password"/>
-					{error && <strong>{error}</strong>}
-					<button type='submit' className='btn'>Next</button>
-				</form>
-			</div>
-		);
+		if(this.state.userType === 'Patient'){
+			return (
+				<div>
+					<h2>Sign Up</h2>
+					<form onSubmit={ handleSubmit(props => this.onSubmit(props)) }>
+						<select onChange={this.handleChange.bind(this)} value={this.state.userType}>
+							<option value="Select">Select...</option>
+							<option value="Patient" >Patient</option>
+							<option value="Provider">Provider</option>
+						</select>
+						<PatientSignupForm renderField={this.renderField.bind(this)} />
+			
+						{error && <strong>{error}</strong>}
+						<button type='submit' className='btn'>Next</button>
+					</form>
+				</div>
+			);
+		}else if(this.state.userType === 'Provider'){
+			return (
+				<div>
+					<h2>Sign Up</h2>
+					<form onSubmit={ handleSubmit(props => this.onSubmit(props)) }>
+						<select onChange={this.handleChange.bind(this)} value={this.state.userType}>
+							<option value="Select">Select...</option>
+							<option value="Patient" onChange={this.handleChange}>Patient</option>
+							<option value="Provider" onChange={this.handleChange}>Provider</option>
+						</select>
+						<PhysicianSignupForm renderField={this.renderField.bind(this)} />
+			
+						{error && <strong>{error}</strong>}
+						<button type='submit' className='btn'>Next</button>
+					</form>
+				</div>
+			);
+		}else{
+			return (
+				<div>
+					<h2>Sign Up</h2>
+					<h6>Please select an option below:</h6>
+					<form onSubmit={ handleSubmit(props => this.onSubmit(props)) }>
+							<select onChange={this.handleChange.bind(this)} value={this.state.userType}>
+								<option value="Select">Select...</option>
+								<option value="Patient" onChange={this.handleChange}>Patient</option>
+								<option value="Provider" onChange={this.handleChange}>Provider</option>
+							</select>
+						</form>
+				</div>
+			)
+		}
+		
 	}   
 };
 
