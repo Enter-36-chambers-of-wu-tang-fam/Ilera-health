@@ -1,11 +1,13 @@
 -- ---
 -- Globals
 -- ---
+
 DROP DATABASE IF EXISTS `Ilera`;
 
 CREATE DATABASE `Ilera`;
 
 USE Ilera;
+
 -- SET SQL_MODE="NO_AUTO_VALUE_ON_ZERO";
 -- SET FOREIGN_KEY_CHECKS=0;
 
@@ -17,22 +19,22 @@ USE Ilera;
 DROP TABLE IF EXISTS `patient`;
 
 CREATE TABLE `patient` (
-  `id` INTEGER UNSIGNED NOT NULL AUTO_INCREMENT,
-  `first` VARCHAR(30) NULL,
-  `last` VARCHAR(30) NULL,
-  `email` VARCHAR(30) NULL,
-  `password` VARCHAR(100) NULL,
-  `pin` INTEGER(4) NULL DEFAULT NULL,
-  `date_of_birth` DATE NULL DEFAULT NULL,
-  `address` VARCHAR(60) NULL DEFAULT NULL,
-  `city` VARCHAR(60) NULL DEFAULT NULL,
-  `state` VARCHAR(2) NULL DEFAULT NULL,
-  `zip` VARCHAR(10) NULL DEFAULT NULL,
-  `phone_number` VARCHAR(20) NULL DEFAULT NULL,
-  `weight` INTEGER NULL DEFAULT NULL,
-  `height` INTEGER NULL DEFAULT NULL,
-  `blood_type` VARCHAR(2) NULL DEFAULT NULL,
-  `photo_path` VARCHAR(500) DEFAULT NULL,
+  `id` INTEGER NOT NULL AUTO_INCREMENT DEFAULT NOT NULL,
+  `first` VARCHAR(30) NOT NULL DEFAULT 'NULL',
+  `last` VARCHAR(30) NOT NULL DEFAULT 'NULL',
+  `email` VARCHAR(30) NOT NULL DEFAULT 'NULL',
+  `password` VARCHAR(30) NOT NULL DEFAULT 'NULL',
+  `pin` INTEGER(4) NOT NULL DEFAULT NULL,
+  `date_of_birth` DATE NOT NULL DEFAULT 'NULL',
+  `address` VARCHAR(60) NOT NULL DEFAULT 'NULL',
+  `city` VARCHAR(60) NOT NULL DEFAULT 'NULL',
+  `state` VARCHAR(2) NOT NULL DEFAULT 'NULL',
+  `zip` VARCHAR(10) NOT NULL DEFAULT 'NULL',
+  `phone_number` VARCHAR(20) NOT NULL DEFAULT 'NULL',
+  `weight` INTEGER NOT NULL DEFAULT NULL,
+  `height` INTEGER NOT NULL DEFAULT NULL,
+  `blood_type` VARCHAR(3) NOT NULL DEFAULT 'NULL',
+  `photo_path` VARCHAR(200) NOT NULL DEFAULT 'NULL',
   PRIMARY KEY (`id`)
 );
 
@@ -44,14 +46,16 @@ CREATE TABLE `patient` (
 DROP TABLE IF EXISTS `physician`;
 
 CREATE TABLE `physician` (
-  `id` INTEGER UNSIGNED NOT NULL AUTO_INCREMENT,
-  `first` VARCHAR(30) NOT NULL,
-  `last` VARCHAR(30) NOT NULL,
-  `email` VARCHAR(30) NOT NULL,
-  `password` VARCHAR(30) NOT NULL,
-  `photo_path` VARCHAR(500) DEFAULT NULL,
-  `specialty` VARCHAR(500) NULL,
-  PRIMARY KEY (`id`)
+  `id` INTEGER NOT NULL AUTO_INCREMENT DEFAULT NOT NULL,
+  `first` VARCHAR(30) NOT NULL DEFAULT 'NULL',
+  `last` VARCHAR(30) NOT NULL DEFAULT 'NULL',
+  `email` VARCHAR(30) NOT NULL DEFAULT 'NULL',
+  `phone_number` VARCHAR(20) NOT NULL DEFAULT 'NULL',
+  `password` VARCHAR(30) NOT NULL DEFAULT 'NULL',
+  `photo_path` VARCHAR NOT NULL DEFAULT 'NULL',
+  `specialty` VARCHAR(500) NOT NULL DEFAULT 'NULL',
+  PRIMARY KEY (`id`),
+KEY ()
 );
 
 -- ---
@@ -62,13 +66,13 @@ CREATE TABLE `physician` (
 DROP TABLE IF EXISTS `appointment`;
 
 CREATE TABLE `appointment` (
-  `id` INTEGER UNSIGNED NOT NULL AUTO_INCREMENT,
-  `date` DATE NOT NULL,
-  `time` TIME NULL DEFAULT NULL,
-  `notes` VARCHAR(10000) NULL DEFAULT NULL,
-  `id_physician` INTEGER UNSIGNED DEFAULT NULL,
-  `id_patient` INTEGER UNSIGNED DEFAULT NULL,
-  `id_institution` INTEGER UNSIGNED DEFAULT NULL,
+  `id` INTEGER NOT NULL AUTO_INCREMENT DEFAULT NOT NULL,
+  `date` DATE NOT NULL DEFAULT 'NULL',
+  `time` TIME NOT NULL DEFAULT 'NULL',
+  `notes` VARCHAR(10000) NOT NULL DEFAULT 'NULL',
+  `id_physician` INTEGER NOT NULL DEFAULT NOT NULL,
+  `id_patient` INTEGER NOT NULL DEFAULT NOT NULL,
+  `id_institution` INTEGER NOT NULL DEFAULT NOT NULL,
   PRIMARY KEY (`id`)
 );
 
@@ -80,10 +84,10 @@ CREATE TABLE `appointment` (
 DROP TABLE IF EXISTS `Patient_Form`;
 
 CREATE TABLE `Patient_Form` (
-  `id` INTEGER UNSIGNED NOT NULL AUTO_INCREMENT,
-  `doctor_notes` VARCHAR(5000) NULL DEFAULT NULL,
-  `id_physician` INTEGER UNSIGNED DEFAULT NULL,
-  `id_patient` INTEGER UNSIGNED DEFAULT NULL,
+  `id` INTEGER NOT NULL AUTO_INCREMENT DEFAULT NOT NULL,
+  `doctor_notes` VARCHAR(5000) NOT NULL DEFAULT 'NULL',
+  `id_physician` INTEGER NOT NULL DEFAULT NOT NULL,
+  `id_patient` INTEGER NOT NULL DEFAULT NOT NULL,
   PRIMARY KEY (`id`)
 );
 
@@ -95,9 +99,9 @@ CREATE TABLE `Patient_Form` (
 DROP TABLE IF EXISTS `medication`;
 
 CREATE TABLE `medication` (
-  `id` INTEGER UNSIGNED NOT NULL AUTO_INCREMENT,
-  `drug_name` VARCHAR(40) DEFAULT NULL,
-  `details` INTEGER NULL DEFAULT NULL,
+  `id` INTEGER NOT NULL AUTO_INCREMENT DEFAULT NOT NULL,
+  `drug_name` VARCHAR(100) NOT NULL DEFAULT 'NULL',
+  `details` INTEGER NOT NULL DEFAULT NULL,
   PRIMARY KEY (`id`)
 );
 
@@ -109,11 +113,12 @@ CREATE TABLE `medication` (
 DROP TABLE IF EXISTS `institution`;
 
 CREATE TABLE `institution` (
-  `id` INTEGER UNSIGNED NOT NULL AUTO_INCREMENT,
-  `inst_name` VARCHAR(30) NULL DEFAULT NULL,
-  `type` VARCHAR(25) NULL DEFAULT NULL,
-  `description` VARCHAR(300) NULL DEFAULT NULL,
-  `rating` INTEGER(1) NULL DEFAULT NULL,
+  `id` INTEGER NOT NULL AUTO_INCREMENT DEFAULT NOT NULL,
+  `inst_name` VARCHAR(30) NOT NULL DEFAULT 'NULL',
+  `type` VARCHAR(25) NOT NULL DEFAULT 'NULL',
+  `description` VARCHAR(300) NOT NULL DEFAULT 'NULL',
+  `rating` INTEGER(5) NOT NULL DEFAULT NULL,
+  `phone_number` VARCHAR(20) NOT NULL DEFAULT 'NULL',
   PRIMARY KEY (`id`)
 );
 
@@ -125,13 +130,13 @@ CREATE TABLE `institution` (
 DROP TABLE IF EXISTS `payment`;
 
 CREATE TABLE `payment` (
-  `id` INTEGER UNSIGNED NOT NULL AUTO_INCREMENT,
-  `copay` INTEGER NULL DEFAULT NULL,
-  `bill` INTEGER NULL DEFAULT NULL,
-  `bill_statement` VARCHAR(300) NULL DEFAULT NULL,
-  `due_date` DATE NULL DEFAULT NULL,
-  `id_physician` INTEGER UNSIGNED DEFAULT NULL,
-  `id_patient` INTEGER UNSIGNED DEFAULT NULL,
+  `id` INTEGER NOT NULL AUTO_INCREMENT DEFAULT NOT NULL,
+  `copay` INTEGER NOT NULL DEFAULT NULL,
+  `bill` INTEGER NOT NULL DEFAULT NULL,
+  `bill_statement` VARCHAR(300) NOT NULL DEFAULT 'NULL',
+  `due_date` DATE NOT NULL DEFAULT 'NULL',
+  `id_physician` INTEGER NOT NULL DEFAULT NOT NULL,
+  `id_patient` INTEGER NOT NULL DEFAULT NOT NULL,
   PRIMARY KEY (`id`)
 );
 
@@ -143,12 +148,15 @@ CREATE TABLE `payment` (
 DROP TABLE IF EXISTS `health_log`;
 
 CREATE TABLE `health_log` (
-  `id` INTEGER UNSIGNED NOT NULL AUTO_INCREMENT,
-  `date` DATE NULL DEFAULT NULL,
-  `note` VARCHAR(10000) NULL DEFAULT NULL,
-  `photo_path` VARCHAR(500) DEFAULT NULL,
-  `id_physician` INTEGER UNSIGNED DEFAULT NULL,
-  `id_patient` INTEGER UNSIGNED DEFAULT NULL,
+  `id` INTEGER NOT NULL AUTO_INCREMENT DEFAULT NOT NULL,
+  `physician_date` DATE NOT NULL DEFAULT 'NULL',
+  `physician_notes` VARCHAR(10000) NOT NULL DEFAULT 'NULL',
+  `physician_photo_path` VARCHAR(200) NOT NULL DEFAULT 'NULL',
+  `patient_date` DATE NOT NULL DEFAULT 'NULL',
+  `patient_note` VARCHAR(10000) NOT NULL DEFAULT 'NULL',
+  `patient_photo_path` VARCHAR(200) NOT NULL DEFAULT 'NULL',
+  `id_physician` INTEGER NOT NULL DEFAULT NOT NULL,
+  `id_patient` INTEGER NOT NULL DEFAULT NOT NULL,
   PRIMARY KEY (`id`)
 );
 
@@ -160,9 +168,9 @@ CREATE TABLE `health_log` (
 DROP TABLE IF EXISTS `appointment_document`;
 
 CREATE TABLE `appointment_document` (
-  `id` INTEGER UNSIGNED NOT NULL AUTO_INCREMENT,
-  `document` BLOB(400) NULL DEFAULT NULL,
-  `id_appointment` INTEGER UNSIGNED DEFAULT NULL,
+  `id` INTEGER NOT NULL AUTO_INCREMENT DEFAULT NOT NULL,
+  `document` BLOB(400) NOT NULL DEFAULT 'NULL',
+  `id_appointment` INTEGER NOT NULL DEFAULT NOT NULL,
   PRIMARY KEY (`id`)
 );
 
@@ -174,10 +182,10 @@ CREATE TABLE `appointment_document` (
 DROP TABLE IF EXISTS `insurance_company_client`;
 
 CREATE TABLE `insurance_company_client` (
-  `id` INTEGER UNSIGNED NOT NULL AUTO_INCREMENT,
-  `company_name` VARCHAR(30) NULL DEFAULT NULL,
-  `username` VARCHAR(30) NULL DEFAULT NULL,
-  `password` VARCHAR(30) NULL DEFAULT NULL,
+  `id` INTEGER NOT NULL AUTO_INCREMENT DEFAULT NOT NULL,
+  `company_name` VARCHAR(30) NOT NULL DEFAULT 'NULL',
+  `username` VARCHAR(40) NOT NULL DEFAULT 'NULL',
+  `password` VARCHAR(30) NOT NULL DEFAULT 'NULL',
   PRIMARY KEY (`id`)
 );
 
@@ -189,12 +197,12 @@ CREATE TABLE `insurance_company_client` (
 DROP TABLE IF EXISTS `insurance`;
 
 CREATE TABLE `insurance` (
-  `id` INTEGER UNSIGNED NOT NULL AUTO_INCREMENT,
-  `company_name` VARCHAR(30) NULL DEFAULT NULL,
-  `type` VARCHAR(30) NULL DEFAULT NULL,
-  `policy_number` INTEGER NULL DEFAULT NULL,
-  `id_insurance_client` INTEGER UNSIGNED DEFAULT NULL,
-  `id_patient` INTEGER UNSIGNED DEFAULT NULL,
+  `id` INTEGER NOT NULL AUTO_INCREMENT DEFAULT NOT NULL,
+  `company_name` VARCHAR(30) NOT NULL DEFAULT 'NULL',
+  `policy_number` VARCHAR(100) NOT NULL DEFAULT 'NULL',
+  `type` VARCHAR(30) NOT NULL DEFAULT 'NULL',
+  `id_insurance_client` INTEGER NOT NULL DEFAULT NOT NULL,
+  `id_patient` INTEGER NOT NULL DEFAULT NOT NULL,
   PRIMARY KEY (`id`)
 );
 
@@ -206,9 +214,9 @@ CREATE TABLE `insurance` (
 DROP TABLE IF EXISTS `administration`;
 
 CREATE TABLE `administration` (
-  `id` INTEGER UNSIGNED NOT NULL AUTO_INCREMENT,
-  `login` VARCHAR(25) NULL DEFAULT NULL,
-  `password` VARCHAR(30) NULL DEFAULT NULL,
+  `id` INTEGER NOT NULL AUTO_INCREMENT DEFAULT NOT NULL,
+  `login` VARCHAR(25) NOT NULL DEFAULT 'NULL',
+  `password` VARCHAR(30) NOT NULL DEFAULT 'NULL',
   PRIMARY KEY (`id`)
 );
 
@@ -220,13 +228,13 @@ CREATE TABLE `administration` (
 DROP TABLE IF EXISTS `emergency_contact`;
 
 CREATE TABLE `emergency_contact` (
-  `id` INTEGER UNSIGNED NOT NULL AUTO_INCREMENT,
-  `first` VARCHAR(30) NULL DEFAULT NULL,
-  `last` VARCHAR(30) NULL DEFAULT NULL,
-  `phone` VARCHAR(20) NULL DEFAULT NULL,
-  `email` VARCHAR(30) NULL DEFAULT NULL,
-  `relationship` VARCHAR(30) NULL DEFAULT NULL,
-  `id_patient` INTEGER UNSIGNED DEFAULT NULL,
+  `id` INTEGER NOT NULL AUTO_INCREMENT DEFAULT NOT NULL,
+  `first` VARCHAR(30) NOT NULL DEFAULT 'NULL',
+  `last` VARCHAR(30) NOT NULL DEFAULT 'NULL',
+  `phone` VARCHAR(20) NOT NULL DEFAULT 'NULL',
+  `email` VARCHAR(30) NOT NULL DEFAULT 'NULL',
+  `relationship` VARCHAR(30) NOT NULL DEFAULT 'NULL',
+  `id_patient` INTEGER NOT NULL DEFAULT NOT NULL,
   PRIMARY KEY (`id`)
 );
 
@@ -238,12 +246,12 @@ CREATE TABLE `emergency_contact` (
 DROP TABLE IF EXISTS `patient_medication`;
 
 CREATE TABLE `patient_medication` (
-  `id` INTEGER UNSIGNED NOT NULL AUTO_INCREMENT,
-  `drug_name` VARCHAR(60) DEFAULT NULL,
-  `dosage` VARCHAR(60) DEFAULT NULL,
-  `id_medication` INTEGER UNSIGNED DEFAULT NULL,
-  `id_physician` INTEGER UNSIGNED DEFAULT NULL,
-  `id_patient` INTEGER UNSIGNED DEFAULT NULL,
+  `id` INTEGER NOT NULL AUTO_INCREMENT DEFAULT NOT NULL,
+  `drug_name` VARCHAR(100) NOT NULL DEFAULT 'NULL',
+  `dosage` VARCHAR(100) NULL DEFAULT NULL,
+  `id_medication` INTEGER NOT NULL DEFAULT NULL,
+  `id_physician` INTEGER NOT NULL DEFAULT NOT NULL,
+  `id_patient` INTEGER NOT NULL DEFAULT NOT NULL,
   PRIMARY KEY (`id`)
 );
 
@@ -255,9 +263,9 @@ CREATE TABLE `patient_medication` (
 DROP TABLE IF EXISTS `physician_institution`;
 
 CREATE TABLE `physician_institution` (
-  `id` INTEGER UNSIGNED NOT NULL AUTO_INCREMENT,
-  `id_institution` INTEGER UNSIGNED DEFAULT NULL,
-  `id_physician` INTEGER UNSIGNED DEFAULT NULL,
+  `id` INTEGER NOT NULL AUTO_INCREMENT DEFAULT NOT NULL,
+  `id_institution` INTEGER NOT NULL DEFAULT NOT NULL,
+  `id_physician` INTEGER NOT NULL DEFAULT NOT NULL,
   PRIMARY KEY (`id`)
 );
 
@@ -269,11 +277,12 @@ CREATE TABLE `physician_institution` (
 DROP TABLE IF EXISTS `messages`;
 
 CREATE TABLE `messages` (
-  `id` INTEGER UNSIGNED NOT NULL AUTO_INCREMENT,
-  `direct_message` VARCHAR(10000) NULL,
-  `date` TIMESTAMP NULL,
-  `sender_id` INTEGER UNSIGNED DEFAULT NULL,
-  `receiver_id` INTEGER UNSIGNED DEFAULT NULL,
+  `id` INTEGER NOT NULL AUTO_INCREMENT DEFAULT NOT NULL,
+  `direct_message` VARCHAR(10000) NOT NULL DEFAULT 'NULL',
+  `date` TIMESTAMP NOT NULL DEFAULT 'NULL',
+  `sender_id` INTEGER NOT NULL DEFAULT NOT NULL,
+  `receiver_id` INTEGER NOT NULL DEFAULT NOT NULL,
+  `previous_message_id` INTEGER NOT NULL DEFAULT NULL,
   PRIMARY KEY (`id`)
 );
 
@@ -285,9 +294,9 @@ CREATE TABLE `messages` (
 DROP TABLE IF EXISTS `patient_physician`;
 
 CREATE TABLE `patient_physician` (
-  `id` INTEGER UNSIGNED NOT NULL AUTO_INCREMENT,
-  `id_physician` INTEGER UNSIGNED DEFAULT NULL,
-  `id_patient` INTEGER UNSIGNED DEFAULT NULL,
+  `id` INTEGER NOT NULL AUTO_INCREMENT DEFAULT NOT NULL,
+  `id_physician` INTEGER NOT NULL DEFAULT NOT NULL,
+  `id_patient` INTEGER NOT NULL DEFAULT NOT NULL,
   PRIMARY KEY (`id`)
 );
 
@@ -338,6 +347,44 @@ ALTER TABLE `patient_physician` ADD FOREIGN KEY (id_patient) REFERENCES `patient
 -- ALTER TABLE `messages` ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
 -- ALTER TABLE `patient_physician` ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
 
+-- ---
+-- Test Data
+-- ---
+
+-- INSERT INTO `patient` (`id`,`first`,`last`,`email`,`password`,`pin`,`date_of_birth`,`address`,`city`,`state`,`zip`,`phone_number`,`weight`,`height`,`blood_type`,`photo_path`) VALUES
+-- ('','','','','','','','','','','','','','','','');
+-- INSERT INTO `physician` (`id`,`first`,`last`,`email`,`phone_number`,`password`,`photo_path`,`specialty`) VALUES
+-- ('','','','','','','','');
+-- INSERT INTO `appointment` (`id`,`date`,`time`,`notes`,`id_physician`,`id_patient`,`id_institution`) VALUES
+-- ('','','','','','','');
+-- INSERT INTO `Patient_Form` (`id`,`doctor_notes`,`id_physician`,`id_patient`) VALUES
+-- ('','','','');
+-- INSERT INTO `medication` (`id`,`drug_name`,`details`) VALUES
+-- ('','','');
+-- INSERT INTO `institution` (`id`,`inst_name`,`type`,`description`,`rating`,`phone_number`) VALUES
+-- ('','','','','','');
+-- INSERT INTO `payment` (`id`,`copay`,`bill`,`bill_statement`,`due_date`,`id_physician`,`id_patient`) VALUES
+-- ('','','','','','','');
+-- INSERT INTO `health_log` (`id`,`physician_date`,`physician_notes`,`physician_photo_path`,`patient_date`,`patient_note`,`patient_photo_path`,`id_physician`,`id_patient`) VALUES
+-- ('','','','','','','','','');
+-- INSERT INTO `appointment_document` (`id`,`document`,`id_appointment`) VALUES
+-- ('','','');
+-- INSERT INTO `insurance_company_client` (`id`,`company_name`,`username`,`password`) VALUES
+-- ('','','','');
+-- INSERT INTO `insurance` (`id`,`company_name`,`policy_number`,`type`,`id_insurance_client`,`id_patient`) VALUES
+-- ('','','','','','');
+-- INSERT INTO `administration` (`id`,`login`,`password`) VALUES
+-- ('','','');
+-- INSERT INTO `emergency_contact` (`id`,`first`,`last`,`phone`,`email`,`relationship`,`id_patient`) VALUES
+-- ('','','','','','','');
+-- INSERT INTO `patient_medication` (`id`,`drug_name`,`dosage`,`id_medication`,`id_physician`,`id_patient`) VALUES
+-- ('','','','','','');
+-- INSERT INTO `physician_institution` (`id`,`id_institution`,`id_physician`) VALUES
+-- ('','','');
+-- INSERT INTO `messages` (`id`,`direct_message`,`date`,`sender_id`,`receiver_id`,`previous_message_id`) VALUES
+-- ('','','','','','');
+-- INSERT INTO `patient_physician` (`id`,`id_physician`,`id_patient`) VALUES
+-- ('','','');
 -- ---
 -- Test Data
 -- ---
