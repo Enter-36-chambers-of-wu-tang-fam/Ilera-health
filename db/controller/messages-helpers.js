@@ -3,7 +3,7 @@
 const db = require('../dbConnect/connection.js');
 
 
-module.exports.messages = {
+module.exports = {
 
   // changed
   get_all_messages: (params, cb) => {

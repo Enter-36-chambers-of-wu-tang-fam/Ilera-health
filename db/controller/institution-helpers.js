@@ -2,7 +2,7 @@
 
 const db = require('../dbConnect/connection.js');
 
-module.exports.institution = {
+module.exports = {
 
   make_appointment:(params, cb) => {
     let data = [params.date, params.time, params.notes];
@@ -72,7 +72,7 @@ module.exports.institution = {
       AND id_physician=? LIMIT 50';
     db.query(queryString, data, (error, results) => cb(error, results) );
   }
-  
+
   // (params, cb) => {
   //   let data = [params];
   //   const queryString = ;
