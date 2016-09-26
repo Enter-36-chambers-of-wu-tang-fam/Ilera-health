@@ -52,11 +52,7 @@ CREATE TABLE `physician` (
   `email` VARCHAR(30) NULL,
   `phone_number` VARCHAR(20) NULL,
   `password` VARCHAR(30) NULL,
-<<<<<<< cb7ec69e27e7ced2d5e9fabde05f02b61f73ce7d
   `photo_path` VARCHAR(300) NULL,
-=======
-  `photo_path` VARCHAR(200) NULL,
->>>>>>> physician login closes #91
   `specialty` VARCHAR(40) NULL,
   `sub_specialties` VARCHAR(500) NULL,
   PRIMARY KEY (`id`)
