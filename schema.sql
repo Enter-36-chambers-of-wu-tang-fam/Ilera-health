@@ -22,7 +22,7 @@ CREATE TABLE `patient` (
   `id` INTEGER UNSIGNED NOT NULL AUTO_INCREMENT,
   `first` VARCHAR(30) NULL,
   `last` VARCHAR(30) NULL,
-  `email` VARCHAR(30) DEFAULT NOT NULL,
+  `email` VARCHAR(30) NOT NULL,
   `password` VARCHAR(30) DEFAULT NULL,
   `pin` INTEGER(4) DEFAULT NULL,
   `date_of_birth` DATE NULL,
@@ -52,7 +52,7 @@ CREATE TABLE `physician` (
   `email` VARCHAR(30) NULL,
   `phone_number` VARCHAR(20) NULL,
   `password` VARCHAR(30) NULL,
-  `photo_path` VARCHAR NULL,
+  `photo_path` VARCHAR(300) NULL,
   `specialty` VARCHAR(40) NULL,
   `sub_specialties` VARCHAR(500) NULL,
   PRIMARY KEY (`id`)

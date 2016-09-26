@@ -9,6 +9,8 @@ const Message = require('./routes/messages.js');
 const HealthLog = require('./routes/health_log.js');
 const path = require('path');
 const Patient = require('./routes/patient.js');
+
+const SocketIo = require('socket.io');
 // this was just to test that the server worked feel free to delete
 
 app.use(express.static(__dirname + '/../client'));
@@ -48,7 +50,7 @@ app.post('/api/patient/insurance', Patient.post_insurance_info);
 // app.get('/api/patient_physician/:physicianid', something);
 // Get Request → /api/messages/:physid/:patid  [limit 5]
 // app.get('/api/messages/:physid/:patid', Message.getMessages);
-
+app.post('/api/newmessage', Message.postMessage);
 
 // INSERTED TEMPORARLILY TO TEST OUT ROUTING ON FRONT END
 // app.get('/', (req,res) => {
@@ -61,7 +63,10 @@ app.get('*', function (req, res) {
 });
 
 
-app.listen(3636);
+const server = app.listen(3636);
 console.log("Server is Doing Big ThIngs You can Now Enter the 36 Chambers of the WU on PORT 3636");
+
+const io = new SocketIo(server, {path: '/api/chat'})
+const socketEvents = require('./sockets/socket-events')(io);
 
 module.exports = app;
