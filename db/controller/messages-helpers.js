@@ -9,12 +9,13 @@ module.exports = {
   get_all_messages: (params, cb) => {
     // Get Request → /api/messages/:physid/:patid  [limit 5]
     let data = [params.receiver_id, params.sender_id];
-    const queryString = 'SELECT * FROM messages WHERE receiver_id=? AND sender_id=? LIMIT 5';
+    const queryString = 'SELECT * FROM messages WHERE receiver_id=? AND sender_id=?\
+      ORDER BY date DESC LIMIT 5';
     db.query(queryString, data, (error, results) => cb(error, results) );
   },
 
-  // added
   // may not need this
+  // added
   get_one_message: (params, cb) => {
     // Get Request → /api/messages/:physid/:patid  [limit 5]
     let data = [params.id];
@@ -25,9 +26,9 @@ module.exports = {
   // added
   post_message: (params, cb) => {
     let data = [ params.direct_message, params.sender_id,
-      params.receiver_id, (params.previous_message_id || null) ];
+      params.receiver_id ];
     const queryString = 'INSERT INTO messages(direct_message, sender_id, \
-      receiver_id, previous_message_id, date) value (?,?,?,?, NOW())';
+      receiver_id, date) value (?,?,?,?, NOW())';
     db.query(queryString, data, (error, results) => cb(error, results) );
   },
 
