@@ -1,6 +1,6 @@
 import React, { Component, PropTypes } from 'react';
 import { connect } from 'react-redux';
-import { createMessage } from '../../actions/messages.js';
+import * as actions from '../../actions/messages.js';
 import io from 'socket.io-client';
 
 const socket = io('', { path: '/api/chat' });
@@ -17,8 +17,8 @@ class Messages extends Component {
     }
 
     componentDidMount() {
-      // const { socket, user, dispatch } = this.props;
-      // socket.emit('chat mounted', user);
+      const { socket, user, dispatch } = this.props;
+      socket.emit('chat mounted', user);
       // socket.on('new message', msg =>
       //   dispatch(actions.receiveRawMessage(msg))
       // );
@@ -43,11 +43,7 @@ class Messages extends Component {
       const { dispatch } = this.props;
       if (message.length > 0) {
         console.log("DISPATCH1")
-        dispatch(that.props.onClick(message))
-        socket.emit('chat message', message => {
-          console.log("DISPATCH2")
-          dispatch(that.props.onClick(message))
-        });
+        dispatch(actions.createMessage(message))
       }
       that.setState({ message: ''})
     }
@@ -75,18 +71,11 @@ class Messages extends Component {
     }
 }
 
-const mapDispatchToProps = (dispatch) => {
-  return {
-    onClick: (message) => {
-      dispatch(createMessage(message))
-    }
-  }
-}
-
 const mapStateToProps = (state) => {
+  console.log("*STATE*", state)
   return {
-    messages: state.messages
+    messages: state.messages.newAssignment
   }
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(Messages);
+export default connect(mapStateToProps, actions)(Messages);
