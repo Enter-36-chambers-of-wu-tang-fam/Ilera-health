@@ -3,7 +3,7 @@
 const db = require('../dbConnect/connection.js');
 
 
-module.exports.health_log = {
+module.exports = {
 
   // added
   get_all_health_logs_by_patient_id: (params, cb) => {

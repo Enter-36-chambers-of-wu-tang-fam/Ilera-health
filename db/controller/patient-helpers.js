@@ -13,10 +13,9 @@ module.exports = {
 
   signUp: (params, cb) => {
     let data = [params.first, params.last, params.email, params.password];
-    const queryString = "INSERT INTO patient (first, last, email, password) VALUES (?,?,?,?)";
-    db.query(queryString, data, (error, results) => { 
-      cb(error, results) 
-    });
+    const queryString = "INSERT INTO patient (first, last, email, password) \
+      VALUES (?,?,?,?)";
+    db.query(queryString, data, (error, results) => cb(error, results) );
   },
 
   checkPatient: (params, cb) => {
@@ -56,6 +55,7 @@ module.exports = {
   },
 
 
+  // need to update this
   patient_info: (params, cb) => {
     // Post Request to : api/user/main  =>   { Patient main page }
     // let data = [params.a.id, a.date, a.time, a.notes, a.id_physician, p.first, p.last, p_m.drug_name, p_m.dosage]

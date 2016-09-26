@@ -137,6 +137,7 @@ CREATE TABLE `payment` (
   `due_date` DATE NULL,
   `id_physician` INTEGER UNSIGNED DEFAULT NULL,
   `id_patient` INTEGER UNSIGNED DEFAULT NULL,
+  `id_insurance_client` INTEGER UNSIGNED DEFAULT NULL,
   PRIMARY KEY (`id`)
 );
 
@@ -311,6 +312,7 @@ ALTER TABLE `Patient_Form` ADD FOREIGN KEY (id_physician) REFERENCES `physician`
 ALTER TABLE `Patient_Form` ADD FOREIGN KEY (id_patient) REFERENCES `patient` (`id`);
 ALTER TABLE `payment` ADD FOREIGN KEY (id_physician) REFERENCES `physician` (`id`);
 ALTER TABLE `payment` ADD FOREIGN KEY (id_patient) REFERENCES `patient` (`id`);
+-- ALTER TABLE `payment` ADD FOREIGN KEY (id_insurance_client) REFERENCES `patient` (`id`);
 ALTER TABLE `health_log` ADD FOREIGN KEY (id_physician) REFERENCES `physician` (`id`);
 ALTER TABLE `health_log` ADD FOREIGN KEY (id_patient) REFERENCES `patient` (`id`);
 ALTER TABLE `appointment_document` ADD FOREIGN KEY (id_appointment) REFERENCES `appointment` (`id`);
