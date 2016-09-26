@@ -4,13 +4,15 @@ const app = express();
 const session = require('express-session');
 const db = require('../db/dbConnect/connection.js');
 const Institution = require('./routes/institution.js');
-const Physician = require('./routes/physician.js');
 const Message = require('./routes/messages.js');
 const HealthLog = require('./routes/health_log.js');
 const path = require('path');
 const Patient = require('./routes/patient.js');
+const Physician = require('./routes/physician.js');
 
 const SocketIo = require('socket.io');
+
+
 // this was just to test that the server worked feel free to delete
 
 app.use(express.static(__dirname + '/../client'));
@@ -39,7 +41,7 @@ app.post('/api/patient/emergency_contacts', Patient.post_emer_contact);
 app.post('/api/patient/insurance', Patient.post_insurance_info);
 
 // Post Request To: /api/physician/signup i think this is a guess
-// app.post('/api/physician/signup', Physician.signUp);
+app.post('/api/physician/signup/', Physician.signUp);
 
 //  post to health_log
 // app.post('/api/health_log', HealthLog.postHealthLog);

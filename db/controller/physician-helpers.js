@@ -14,6 +14,7 @@ module.exports = {
   signUp: (params, cb) => {
     // Post Request To: /api/physician/signup i think this is a guess
     let data = [params.first, params.last, params.email, params.password];
+    console.log("MADE IT HERE", data);
     const queryString = "INSERT INTO physician (first, last, email, \
       password) VALUE (?,?,?,?)";
     db.query(queryString, data, (error, results) => cb(error, results) );
