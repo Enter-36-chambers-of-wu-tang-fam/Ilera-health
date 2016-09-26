@@ -3,6 +3,9 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import { render } from 'react-dom';
 
+import getMuiTheme from 'material-ui/styles/getMuiTheme'
+import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider'
+
 // Components
 import App from './components/app.js';
 
@@ -38,6 +41,8 @@ let rootElement = document.getElementById('app');
 
 ReactDOM.render(
   <Provider store={ store }>
-    <Router history={ browserHistory} routes={ routes } />
+     <MuiThemeProvider muiTheme={getMuiTheme()}>
+        <Router history={ browserHistory} routes={ routes } />
+     </MuiThemeProvider>
   </Provider>
   , rootElement);
