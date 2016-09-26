@@ -50,13 +50,12 @@ class SignupForm extends Component {
 		}
   }
 
-  static contextTypes() {
+  static contextTypes = {
       router: React.PropTypes.object
   }
 
 	onSubmit (props) {
-		console.log(props);
-    if(props.userType === 'Patient') {
+    if(this.state.userType === 'Patient') {
       axios.post('/api/patient/signup', props)
       .then( found => {
         //CryptoJS Encoding for user id --> May need to store key in database
@@ -65,13 +64,22 @@ class SignupForm extends Component {
 
         let encodedId = CryptoJS.AES.encrypt(String(found.data), 'key');  //need to change key to actual key 
         localStorage.setItem('uid',encodedId);
-        this.context.router.push('patient/form/background');
+        this.context.router.push('/patient/form/background');
       })
       .catch( err => {
-          console.log("LOGIN ERROR")
+          console.log("LOGIN ERROR", err);
       })
-    }else if(props.userType === 'Provider'){
-        this.context.router.push('provider/')
+    }else if(this.state.userType === 'Provider'){
+
+      axios.post('/api/physician/signup/', props)
+      .then( found => {
+        let encodedId = CryptoJS.AES.encrypt(String(found.data), 'key');  //need to change key to actual key 
+        localStorage.setItem('uid',encodedId);
+        this.context.router.push('provider/');
+      })
+      .catch( err => {
+          console.log("LOGIN ERROR", err);
+      })
     }  
 	}
 
@@ -79,7 +87,7 @@ class SignupForm extends Component {
 		this.setState({ userType: event.target.value })
 	}
 
-	renderField ({ input, label, type, meta: { touched, error } }) {
+  renderField ({ input, label, type, meta: { touched, error } }) {
 		return(
 			<div key={label}>
 				<label>{label}</label>
@@ -93,42 +101,7 @@ class SignupForm extends Component {
 
 	render() {
 		const { error, handleSubmit, pristine, reset, submitting } = this.props;
-		if(this.state.userType === 'Patient'){
-			return (
-				<div>
-					<h2>Sign Up</h2>
-					<form onSubmit={ handleSubmit(props => this.onSubmit(props)) }>
-						<select onChange={this.handleChange.bind(this)} value={this.state.userType}>
-							<option value="Select">Select...</option>
-							<option value="Patient" >Patient</option>
-							<option value="Provider">Provider</option>
-						</select>
-						<PatientSignupForm renderField={this.renderField.bind(this)} />
-			
-						{error && <strong>{error}</strong>}
-						<button type='submit' className='btn'>Next</button>
-					</form>
-				</div>
-			);
-		}else if(this.state.userType === 'Provider'){
-			return (
-				<div>
-					<h2>Sign Up</h2>
-					<form onSubmit={ handleSubmit(props => this.onSubmit(props)) }>
-						<select onChange={this.handleChange.bind(this)} value={this.state.userType}>
-							<option value="Select">Select...</option>
-							<option value="Patient" onChange={this.handleChange}>Patient</option>
-							<option value="Provider" onChange={this.handleChange}>Provider</option>
-						</select>
-						<PhysicianSignupForm renderField={this.renderField.bind(this)} />
-			
-						{error && <strong>{error}</strong>}
-						<button type='submit' className='btn'>Next</button>
-					</form>
-				</div>
-			);
-		}else{
-			return (
+				return (
 				<div>
 					<h2>Sign Up</h2>
 					
@@ -139,13 +112,20 @@ class SignupForm extends Component {
 								<option value="Patient" onChange={this.handleChange}>Patient</option>
 								<option value="Provider" onChange={this.handleChange}>Provider</option>
 							</select>
+              <Field name="first" type="text" component={this.renderField} label="First"/>
+              <Field name="last" type="text" component={this.renderField} label="Last"/>
+              <Field name="email" type="text" component={this.renderField} label="Email"/>
+              <Field name="password" type="password" component={this.renderField} label="Password"/>
+              <Field name="reTypePassword" type="password" component={this.renderField} label="Re-Type Password"/>
+
+              {error && <strong>{error}</strong>}
+						  <button type='submit' className='btn'>Next</button>
 						</form>
 				</div>
 			)
 		}
 		
-	}   
-};
+	};
 
 // user types...recorded on application state
 export default reduxForm({

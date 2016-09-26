@@ -33,7 +33,7 @@ module.exports = {
       if(data.length > 0){
         res.status(409).send("The email address you specified is already in use.");
       } else {
-        hashHelpers.hashPassword(req.body.password)
+        hashHelp.hashPassword(req.body.password)
         .then(hashed=>{
           req.body.password = hashed;
 

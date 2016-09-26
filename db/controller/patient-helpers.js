@@ -49,6 +49,7 @@ module.exports = {
     // Post Request To: api/user/insurance => { insurance }
     let data = [params.uid, params.id_insurance_client, params.type,
       params.policy_number];
+      console.log("DATADATA", data);
     const queryString = 'INSERT INTO insurance(id_patient, id_insurance_client, type, \
       policy_number) value (?, ?, ?, ?)';
     db.query(queryString, data, (error, results) => cb(error, results) );
