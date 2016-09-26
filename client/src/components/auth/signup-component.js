@@ -3,6 +3,18 @@ import axios from 'axios';
 import React, { Component, PropTypes } from 'react';
 import { Field, reduxForm } from 'redux-form';
 import CryptoJS from 'crypto-js';
+import {
+  AutoComplete,
+  Checkbox,
+  DatePicker,
+  TimePicker,
+  RadioButtonGroup,
+  SelectField,
+  Slider,
+  TextField,
+  Toggle
+} from 'redux-form-material-ui'
+
 
 // Components
 import PatientSignupForm from '../patient-app/patient-signup.jsx';
@@ -11,6 +23,12 @@ import PhysicianSignupForm from '../physician-app/physician-signup.jsx';
 
 const validate = values => {
   const errors = {}
+	 if (!values.first) {
+    errors.first = 'Please enter your first name'
+  }
+	 if (!values.last) {
+    errors.last = 'Please enter your last name'
+  }
   if (!values.email) {
     errors.email = 'Please enter your email'
   }
@@ -113,6 +131,7 @@ class SignupForm extends Component {
 			return (
 				<div>
 					<h2>Sign Up</h2>
+					
 					<h6>Please select an option below:</h6>
 					<form onSubmit={ handleSubmit(props => this.onSubmit(props)) }>
 							<select onChange={this.handleChange.bind(this)} value={this.state.userType}>

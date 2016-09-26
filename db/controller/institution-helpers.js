@@ -51,7 +51,7 @@ module.exports = {
   // added
   getAll_patient_medication: (params, cb)=>{
     let data = [params.id_patient];
-    const = queryString = 'SELECT * FROM patient_medication WHERE \
+    const queryString = 'SELECT * FROM patient_medication WHERE \
       id_patient=? LIMIT 40';
     db.query(queryString, data, (error, results) => cb(error, results) );
   },

@@ -58,6 +58,7 @@ class Messages extends Component {
     }
 
     render() {
+      console.log("Message****", this.state.messages);
       return (
           <div>
             <div id="chatBoard"></div>

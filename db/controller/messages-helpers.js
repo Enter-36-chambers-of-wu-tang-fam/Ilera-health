@@ -37,7 +37,7 @@ module.exports = {
     let data = [params.id];
     const queryString = 'DELETE FROM messages WHERE id=? LIMIT 1';
     db.query(queryString, data, (error, results) => cb(error, results) );
-  }
+  },
 
   // added
   edit_one_message: (params, cb) => {

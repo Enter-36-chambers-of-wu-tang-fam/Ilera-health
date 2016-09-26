@@ -1,28 +1,34 @@
 import React, { Component, PropTypes } from 'react';
 import { Field, reduxForm } from 'redux-form';
-
+import { TextField } from 'redux-form-material-ui'
 
 const PatientSignupForm = ({}) => {
 
-    const renderField = ({ input, label, type, meta: { touched, error } }) => {
-		return(
-			<div key={label}>
-				<label>{label}</label>
-				<input {...input} placeholder={label} type={type} />
-				<div className='formErrors'>
-					{ touched && error && <span>{error}</span> }
-				</div>
-			</div>
+		const renderTextField = props => (
+			<TextField hintText={props.label}
+				floatingLabelText={props.label}
+				errorText={props.touched && props.error}
+				{...props}
+			/>
 		)
-	}
 
     return (
         <div>
-            <Field name="first" type="text" component={renderField} label="First"/>
-            <Field name="last" type="text" component={renderField} label="Last"/>
-            <Field name="email" type="text" component={renderField} label="Email"/>
-            <Field name="password" type="password" component={renderField} label="Password"/>
-            <Field name="reTypePassword" type="password" component={renderField} label="Re-Type Password"/>
+						<div>
+            	<Field name="first" type="text" component={renderTextField} label="First"/>
+						</div>
+						<div>
+            	<Field name="last" type="text" component={renderTextField} label="Last"/>
+						</div>
+						<div>
+            	<Field name="email" type="text" component={renderTextField} label="Email"/>
+						</div>
+						<div>
+            	<Field name="password" type="password" component={renderTextField} label="Password"/>
+						</div>
+						<div>
+            	<Field name="reTypePassword" type="password" component={renderTextField} label="Re-Type Password"/>
+						</div>
         </div>
     );
 };
