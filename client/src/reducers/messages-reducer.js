@@ -11,7 +11,7 @@ export default function messageReducer(state = {}, action) {
             isFetching: true,
         })
     case MESSAGE_ADD_SUCCESS:
-      console.log("MESSAGE_ADD_SUCCESS");
+      console.log("MESSAGE_ADD_SUCCESS", action.payload);
       return Object.assign({}, state, {
         isFetching: false,
         newAssignment: action.payload,

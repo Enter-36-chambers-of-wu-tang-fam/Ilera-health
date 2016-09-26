@@ -46,3 +46,5 @@ ReactDOM.render(
      </MuiThemeProvider>
   </Provider>
   , rootElement);
+
+  export.modules = store;

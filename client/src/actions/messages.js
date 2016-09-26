@@ -38,3 +38,8 @@ export function createMessage(message) {
 			})
   }
 }
+
+export function fetchMessages(receiverId, senderId) {
+	console.log("FETCH MESSAGES")
+  
+}

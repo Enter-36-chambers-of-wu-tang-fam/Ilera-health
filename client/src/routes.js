@@ -28,6 +28,9 @@ import PatientDashboard from './components/patient-app/patient-dashboard.jsx';
 import HealthLog from './components/patient-app/health-log.jsx';
 import Medications from './components/patient-app/medications.jsx';
 
+// Route Callbacks
+import { onMessagesEnter } from './route-callback.js';
+
 export default (
     <Router path='/' component= { App } >
         <IndexRoute component={ Signup }/>
@@ -56,7 +59,7 @@ export default (
             <Route path="physicians" component={ AllUsers } >
               <Route path=':first:last' component={ Profile } />
             </Route>
-            <Route path="messages" component={ Messages } />
+            <Route path="messages" component={ Messages } onEnter={ onMessagesEnter } />
             <Route path="profile" component={ Profile } />
             <Route path="medications" component ={ Medications } />                 
         </Route>
