@@ -8,7 +8,7 @@ var sess;
 module.exports = {
 
   signIn: (req, res) => {
-    Patient.signIn(req.body, (error, data) => {      
+    Patient.signIn(req.body, (error, data) => {
       if(data.length > 0){
         bcrypt.compare(req.body.password, data[0].password, (error, result) => {
           if(result){
@@ -51,12 +51,24 @@ module.exports = {
       }
     });
   },
-
-  post_init_form: (req, res) => {
-    Patient.initform_patient(req.body, (err,data)=>{
-      if(err) console.log(err);
-      res.json(data);
-    });
+  // cahnge to put
+  // hash new password and do not hash if it is the same password
+  put_init_form: (req, res) => {
+    if(req.body.newPassword){
+      .then( hash => {
+        delete req.body.newPassword;
+        req.body.password = hash;
+        Patient.initform_patient(req.body, (error, data) => {
+          if(error) console.log(error);
+          res.json(data);
+        });
+      });
+    } else {
+      Patient.initform_patient(req.body, (error, data) => {
+        if(error) console.log(error);
+        res.json(data);
+      });
+    }
   },
 
   post_emer_contact: (req, res) => {
@@ -80,6 +92,12 @@ module.exports = {
       res.json(data);
     });
   },
+
+  logout: (req, res) => {
+    sess = undefined;
+    req.session.destroy();
+    res.status(200).send("Logout complete");
+  }
   //
   // (req, res) => {
   //   Patient.funcHere(req.body, (err,data)=>{
@@ -87,9 +105,4 @@ module.exports = {
   //     res.json(data);
   //   });
   // },
-  logout: (req, res) => {
-    sess = undefined;
-    req.session.destroy();
-    res.status(200).send("Logout complete");
-  }
 };
