@@ -3,6 +3,19 @@ import axios from 'axios';
 import React, { Component, PropTypes } from 'react';
 import { Field, reduxForm } from 'redux-form';
 import CryptoJS from 'crypto-js';
+import {
+  AutoComplete,
+  Checkbox,
+  DatePicker,
+  TimePicker,
+  RadioButtonGroup,
+  RadioButton,
+  SelectField,
+  Slider,
+  TextField,
+  Toggle,
+  MenuItem
+} from 'redux-form-material-ui'
 
 // Actions
 import { emergencyContact } from '../../actions/actions.js';
@@ -54,17 +67,18 @@ class DemographicForm extends Component {
           })   
     }
 
-    renderField = ({ input, label, type, meta: { touched, error } }) => {
+    renderTextField (props) {
         return(
-            <div key={label}>
-                <label>{label}</label>
-                <input {...input} placeholder={label} type={type} />
-                <div className='formErrors'>
-                    { touched && error && <span>{error}</span> }
-                </div>
-            </div>
+        <TextField 
+            hintText={props.label}
+            floatingLabelText={props.label}
+            fullWidth={true}
+            errorText={props.touched && props.error}
+            {...props}
+        />
         )
     }
+
 
     render() {
         const { error, handleSubmit, pristine, reset, submitting } = this.props;
@@ -73,11 +87,11 @@ class DemographicForm extends Component {
             <div>
                 <h2>Basic User Info</h2>
                 <form onSubmit={ handleSubmit(props => this.onSubmit(props)) }>
-                    <Field name="first" type="text" component={this.renderField} label="First Name"/>
-                    <Field name="last" type="text" component={this.renderField} label="Last Name"/>
-                    <Field name="date_of_birth" type="date" component={this.renderField} label="Date of Birth"/>
-                    <Field name="address" type="text" component={this.renderField} label="Street Address"/>
-                    <Field name="city" type="text" component={this.renderField} label="City"/>
+                    <Field name="first" type="text" component={this.renderTextField} label="First Name"/>
+                    <Field name="last" type="text" component={this.renderTextField} label="Last Name"/>
+                    <Field name="date_of_birth" type="date" component={this.renderTextField} label="Date of Birth"/>
+                    <Field name="address" type="text" component={this.renderTextField} label="Street Address"/>
+                    <Field name="city" type="text" component={this.renderTextField} label="City"/>
                     <Field name="state" component="select">
                         <option value="">Select A State</option>
                         <option value="AL">Alabama</option>
@@ -132,11 +146,11 @@ class DemographicForm extends Component {
                         <option value="WI">Wisconsin</option>
                         <option value="WY">Wyoming</option>
                     </Field>
-                    <Field name="zip" type="text" component={this.renderField} label="Zip Code"/>
-                    <Field name="email" type="text" component={this.renderField} label="Email"/> 
-                    <Field name="phone_number" type="text" component={this.renderField} label="Phone Number"/>
-                    <Field name="weight" type="text" component={this.renderField} label="Weight"/>
-                    <Field name="height" type="text" component={this.renderField} label="Height"/>   
+                    <Field name="zip" type="text" component={this.renderTextField} label="Zip Code"/>
+                    <Field name="email" type="text" component={this.renderTextField} label="Email"/> 
+                    <Field name="phone_number" type="text" component={this.renderTextField} label="Phone Number"/>
+                    <Field name="weight" type="text" component={this.renderTextField} label="Weight"/>
+                    <Field name="height" type="text" component={this.renderTextField} label="Height"/>   
                     <Field name="blood_type" component="select">
                         <option value="">Blood Type</option>
                         <option value="A+">A+</option>

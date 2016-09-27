@@ -43,6 +43,13 @@ table {
 	border-spacing: 0;
 }
 
+clearfix:after{
+    display: block;
+    clear: both;
+    height: 0;
+    content:  '';
+}
+
 h2{
     text-transform: uppercase;
     text-align: center;
@@ -65,10 +72,13 @@ form > div div{
     width: 500px;
 }
 
+
+
 .btn{
     width: 140px;
     padding: 8px;
     text-transform: uppercase;
+    text-align: center;
     border-radius: 3px;
     font-size: 20px;
     border: none;
@@ -78,3 +88,28 @@ form > div div{
     background: #01A2A6;
     color: white;
 }
+
+.btn-back{
+    float: left;
+}
+
+/* DASHBOARD */
+.dashboardRows > div {
+    float: left;
+    width: 25%;
+    min-height: 100px;
+    border: 1px solid #333;
+}
+
+.dashboardMessages{
+    width: 50%;
+}
+
+#chatBoard{
+    min-height: 150px;
+    width: 200px;
+    border: 1px solid black;
+    margin: 0 auto;
+}
+
+
