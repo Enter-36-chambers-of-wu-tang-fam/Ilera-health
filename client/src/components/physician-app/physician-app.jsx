@@ -1,14 +1,17 @@
 // React
 import React, { Component, PropTypes } from 'react';
 
-// Components
-import Signin from '../auth/signin-component.js';
 
 export default class PhysicianApp extends Component {
+    logOut() {
+      localStorage.removeItem('uid');          
+      localStorage.removeItem('userType');
+    }
+
     render(){
         return (
             <div>
-                PhysicianApp
+                <a href="#" onClick={this.logOut}>Click to be able to return to signIn page (find me in physician-app)</a>
                 { this.props.children }
             </div>
         ); 

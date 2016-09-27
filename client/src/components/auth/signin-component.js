@@ -39,9 +39,7 @@ class SigninForm extends Component {
 
         localStorage.setItem('uid',encodedId);          
         localStorage.setItem('userType',props.userType);
-          
-        this.context.router.push(`${props.userType}/dashboard`);
-        
+        this.props.authenticateUser();       
       })
       .catch( err => {
           console.log("LOGIN ERROR", err);
@@ -84,10 +82,13 @@ class SigninForm extends Component {
 
 // user types...recorded on application state
 
-export default reduxForm({
+SigninForm = reduxForm({
 	form: 'SigninForm',
-  onSubmitSuccess: (result, dispatch) => {
-    dispatch(authenticateUser());
-  },
 	validate
 }, null, {  })(SigninForm);
+
+function mapDispatchToProps(dispatch) {
+    return bindActionCreators({ authenticateUser }, dispatch);
+}
+
+export default connect(null, mapDispatchToProps)(SigninForm)

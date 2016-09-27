@@ -19,7 +19,7 @@ export default function (ComposedComponent) {
     }
 
     componentWillUpdate(nextProps) {
-      if(!this.props.authentication){
+      if(!nextProps.authentication){
         this.context.router.push('/');
       } 
       

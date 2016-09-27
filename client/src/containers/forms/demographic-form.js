@@ -51,20 +51,18 @@ class DemographicForm extends Component {
     }
 
     onSubmit = (props) => {
-        console.log(props);
-
-        //get encoded id from local storage
-        let id = localStorage.getItem('uid');
-        //code to decode user id stored in local storage
-        let code  = CryptoJS.AES.decrypt(id.toString(), 'key'); //need to change key
-        props.uid = code.toString(CryptoJS.enc.Utf8);
-        axios.put('/api/patient/background', props)
-          .then( found => {
-            this.context.router.push('/patient/form/emergencyContact/');
-          })
-          .catch( err => {
-              console.log("ERROR ENTERING INFORMATION");
-          })   
+      //get encoded id from local storage
+      let id = localStorage.getItem('uid');
+      //code to decode user id stored in local storage
+      let code  = CryptoJS.AES.decrypt(id.toString(), 'key'); //need to change key
+      props.uid = code.toString(CryptoJS.enc.Utf8);
+      axios.put('/api/patient/background', props)
+        .then( found => {
+          this.context.router.push('/patient/form/emergencyContact/');
+        })
+        .catch( err => {
+            console.log("ERROR ENTERING INFORMATION", err);
+        })   
     }
 
     renderTextField (props) {

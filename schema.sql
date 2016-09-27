@@ -51,7 +51,7 @@ CREATE TABLE `physician` (
   `last` VARCHAR(30) NULL,
   `email` VARCHAR(30) NULL,
   `phone_number` VARCHAR(20) NULL,
-  `password` VARCHAR(30) NULL,
+  `password` VARCHAR(300) NULL,
   `photo_path` VARCHAR(300) NULL,
   `specialty` VARCHAR(500) NULL,
   PRIMARY KEY (`id`)

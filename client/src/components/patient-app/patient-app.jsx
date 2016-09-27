@@ -12,18 +12,19 @@ class PatientApp extends Component {
       router: React.PropTypes.object
   }
 
-  authenticated() {
-    if (!this.props.authenticated) {
-      this.context.router.push('/');
-    }
+  logOut() {
+    localStorage.removeItem('uid');          
+    localStorage.removeItem('userType');
   }
-    render(){
-        return (
-            <div>
-                { this.props.children }
-            </div>
-        ); 
-    }
+
+  render(){
+    return (
+      <div>
+      <a href="#" onClick={this.logOut}>Click to be able to return to signIn page (find me in patient-app)</a>
+        { this.props.children }
+      </div>
+    ); 
+  }
 };
 
 function mapStateToProps(state){

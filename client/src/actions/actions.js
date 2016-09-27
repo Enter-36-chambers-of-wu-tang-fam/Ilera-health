@@ -1,20 +1,34 @@
 // ACTIONS FOR LOGIN, SIGNUP AND LOGOUT
 
-
 import axios from 'axios';
 import { browserHistory } from 'react-router'
 import * as types from './action-types';
 
-/***********************SIGN IN | SIGN IN | SIGN IN *****************************/
+/***********************SIGN IN && SIGN UP *****************************/
 
 /////////////////HIGHER ORDER AUTHENTICATION///////////////////////
-export function authenticateUser(userType){
-  return {
-    type: types.CHANGE_AUTH,
+export function authenticateUser(){
+ return function(dispatch){
+  dispatch({
+    type: types.AUTHENTICATE,
     payload: localStorage.getItem('uid'),
     userType: localStorage.getItem('userType')
-  }
+  })
+ }
 }
+
+
+
+
+//CAN DELETE THE ONES BELOW WHEN WE ARE DONE ^^ THESE ARE THE ONES IN CURRENT USE
+
+
+
+
+
+
+
+
 
 ////////////////LOGIN LOGIN LOGIN ///////////////
 

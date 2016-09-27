@@ -16,8 +16,9 @@ module.exports = {
             sess.email = data[0].email;
             sess.user = data[0].id;
             module.exports.sess = sess;
-            res.status(200).send();
+            res.json(data);
           } else{
+            console.log(error);
             res.status(401).send("That email and/or password was not found");
           }
         })
@@ -29,7 +30,9 @@ module.exports = {
 
   signUp: (req, res) => {
     Physician.checkPhysician(req.body,(error,data) => {
-      if(error){ throw error;}
+      
+      if(error){ console.log(error);}
+
       if(data.length > 0){
         res.status(409).send("The email address you specified is already in use.");
       } else {
@@ -41,9 +44,9 @@ module.exports = {
             if(error) console.log(error);
             sess = req.session;
             sess.email = req.body.email;
-            sess.user = data.insertId;
+            sess.user = data;
             module.exports.sess = sess;
-            res.status(200).json(data);
+            res.json(data);
           });
         })
       }

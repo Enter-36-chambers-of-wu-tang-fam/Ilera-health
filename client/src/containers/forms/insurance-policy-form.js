@@ -56,7 +56,7 @@ class InsuranceForm extends Component {
       this.context.router.push('/patient/dashboard/');
     })
     .catch( err => {
-        console.log("ERROR ENTERING INFORMATION");
+        console.log("ERROR ENTERING INFORMATION", err);
     })       
   }
 
