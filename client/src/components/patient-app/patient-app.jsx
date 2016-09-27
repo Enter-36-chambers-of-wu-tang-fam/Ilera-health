@@ -21,6 +21,7 @@ class PatientApp extends Component {
     localStorage.removeItem('userType');
   }
 
+
   render(){
     return (
       <div>
