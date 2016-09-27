@@ -26,9 +26,9 @@ module.exports = {
 
   init_staff_info: (params, cb) => {
     let data = [params.first, params.last, params.email, params.phone_number,
-      params.photo_path];
+      params.photo_path, params.password];
     const queryString = 'UPDATE staff SET first=?, last=?, email=?, phone_number=? \
-      photo_path=? WHERE id ="'+params.uid+'" LIMIT 1';
+      photo_path=?, password=? WHERE id ="'+params.uid+'" LIMIT 1';
     db.query(queryString, data, (error, results) => cb(error, results) );
   }
 

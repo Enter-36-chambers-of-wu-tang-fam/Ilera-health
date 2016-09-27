@@ -54,10 +54,21 @@ module.exports = {
   },
 
   post_staffInfo: (req, res) => {
-    Staff.init_staff_info(req.body, (err,data)=>{
-      if(err) console.log(err);
-      res.json(data);
-    });
+    if(req.body.newPassword){
+      .then( hash => {
+        delete req.body.newPassword;
+        req.body.password = hash;
+        Staff.init_staff_info(req.body, (error, data) => {
+          if(error) console.log(error);
+          res.json(data);
+        });
+      });
+    } else {
+      Staff.init_staff_info(req.body, (error, data) => {
+        if(error) console.log(error);
+        res.json(data);
+      });
+    }
   },
 
   logout: (req, res) => {
