@@ -18,6 +18,10 @@ time, mark, audio, video {
 	font: inherit;
 	vertical-align: baseline;
 }
+
+*{
+    box-sizing: border-box;
+}
 /* HTML5 display-role reset for older browsers */
 article, aside, details, figcaption, figure, 
 footer, header, hgroup, menu, nav, section {
@@ -29,6 +33,9 @@ body {
 }
 ol, ul {
 	list-style: none;
+}
+a{
+    text-decoration: none;
 }
 blockquote, q {
 	quotes: none;
@@ -47,7 +54,7 @@ clearfix:after{
     display: block;
     clear: both;
     height: 0;
-    content:  '';
+    content: '';
 }
 
 h2{
@@ -55,6 +62,16 @@ h2{
     text-align: center;
     font-size: 42px;
     margin: 20px 0;
+}
+
+#app{
+    width: 100%;
+    min-height: 10px;
+}
+
+header{
+    min-height: 50px;
+    box-shadow: 0px 0px 10px 2px #ddd;
 }
 
 form {
@@ -71,8 +88,35 @@ input[type='radio']{
 form > div div{
     width: 500px;
 }
+.dashboardRows{
+    min-height: 10px;
+}
 
+.dashboardRows:after, .reminders:after{
+    clear: both;
+    content: '';
+    display: block;
+}
 
+.dashboardRows h3{
+    font-size: 32px;
+    text-transform: uppercase;
+    font-weight: lighter;
+    text-align: center;
+    margin: 15px 0;
+}
+
+.dashboardRows i {
+    font-size: 106px;
+    display: block;
+    width: 96px;
+    margin: 0 auto;
+}
+
+.dashboardRows h5{
+    font-size: 72px;
+    text-align: center;
+}
 
 .btn{
     width: 140px;
@@ -94,15 +138,23 @@ form > div div{
 }
 
 /* DASHBOARD */
-.dashboardRows > div {
+.bottomRow > div, .bottomRow > a {
     float: left;
-    width: 25%;
+    width: 33%;
     min-height: 100px;
     border: 1px solid #333;
+    display: block;
 }
 
-.dashboardMessages{
-    width: 50%;
+.dashboardInsurance h5{
+    font-size: 14px;
+    text-transform: uppercase;
+    text-align: left;
+}
+
+.dashboardInsurance p{
+    font-size: 18px;
+    margin-bottom: 15px;
 }
 
 #chatBoard{
@@ -112,4 +164,33 @@ form > div div{
     margin: 0 auto;
 }
 
+.bottomRow p{
+    text-align: center;
+    font-size: 24px;
+    margin: 15px 0;
+    font-weight: lighter;
+}
 
+.dashboardMain > div{
+    float: left;
+    width: 30%;
+    padding: 20px;
+}
+
+.dashboardMain > div::last-of-type{
+    width: 40%;
+}
+
+.reminders > div, .reminders > h6{
+    float: left;
+    padding: 10px;
+}
+
+.reminders > div{
+    width: 20%;
+    text-align: center;
+}
+
+.reminders > h6{
+    width: 80%;
+}
