@@ -11,7 +11,7 @@ import Signin from './components/auth/signin-component.js';
 import Signup from './components/auth/signup-component.js';
 import AllUsers from './components/shared/allUsers.jsx';
 import Profile from './components/shared/profile.jsx';
-import Messages from './components/shared/messages.jsx'
+import Chat from './containers/chat-container.js';
 
 // Physician Components
 import PhysicianApp from './components/physician-app/physician-app.jsx';
@@ -28,9 +28,6 @@ import PatientDashboard from './components/patient-app/patient-dashboard.jsx';
 import HealthLog from './components/patient-app/health-log.jsx';
 import Medications from './components/patient-app/medications.jsx';
 
-// Route Callbacks
-import { onMessagesEnter } from './route-callback.js';
-
 export default (
     <Router path='/' component= { App } >
         <IndexRoute component={ Signup }/>
@@ -43,7 +40,7 @@ export default (
               <Route path=':first:last' component={ Profile } />
             </Route>
             <Route path="notes" component={ Notes } />
-            <Route path="messages" component={ Messages } />
+            <Route path="messages" component={ Chat } />
             <Route path="profile" component={ Profile } />
             <Route path="calendar" component ={ Calendar }/>  
         </Route>  
@@ -59,7 +56,7 @@ export default (
             <Route path="physicians" component={ AllUsers } >
               <Route path=':first:last' component={ Profile } />
             </Route>
-            <Route path="messages" component={ Messages } onEnter={ onMessagesEnter } />
+            <Route path="messages" component={ Chat } />
             <Route path="profile" component={ Profile } />
             <Route path="medications" component ={ Medications } />                 
         </Route>

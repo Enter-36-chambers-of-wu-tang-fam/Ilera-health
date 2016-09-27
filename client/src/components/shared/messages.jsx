@@ -1,9 +1,10 @@
 import React, { Component, PropTypes } from 'react';
 import { connect } from 'react-redux';
 import * as actions from '../../actions/messages.js';
-import io from 'socket.io-client';
 
-const socket = io('', { path: '/api/chat' });
+//socketio
+import io from 'socket.io-client';
+const socket = io.connect('', { path: '/api/chat' });
 
 class Messages extends Component {
 
@@ -43,7 +44,7 @@ class Messages extends Component {
       const { dispatch } = this.props;
       if (message.length > 0) {
         console.log("DISPATCH1")
-        dispatch(actions.createMessage(message))
+        dispatch(actions.createMessage(message, 1, 1))
       }
       that.setState({ message: ''})
     }
@@ -54,7 +55,7 @@ class Messages extends Component {
     }
 
     render() {
-      console.log("Message****", this.state.messages);
+      console.log("Message****", this.props.messages);
       return (
           <div>
             <div id="chatBoard"></div>
@@ -69,13 +70,6 @@ class Messages extends Component {
           </div>
       );
     }
-}
+};
 
-const mapStateToProps = (state) => {
-  console.log("*STATE*", state)
-  return {
-    messages: state.messages.newAssignment
-  }
-}
-
-export default connect(mapStateToProps, actions)(Messages);
+export default Messages;

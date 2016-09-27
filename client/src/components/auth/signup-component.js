@@ -9,15 +9,13 @@ import {
   DatePicker,
   TimePicker,
   RadioButtonGroup,
+  RadioButton,
   SelectField,
   Slider,
   TextField,
-  Toggle
+  Toggle,
+  MenuItem
 } from 'redux-form-material-ui'
-
-
-// Components
-
 
 const validate = values => {
   const errors = {}
@@ -44,7 +42,7 @@ class SignupForm extends Component {
   constructor(props){
     super(props);
 		this.state = {
-			userType: 'Select'
+			userType: ''
 		}
   }
 
@@ -53,6 +51,7 @@ class SignupForm extends Component {
   }
 
 	onSubmit (props) {
+    console.log("TYPE", this.state.userType)
     if(this.state.userType === 'Patient') {
       axios.post('/api/patient/signup', props)
       .then( found => {
@@ -82,40 +81,47 @@ class SignupForm extends Component {
 	}
 
 	handleChange(event) {
+    console.log("CHANGE", event.target.value)
 		this.setState({ userType: event.target.value })
 	}
 
-  renderField ({ input, label, type, meta: { touched, error } }) {
-		return(
-			<div key={label}>
-				<label>{label}</label>
-				<input {...input} placeholder={label} type={type} />
-				<div className='formErrors'>
-					{ touched && error && <span>{error}</span> }
-				</div>
-			</div>
-		)
-	}
+  renderTextField (props) {
+    return(
+      <TextField 
+        hintText={props.label}
+        floatingLabelText={props.label}
+        fullWidth={true}
+        errorText={props.touched && props.error}
+        {...props}
+      />
+    )
+  }
 
 	render() {
 		const { error, handleSubmit, pristine, reset, submitting } = this.props;
 				return (
 				<div>
-					<h2>Sign Up</h2>
-
-					<h6>Please select an option below:</h6>
+					<h2>Sign Up</h2>					
 					<form onSubmit={ handleSubmit(props => this.onSubmit(props)) }>
-							<select onChange={this.handleChange.bind(this)} value={this.state.userType}>
-								<option value="Select">Select...</option>
-								<option value="Patient" onChange={this.handleChange}>Patient</option>
-								<option value="Provider" onChange={this.handleChange}>Provider</option>
-							</select>
-              <Field name="first" type="text" component={this.renderField} label="First"/>
-              <Field name="last" type="text" component={this.renderField} label="Last"/>
-              <Field name="email" type="text" component={this.renderField} label="Email"/>
-              <Field name="password" type="password" component={this.renderField} label="Password"/>
-              <Field name="reTypePassword" type="password" component={this.renderField} label="Re-Type Password"/>
-
+							<Field name="userType" component={RadioButtonGroup} onChange={this.handleChange.bind(this)} defaultSelected="Patient">
+                <RadioButton value="Provider" label="Provider" />
+                <RadioButton value="Patient" label="Patient"/>
+              </Field>
+              <div>
+                <Field name="first" type="text" component={this.renderTextField} label="First"/>
+              </div>
+              <div>  
+                <Field name="last" type="text" component={this.renderTextField} label="Last"/>
+              </div>
+              <div>
+                <Field name="email" type="text" component={this.renderTextField} label="Email"/>
+              </div>
+              <div>
+                <Field name="password" type="password" component={this.renderTextField} label="Password"/>
+              </div>
+              <div>
+                <Field name="reTypePassword" type="password" component={this.renderTextField} label="Re-Type Password"/>
+              </div>
               {error && <strong>{error}</strong>}
 						  <button type='submit' className='btn'>Next</button>
 						</form>
@@ -123,7 +129,8 @@ class SignupForm extends Component {
 			)
 		}
 
-	};
+};
+		
 
 // user types...recorded on application state
 export default reduxForm({

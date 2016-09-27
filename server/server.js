@@ -58,7 +58,7 @@ app.post('/api/physician/signin', Physician.signIn);
 // app.get('/api/patient_physician/:physicianid', something);
 // Get Request → /api/messages/:physid/:patid  [limit 5]
 // app.get('/api/messages/:physid/:patid', Message.getMessages);
-app.post('/api/newmessage', Message.postMessage);
+app.post('/api/chat/newmessage', Message.postMessage);
 
 // INSERTED TEMPORARLILY TO TEST OUT ROUTING ON FRONT END
 // app.get('/', (req,res) => {

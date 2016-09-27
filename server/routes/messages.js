@@ -22,7 +22,7 @@ module.exports = {
 
   // added
   postMessage: (req, res) => {
-    console.log("we are here", req.body)
+    console.log("we are here", req.body.direct_message)
     Message.post_message(req.body, (err,data)=>{
       if(err) console.log(err);
       res.json(data);
