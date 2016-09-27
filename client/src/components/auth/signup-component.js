@@ -44,7 +44,7 @@ class SignupForm extends Component {
   constructor(props){
     super(props);
 		this.state = {
-			userType: 'Patient'
+			userType: 'patient'
 		}
   }
 
@@ -52,39 +52,25 @@ class SignupForm extends Component {
     router: React.PropTypes.object
   }
 
-	onSubmit(props) {
-    if(this.state.userType === 'Patient') {      
-      axios.post('/api/patient/signup', props)
-      .then( registered => {
-        let encodedId = CryptoJS.AES.encrypt(String(registered.data), 'key');  //need to change key to actual key 
 
-        localStorage.setItem('uid',encodedId);
-        localStorage.setItem('userType','patient');
+	onSubmit(props) {    
+    axios.post(`/api/${this.state.userType}/signup`, props)
+    .then( registered => {
+      let encodedId = CryptoJS.AES.encrypt(String(registered.data), 'key');  //need to change key to actual key 
 
-        this.context.router.push('/patient/form/background');
+      localStorage.setItem('uid',encodedId);
+      localStorage.setItem('userType',this.state.userType);
+      this.props.authenticateUser();
+      if(this.state.userType === 'patient') this.context.router.push('/patient/form/background');
+      else this.context.router.push('provider/');
 
-      })
-      .catch( err => {
-          console.log("LOGIN ERROR", err);
-      })
-    }else if(this.state.userType === 'Physician'){
-      axios.post('/api/physician/signup', props)
-        .then( registered => {
-        let encodedId = CryptoJS.AES.encrypt(String(registered.data.insertId), 'key');  //need to change key to actual key 
-        
-        localStorage.setItem('uid',encodedId);
-        localStorage.setItem('userType','physician');
-
-        this.context.router.push('provider/');
-      })
-      .catch( err => {
-          console.log("LOGIN ERROR", err);
-      })
-    }
-	}
+    })
+    .catch( err => {
+        console.log("LOGIN ERROR", err);
+    })
+  }
 
 	handleChange(event) {
-    console.log("CHANGE", event.target.value)
 		this.setState({ userType: event.target.value })
 	}
 
@@ -106,9 +92,9 @@ class SignupForm extends Component {
 				<div>
 					<h2>Sign Up</h2>					
 					<form onSubmit={ handleSubmit(props => this.onSubmit(props)) }>
-							<Field name="userType" component={RadioButtonGroup} onChange={this.handleChange.bind(this)} defaultSelected="Physician">
-                <RadioButton value="Physician" label="Provider" />
-                <RadioButton value="Patient" label="Patient"/>
+							<Field name="userType" component={RadioButtonGroup} onChange={this.handleChange.bind(this)} defaultSelected="patient">
+                <RadioButton value="patient" label="Patient"/>
+                <RadioButton value="physician" label="Provider" />
               </Field>
               <div>
                 <Field name="first" type="text" component={this.renderTextField} label="First"/>
@@ -136,10 +122,25 @@ class SignupForm extends Component {
 
 // user types...recorded on application state
 
-export default reduxForm({
+// Old way of doing it
+
+// export default reduxForm({
+// 	form: 'SignupForm',
+//   onSubmitSuccess: (result, dispatch) => {
+//     dispatch(authenticateUser());
+//   },
+// 	validate
+// }, null, {  })(SignupForm);
+
+SignupForm = reduxForm({
 	form: 'SignupForm',
-  onSubmitSuccess: (result, dispatch) => {
-    dispatch(authenticateUser());
-  },
 	validate
 }, null, {  })(SignupForm);
+
+
+function mapDispatchToProps(dispatch) {
+    return bindActionCreators({ authenticateUser }, dispatch);
+}
+
+
+export default connect(null, mapDispatchToProps)(SignupForm)

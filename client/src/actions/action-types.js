@@ -1,6 +1,18 @@
 // ================== SHARED ACTION TYPES ====================
 //Higher order;
-export const CHANGE_AUTH = 'CHANGE_AUTH';
+export const AUTHENTICATE = 'AUTHENTICATE';
+
+
+
+
+
+
+
+
+
+
+//CAN DELETE THE ONES BELOW IF AT THE END OF THE APPLICATION
+
 
 
 

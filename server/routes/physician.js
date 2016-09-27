@@ -8,18 +8,17 @@ var sess;
 module.exports = {
 
   signIn: (req, res) => {
-    console.log("REQUEST BODY REQUEST BODY", req.body);
     Physician.signIn(req.body, (error, data) => {
       if(data.length > 0){
         bcrypt.compare(req.body.password, data[0].password, (error, result) => {
-          console.log("RESULT RESULT RESULT", result);
           if(result){
             sess = req.session;
             sess.email = data[0].email;
             sess.user = data[0].id;
             module.exports.sess = sess;
-            res.status(200).send();
+            res.json(data);
           } else{
+            console.log(error);
             res.status(401).send("That email and/or password was not found");
           }
         })
@@ -31,7 +30,9 @@ module.exports = {
 
   signUp: (req, res) => {
     Physician.checkPhysician(req.body,(error,data) => {
-      if(error){ throw error;}
+      
+      if(error){ console.log(error);}
+
       if(data.length > 0){
         res.status(409).send("The email address you specified is already in use.");
       } else {
@@ -43,9 +44,9 @@ module.exports = {
             if(error) console.log(error);
             sess = req.session;
             sess.email = req.body.email;
-            sess.user = data.insertId;
+            sess.user = data;
             module.exports.sess = sess;
-            res.status(200).json(data);
+            res.json(data);
           });
         })
       }

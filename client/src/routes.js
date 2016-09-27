@@ -8,6 +8,7 @@ import { Router, Route, IndexRoute } from 'react-router';
 //Authentication Requirement
 import PhysicianAuth from './components/auth/physician_auth.js';
 import PatientAuth from './components/auth/patient_auth.js';
+import GeneralAuth from './components/auth/general_auth.js';
 
 //Shared Components
 import App from './components/app.js';
@@ -34,9 +35,9 @@ import Medications from './components/patient-app/medications.jsx';
 
 export default (
     <Router path='/' component= { App } >
-        <IndexRoute component={ Signup }/>
-        <Route path='signup' component={ Signup } />
-        <Route path='signin' component={ Signin } />
+        <IndexRoute component={ GeneralAuth(Signup) }/>
+        <Route path='signup' component={ GeneralAuth(Signup) } />
+        <Route path='signin' component={ GeneralAuth(Signin) } />
         
         <Route path='provider' component={ PhysicianAuth(PhysicianApp) } >
             <Route path="dashboard" component={ PhysicianDashboard } />

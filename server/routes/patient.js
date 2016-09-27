@@ -16,7 +16,7 @@ module.exports = {
             sess.email = data[0].email;
             sess.patient = data[0].id;
             module.exports.sess = sess;
-            res.status(202).send();
+            res.json(data);
           } else{
             res.status(401).send("That email and/or password was not found");
           }
@@ -28,7 +28,6 @@ module.exports = {
   },
 
   signUp: (req, res) => {
-       console.log("*********************REQUESTBODREQUESTBOD*************", req.body);
     Patient.checkPatient(req.body,(error,data)=> {
 
       if(error){ console.log(error);}
