@@ -68,10 +68,8 @@ class SignupForm extends Component {
           console.log("LOGIN ERROR", err);
       })
     }else if(this.state.userType === 'Physician'){
-      console.log("Physician is Called!!")
       axios.post('/api/physician/signup', props)
-
-      .then( registered => {
+        .then( registered => {
         let encodedId = CryptoJS.AES.encrypt(String(registered.data.insertId), 'key');  //need to change key to actual key 
         
         localStorage.setItem('uid',encodedId);
