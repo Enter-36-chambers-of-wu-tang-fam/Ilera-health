@@ -4,7 +4,7 @@ const app = express();
 const session = require('express-session');
 const path = require('path');
 const db = require('./db/dbConnect/connection.js');
-// const Appointment
+//const Appointment
 const HealthLog = require('./routes/health_log.js');
 const Institution = require('./routes/institution.js');
 const InsurancePlan = require('./routes/insurance_plan.js');
