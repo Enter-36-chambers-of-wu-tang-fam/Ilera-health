@@ -1,4 +1,10 @@
 // ================== SHARED ACTION TYPES ====================
+//Higher order;
+export const CHANGE_AUTH = 'CHANGE_AUTH';
+
+
+
+//=========================================
 
 // Log-in
 export const LOGIN_REQUEST = 'LOGIN_REQUEST'; 

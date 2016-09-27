@@ -1,10 +1,22 @@
 // React
 import React, { Component, PropTypes } from 'react';
+import { connect } from 'react-redux';
+import * as actions from '../../actions/actions.js';
 
-// Components
-import Signin from '../auth/signin-component.js';
+class PatientApp extends Component {
+  constructor(props) {
+    super(props);
+  }
+  
+  static contextTypes = {
+      router: React.PropTypes.object
+  }
 
-export default class PatientApp extends Component {
+  authenticated() {
+    if (!this.props.authenticated) {
+      this.context.router.push('/');
+    }
+  }
     render(){
         return (
             <div>
@@ -13,3 +25,9 @@ export default class PatientApp extends Component {
         ); 
     }
 };
+
+function mapStateToProps(state){
+  return {authenticated: state.authenticated}
+}
+
+export default connect(mapStateToProps)(PatientApp);

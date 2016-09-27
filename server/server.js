@@ -4,7 +4,7 @@ const app = express();
 const session = require('express-session');
 const path = require('path');
 const db = require('./db/dbConnect/connection.js');
-// const Appointment
+//const Appointment
 const HealthLog = require('./routes/health_log.js');
 const Institution = require('./routes/institution.js');
 const InsurancePlan = require('./routes/insurance_plan.js');
@@ -47,10 +47,11 @@ app.post('/api/patient/insurance', Patient.post_insurance_info);
 
 // app.post('api/patient/logout', Patient.logout);
 // Post Request To: /api/physician/signup i think this is a guess
-app.post('/api/physician/signup/', Physician.signUp);
+app.post('/api/physician/signup', Physician.signUp);
 
 app.post('/api/physician/signin', Physician.signIn);
 // app.post('api/physician/logout', Physician.logout);
+
 //  post to health_log
 // app.post('/api/health_log', HealthLog.postHealthLog);
 

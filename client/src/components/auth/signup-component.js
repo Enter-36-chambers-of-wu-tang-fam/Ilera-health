@@ -2,6 +2,9 @@ import _ from 'lodash';
 import axios from 'axios';
 import React, { Component, PropTypes } from 'react';
 import { Field, reduxForm } from 'redux-form';
+import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
+import { authenticateUser } from '../../actions/actions.js';
 import CryptoJS from 'crypto-js';
 import {
   AutoComplete,
@@ -13,9 +16,8 @@ import {
   SelectField,
   Slider,
   TextField,
-  Toggle,
-  MenuItem
-} from 'redux-form-material-ui'
+  Toggle
+} from 'redux-form-material-ui';
 
 const validate = values => {
   const errors = {}
@@ -42,36 +44,39 @@ class SignupForm extends Component {
   constructor(props){
     super(props);
 		this.state = {
-			userType: ''
+			userType: 'Patient'
 		}
   }
 
   static contextTypes = {
-      router: React.PropTypes.object
+    router: React.PropTypes.object
   }
 
-	onSubmit (props) {
-    console.log("TYPE", this.state.userType)
-    if(this.state.userType === 'Patient') {
+	onSubmit(props) {
+    if(this.state.userType === 'Patient') {      
       axios.post('/api/patient/signup', props)
-      .then( found => {
-        //CryptoJS Encoding for user id --> May need to store key in database
-        //We can create a random key and add it to props to store in the database above
-        //Maybe defeats the purpose though as the key will be stored on the front end here...
+      .then( registered => {
+        let encodedId = CryptoJS.AES.encrypt(String(registered.data), 'key');  //need to change key to actual key 
 
-        let encodedId = CryptoJS.AES.encrypt(String(found.data), 'key');  //need to change key to actual key
         localStorage.setItem('uid',encodedId);
+        localStorage.setItem('userType','patient');
+
         this.context.router.push('/patient/form/background');
+
       })
       .catch( err => {
           console.log("LOGIN ERROR", err);
       })
-    }else if(this.state.userType === 'Provider'){
+    }else if(this.state.userType === 'Physician'){
+      console.log("Physician is Called!!")
+      axios.post('/api/physician/signup', props)
 
-      axios.post('/api/physician/signup/', props)
-      .then( found => {
-        let encodedId = CryptoJS.AES.encrypt(String(found.data), 'key');  //need to change key to actual key
+      .then( registered => {
+        let encodedId = CryptoJS.AES.encrypt(String(registered.data.insertId), 'key');  //need to change key to actual key 
+        
         localStorage.setItem('uid',encodedId);
+        localStorage.setItem('userType','physician');
+
         this.context.router.push('provider/');
       })
       .catch( err => {
@@ -103,8 +108,8 @@ class SignupForm extends Component {
 				<div>
 					<h2>Sign Up</h2>					
 					<form onSubmit={ handleSubmit(props => this.onSubmit(props)) }>
-							<Field name="userType" component={RadioButtonGroup} onChange={this.handleChange.bind(this)} defaultSelected="Patient">
-                <RadioButton value="Provider" label="Provider" />
+							<Field name="userType" component={RadioButtonGroup} onChange={this.handleChange.bind(this)} defaultSelected="Physician">
+                <RadioButton value="Physician" label="Provider" />
                 <RadioButton value="Patient" label="Patient"/>
               </Field>
               <div>
@@ -132,7 +137,11 @@ class SignupForm extends Component {
 };
 
 // user types...recorded on application state
+
 export default reduxForm({
 	form: 'SignupForm',
+  onSubmitSuccess: (result, dispatch) => {
+    dispatch(authenticateUser());
+  },
 	validate
 }, null, {  })(SignupForm);
