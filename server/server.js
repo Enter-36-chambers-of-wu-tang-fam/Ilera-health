@@ -14,6 +14,7 @@ const Message = require('./routes/messages.js');
 const Patient = require('./routes/patient.js');
 const Physician = require('./routes/physician.js');
 
+// sockets
 const SocketIo = require('socket.io');
 
 

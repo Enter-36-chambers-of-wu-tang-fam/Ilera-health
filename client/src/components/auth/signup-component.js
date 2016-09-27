@@ -130,7 +130,6 @@ class SignupForm extends Component {
 		}
 
 };
-		
 
 // user types...recorded on application state
 export default reduxForm({
