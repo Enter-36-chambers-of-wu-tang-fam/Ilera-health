@@ -5,6 +5,10 @@ import ReactDOM from 'react-dom';
 // React Router
 import { Router, Route, IndexRoute } from 'react-router';
 
+//Authentication Requirement
+import PhysicianAuth from './components/auth/physician_auth.js';
+import PatientAuth from './components/auth/patient_auth.js';
+
 //Shared Components
 import App from './components/app.js';
 import Signin from './components/auth/signin-component.js';
@@ -34,7 +38,7 @@ export default (
         <Route path='signup' component={ Signup } />
         <Route path='signin' component={ Signin } />
         
-        <Route path='provider' component={ PhysicianApp } >
+        <Route path='provider' component={ PhysicianAuth(PhysicianApp) } >
             <Route path="dashboard" component={ PhysicianDashboard } />
             <Route path="patients" component={ AllUsers } >
               <Route path=':first:last' component={ Profile } />
@@ -44,7 +48,7 @@ export default (
             <Route path="profile" component={ Profile } />
             <Route path="calendar" component ={ Calendar }/>  
         </Route>  
-        <Route path='patient' component={ PatientApp } >
+        <Route path='patient' component={ PatientAuth(PatientApp) } >
             <Route path="form" > 
                 <IndexRoute component={ BackgroundForm } />
                 <Route path='background' component={ BackgroundForm } />

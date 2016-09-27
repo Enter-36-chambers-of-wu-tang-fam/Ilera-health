@@ -44,7 +44,7 @@ class SignupForm extends Component {
   constructor(props){
     super(props);
 		this.state = {
-			userType: ''
+			userType: 'Patient'
 		}
   }
 
@@ -68,11 +68,11 @@ class SignupForm extends Component {
           console.log("LOGIN ERROR", err);
       })
     }else if(this.state.userType === 'Physician'){
-
-      axios.post('/api/physician/signup/', props)
+      console.log("Physician is Called!!")
+      axios.post('/api/physician/signup', props)
 
       .then( registered => {
-        let encodedId = CryptoJS.AES.encrypt(String(registered.data), 'key');  //need to change key to actual key 
+        let encodedId = CryptoJS.AES.encrypt(String(registered.data.insertId), 'key');  //need to change key to actual key 
         
         localStorage.setItem('uid',encodedId);
         localStorage.setItem('userType','physician');
@@ -108,8 +108,8 @@ class SignupForm extends Component {
 				<div>
 					<h2>Sign Up</h2>					
 					<form onSubmit={ handleSubmit(props => this.onSubmit(props)) }>
-							<Field name="userType" component={RadioButtonGroup} onChange={this.handleChange.bind(this)} defaultSelected="Patient">
-                <RadioButton value="Provider" label="Provider" />
+							<Field name="userType" component={RadioButtonGroup} onChange={this.handleChange.bind(this)} defaultSelected="Physician">
+                <RadioButton value="Physician" label="Provider" />
                 <RadioButton value="Patient" label="Patient"/>
               </Field>
               <div>

@@ -6,13 +6,9 @@ const Physician = require("../controller/physician-helpers.js");
 module.exports = {
 
   signIn: (req, res) => {
-    console.log("REQUEST BODY REQUEST BODY", req.body);
     Physician.signIn(req.body, (error, data) => {
-      console.log("DATA DATA DATA", data);
       if(data.length > 0){
-        console.log("DATA LENGTH GREATER THAN 0", data);
         bcrypt.compare(req.body.password, data[0].password, (error, result) => {
-          console.log("RESULT RESULT RESULT", result);
           if(result){
             sess = req.session;
             sess.email = data[0].email;
@@ -31,9 +27,7 @@ module.exports = {
 
   signUp: (req, res) => {
     Physician.checkPhysician(req.body,(error,data) => {
-
       if(error){ throw error;}
-
       if(data.length > 0){
         res.status(409).send("The email address you specified is already in use.");
       } else {
@@ -47,7 +41,7 @@ module.exports = {
             sess.email = req.body.email;
             sess.user = data.insertId;
             module.exports.sess = sess;
-            res.status(200).send();
+            res.status(200).json(data);
           });
         })
       }

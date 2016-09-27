@@ -28,6 +28,7 @@ module.exports = {
   },
 
   signUp: (req, res) => {
+       console.log("*********************REQUESTBODREQUESTBOD*************", req.body);
     Patient.checkPatient(req.body,(error,data)=> {
 
       if(error){ console.log(error);}

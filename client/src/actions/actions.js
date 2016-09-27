@@ -8,12 +8,11 @@ import * as types from './action-types';
 /***********************SIGN IN | SIGN IN | SIGN IN *****************************/
 
 /////////////////HIGHER ORDER AUTHENTICATION///////////////////////
-export function authenticateUser(){
+export function authenticateUser(userType){
   return {
     type: types.CHANGE_AUTH,
     payload: localStorage.getItem('uid'),
-    userType: 'Patient'
-
+    userType: localStorage.getItem('userType')
   }
 }
 

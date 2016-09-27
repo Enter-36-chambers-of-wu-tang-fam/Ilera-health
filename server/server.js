@@ -47,7 +47,7 @@ app.post('/api/patient/insurance', Patient.post_insurance_info);
 
 // app.post('api/patient/logout', Patient.logout);
 // Post Request To: /api/physician/signup i think this is a guess
-app.post('/api/physician/signup/', Physician.signUp);
+app.post('/api/physician/signup', Physician.signUp);
 
 app.post('/api/physician/signin', Physician.signIn);
 // app.post('api/physician/logout', Physician.logout);

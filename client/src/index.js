@@ -9,6 +9,7 @@ import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider'
 // Components
 import App from './components/app.js';
 
+
 // Router
 import { Router, browserHistory, hashHistory } from 'react-router';
 import routes from './routes';
