@@ -3,7 +3,10 @@ import React, { Component, PropTypes } from 'react';
 import { connect } from 'react-redux';
 import * as actions from '../../actions/actions.js';
 
-<<<<<<< e7b20a2081046ae40236190e4adb9a0c930f62cd
+// Components
+import Signin from '../auth/signin-component.js';
+import Header from '../shared/header.jsx';
+
 class PatientApp extends Component {
   constructor(props) {
     super(props);
@@ -12,12 +15,6 @@ class PatientApp extends Component {
   static contextTypes = {
       router: React.PropTypes.object
   }
-=======
-// Components
-import Signin from '../auth/signin-component.js';
-import Header from '../shared/header.jsx';
-
->>>>>>> Added dashboard components
 
   authenticated() {
     if (!this.props.authenticated) {
