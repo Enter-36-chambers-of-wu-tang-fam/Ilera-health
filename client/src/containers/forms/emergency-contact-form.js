@@ -4,6 +4,19 @@ import React, { Component, PropTypes } from 'react';
 import { Field, reduxForm } from 'redux-form';
 import { Router, Route, Link, browserHistory } from 'react-router';
 import CryptoJS from 'crypto-js';
+import {
+  AutoComplete,
+  Checkbox,
+  DatePicker,
+  TimePicker,
+  RadioButtonGroup,
+  RadioButton,
+  SelectField,
+  Slider,
+  TextField,
+  Toggle,
+  MenuItem
+} from 'redux-form-material-ui';
 
 
 const validate = values => {
@@ -51,17 +64,17 @@ class EmergencyContactForm extends Component {
       })         
   }
 
-  renderField = ({ input, label, type, meta: { touched, error } }) => {
-    return(
-      <div key={label}>
-        <label>{label}</label>
-        <input {...input} placeholder={label} type={type} />
-        <div className='formErrors'>
-          { touched && error && <span>{error}</span> }
-        </div>
-      </div>
-    )
-  }
+  renderTextField (props) {
+        return(
+        <TextField 
+            hintText={props.label}
+            floatingLabelText={props.label}
+            fullWidth={true}
+            errorText={props.touched && props.error}
+            {...props}
+        />
+        )
+    }
 
   render() {
       const { error, handleSubmit, pristine, reset, submitting } = this.props;
@@ -70,16 +83,18 @@ class EmergencyContactForm extends Component {
         <div>
           <h2>Emergency Contact Info</h2>
           <form onSubmit={ handleSubmit(props => this.onSubmit(props)) }>
-            <Field name="first" type="text" component={this.renderField} label="First Name"/>
-            <Field name="last" type="text" component={this.renderField} label="Last Name"/>
-            <Field name="phone" type="text" component={this.renderField} label="Phone Number"/>
-            <Field name="email" type="email" component={this.renderField} label="Email"/>
-            <Field name="relationship" type="text" component={this.renderField} label="Relationship"/>
+            <Field name="first" type="text" component={this.renderTextField} label="First Name"/>
+            <Field name="last" type="text" component={this.renderTextField} label="Last Name"/>
+            <Field name="phone" type="text" component={this.renderTextField} label="Phone Number"/>
+            <Field name="email" type="email" component={this.renderTextField} label="Email"/>
+            <Field name="relationship" type="text" component={this.renderTextField} label="Relationship"/>
             {error && <strong>{error}</strong>}
-            <Link to='/patient/form/background' >
-              <div className='btn'> Back </div>
-            </Link>
-            <button type='submit'  className='btn'>Next</button>
+            <div className="formBtns clearfix">
+              <Link to='/patient/form/background' >
+                <div className='btn btn-back'> Back </div>
+              </Link>
+              <button type='submit'  className='btn'>Next</button>
+            </div>
           </form>
         </div>
       );

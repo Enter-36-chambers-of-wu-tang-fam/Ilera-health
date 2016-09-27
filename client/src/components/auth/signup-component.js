@@ -25,8 +25,8 @@ const validate = values => {
 	 if (!values.last) {
     errors.last = 'Please enter your last name'
   }
-  if (!values.email) {
-    errors.email = 'Please enter your email'
+  if (values.email && !/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(values.email)) {
+    errors.email = 'Invalid email address'
   }
   if (!values.password) {
     errors.password = 'Password required'
@@ -123,7 +123,7 @@ class SignupForm extends Component {
                 <Field name="reTypePassword" type="password" component={this.renderTextField} label="Re-Type Password"/>
               </div>
               {error && <strong>{error}</strong>}
-						  <button type='submit' className='btn'>Next</button>
+						  <button type='submit' className='btn'>Sign Up</button>
 						</form>
 				</div>
 			)

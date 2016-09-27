@@ -1,8 +1,8 @@
 exports = module.exports = function(io) {
   io.on('connection', function(socket) {
+    console.log("CONNECTION MADE")
     socket.join('Lobby');
     socket.on('chat mounted', function(user) {
-      // TODO: Does the server need to know the user?
       socket.emit('receive socket', socket.id)
     })
     socket.on('leave channel', function(channel) {
@@ -12,12 +12,14 @@ exports = module.exports = function(io) {
       socket.join(channel.name)
     })
     socket.on('new message', function(msg) {
+      console.log("NEW MESSAGE")
       socket.broadcast.to(msg.channelID).emit('new bc message', msg);
     });
     socket.on('new channel', function(channel) {
       socket.broadcast.emit('new channel', channel)
     });
     socket.on('typing', function (data) {
+      console.log("TYPING")
       socket.broadcast.to(data.channel).emit('typing bc', data.user);
     });
     socket.on('stop typing', function (data) {

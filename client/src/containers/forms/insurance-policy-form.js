@@ -4,6 +4,19 @@ import React, { Component, PropTypes } from 'react';
 import { Field, reduxForm } from 'redux-form';
 import { Router, Route, Link, browserHistory } from 'react-router';
 import CryptoJS from 'crypto-js';
+import {
+  AutoComplete,
+  Checkbox,
+  DatePicker,
+  TimePicker,
+  RadioButtonGroup,
+  RadioButton,
+  SelectField,
+  Slider,
+  TextField,
+  Toggle,
+  MenuItem
+} from 'redux-form-material-ui';
 
 const validate = values => {
   const errors = {}
@@ -47,17 +60,17 @@ class InsuranceForm extends Component {
     })       
   }
 
-  renderField = ({ input, label, type, meta: { touched, error } }) => {
-      return(
-          <div key={label}>
-              <label>{label}</label>
-              <input {...input} placeholder={label} type={type} />
-              <div className='formErrors'>
-                  { touched && error && <span>{error}</span> }
-              </div>
-          </div>
-      )
-  }
+  renderTextField (props) {
+        return(
+        <TextField 
+            hintText={props.label}
+            floatingLabelText={props.label}
+            fullWidth={true}
+            errorText={props.touched && props.error}
+            {...props}
+        />
+        )
+    }
 
   render() {
       const { error, handleSubmit, pristine, reset, submitting } = this.props;
@@ -66,14 +79,16 @@ class InsuranceForm extends Component {
           <div>
               <h2>Insurance Info</h2>
               <form onSubmit={ handleSubmit(props => this.onSubmit(props)) }>
-                  <Field name="company_name" type="text" component={this.renderField} label="Insurance Name"/>
-                  <Field name="type" type="text" component={this.renderField} label="Insurance Type"/>
-                  <Field name="policy_number" type="number" component={this.renderField} label="Policy Number"/>
+                  <Field name="company_name" type="text" component={this.renderTextField} label="Insurance Name"/>
+                  <Field name="type" type="text" component={this.renderTextField} label="Insurance Type"/>
+                  <Field name="policy_number" type="number" component={this.renderTextField} label="Policy Number"/>
                   {error && <strong>{error}</strong>}
-                  <Link to='/patient/form/emergencyContact' >
-                      <div className='btn'> Back </div>
-                  </Link>
-                  <button type='submit' className='btn'>Go to Dashboard</button>
+                   <div className="formBtns clearfix">
+                        <Link to='/patient/form/background' >
+                            <div className='btn btn-back'> Back </div>
+                        </Link>
+                        <button type='submit' className='btn'>Finish</button>
+                    </div>
               </form>
           </div>
       );

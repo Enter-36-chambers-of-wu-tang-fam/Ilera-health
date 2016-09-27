@@ -13,6 +13,7 @@ const Medication = require('./routes/medication.js');
 const Message = require('./routes/messages.js');
 const Patient = require('./routes/patient.js');
 const Physician = require('./routes/physician.js');
+
 const SocketIo = require('socket.io');
 
 
@@ -58,7 +59,7 @@ app.post('/api/physician/signin', Physician.signIn);
 // app.get('/api/patient_physician/:physicianid', something);
 // Get Request → /api/messages/:physid/:patid  [limit 5]
 // app.get('/api/messages/:physid/:patid', Message.getMessages);
-app.post('/api/chat/newmessage', Message.postMessage);
+app.post('/api/messages/newmessage', Message.postMessage);
 
 // INSERTED TEMPORARLILY TO TEST OUT ROUTING ON FRONT END
 // app.get('/', (req,res) => {
@@ -74,7 +75,7 @@ app.get('*', function (req, res) {
 const server = app.listen(3636);
 console.log("Server is Doing Big ThIngs You can Now Enter the 36 Chambers of the WU on PORT 3636");
 
-const io = new SocketIo(server, {path: '/api/chat'})
+const io = new SocketIo(server, {path: '/patient/messages'})
 const socketEvents = require('./sockets/socket-events')(io);
 
 module.exports = app;
