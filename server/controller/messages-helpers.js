@@ -14,10 +14,10 @@ module.exports = {
       p.phone_number, p.photo_path, py.id, py.first, py.last, py.email, \
       py.phone_number, py.photo_path, m.id, m.direct_message, m.date, \
       m.sender_id, m.receiver_id \
-      FROM messages m WHERE sender_id=? OR receiver_id=? \
+      FROM messages m \
       JOIN patient p ON p.id = m.sender_id OR p.id = m.receiver_id \
       JOIN physician py ON py.id = m.sender_id OR py.id = m.receiver_id \
-      ORDER BY date DESC LIMIT 25';
+      WHERE sender_id=? OR receiver_id=? ORDER BY date DESC LIMIT 25';
     db.query(queryString, data, (error, results) => cb(error, results) );
   },
   // const queryString = 'SELECT * FROM messages WHERE receiver_id=? OR sender_id=?\
