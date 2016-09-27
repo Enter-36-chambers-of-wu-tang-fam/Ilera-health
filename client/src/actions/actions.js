@@ -29,6 +29,15 @@ export function authenticateUser(){
 
 
 
+/////////////////HIGHER ORDER AUTHENTICATION///////////////////////
+export function authenticateUser(){
+  return {
+    type: types.CHANGE_AUTH,
+    payload: localStorage.getItem('uid'),
+    userType: 'Patient'
+
+  }
+}
 
 ////////////////LOGIN LOGIN LOGIN ///////////////
 

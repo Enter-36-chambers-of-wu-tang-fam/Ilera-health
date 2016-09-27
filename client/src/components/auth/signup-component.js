@@ -47,7 +47,6 @@ class SignupForm extends Component {
     router: React.PropTypes.object
   }
 
-
 	onSubmit(props) {    
     axios.post(`/api/${this.state.userType}/signup`, props)
     .then( registered => {
@@ -117,6 +116,9 @@ class SignupForm extends Component {
 
 SignupForm = reduxForm({
 	form: 'SignupForm',
+  onSubmitSuccess: (result, dispatch) => {
+    dispatch(authenticateUser());
+  },
 	validate
 }, null, {  })(SignupForm);
 

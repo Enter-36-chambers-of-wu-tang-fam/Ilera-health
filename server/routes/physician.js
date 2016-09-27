@@ -8,15 +8,17 @@ var sess;
 module.exports = {
 
   signIn: (req, res) => {
+    console.log("REQUEST BODY REQUEST BODY", req.body);
     Physician.signIn(req.body, (error, data) => {
       if(data.length > 0){
         bcrypt.compare(req.body.password, data[0].password, (error, result) => {
+          console.log("RESULT RESULT RESULT", result);
           if(result){
             sess = req.session;
             sess.email = data[0].email;
             sess.user = data[0].id;
             module.exports.sess = sess;
-            res.json(data);
+            res.json(data[0]);
           } else{
             console.log(error);
             res.status(401).send("That email and/or password was not found");
