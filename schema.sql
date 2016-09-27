@@ -23,7 +23,7 @@ CREATE TABLE `patient` (
   `first` VARCHAR(30) NULL DEFAULT NULL,
   `last` VARCHAR(30) NULL DEFAULT NULL,
   `email` VARCHAR(30) NOT NULL,
-  `password` VARCHAR(30) NULL DEFAULT NULL,
+  `password` VARCHAR(300) NULL DEFAULT NULL,
   `pin` INTEGER(4) NULL DEFAULT NULL,
   `date_of_birth` DATE NULL DEFAULT NULL,
   `address` VARCHAR(60) NULL DEFAULT NULL,
@@ -69,9 +69,9 @@ CREATE TABLE `appointment` (
   `date` DATE NULL DEFAULT NULL,
   `time` TIME NULL DEFAULT NULL,
   `notes` VARCHAR(10000) NULL DEFAULT NULL,
-  `id_physician` INTEGER NOT NULL,
-  `id_patient` INTEGER NOT NULL,
-  `id_institution` INTEGER NOT NULL,
+  `id_physician` INTEGER DEFAULT NULL,
+  `id_patient` INTEGER DEFAULT NULL,
+  `id_institution` INTEGER DEFAULT NULL,
   PRIMARY KEY (`id`)
 );
 
@@ -85,8 +85,8 @@ DROP TABLE IF EXISTS `Patient_Form`;
 CREATE TABLE `Patient_Form` (
   `id` INTEGER NOT NULL AUTO_INCREMENT,
   `doctor_notes` VARCHAR(5000) NULL DEFAULT NULL,
-  `id_physician` INTEGER NOT NULL DEFAULT NOT NULL,
-  `id_patient` INTEGER NOT NULL DEFAULT NOT NULL,
+  `id_physician` INTEGER DEFAULT NULL,
+  `id_patient` INTEGER DEFAULT NULL,
   PRIMARY KEY (`id`)
 );
 
@@ -112,7 +112,7 @@ CREATE TABLE `medication` (
 DROP TABLE IF EXISTS `institution`;
 
 CREATE TABLE `institution` (
-  `id` INTEGER NOT NULL AUTO_INCREMENT DEFAULT NOT NULL,
+  `id` INTEGER NOT NULL AUTO_INCREMENT,
   `inst_name` VARCHAR(30) NULL DEFAULT NULL,
   `type` VARCHAR(25) NULL DEFAULT NULL,
   `description` VARCHAR(300) NULL DEFAULT NULL,
@@ -121,7 +121,7 @@ CREATE TABLE `institution` (
   `address` VARCHAR(300) NULL,
   `city` VARCHAR(50) NULL,
   `state` VARCHAR(3) NULL,
-  `zip` VARCHAR NULL,
+  `zip` VARCHAR(10) NULL,
   `email` VARCHAR(100) NULL,
   PRIMARY KEY (`id`)
 );
@@ -137,10 +137,10 @@ CREATE TABLE `payment` (
   `id` INTEGER NOT NULL AUTO_INCREMENT,
   `copay` INTEGER NULL DEFAULT NULL,
   `bill` INTEGER NULL DEFAULT NULL,
-  `bill_statement` VARCHAR(300) NULL DEFAULT NULL,
-  `due_date` DATE NULL DEFAULT NULL,
-  `id_physician` INTEGER NOT NULL DEFAULT NOT NULL,
-  `id_patient` INTEGER NOT NULL DEFAULT NOT NULL,
+  `bill_statement` VARCHAR(300) NULL,
+  `due_date` DATE DEFAULT NULL,
+  `id_physician` INTEGER DEFAULT NULL,
+  `id_patient` INTEGER DEFAULT NULL,
   PRIMARY KEY (`id`)
 );
 
@@ -159,8 +159,8 @@ CREATE TABLE `health_log` (
   `patient_date` DATE NULL DEFAULT NULL,
   `patient_note` VARCHAR(10000) NULL DEFAULT NULL,
   `patient_photo_path` VARCHAR(300) NULL,
-  `id_physician` INTEGER NOT NULL DEFAULT NOT NULL,
-  `id_patient` INTEGER NOT NULL DEFAULT NOT NULL,
+  `id_physician` INTEGER DEFAULT NULL,
+  `id_patient` INTEGER DEFAULT NULL,
   PRIMARY KEY (`id`)
 );
 
@@ -174,7 +174,7 @@ DROP TABLE IF EXISTS `appointment_document`;
 CREATE TABLE `appointment_document` (
   `id` INTEGER NOT NULL AUTO_INCREMENT,
   `document` BLOB(400) NULL DEFAULT NULL,
-  `id_appointment` INTEGER NOT NULL DEFAULT NOT NULL,
+  `id_appointment` INTEGER DEFAULT NULL,
   PRIMARY KEY (`id`)
 );
 
@@ -208,8 +208,8 @@ CREATE TABLE `insurance_plan` (
   `policy_number` VARCHAR(100) NULL DEFAULT NULL,
   `member_id` VARCHAR(30) NULL,
   `payer_id` VARCHAR(20) NULL,
-  `id_patient` INTEGER NOT NULL DEFAULT NOT NULL,
-  `id_Insurance_company` INTEGER NULL DEFAULT NULL,
+  `id_patient` INTEGER DEFAULT NULL,
+  `id_Insurance_company` INTEGER DEFAULT NULL,
   PRIMARY KEY (`id`)
 );
 
@@ -241,7 +241,7 @@ CREATE TABLE `emergency_contact` (
   `phone` VARCHAR(20) NULL DEFAULT NULL,
   `email` VARCHAR(30) NULL DEFAULT NULL,
   `relationship` VARCHAR(30) NULL DEFAULT NULL,
-  `id_patient` INTEGER NOT NULL DEFAULT NOT NULL,
+  `id_patient` INTEGER DEFAULT NULL,
   PRIMARY KEY (`id`)
 );
 
@@ -256,9 +256,9 @@ CREATE TABLE `patient_medication` (
   `id` INTEGER NOT NULL AUTO_INCREMENT,
   `drug_name` VARCHAR(100) NULL DEFAULT NULL,
   `dosage` VARCHAR(100) NULL DEFAULT NULL,
-  `id_medication` INTEGER NOT NULL DEFAULT NULL,
-  `id_physician` INTEGER NOT NULL DEFAULT NOT NULL,
-  `id_patient` INTEGER NOT NULL DEFAULT NOT NULL,
+  `id_medication` INTEGER DEFAULT NULL,
+  `id_physician` INTEGER DEFAULT NULL,
+  `id_patient` INTEGER DEFAULT NULL,
   PRIMARY KEY (`id`)
 );
 
@@ -271,8 +271,8 @@ DROP TABLE IF EXISTS `physician_institution`;
 
 CREATE TABLE `physician_institution` (
   `id` INTEGER NOT NULL AUTO_INCREMENT,
-  `id_institution` INTEGER NOT NULL DEFAULT NOT NULL,
-  `id_physician` INTEGER NOT NULL DEFAULT NOT NULL,
+  `id_institution` INTEGER DEFAULT NULL,
+  `id_physician` INTEGER DEFAULT NULL,
   PRIMARY KEY (`id`)
 );
 
@@ -287,8 +287,8 @@ CREATE TABLE `messages` (
   `id` INTEGER NOT NULL AUTO_INCREMENT,
   `direct_message` VARCHAR(10000) NULL DEFAULT NULL,
   `date` TIMESTAMP NULL DEFAULT NULL,
-  `sender_id` INTEGER NOT NULL DEFAULT NOT NULL,
-  `receiver_id` INTEGER NOT NULL DEFAULT NOT NULL,
+  `sender_id` INTEGER DEFAULT NULL,
+  `receiver_id` INTEGER DEFAULT NULL,
   PRIMARY KEY (`id`)
 );
 
@@ -301,8 +301,8 @@ DROP TABLE IF EXISTS `patient_physician`;
 
 CREATE TABLE `patient_physician` (
   `id` INTEGER NOT NULL AUTO_INCREMENT,
-  `id_physician` INTEGER NOT NULL DEFAULT NOT NULL,
-  `id_patient` INTEGER NOT NULL DEFAULT NOT NULL,
+  `id_physician` INTEGER DEFAULT NULL,
+  `id_patient` INTEGER DEFAULT NULL,
   PRIMARY KEY (`id`)
 );
 
@@ -314,7 +314,7 @@ CREATE TABLE `patient_physician` (
 DROP TABLE IF EXISTS `Insurance_company`;
 
 CREATE TABLE `Insurance_company` (
-  `id` INTEGER NULL AUTO_INCREMENT DEFAULT NULL,
+  `id` INTEGER NOT NULL AUTO_INCREMENT,
   `company_name` VARCHAR(100) NULL,
   `phone_number_for_patients` VARCHAR(20) NULL,
   `phone_number_for_institutions` VARCHAR(20) NULL,
@@ -329,9 +329,9 @@ CREATE TABLE `Insurance_company` (
 DROP TABLE IF EXISTS `company_insurance_plan_types`;
 
 CREATE TABLE `company_insurance_plan_types` (
-  `id` INTEGER NULL AUTO_INCREMENT DEFAULT NULL,
-  `id_insurance` INTEGER NOT NULL,
-  `id_Insurance_company` INTEGER NULL DEFAULT NULL,
+  `id` INTEGER NOT NULL AUTO_INCREMENT,
+  `id_insurance` INTEGER DEFAULT NULL,
+  `id_Insurance_company` INTEGER DEFAULT NULL,
   PRIMARY KEY (`id`)
 );
 
@@ -343,7 +343,7 @@ CREATE TABLE `company_insurance_plan_types` (
 DROP TABLE IF EXISTS `staff`;
 
 CREATE TABLE `staff` (
-  `id` INTEGER NULL AUTO_INCREMENT DEFAULT NULL,
+  `id` INTEGER NOT NULL AUTO_INCREMENT,
   `first` VARCHAR(50) NULL,
   `last` VARCHAR(50) NULL,
   `email` VARCHAR(100) NULL,
@@ -361,9 +361,9 @@ CREATE TABLE `staff` (
 DROP TABLE IF EXISTS `institution_staff`;
 
 CREATE TABLE `institution_staff` (
-  `id` INTEGER NULL AUTO_INCREMENT DEFAULT NULL,
-  `id_staff` INTEGER NULL DEFAULT NULL,
-  `id_institution` INTEGER NOT NULL DEFAULT NOT NULL,
+  `id` INTEGER NOT NULL AUTO_INCREMENT,
+  `id_staff` INTEGER DEFAULT NULL,
+  `id_institution` INTEGER DEFAULT NULL,
   PRIMARY KEY (`id`)
 );
 

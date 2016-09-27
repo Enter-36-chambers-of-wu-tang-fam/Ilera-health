@@ -1,6 +1,6 @@
 'use strict'
 
-const Message = require("../../db/controller/messages-helpers.js");
+const Message = require("../controller/messages-helpers.js");
 const Promise = require("bluebird");
 
 module.exports = {
@@ -44,7 +44,7 @@ module.exports = {
       res.json(data);
     })
   }
-  
+
 
   // checkUser:  (params, callback) => {
   //   let data = [params.email];

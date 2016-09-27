@@ -1,6 +1,6 @@
 'use strict'
 
-const db = require('../dbConnect/connection.js');
+const db = require('../db/dbConnect/connection.js');
 
 
 module.exports = {
@@ -42,16 +42,6 @@ module.exports = {
     // Post request to: /api/user/emergency_contacts => { Emergency Table }
     const queryString = 'INSERT INTO emergency_contact(first, last, phone, email, \
       relationship, id_patient) value (?, ?, ?, ?, ?, ?)';
-    db.query(queryString, data, (error, results) => cb(error, results) );
-  },
-
-  init_insurance: (params, cb) => {
-    // Post Request To: api/user/insurance => { insurance }
-    let data = [params.uid, params.id_insurance_client, params.type,
-      params.policy_number];
-      console.log("DATADATA", data);
-    const queryString = 'INSERT INTO insurance(id_patient, id_insurance_client, type, \
-      policy_number) value (?, ?, ?, ?)';
     db.query(queryString, data, (error, results) => cb(error, results) );
   },
 

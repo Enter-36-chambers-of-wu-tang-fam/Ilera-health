@@ -1,6 +1,6 @@
 'use strict'
 
-const db = require('../dbConnect/connection.js');
+const db = require('../db/dbConnect/connection.js');
 
 
 module.exports = {
@@ -21,7 +21,7 @@ module.exports = {
   },
 
   // added
-  patient_get_all_health_logs_by_physician_id:(params, cb) => {
+  get_all_health_logs_by_patient_physician_id:(params, cb) => {
     let data = [params.id_patient, params.id_physician];
     const queryString = 'SELECT * FROM health_log WHERE id_patient=? \
       AND id_physician=? LIMIT 50';

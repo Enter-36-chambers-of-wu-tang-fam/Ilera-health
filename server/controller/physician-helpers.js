@@ -1,6 +1,6 @@
 'use strict'
 
-const db = require('../dbConnect/connection.js');
+const db = require('../db/dbConnect/connection.js'); 
 
 
 module.exports = {
