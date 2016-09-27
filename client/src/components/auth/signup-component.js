@@ -17,8 +17,6 @@ import {
 
 
 // Components
-import PatientSignupForm from '../patient-app/patient-signup.jsx';
-import PhysicianSignupForm from '../physician-app/physician-signup.jsx';
 
 
 const validate = values => {
@@ -62,7 +60,7 @@ class SignupForm extends Component {
         //We can create a random key and add it to props to store in the database above
         //Maybe defeats the purpose though as the key will be stored on the front end here...
 
-        let encodedId = CryptoJS.AES.encrypt(String(found.data), 'key');  //need to change key to actual key 
+        let encodedId = CryptoJS.AES.encrypt(String(found.data), 'key');  //need to change key to actual key
         localStorage.setItem('uid',encodedId);
         this.context.router.push('/patient/form/background');
       })
@@ -73,14 +71,14 @@ class SignupForm extends Component {
 
       axios.post('/api/physician/signup/', props)
       .then( found => {
-        let encodedId = CryptoJS.AES.encrypt(String(found.data), 'key');  //need to change key to actual key 
+        let encodedId = CryptoJS.AES.encrypt(String(found.data), 'key');  //need to change key to actual key
         localStorage.setItem('uid',encodedId);
         this.context.router.push('provider/');
       })
       .catch( err => {
           console.log("LOGIN ERROR", err);
       })
-    }  
+    }
 	}
 
 	handleChange(event) {
@@ -104,7 +102,7 @@ class SignupForm extends Component {
 				return (
 				<div>
 					<h2>Sign Up</h2>
-					
+
 					<h6>Please select an option below:</h6>
 					<form onSubmit={ handleSubmit(props => this.onSubmit(props)) }>
 							<select onChange={this.handleChange.bind(this)} value={this.state.userType}>
@@ -124,7 +122,7 @@ class SignupForm extends Component {
 				</div>
 			)
 		}
-		
+
 	};
 
 // user types...recorded on application state
