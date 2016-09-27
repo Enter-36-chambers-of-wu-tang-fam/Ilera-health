@@ -39,7 +39,7 @@ app.get('/api/patient/dashboard', Patient.get_patient_info);
 app.post('/api/patient/signup', Patient.signUp);
 
 // Post request to: /api/patient/background => { Patient }
-app.put('/api/patient/background', Patient.post_init_form);
+app.put('/api/patient/background', Patient.put_init_form);
 // Post request to: /api/patient/emergency_contacts => { Emergency Table }
 app.post('/api/patient/emergency_contacts', Patient.post_emer_contact);
 // Post Request To: api/patient/insurance => { insurance }
