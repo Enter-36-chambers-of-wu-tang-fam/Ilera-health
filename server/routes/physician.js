@@ -3,6 +3,8 @@ const bcrypt = require("bcrypt-nodejs");
 const hashHelp = require("../security/hash.js");
 const Physician = require("../controller/physician-helpers.js");
 
+var sess;
+
 module.exports = {
 
   signIn: (req, res) => {

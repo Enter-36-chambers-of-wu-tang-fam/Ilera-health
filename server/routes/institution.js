@@ -4,6 +4,12 @@ const Institution = require('../controller/institution-helpers.js');
 
 module.exports = {
 
+  getAll_physician_institutions: (req, res) => {
+    Institution.get_all_physician_institutions(req.body, (err,data)=>{
+      if(err) console.log(err);
+      res.json(data);
+    });
+  }
 
 
 

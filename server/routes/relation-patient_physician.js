@@ -17,10 +17,23 @@ module.exports = {
       if(err) console.log(err);
       res.json(data);
     });
-  }
+  },
 
+  get_all_patients_of_Physician: (req, res) => {
+    Relation.get_all_patients_of_Physician(req.body, (err,data)=>{
+      if(err) console.log(err);
+      res.json(data);
+    });
+  },
+
+  get_all_physicians_of_patient: (req, res) => {
+    Relation.get_all_physicians_of_patient(req.body, (err,data)=>{
+      if(err) console.log(err);
+      res.json(data);
+    });
+  }
   // (req, res) => {
-  //   Medication.getAll_patient_medication(req.body, (err,data)=>{
+  //   Relation.getAll_patient_medication(req.body, (err,data)=>{
   //     if(err) console.log(err);
   //     res.json(data);
   //   });

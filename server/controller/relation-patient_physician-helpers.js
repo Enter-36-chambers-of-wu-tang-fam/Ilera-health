@@ -32,7 +32,7 @@ module.exports = {
     db.query(queryString, data, (error, results) => cb(error, results) );
   },
 
-  get_all_patient_Physicians: (params, cb) => {
+  get_all_physicians_of_patient: (params, cb) => {
     let data = [params.id_patient];
     const queryString = "SELECT pr.id_physician, py.id, py.first, py.last, \
       py.email, py.phone_number, py.photo_path, py.specialty, i.id, \
