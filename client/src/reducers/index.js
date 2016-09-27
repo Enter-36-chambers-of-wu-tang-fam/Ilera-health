@@ -6,7 +6,7 @@ import authentication from './authentication-reducer.js';
 import messages from './messages-reducer.js';
 
 const rootReducer = combineReducers({
-    authentication: authentication,
+    authenticated: authentication,
     form: formReducer,
     messages: messages
 });

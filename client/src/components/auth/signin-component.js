@@ -2,6 +2,10 @@ import _ from 'lodash';
 import axios from 'axios';
 import React, { Component, PropTypes } from 'react';
 import { Field, reduxForm } from 'redux-form';
+import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
+import { authenticateUser } from '../../actions/actions.js';
+import CryptoJS from 'crypto-js';
 
 const validate = values => {
   const errors = {}
@@ -18,23 +22,29 @@ const validate = values => {
 }
 
 class SigninForm extends Component {
+  
   constructor(props){
     super(props);
   }
 
   static contextTypes = {
-      router: React.PropTypes.object
+    router: React.PropTypes.object
   }
 
-  onSubmit = (props) => {
-    console.log(props);
+  onSubmit(props) {
+
     axios.post(`/api/${props.userType}/signin`, props)  
       .then( found => {
-          console.log("SUCCESS");
-          this.context.router.push(`${props.userType}/dashboard`)
+        let encodedId = CryptoJS.AES.encrypt(String(found.data), 'key');
+
+        localStorage.setItem('uid',encodedId);          
+        localStorage.setItem('userType',props.userType);
+          
+        this.context.router.push(`${props.userType}/dashboard`);
+        
       })
       .catch( err => {
-          console.log("LOGIN ERROR")
+          console.log("LOGIN ERROR", err);
       })
   }
 
@@ -62,7 +72,7 @@ class SigninForm extends Component {
               <Field name="userType" component="select">
                   <option></option>
                   <option value="patient">Patient</option>
-                  <option value="provider">Provider</option>
+                  <option value="physician">Provider</option>
               </Field>
               {error && <strong>{error}</strong>}
               <button type='submit' className='btn'>Sign In</button>
@@ -73,7 +83,11 @@ class SigninForm extends Component {
 };
 
 // user types...recorded on application state
+
 export default reduxForm({
-    form: 'SigninForm',
-    validate
+	form: 'SigninForm',
+  onSubmitSuccess: (result, dispatch) => {
+    dispatch(authenticateUser());
+  },
+	validate
 }, null, {  })(SigninForm);

@@ -51,6 +51,7 @@ app.post('/api/physician/signup/', Physician.signUp);
 
 app.post('/api/physician/signin', Physician.signIn);
 // app.post('api/physician/logout', Physician.logout);
+
 //  post to health_log
 // app.post('/api/health_log', HealthLog.postHealthLog);
 

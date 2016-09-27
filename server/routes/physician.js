@@ -6,15 +6,19 @@ const Physician = require("../controller/physician-helpers.js");
 module.exports = {
 
   signIn: (req, res) => {
+    console.log("REQUEST BODY REQUEST BODY", req.body);
     Physician.signIn(req.body, (error, data) => {
-      if(!data.length){
+      console.log("DATA DATA DATA", data);
+      if(data.length > 0){
+        console.log("DATA LENGTH GREATER THAN 0", data);
         bcrypt.compare(req.body.password, data[0].password, (error, result) => {
+          console.log("RESULT RESULT RESULT", result);
           if(result){
             sess = req.session;
             sess.email = data[0].email;
             sess.user = data[0].id;
             module.exports.sess = sess;
-            res.status(202).send();
+            res.status(200).send();
           } else{
             res.status(401).send("That email and/or password was not found");
           }
