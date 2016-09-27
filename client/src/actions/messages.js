@@ -39,7 +39,39 @@ export function createMessage(message, sender_id, receiver_id) {
   }
 }
 
+const fetchMessagesRequest = () => {
+	return {
+		type:  types.MESSAGE_FETCH_REQUEST,
+		isFetching: true,
+	}
+}
+
+const fetchMessagesSuccess = (message) => {
+	return {
+		type:  types.MESSAGE_FETCH_SUCCESS,
+		isFetching: false,
+		payload: message
+	}
+}
+
+const fetchMessagesFailure = (err) => {
+	return {
+		type:  types.MESSAGE_FETCH_FAILURE,
+		isFetching: false,
+		payload: err
+	}
+}
+
 export function fetchMessages(receiverId, senderId) {
-	console.log("FETCH MESSAGES")
-  
+  console.log("FETCH MESSAGES")
+  return dispatch => {
+    dispatch(fetchMessagesRequest())
+    return axios.post(`/api/messages/fetch`, {receiver_id: receiverid, sender_id: senderid})
+      .then(response =>{
+		dispatch(fetchMessagesSuccess(response));	  
+	  })
+      .catch(error => {
+		  dispatch(fetchMessagesFailure(error));
+	  });
+  }
 }

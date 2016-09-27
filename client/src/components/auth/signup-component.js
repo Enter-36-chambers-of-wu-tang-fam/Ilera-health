@@ -8,16 +8,11 @@ import { authenticateUser } from '../../actions/actions.js';
 import CryptoJS from 'crypto-js';
 import {
   AutoComplete,
-  Checkbox,
-  DatePicker,
-  TimePicker,
   RadioButtonGroup,
   RadioButton,
   SelectField,
-  Slider,
-  TextField,
-  Toggle
-} from 'redux-form-material-ui';
+  TextField
+} from 'redux-form-material-ui'
 
 const validate = values => {
   const errors = {}
@@ -88,7 +83,7 @@ class SignupForm extends Component {
 
 	render() {
 		const { error, handleSubmit, pristine, reset, submitting } = this.props;
-				return (
+			return (
 				<div>
 					<h2>Sign Up</h2>					
 					<form onSubmit={ handleSubmit(props => this.onSubmit(props)) }>
@@ -120,18 +115,6 @@ class SignupForm extends Component {
 
 };
 
-// user types...recorded on application state
-
-// Old way of doing it
-
-// export default reduxForm({
-// 	form: 'SignupForm',
-//   onSubmitSuccess: (result, dispatch) => {
-//     dispatch(authenticateUser());
-//   },
-// 	validate
-// }, null, {  })(SignupForm);
-
 SignupForm = reduxForm({
 	form: 'SignupForm',
 	validate
@@ -144,3 +127,4 @@ function mapDispatchToProps(dispatch) {
 
 
 export default connect(null, mapDispatchToProps)(SignupForm)
+

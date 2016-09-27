@@ -53,7 +53,7 @@ class InsuranceForm extends Component {
      //sample data --> insert into insurance_company_client(company_name,username,password) VALUES('aetna','John','King');
     axios.post('/api/patient/insurance', props)
     .then( found => {
-      this.context.router.push('/patient/dashboard/');
+      this.context.router.push('/patient/dashboard');
     })
     .catch( err => {
         console.log("ERROR ENTERING INFORMATION", err);
@@ -99,4 +99,4 @@ class InsuranceForm extends Component {
 export default reduxForm({
     form: 'InsuranceContactForm',
     validate
-}, null, { })(InsuranceForm);
+})(InsuranceForm);

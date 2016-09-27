@@ -1,7 +1,12 @@
 import React, { Component } from 'react';
+import { Router, Route, Link, browserHistory } from 'react-router';
 import DashboardMessages from './dashboard/dashboard-messages.jsx';
-import DashboardSettings from './dashboard/dashboard-settings.jsx';
-
+import DashboardRecords from './dashboard/dashboard-records.jsx';
+import DashboardPhysicians from './dashboard/dashboard-physicians.jsx';
+import DashboardMain from './dashboard/dashboard-main.jsx';
+import DashboardProfile from './dashboard/dashboard-profile.jsx';
+import DashboardHealthLog from './dashboard/dashboard-healthLog.jsx';
+import DashboardMeds from './dashboard/dashboard-meds.jsx';
 
 export default class PatientDashboard extends Component {
 
@@ -11,15 +16,25 @@ export default class PatientDashboard extends Component {
 
     render() {
       return (
-          <div>
+          <div className="clearfix">
             <div className="dashboardRows clearfix">
-              <div></div>
-              <div></div>
+              <DashboardMain />
+            </div>
+
+            <div className="dashboardRows bottomRow clearfix">
+              <DashboardRecords />
+              <Link to='patient/messages'>
+                <DashboardMessages />
+              </Link>
+              <DashboardPhysicians />
             </div>
             <div className="dashboardRows bottomRow clearfix">
-              <div></div>
-              <DashboardMessages />
-              <div></div>
+              <DashboardMeds />
+              <Link to='patient/messages'>
+                <DashboardHealthLog />
+              </Link>
+              <DashboardProfile />
+              
             </div>
           </div>
       );

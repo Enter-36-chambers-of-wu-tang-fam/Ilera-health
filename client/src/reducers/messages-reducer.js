@@ -6,7 +6,7 @@ import {
 export default function messageReducer(state = {}, action) {
   switch (action.type) {
     case MESSAGE_ADD_REQUEST:
-        console.log("ADDSTUDENT_REQUEST");
+        console.log("MESSAGE_ADD_REQUEST");
         return Object.assign({}, state, {
             isFetching: true,
         })
@@ -14,13 +14,13 @@ export default function messageReducer(state = {}, action) {
       console.log("MESSAGE_ADD_SUCCESS", action.payload);
       return Object.assign({}, state, {
         isFetching: false,
-        newAssignment: action.payload,
+        messages: messages.push(action.payload)
       })
     case MESSAGE_ADD_FAILURE:
       console.log("MESSAGE_ADD_FAILURE");
       return Object.assign({}, state, {
         isFetching: false,
-        newAssignment: null,
+        messages: null,
       })
     default:
       return state;
