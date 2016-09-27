@@ -11,15 +11,8 @@ import {
   RadioButtonGroup,
   RadioButton,
   SelectField,
-<<<<<<< 6ef8af97a34b224f292df505bd852dfeb48898b5
   TextField
 } from 'redux-form-material-ui'
-=======
-  Slider,
-  TextField,
-  Toggle
-} from 'redux-form-material-ui';
->>>>>>> higher-order-component
 
 const validate = values => {
   const errors = {}
@@ -53,8 +46,6 @@ class SignupForm extends Component {
   static contextTypes = {
     router: React.PropTypes.object
   }
-
-<<<<<<< 6ef8af97a34b224f292df505bd852dfeb48898b5
 
 	onSubmit(props) {    
     axios.post(`/api/${this.state.userType}/signup`, props)
