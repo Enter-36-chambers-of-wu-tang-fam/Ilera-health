@@ -30,8 +30,10 @@ module.exports = {
 
   signUp: (req, res) => {
     Physician.checkPhysician(req.body,(error,data) => {
-      
-      if(error){ console.log(error);}
+
+      if(error){
+        console.log(error);
+      }
 
       if(data.length > 0){
         res.status(409).send("The email address you specified is already in use.");
@@ -53,15 +55,33 @@ module.exports = {
     });
   },
 
+  put_init_form: (req, res) => {
+    if(req.body.newPassword){
+      .then( hash => {
+        delete req.body.newPassword;
+        req.body.password = hash;
+        Physician.update_physician_info(req.body, (error, data) => {
+          if(error) console.log(error);
+          res.json(data);
+        });
+      });
+    } else {
+      Physician.update_physician_info(req.body, (error, data) => {
+        if(error) console.log(error);
+        res.json(data);
+      });
+    }
+  },
+
   getAll_Physicians: (req, res) => {
-    Patient.getAllPhysicians(req.body, (err,data)=>{
+    Physician.getAllPhysicians(req.body, (err,data)=>{
       if(err) console.log(err);
       res.json(data);
     });
   },
 
   getAll_SpecialtyPhysician: (req, res) => {
-    Patient.getSpecialtyPhysician(req.body, (err,data)=>{
+    Physician.getSpecialtyPhysician(req.body, (err,data)=>{
       if(err) console.log(err);
       res.json(data);
     });
@@ -74,19 +94,19 @@ module.exports = {
   }
 
   // (req, res) => {
-  //   Patient.funcHere(req.body, (err,data)=>{
+  //   Physician.funcHere(req.body, (err,data)=>{
   //     if(err) console.log(err);
   //     res.json(data);
   //   });
   // },
   // (req, res) => {
-  //   Patient.funcHere(req.body, (err,data)=>{
+  //   Physician.funcHere(req.body, (err,data)=>{
   //     if(err) console.log(err);
   //     res.json(data);
   //   });
   // },
   // (req, res) => {
-  //   Patient.funcHere(req.body, (err,data)=>{
+  //   Physician.funcHere(req.body, (err,data)=>{
   //     if(err) console.log(err);
   //     res.json(data);
   //   });

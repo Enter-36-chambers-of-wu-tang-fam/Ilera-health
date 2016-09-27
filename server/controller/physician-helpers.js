@@ -1,6 +1,6 @@
 'use strict'
 
-const db = require('../db/dbConnect/connection.js'); 
+const db = require('../db/dbConnect/connection.js');
 
 
 module.exports = {
@@ -24,6 +24,15 @@ module.exports = {
     let data = [params.email];
     const queryString = "SELECT * FROM physician WHERE email=? LIMIT 1";
     db.query(queryString, data, (error, results) => cb(error, results) );
+  },
+
+  update_physician_info: (params, cb) => {
+    let data = [params.first, params.last, params.email,
+      params.phone_number, params.password,
+      params.photo_path, params.specialty];
+    const queryString = 'UPDATE physician SET first=?, last=?, \
+      email=?, phone_number=?, password=?, photo_path=?, \specialty=? \
+      WHERE id='+ params.uid;
   },
 
   // added
