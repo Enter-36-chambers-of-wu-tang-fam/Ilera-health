@@ -1,7 +1,7 @@
 const Promise = require("bluebird");
 const bcrypt = require("bcrypt-nodejs");
 const hashHelp = require("../security/hash.js");
-const Physician = require("../../db/controller/physician-helpers.js");
+const Physician = require("../controller/physician-helpers.js");
 
 module.exports = {
 
@@ -49,18 +49,27 @@ module.exports = {
       }
     });
   },
-  // (req, res) => {
-  //   Patient.funcHere(req.body, (err,data)=>{
-  //     if(err) console.log(err);
-  //     res.json(data);
-  //   });
-  // },
-  // (req, res) => {
-  //   Patient.funcHere(req.body, (err,data)=>{
-  //     if(err) console.log(err);
-  //     res.json(data);
-  //   });
-  // },
+
+  getAll_Physicians: (req, res) => {
+    Patient.getAllPhysicians(req.body, (err,data)=>{
+      if(err) console.log(err);
+      res.json(data);
+    });
+  },
+
+  getAll_SpecialtyPhysician: (req, res) => {
+    Patient.getSpecialtyPhysician(req.body, (err,data)=>{
+      if(err) console.log(err);
+      res.json(data);
+    });
+  },
+
+  logout: (req, res) => {
+    sess = undefined;
+    req.session.destroy();
+    res.status(200).send("Logout complete");
+  }
+
   // (req, res) => {
   //   Patient.funcHere(req.body, (err,data)=>{
   //     if(err) console.log(err);
@@ -80,9 +89,4 @@ module.exports = {
   //   });
   // },
 
-  logout: (req, res) => {
-    sess = undefined;
-    req.session.destroy();
-    res.status(200).send("Logout complete");
-  }
 };

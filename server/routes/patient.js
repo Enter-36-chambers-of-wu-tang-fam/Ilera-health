@@ -1,7 +1,7 @@
 const Promise = require("bluebird");
 const bcrypt = require("bcrypt-nodejs");
 const hashHelp = require("../security/hash.js");
-const Patient = require("../../db/controller/patient-helpers.js");
+const Patient = require("../controller/patient-helpers.js");
 
 var sess;
 
@@ -10,7 +10,7 @@ module.exports = {
   signIn: (req, res) => {
     console.log("REQ.BODY", req.body);
     Patient.signIn(req.body, (error, data) => {
-      
+
       if(data.length > 0){
         bcrypt.compare(req.body.password, data[0].password, (error, result) => {
           if(result){
