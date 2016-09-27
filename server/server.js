@@ -2,14 +2,17 @@ const express = require('express');
 const bodyParser = require('body-parser');
 const app = express();
 const session = require('express-session');
-const db = require('./db/dbConnect/connection.js');
-const Institution = require('./routes/institution.js');
-const Message = require('./routes/messages.js');
-const HealthLog = require('./routes/health_log.js');
 const path = require('path');
+const db = require('./db/dbConnect/connection.js');
+const Appointment
+const HealthLog = require('./routes/health_log.js');
+const Institution = require('./routes/institution.js');
+const InsurancePlan = require('./routes/insurance_plan.js');
+const InsuranceProfesional = require('./routes/insurance_professional.js');
+const Medication = require('./routes/medication.js');
+const Message = require('./routes/messages.js');
 const Patient = require('./routes/patient.js');
 const Physician = require('./routes/physician.js');
-
 const SocketIo = require('socket.io');
 
 
@@ -40,9 +43,12 @@ app.post('/api/patient/emergency_contacts', Patient.post_emer_contact);
 // Post Request To: api/patient/insurance => { insurance }
 app.post('/api/patient/insurance', Patient.post_insurance_info);
 
+// app.post('api/patient/logout', Patient.logout);
 // Post Request To: /api/physician/signup i think this is a guess
 app.post('/api/physician/signup/', Physician.signUp);
 
+app.post('/api/physician/signin', Physician.signIn);
+// app.post('api/physician/logout', Physician.logout);
 //  post to health_log
 // app.post('/api/health_log', HealthLog.postHealthLog);
 
