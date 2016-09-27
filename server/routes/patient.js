@@ -46,9 +46,9 @@ module.exports = {
             if(error) console.log(error);
             sess = req.session;
             sess.email = req.body.email;
-            sess.patient = data.insertId;
+            sess.patient = data;
             module.exports.sess = sess;
-            res.json(data.insertId);
+            res.json(data);
           });
         })
       }

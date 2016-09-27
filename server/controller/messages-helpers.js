@@ -25,10 +25,11 @@ module.exports = {
 
   // added
   post_message: (params, cb) => {
-    let data = [ params.direct_message, params.sender_id,
-      params.receiver_id ];
+    console.log("PARAMS", params)
+    let data = [ params.direct_message.text, null,
+      null ];
     const queryString = 'INSERT INTO messages(direct_message, sender_id, \
-      receiver_id, date) value (?,?,?,?, NOW())';
+      receiver_id, date) value (?,?,?, NOW())';
     db.query(queryString, data, (error, results) => cb(error, results) );
   },
 
