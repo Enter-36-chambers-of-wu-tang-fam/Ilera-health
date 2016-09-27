@@ -58,7 +58,6 @@ class SignupForm extends Component {
       .then( registered => {
         let encodedId = CryptoJS.AES.encrypt(String(registered.data), 'key');  //need to change key to actual key 
 
-        let encodedId = CryptoJS.AES.encrypt(String(found.data), 'key');  //need to change key to actual key
         localStorage.setItem('uid',encodedId);
         localStorage.setItem('userType','patient');
 
