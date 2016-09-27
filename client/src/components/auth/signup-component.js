@@ -8,16 +8,11 @@ import { authenticateUser } from '../../actions/actions.js';
 import CryptoJS from 'crypto-js';
 import {
   AutoComplete,
-  Checkbox,
-  DatePicker,
-  TimePicker,
   RadioButtonGroup,
   RadioButton,
   SelectField,
-  Slider,
-  TextField,
-  Toggle
-} from 'redux-form-material-ui';
+  TextField
+} from 'redux-form-material-ui'
 
 const validate = values => {
   const errors = {}
@@ -104,7 +99,7 @@ class SignupForm extends Component {
 
 	render() {
 		const { error, handleSubmit, pristine, reset, submitting } = this.props;
-				return (
+			return (
 				<div>
 					<h2>Sign Up</h2>					
 					<form onSubmit={ handleSubmit(props => this.onSubmit(props)) }>
@@ -144,4 +139,4 @@ export default reduxForm({
     dispatch(authenticateUser());
   },
 	validate
-}, null, {  })(SignupForm);
+})(SignupForm);
