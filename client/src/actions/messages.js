@@ -25,11 +25,11 @@ const addMessageFailed = (err) => {
 	}
 }
 
-export function createMessage(message) {
+export function createMessage(message, sender_id, receiver_id) {
 	console.log("YAAAAAAY")
   return dispatch => {
     dispatch(addMessageRequest(message))
-    return axios.post('/api/newmessage', message)
+    return axios.post('/api/chat/newmessage', {direct_message: message, sender_id: sender_id, receiver_id: receiver_id})
 			.then( success => {
 					dispatch(addMessage(message));
 			})

@@ -47,4 +47,4 @@ ReactDOM.render(
   </Provider>
   , rootElement);
 
-  export.modules = store;
+  export default store;
