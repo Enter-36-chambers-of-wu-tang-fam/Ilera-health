@@ -14,8 +14,6 @@ export const AUTHENTICATE = 'AUTHENTICATE';
 //CAN DELETE THE ONES BELOW IF AT THE END OF THE APPLICATION
 
 
-
-
 //=========================================
 
 // Log-in
