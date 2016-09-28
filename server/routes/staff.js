@@ -54,6 +54,13 @@ module.exports = {
   },
 
   put_staffInfo: (req, res) => {
+    Staff.init_staff_info(req.body, (err,data)=>{
+      if(err) console.log(err);
+      res.json(data);
+    });
+  },
+
+  put_staffInfo: (req, res) => {
     if(req.body.newPassword){
       hashHelp.hashPassword(req.body.password)
       .then( hash => {
@@ -80,7 +87,7 @@ module.exports = {
 
 
   // (req, res) => {
-  //   Institution.patient_physician_relation(req.body, (err,data)=>{
+  //   Staff.patient_physician_relation(req.body, (err,data)=>{
   //     if(err) console.log(err);
   //     res.json(data);
   //   });

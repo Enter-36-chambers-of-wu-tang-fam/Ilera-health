@@ -24,11 +24,18 @@ module.exports = {
     db.query(queryString, data, (error, results) => cb(error, results) );
   },
 
+  update_password: (params, cb) => {
+    // Post Request to: api/user/initform  =>   { Patient Table}
+    let data = [params.password];
+    const queryString ='UPDATE staff SET password=? WHERE id='+ params.uid;
+    db.query(queryString, data, (error, results) => cb(error, results) );
+  },
+
   init_staff_info: (params, cb) => {
     let data = [params.first, params.last, params.email, params.phone_number,
-      params.photo_path, params.password];
+      params.photo_path];
     const queryString = 'UPDATE staff SET first=?, last=?, email=?, phone_number=? \
-      photo_path=?, password=? WHERE id ="'+params.uid+'" LIMIT 1';
+      photo_path=? WHERE id ="'+params.uid+'" LIMIT 1';
     db.query(queryString, data, (error, results) => cb(error, results) );
   }
 

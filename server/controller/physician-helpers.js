@@ -31,8 +31,15 @@ module.exports = {
       params.phone_number, params.password,
       params.photo_path, params.specialty];
     const queryString = 'UPDATE physician SET first=?, last=?, \
-      email=?, phone_number=?, password=?, photo_path=?, \specialty=? \
+      email=?, phone_number=?, photo_path=?, specialty=? \
       WHERE id='+ params.uid;
+  },
+
+  update_password: (params, cb) => {
+    // Post Request to: api/user/initform  =>   { Patient Table}
+    let data = [params.password];
+    const queryString ='UPDATE physician SET password=? WHERE id='+ params.uid;
+    db.query(queryString, data, (error, results) => cb(error, results) );
   },
 
   // added
