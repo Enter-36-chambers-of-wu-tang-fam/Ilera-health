@@ -426,7 +426,24 @@ ALTER TABLE `institution_staff` ADD FOREIGN KEY (id_institution) REFERENCES `ins
 -- ---
 -- Test Data
 -- ---
+INSERT INTO `physician` (`first`,`last`,`email`,`phone_number`,`password`,`photo_path`,`specialty`) VALUES ('neekon','nee','nee','34214321','nee','nee','nee');
 
+INSERT INTO `physician` (`first`,`last`,`email`,`phone_number`,`password`,`photo_path`,`specialty`) VALUES ('yolo','bee','bee','34321235','bee','bee','bee');
+
+INSERT INTO `patient` (`first`,`last`,`email`,`password`,`pin`,`address`,`city`,`state`,`zip`,`phone_number`,`weight`,`height`,`blood_type`,`photo_path`) VALUES ('bal','bon','afsjon','2345rew','14','mya','at','ca','43522','2435','1231','123','4','a');
+INSERT INTO `patient` (`first`,`last`,`email`,`password`,`pin`,`address`,`city`,`state`,`zip`,`phone_number`,`weight`,`height`,`blood_type`,`photo_path`) VALUES ('abn','bon','jon','2345rew','14','mj','sarat','ca','43522','2435','1231','123','4','a');
+
+INSERT INTO `patient_physician` (`id_physician`,`id_patient`) VALUES ('1','1');
+INSERT INTO `patient_physician` (`id_physician`,`id_patient`) VALUES ('1','2');
+INSERT INTO `patient_physician` (`id_physician`,`id_patient`) VALUES ('2','2');
+INSERT INTO `patient_physician` (`id_physician`,`id_patient`) VALUES ('2','1');
+
+
+
+INSERT INTO `institution` (`inst_name`,`type`,`description`,`rating`,`phone_number`,`address`,`city`,`state`,`zip`,`email`) VALUES ('wu tang','36chambers','fixer','12','1423','2413','sanjose','ca','4231','wu@gmail');
+INSERT INTO `institution` (`inst_name`,`type`,`description`,`rating`,`phone_number`,`address`,`city`,`state`,`zip`,`email`) VALUES ('gza','chamberlane','tester','54','3542','4123','frisco','va','4231','wafsdu@gmail');
+INSERT INTO `physician_institution` (`id_institution`,`id_physician`) VALUES ('1','1');
+INSERT INTO `physician_institution` (`id_institution`,`id_physician`) VALUES ('1','2');
 -- INSERT INTO `patient` (`id`,`first`,`last`,`email`,`password`,`pin`,`date_of_birth`,`address`,`city`,`state`,`zip`,`phone_number`,`weight`,`height`,`blood_type`,`photo_path`) VALUES
 -- ('','','','','','','','','','','','','','','','');
 -- INSERT INTO `physician` (`id`,`first`,`last`,`email`,`phone_number`,`password`,`photo_path`,`specialty`) VALUES
