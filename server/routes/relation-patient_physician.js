@@ -19,14 +19,14 @@ module.exports = {
     });
   },
 
-  get_all_patients_of_Physician: (req, res) => {
+  getAll_patients_of_Physician: (req, res) => {
     Relation.get_all_patients_of_Physician(req.body, (err,data)=>{
       if(err) console.log(err);
       res.json(data);
     });
   },
 
-  get_all_physicians_of_patient: (req, res) => {
+  getAll_physicians_of_patient: (req, res) => {
     Relation.get_all_physicians_of_patient(req.body, (err,data)=>{
       if(err) console.log(err);
       res.json(data);
