@@ -51,21 +51,29 @@ module.exports = {
       }
     });
   },
-  // cahnge to put
+  // change to put
   // hash new password and do not hash if it is the same password
+
   put_init_form: (req, res) => {
+    Patient.initform_patient(req.body, (err,data)=>{
+      if(err) console.log(err);
+      res.json(data);
+    });
+  },
+
+  put_password: (req, res) => {
     if(req.body.newPassword){
       hashHelp.hashPassword(req.body.password)
       .then( hash => {
         delete req.body.newPassword;
         req.body.password = hash;
-        Patient.initform_patient(req.body, (error, data) => {
+        Patient.update_password(req.body, (error, data) => {
           if(error) console.log(error);
           res.json(data);
         });
       });
     } else {
-      Patient.initform_patient(req.body, (error, data) => {
+      Patient.update_password(req.body, (error, data) => {
         if(error) console.log(error);
         res.json(data);
       });

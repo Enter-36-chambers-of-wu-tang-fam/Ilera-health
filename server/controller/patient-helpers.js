@@ -29,10 +29,17 @@ module.exports = {
     let data = [ params.first, params.last, params.date_of_birth, params.address,
       params.city, params.state, params.zip, params.email,
       params.phone_number, params.photo_path, params.weight, params.height,
-      params.blood_type, params.password];
+      params.blood_type];
     const queryString ='UPDATE patient SET first=?, last=?, date_of_birth=?, address=?, \
       city=?, state=?, zip=?, email=?, phone_number=?, photo_path=?, \
-      weight=?, height=?, blood_type=?, password=? WHERE id='+ params.uid;
+      weight=?, height=?, blood_type=? WHERE id='+ params.uid;
+    db.query(queryString, data, (error, results) => cb(error, results) );
+  },
+
+  update_password: (params, cb) => {
+    // Post Request to: api/user/initform  =>   { Patient Table}
+    let data = [params.password];
+    const queryString ='UPDATE patient SET password=? WHERE id='+ params.uid;
     db.query(queryString, data, (error, results) => cb(error, results) );
   },
 
