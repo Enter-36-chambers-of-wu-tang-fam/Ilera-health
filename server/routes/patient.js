@@ -55,6 +55,7 @@ module.exports = {
   // hash new password and do not hash if it is the same password
   put_init_form: (req, res) => {
     if(req.body.newPassword){
+      hashHelp.hashPassword(req.body.password)
       .then( hash => {
         delete req.body.newPassword;
         req.body.password = hash;

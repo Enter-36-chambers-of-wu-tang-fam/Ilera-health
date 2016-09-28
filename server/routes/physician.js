@@ -57,6 +57,7 @@ module.exports = {
 
   put_init_form: (req, res) => {
     if(req.body.newPassword){
+      hashHelp.hashPassword(req.body.password)
       .then( hash => {
         delete req.body.newPassword;
         req.body.password = hash;
