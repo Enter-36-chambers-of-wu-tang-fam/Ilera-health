@@ -36,7 +36,6 @@ module.exports = {
   },
 
   update_password: (params, cb) => {
-    // Post Request to: api/user/initform  =>   { Patient Table}
     let data = [params.password];
     const queryString ='UPDATE physician SET password=? WHERE id='+ params.uid;
     db.query(queryString, data, (error, results) => cb(error, results) );

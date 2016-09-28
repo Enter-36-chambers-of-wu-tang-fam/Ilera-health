@@ -38,6 +38,13 @@ app.post('/api/patient/setappointment', Appointment.postAppointment);
 app.put('/api/update/appointment', Appointment.updateAppointment);
 app.delete('/api/cancel/appointment', Appointment.cancelAppointment);
 
+// InsuranceProfesional
+app.get('/api/professional', InsuranceProfesional.signIn);
+app.post('/api/professional', InsuranceProfesional.signUp);
+app.put('/api/professional', InsuranceProfesional.put_initForm);
+app.put('/api/professional', InsuranceProfesional.put_password);
+app.post('/api/professional/logout', InsuranceProfesional.logout);
+
 // Patient
 app.post('/api/patient/signin', Patient.signIn);
 
