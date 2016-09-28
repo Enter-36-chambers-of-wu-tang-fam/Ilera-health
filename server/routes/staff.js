@@ -53,7 +53,7 @@ module.exports = {
     });
   },
 
-  post_staffInfo: (req, res) => {
+  put_staffInfo: (req, res) => {
     if(req.body.newPassword){
       .then( hash => {
         delete req.body.newPassword;
