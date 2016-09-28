@@ -51,7 +51,7 @@ module.exports = {
     let data = [params.sender_type, params.receiver_type,
       params.direct_message.text, null, null];
     const queryString = 'INSERT INTO messages(sender_type, receiver_type, \
-      direct_message, sender_id, receiver_id, date) value (?,?,?, NOW())';
+      direct_message, sender_id, receiver_id, date) value (?,?,?,?,?, NOW())';
     db.query(queryString, data, (error, results) => cb(error, results) );
   },
 
