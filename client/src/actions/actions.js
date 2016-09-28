@@ -19,26 +19,24 @@ export function authenticateUser(){
 
 
 
-
-//CAN DELETE THE ONES BELOW WHEN WE ARE DONE ^^ THESE ARE THE ONES IN CURRENT USE
-
-
-
-
-
-
-
-
 /////////////////HIGHER ORDER AUTHENTICATION///////////////////////
-export function authenticateUser(){
-  return {
-    type: types.CHANGE_AUTH,
+export function getAppointments(){
+ return function(dispatch){
+  dispatch({
+    type: types.SET_APPOINTMENT,
     payload: localStorage.getItem('uid'),
-    userType: 'Patient'
-
-  }
+    userType: localStorage.getItem('userType')
+  })
+ }
 }
 
+
+
+
+
+
+
+//CAN DELETE THE ONES BELOW WHEN WE ARE DONE ^^ THESE ARE THE ONES IN CURRENT USE
 ////////////////LOGIN LOGIN LOGIN ///////////////
 
 const requestLogin = (creds) => {

@@ -194,3 +194,26 @@ form > div div{
 .reminders > h6{
     width: 80%;
 }
+
+
+
+/* Calendar Application */
+
+.scheduling{
+  margin-top:2em;
+  display:inline-block;
+  width: 100%;
+}
+
+.scheduling > .datePicker{
+  margin:0em 1em;
+  text-align:left;
+  width:40%;
+}
+
+.scheduling > .times{
+  float:right;
+  text-align:justify;
+  margin:1em 0;
+  width:60%;
+}

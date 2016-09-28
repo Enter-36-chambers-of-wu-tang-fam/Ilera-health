@@ -18,7 +18,7 @@ module.exports = {
             sess.email = data[0].email;
             sess.user = data[0].id;
             module.exports.sess = sess;
-            res.json(data[0]);
+            res.json(data[0].id);
           } else{
             console.log(error);
             res.status(401).send("That email and/or password was not found");
@@ -50,7 +50,7 @@ module.exports = {
             sess.email = req.body.email;
             sess.user = data;
             module.exports.sess = sess;
-            res.json(data);
+            res.json(data.insertId);
           });
         })
       }

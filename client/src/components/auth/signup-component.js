@@ -50,6 +50,7 @@ class SignupForm extends Component {
 	onSubmit(props) {    
     axios.post(`/api/${this.state.userType}/signup`, props)
     .then( registered => {
+      console.log(registered);
       let encodedId = CryptoJS.AES.encrypt(String(registered.data), 'key');  //need to change key to actual key 
 
       localStorage.setItem('uid',encodedId);
@@ -116,9 +117,6 @@ class SignupForm extends Component {
 
 SignupForm = reduxForm({
 	form: 'SignupForm',
-  onSubmitSuccess: (result, dispatch) => {
-    dispatch(authenticateUser());
-  },
 	validate
 }, null, {  })(SignupForm);
 
