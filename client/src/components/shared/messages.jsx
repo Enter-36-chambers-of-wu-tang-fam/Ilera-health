@@ -19,7 +19,7 @@ export default class Messages extends Component {
   }
   componentWillReceiveProps(nextProps) {
     // if (this.props.messages !== nextProps.messages) {
-      console.log("2 WILL RECEIVE", nextProps.chosenid)
+      console.log("2 WILL RECEIVE", nextProps.chosen)
       this.setState({ messages: nextProps.messages, chosen: nextProps.chosen, chosenid: nextProps.chosenid })
     // }
   }
@@ -53,7 +53,7 @@ export default class Messages extends Component {
     let receiver = this.state.chosenid;
     console.log("RECEIVER", receiver)
     if (newMessage.text.length !== 0) {
-      dispatch(actions.createMessage(newMessage, user, receiver));
+      dispatch(actions.createMessage(senderType, receiverType, newMessage, user, receiver));
     }
   }
 

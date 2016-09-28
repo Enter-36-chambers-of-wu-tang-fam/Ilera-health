@@ -8,7 +8,26 @@ import contacts from './contacts-reducer.js';
 
 const rootReducer = combineReducers({
     authentication: authenticated,
-    form: formReducer,
+    form: formReducer.plugin({
+        login: (state, action) => {   
+        switch(action.type) {
+            case AUTH_LOGIN_SUCCESS:
+            return {
+                ...state,
+                values: {
+                ...state.values,
+                password: undefined // <----- clear password value
+                },
+                fields: {
+                ...state.fields,
+                password: undefined // <----- clear field state, too (touched, etc.)
+                }
+            }
+            default:
+            return state
+        }
+        }
+    }),
     messages: messages,
     contacts: contacts
 });

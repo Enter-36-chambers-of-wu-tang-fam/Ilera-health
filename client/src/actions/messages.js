@@ -25,11 +25,11 @@ const addMessageFailed = (err) => {
 	}
 }
 
-export function createMessage(message, senderid, receiverid) {
+export function createMessage(senderType, receiverType, message, senderid, receiverid) {
 	console.log("YAAAAAAY", senderid, receiverid)
   return dispatch => {
     dispatch(addMessageRequest(message))
-    return axios.post('/api/messages/newmessage', {"direct_message": `${message.text}`, "sender_id": senderid, "receiver_id": receiverid})
+    return axios.post('/api/messages/newmessage', {"sender_type": senderType, "receiver_type": receiverType, "direct_message": `${message.text}`, "sender_id": senderid, "receiver_id": receiverid})
 			.then( success => {
 					dispatch(addMessage(message));
 			})
