@@ -1,6 +1,6 @@
 'use strict'
 
-const Medication = require('../controller/medication-helpers.js');
+const Medication = require('../models/medication-helpers.js');
 
 module.exports = {
 
@@ -25,5 +25,5 @@ module.exports = {
   //     res.json(data);
   //   });
   // },
-  
+
 };

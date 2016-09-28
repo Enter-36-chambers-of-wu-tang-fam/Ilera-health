@@ -1,4 +1,4 @@
-const Health_log = require('../controller/health_log-helpers.js');
+const Health_log = require('../models/health_log-helpers.js');
 
 module.exports = {
 

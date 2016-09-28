@@ -1,6 +1,6 @@
 'use strict'
 
-const Message = require("../controller/messages-helpers.js");
+const Message = require("../models/messages-helpers.js");
 const Promise = require("bluebird");
 
 module.exports = {

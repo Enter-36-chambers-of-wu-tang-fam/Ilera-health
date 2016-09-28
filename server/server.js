@@ -4,17 +4,17 @@ const app = express();
 const session = require('express-session');
 const path = require('path');
 const db = require('./db/dbConnect/connection.js');
-const Appointment = require('./routes/appointment.js');
-const HealthLog = require('./routes/health_log.js');
-const Institution = require('./routes/institution.js');
-const InsurancePlan = require('./routes/insurance_plan.js');
-const InsuranceProfesional = require('./routes/insurance_professional.js');
-const Medication = require('./routes/medication.js');
-const Message = require('./routes/messages.js');
-const Patient = require('./routes/patient.js');
-const Physician = require('./routes/physician.js');
-const Relation_PatPhy = require('./routes/relation-patient_physician.js');
-const Staff = require('./routes/staff.js');
+const Appointment = require('./models/appointment.js');
+const HealthLog = require('./models/health_log.js');
+const Institution = require('./models/institution.js');
+const InsurancePlan = require('./models/insurance_plan.js');
+const InsuranceProfesional = require('./models/insurance_professional.js');
+const Medication = require('./models/medication.js');
+const Message = require('./models/messages.js');
+const Patient = require('./models/patient.js');
+const Physician = require('./models/physician.js');
+const Relation_PatPhy = require('./models/relation-patient_physician.js');
+const Staff = require('./models/staff.js');
 // sockets
 const SocketIo = require('socket.io');
 
@@ -62,9 +62,11 @@ app.post('api/patient/logout', Patient.logout);
 app.post('/api/physician/signup', Physician.signUp);
 
 app.post('/api/physician/signin', Physician.signIn);
-app.post('api/patient/getallphy', Physician.getAll_Physicians);
-app.post('api/patient/getallphy/specialty', Physician.getAll_SpecialtyPhysician);
-app.post('api/physician/logout', Physician.logout);
+app.post('/api/patient/getallphy', Physician.getAll_Physicians);
+app.post('/api/patient/getallphy/specialty', Physician.getAll_SpecialtyPhysician);
+app.put('/api/physician/background', Physician.put_init_form);
+app.put('/api/physician/password/update', Physician.put_password);
+app.post('/api/physician/logout', Physician.logout);
 
 //  post to health_log
 // app.post('/api/health_log', HealthLog.postHealthLog);
@@ -93,7 +95,8 @@ app.post('/api/relation/create', Relation_PatPhy.createPatientPhysicianRelation)
 // Staff
 app.post('/api/staff/signup', Staff.signUp);
 app.get('/api/staff/signin', Staff.signIn);
-app.put('/api/staff', Staff.put_staffInfo);
+app.put('/api/staff/background', Staff.put_staffInfo);
+app.put('/api/staff/password/update', Staff.put_password);
 app.post('/api/staff', Staff.logout);
 
 // INSERTED TEMPORARLILY TO TEST OUT ROUTING ON FRONT END
