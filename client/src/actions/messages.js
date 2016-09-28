@@ -25,11 +25,11 @@ const addMessageFailed = (err) => {
 	}
 }
 
-export function createMessage(message, sender_id, receiver_id) {
-	console.log("YAAAAAAY")
+export function createMessage(message, senderid, receiverid) {
+	console.log("YAAAAAAY", senderid, receiverid)
   return dispatch => {
     dispatch(addMessageRequest(message))
-    return axios.post('/api/messages/newmessage', {direct_message: message, sender_id: sender_id, receiver_id: receiver_id})
+    return axios.post('/api/messages/newmessage', {"direct_message": `${message.text}`, "sender_id": senderid, "receiver_id": receiverid})
 			.then( success => {
 					dispatch(addMessage(message));
 			})
@@ -41,37 +41,53 @@ export function createMessage(message, sender_id, receiver_id) {
 
 const fetchMessagesRequest = () => {
 	return {
-		type:  types.MESSAGE_FETCH_REQUEST,
+		type: types.MESSAGE_FETCH_REQUEST,
 		isFetching: true,
 	}
 }
 
-const fetchMessagesSuccess = (message) => {
+const fetchMessagesSuccess = (messages) => {
 	return {
-		type:  types.MESSAGE_FETCH_SUCCESS,
+		type: types.MESSAGE_FETCH_SUCCESS,
 		isFetching: false,
-		payload: message
+		payload: messages
 	}
 }
 
 const fetchMessagesFailure = (err) => {
 	return {
-		type:  types.MESSAGE_FETCH_FAILURE,
+		type: types.MESSAGE_FETCH_FAILURE,
 		isFetching: false,
 		payload: err
 	}
 }
 
-export function fetchMessages(receiverId, senderId) {
+export function fetchMessages(userid) {
   console.log("FETCH MESSAGES")
   return dispatch => {
     dispatch(fetchMessagesRequest())
-    return axios.post(`/api/messages/fetch`, {receiver_id: receiverid, sender_id: senderid})
+    return axios.get(`/api/messages/fetch/${userid}`)
       .then(response =>{
-		dispatch(fetchMessagesSuccess(response));	  
+				console.log("RESPONSE", response)
+				dispatch(fetchMessagesSuccess(response));	  
 	  })
       .catch(error => {
 		  dispatch(fetchMessagesFailure(error));
 	  });
   }
+}
+
+export function receiveRawMessage(message) {
+  return {
+    type: types.RECEIVE_MESSAGE,
+    payload: message
+  };
+}
+
+const fetchPatientPhysicians = (physicians) => {
+	return {
+		type: types.PATIENT_FETCH_PHYSICIANS,
+		isFetching: false,
+		payload: physicians
+	}
 }

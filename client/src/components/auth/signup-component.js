@@ -38,8 +38,9 @@ class SignupForm extends Component {
 
   constructor(props){
     super(props);
+    console.log("*****YO", props.userType) 
 		this.state = {
-			userType: 'patient'
+			userType: props.userType
 		}
   }
 
@@ -47,7 +48,7 @@ class SignupForm extends Component {
     router: React.PropTypes.object
   }
 
-	onSubmit(props) {    
+	onSubmit(props) {       
     axios.post(`/api/${this.state.userType}/signup`, props)
     .then( registered => {
       console.log(registered);
@@ -85,12 +86,8 @@ class SignupForm extends Component {
 		const { error, handleSubmit, pristine, reset, submitting } = this.props;
 			return (
 				<div>
-					<h2>Sign Up</h2>					
+					<h2>{this.props.title} Sign Up</h2>					
 					<form onSubmit={ handleSubmit(props => this.onSubmit(props)) }>
-							<Field name="userType" component={RadioButtonGroup} onChange={this.handleChange.bind(this)} defaultSelected="patient">
-                <RadioButton value="patient" label="Patient"/>
-                <RadioButton value="physician" label="Provider" />
-              </Field>
               <div>
                 <Field name="first" type="text" component={this.renderTextField} label="First"/>
               </div>

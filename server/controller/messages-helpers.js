@@ -7,7 +7,6 @@ module.exports = {
 
   get_all_messages_pat_from_phy: (params, cb) => {
     // Get Request → /api/messages/:physid/:patid  [limit 5]
-    console.log("PARAMS", params.userid);
     let data = [params.userid, params.userid];
     const queryString = 'SELECT p.id, p.first, p.last, p.email, p.phone_number, \
       p.photo_path, py.id, py.first, py.last, py.email, py.phone_number, \
@@ -23,7 +22,6 @@ module.exports = {
 
   get_all_messages_phy_from_pat: (params, cb) => {
     // Get Request → /api/messages/:physid/:patid  [limit 5]
-    console.log("PARAMS", params.userid);
     let data = [params.userid, params.userid];
     const queryString = 'SELECT p.id, p.first, p.last, p.email, p.phone_number, p.photo_path, \
       py.id, py.first, py.last, py.email, py.phone_number, py.photo_path, \

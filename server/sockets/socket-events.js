@@ -3,6 +3,7 @@ exports = module.exports = function(io) {
     console.log("CONNECTION MADE")
     socket.join('Lobby');
     socket.on('chat mounted', function(user) {
+      console.log("CHAT MOUNTED")
       socket.emit('receive socket', socket.id)
     })
     socket.on('leave channel', function(channel) {
@@ -23,6 +24,7 @@ exports = module.exports = function(io) {
       socket.broadcast.to(data.channel).emit('typing bc', data.user);
     });
     socket.on('stop typing', function (data) {
+      console.log("STOP TYPING")
       socket.broadcast.to(data.channel).emit('stop typing bc', data.user);
     });
     socket.on('new private channel', function(socketID, channel) {

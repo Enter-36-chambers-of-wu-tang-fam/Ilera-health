@@ -6,7 +6,7 @@ const Promise = require("bluebird");
 module.exports = {
 
   getMessages: (req, res) => {
-    Message.get_all_messages(req.body, (err,data)=>{
+    Message.get_all_messages(req.params, (err,data)=>{
       if(err) console.log(err);
       res.json(data);
     });

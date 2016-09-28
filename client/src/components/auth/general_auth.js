@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import UnauthHeader from '../shared/unauth-header.jsx';
 
 export default function (ComposedComponent) {
   class GeneralAuthentication extends Component {
@@ -23,7 +24,12 @@ export default function (ComposedComponent) {
     }
 
     render() {
-      return <ComposedComponent {...this.props} />
+      return (
+        <div>
+          <UnauthHeader />
+          <ComposedComponent {...this.props} />
+        </div>
+      )
     }
   }
 
