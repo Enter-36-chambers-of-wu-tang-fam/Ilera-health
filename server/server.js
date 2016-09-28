@@ -75,6 +75,8 @@ app.post('api/physician/logout', Physician.logout);
 
 app.post('/api/messages/newmessage', Message.postMessage);
 app.get('/api/messages/:physid/:patid', Message.getMessages);
+app.get('/api/messages/:physid/:patid', Message.getMessages);
+app.get('/api/messages/:patid/:physid', Message.getMessages);
 app.get('/api/messages/getOne', Message.getOneMessage);
 app.put('/api/messages/edit', Message.editOneMessage);
 app.delete('/api/messages/delete', Message.deleteOneMessage);

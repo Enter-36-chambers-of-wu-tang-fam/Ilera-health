@@ -100,7 +100,7 @@ DROP TABLE IF EXISTS `medication`;
 CREATE TABLE `medication` (
   `id` INTEGER NOT NULL AUTO_INCREMENT,
   `drug_name` VARCHAR(100) NULL DEFAULT NULL,
-  `details` INTEGER NULL DEFAULT NULL,
+  `details` VARCHAR(1000) NULL DEFAULT NULL,
   PRIMARY KEY (`id`)
 );
 
@@ -444,6 +444,25 @@ INSERT INTO `institution` (`inst_name`,`type`,`description`,`rating`,`phone_numb
 INSERT INTO `institution` (`inst_name`,`type`,`description`,`rating`,`phone_number`,`address`,`city`,`state`,`zip`,`email`) VALUES ('gza','chamberlane','tester','54','3542','4123','frisco','va','4231','wafsdu@gmail');
 INSERT INTO `physician_institution` (`id_institution`,`id_physician`) VALUES ('1','1');
 INSERT INTO `physician_institution` (`id_institution`,`id_physician`) VALUES ('1','2');
+
+INSERT INTO `health_log` (`physician_notes`,`physician_photo_path`,`patient_note`,`patient_photo_path`,`id_physician`,`id_patient`) VALUES ('he needs to shape up','upyours','doctor sucks','yolo','1','1');
+INSERT INTO `health_log` (`physician_notes`,`physician_photo_path`,`patient_note`,`patient_photo_path`,`id_physician`,`id_patient`) VALUES ('he make big moves','upyours and hers','doctor sucks at life','yolo is my name o','1','2');
+INSERT INTO `health_log` (`physician_notes`,`physician_photo_path`,`patient_note`,`patient_photo_path`,`id_physician`,`id_patient`) VALUES ('he make big moves all day erry day','up this','doctor sucks at life and more','yolo is my name o bro','2','2');
+
+INSERT INTO `messages` (`direct_message`,`sender_id`,`receiver_id`) VALUES ('what up','1','2');
+INSERT INTO `messages` (`direct_message`,`sender_id`,`receiver_id`) VALUES ('hello bernard livelars','1','2');
+INSERT INTO `messages` (`direct_message`,`sender_id`,`receiver_id`) VALUES ('yolo','2','1');
+INSERT INTO `messages` (`direct_message`,`sender_id`,`receiver_id`) VALUES ('howdy','2','1');
+
+INSERT INTO `emergency_contact` (`first`,`last`,`phone`,`email`,`relationship`,`id_patient`) VALUES ('helen','yara','1234','yolomail','momma','1');
+
+INSERT INTO `medication` (`drug_name`,`details`) VALUES ('kush','thr stickiest of the ickiest');
+INSERT INTO `patient_medication` (`drug_name`,`dosage`,`id_medication`,`id_physician`,`id_patient`) VALUES ('kush','enough','1','1','1');
+INSERT INTO `appointment` (`time`,`notes`,`id_physician`,`id_patient`,`id_institution`) VALUES ('245','needs to protect his kneck','1','1','1');
+
+INSERT INTO `appointment_document` (`document`,`id_appointment`) VALUES ('yolo','1');
+
+
 -- INSERT INTO `patient` (`id`,`first`,`last`,`email`,`password`,`pin`,`date_of_birth`,`address`,`city`,`state`,`zip`,`phone_number`,`weight`,`height`,`blood_type`,`photo_path`) VALUES
 -- ('','','','','','','','','','','','','','','','');
 -- INSERT INTO `physician` (`id`,`first`,`last`,`email`,`phone_number`,`password`,`photo_path`,`specialty`) VALUES

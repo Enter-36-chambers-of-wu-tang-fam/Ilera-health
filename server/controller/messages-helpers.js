@@ -64,3 +64,4 @@ module.exports = {
   // },
 
 };
+// SELECT p.id, p.first, p.last, p.email, p.phone_number, p.photo_path, py.id, py.first, py.last, py.email, py.phone_number, py.photo_path, m.id, m.direct_message, m.date, m.sender_id, m.receiver_id FROM messages m JOIN patient p ON p.id = m.sender_id OR p.id = m.receiver_id JOIN physician py ON py.id = m.sender_id OR py.id = m.receiver_id WHERE sender_id=1 OR receiver_id=1 ORDER BY date DESC LIMIT 25;
