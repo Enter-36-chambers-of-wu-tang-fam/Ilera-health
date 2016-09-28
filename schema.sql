@@ -287,8 +287,10 @@ CREATE TABLE `messages` (
   `id` INTEGER NOT NULL AUTO_INCREMENT,
   `direct_message` VARCHAR(10000) NULL DEFAULT NULL,
   `date` TIMESTAMP NULL DEFAULT NULL,
-  `sender_id` INTEGER DEFAULT NULL,
-  `receiver_id` INTEGER DEFAULT NULL,
+  `sender_id` INTEGER NULL,
+  `receiver_id` INTEGER NULL,
+  `sender_type` VARCHAR(300) NULL,
+  `receiver_type` VARCHAR(300) NULL,
   PRIMARY KEY (`id`)
 );
 
@@ -449,10 +451,10 @@ INSERT INTO `health_log` (`physician_notes`,`physician_photo_path`,`patient_note
 INSERT INTO `health_log` (`physician_notes`,`physician_photo_path`,`patient_note`,`patient_photo_path`,`id_physician`,`id_patient`) VALUES ('he make big moves','upyours and hers','doctor sucks at life','yolo is my name o','1','2');
 INSERT INTO `health_log` (`physician_notes`,`physician_photo_path`,`patient_note`,`patient_photo_path`,`id_physician`,`id_patient`) VALUES ('he make big moves all day erry day','up this','doctor sucks at life and more','yolo is my name o bro','2','2');
 
-INSERT INTO `messages` (`direct_message`,`sender_id`,`receiver_id`) VALUES ('what up','1','2');
-INSERT INTO `messages` (`direct_message`,`sender_id`,`receiver_id`) VALUES ('hello bernard livelars','1','2');
-INSERT INTO `messages` (`direct_message`,`sender_id`,`receiver_id`) VALUES ('yolo','2','1');
-INSERT INTO `messages` (`direct_message`,`sender_id`,`receiver_id`) VALUES ('howdy','2','1');
+INSERT INTO `messages` (`direct_message`,`sender_id`,`receiver_id`,`sender_type`, `receiver_type`) VALUES ('what up','1','2','physician','patient');
+INSERT INTO `messages` (`direct_message`,`sender_id`,`receiver_id`,`sender_type`, `receiver_type`) VALUES ('hello bernard livelars','1','2','physician','patient');
+INSERT INTO `messages` (`direct_message`,`sender_id`,`receiver_id`,`sender_type`, `receiver_type`) VALUES ('yolo','2','1','patient','physician');
+INSERT INTO `messages` (`direct_message`,`sender_id`,`receiver_id`,`sender_type`, `receiver_type`) VALUES ('howdy','2','1','patient','physician');
 
 INSERT INTO `emergency_contact` (`first`,`last`,`phone`,`email`,`relationship`,`id_patient`) VALUES ('helen','yara','1234','yolomail','momma','1');
 

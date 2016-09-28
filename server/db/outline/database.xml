@@ -90,31 +90,31 @@
 <part>id</part>
 </key>
 </table>
-<table x="658" y="147" name="physician">
+<table x="655" y="147" name="physician">
 <row name="id" null="0" autoincrement="1">
 <datatype>INTEGER</datatype>
 </row>
 <row name="first" null="1" autoincrement="0">
 <datatype>VARCHAR(30)</datatype>
-</row>
+<default>NULL</default></row>
 <row name="last" null="1" autoincrement="0">
 <datatype>VARCHAR(30)</datatype>
-</row>
+<default>NULL</default></row>
 <row name="email" null="1" autoincrement="0">
 <datatype>VARCHAR(30)</datatype>
-</row>
+<default>NULL</default></row>
 <row name="phone_number" null="1" autoincrement="0">
 <datatype>VARCHAR(20)</datatype>
-</row>
+<default>NULL</default></row>
 <row name="password" null="1" autoincrement="0">
 <datatype>VARCHAR(30)</datatype>
-</row>
+<default>NULL</default></row>
 <row name="photo_path" null="1" autoincrement="0">
 <datatype>VARCHAR(300)</datatype>
-</row>
+<default>NULL</default></row>
 <row name="specialty" null="1" autoincrement="0">
 <datatype>VARCHAR(500)</datatype>
-</row>
+<default>NULL</default></row>
 <key type="PRIMARY" name="">
 <part>id</part>
 </key>
@@ -125,10 +125,10 @@
 </row>
 <row name="date" null="1" autoincrement="0">
 <datatype>DATE</datatype>
-<default>NULL</default></row>
+</row>
 <row name="time" null="1" autoincrement="0">
 <datatype>TIME</datatype>
-<default>NULL</default></row>
+</row>
 <row name="notes" null="1" autoincrement="0">
 <datatype>VARCHAR(10000)</datatype>
 <default>NULL</default></row>
@@ -202,19 +202,19 @@
 <default>NULL</default></row>
 <row name="address" null="1" autoincrement="0">
 <datatype>VARCHAR(300)</datatype>
-</row>
+<default>NULL</default></row>
 <row name="city" null="1" autoincrement="0">
 <datatype>VARCHAR(50)</datatype>
-</row>
+<default>NULL</default></row>
 <row name="state" null="1" autoincrement="0">
 <datatype>VARCHAR(3)</datatype>
-</row>
+<default>NULL</default></row>
 <row name="zip" null="1" autoincrement="0">
 <datatype>VARCHAR</datatype>
-</row>
+<default>NULL</default></row>
 <row name="email" null="1" autoincrement="0">
 <datatype>VARCHAR(100)</datatype>
-</row>
+<default>NULL</default></row>
 <key type="PRIMARY" name="">
 <part>id</part>
 </key>
@@ -259,7 +259,7 @@
 <default>NULL</default></row>
 <row name="physician_photo_path" null="1" autoincrement="0">
 <datatype>VARCHAR(300)</datatype>
-</row>
+<default>NULL</default></row>
 <row name="patient_date" null="1" autoincrement="0">
 <datatype>DATE</datatype>
 <default>NULL</default></row>
@@ -268,7 +268,7 @@
 <default>NULL</default></row>
 <row name="patient_photo_path" null="1" autoincrement="0">
 <datatype>VARCHAR(300)</datatype>
-</row>
+<default>NULL</default></row>
 <row name="id_physician" null="0" autoincrement="0">
 <datatype>INTEGER</datatype>
 <default>NOT NULL</default><relation table="physician" row="id" />
@@ -296,7 +296,7 @@
 <part>id</part>
 </key>
 </table>
-<table x="1700" y="612" name="insurance_company_professional">
+<table x="1443" y="619" name="insurance_company_professional">
 <row name="id" null="0" autoincrement="1">
 <datatype>INTEGER</datatype>
 </row>
@@ -315,7 +315,7 @@
 </row>
 <row name="photo_path" null="1" autoincrement="0">
 <datatype>VARCHAR(300)</datatype>
-</row>
+<default>NULL</default></row>
 <key type="PRIMARY" name="">
 <part>id</part>
 </key>
@@ -326,16 +326,16 @@
 </row>
 <row name="plan" null="1" autoincrement="0">
 <datatype>VARCHAR(100)</datatype>
-</row>
+<default>NULL</default></row>
 <row name="policy_number" null="1" autoincrement="0">
 <datatype>VARCHAR(100)</datatype>
 <default>NULL</default></row>
 <row name="member_id" null="1" autoincrement="0">
 <datatype>VARCHAR(30)</datatype>
-</row>
+<default>NULL</default></row>
 <row name="payer_id" null="1" autoincrement="0">
 <datatype>VARCHAR(20)</datatype>
-</row>
+<default>NULL</default></row>
 <row name="id_patient" null="0" autoincrement="0">
 <datatype>INTEGER</datatype>
 <default>NOT NULL</default><relation table="patient" row="id" />
@@ -431,7 +431,7 @@
 <part>id</part>
 </key>
 </table>
-<table x="1493" y="65" name="messages">
+<table x="1478" y="62" name="messages">
 <row name="id" null="0" autoincrement="1">
 <datatype>INTEGER</datatype>
 </row>
@@ -447,6 +447,12 @@
 <row name="receiver_id" null="0" autoincrement="0">
 <datatype>INTEGER</datatype>
 <default>NOT NULL</default></row>
+<row name="sender_type" null="1" autoincrement="0">
+<datatype>VARCHAR(300)</datatype>
+</row>
+<row name="receiver_type" null="1" autoincrement="0">
+<datatype>VARCHAR(300)</datatype>
+</row>
 <key type="PRIMARY" name="">
 <part>id</part>
 </key>
@@ -467,19 +473,19 @@
 <part>id</part>
 </key>
 </table>
-<table x="1398" y="703" name="Insurance_company">
+<table x="1116" y="707" name="Insurance_company">
 <row name="id" null="1" autoincrement="1">
 <datatype>INTEGER</datatype>
 <default>NULL</default></row>
 <row name="company_name" null="1" autoincrement="0">
 <datatype>VARCHAR(100)</datatype>
-</row>
+<default>NULL</default></row>
 <row name="phone_number_for_patients" null="1" autoincrement="0">
 <datatype>VARCHAR(20)</datatype>
-</row>
+<default>NULL</default></row>
 <row name="phone_number_for_institutions" null="1" autoincrement="0">
 <datatype>VARCHAR(20)</datatype>
-</row>
+<default>NULL</default></row>
 <key type="PRIMARY" name="">
 <part>id</part>
 </key>
@@ -506,22 +512,22 @@
 <default>NULL</default></row>
 <row name="first" null="1" autoincrement="0">
 <datatype>VARCHAR(50)</datatype>
-</row>
+<default>NULL</default></row>
 <row name="last" null="1" autoincrement="0">
 <datatype>VARCHAR(50)</datatype>
-</row>
+<default>NULL</default></row>
 <row name="email" null="1" autoincrement="0">
 <datatype>VARCHAR(100)</datatype>
-</row>
+<default>NULL</default></row>
 <row name="phone_number" null="1" autoincrement="0">
 <datatype>VARCHAR(25)</datatype>
-</row>
+<default>NULL</default></row>
 <row name="password" null="1" autoincrement="0">
 <datatype>VARCHAR(200)</datatype>
-</row>
+<default>NULL</default></row>
 <row name="photo_path" null="1" autoincrement="0">
 <datatype>VARCHAR(300)</datatype>
-</row>
+<default>NULL</default></row>
 <key type="PRIMARY" name="">
 <part>id</part>
 </key>
