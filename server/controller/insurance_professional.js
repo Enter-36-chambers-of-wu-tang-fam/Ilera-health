@@ -28,7 +28,7 @@ module.exports = {
   },
 
   signUp: (req, res) => {
-    Professional.checkPatient(req.body,(error,data)=> {
+    Professional.checkProfessional(req.body,(error,data)=> {
 
       if(error){ console.log(error);}
 
@@ -52,6 +52,37 @@ module.exports = {
     });
   },
 
+  put_initForm: (req, res) => {
+    Professional.initform_professional(req.body, (err,data)=>{
+      if(err) console.log(err);
+      res.json(data);
+    });
+  },
+
+  put_password: (req, res) => {
+    if(req.body.newPassword){
+      hashHelp.hashPassword(req.body.password)
+      .then( hash => {
+        delete req.body.newPassword;
+        req.body.password = hash;
+        Professional.update_password(req.body, (error, data) => {
+          if(error) console.log(error);
+          res.json(data);
+        });
+      });
+    } else {
+      Professional.update_password(req.body, (error, data) => {
+        if(error) console.log(error);
+        res.json(data);
+      });
+    }
+  },
+
+  logout: (req, res) => {
+    sess = undefined;
+    req.session.destroy();
+    res.status(200).send("Logout complete");
+  }
 
 
 };

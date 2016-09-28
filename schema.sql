@@ -191,6 +191,8 @@ CREATE TABLE `insurance_company_professional` (
   `username` VARCHAR(40) NULL DEFAULT NULL,
   `password` VARCHAR(30) NULL DEFAULT NULL,
   `id_Insurance_company` INTEGER NULL DEFAULT NULL,
+  `phone_number` VARCHAR(30) NULL DEFAULT NULL,
+  `email` VARCHAR(100) NULL,
   `photo_path` VARCHAR(300) NULL,
   PRIMARY KEY (`id`)
 );
