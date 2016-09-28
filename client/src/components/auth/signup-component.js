@@ -47,10 +47,10 @@ class SignupForm extends Component {
     router: React.PropTypes.object
   }
 
-
 	onSubmit(props) {    
     axios.post(`/api/${this.state.userType}/signup`, props)
     .then( registered => {
+      console.log(registered);
       let encodedId = CryptoJS.AES.encrypt(String(registered.data), 'key');  //need to change key to actual key 
 
       localStorage.setItem('uid',encodedId);

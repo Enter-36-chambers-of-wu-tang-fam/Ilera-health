@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-
+    //  {this.props.children}
 export default class AllUsers extends Component {
 
     constructor (props){
@@ -10,6 +10,7 @@ export default class AllUsers extends Component {
       return (
           <div>
           Hello from allUsers!
+     
           </div>
       );
     }

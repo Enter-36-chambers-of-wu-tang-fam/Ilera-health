@@ -19,17 +19,24 @@ export function authenticateUser(){
 
 
 
+/////////////////HIGHER ORDER AUTHENTICATION///////////////////////
+export function getAppointments(){
+ return function(dispatch){
+  dispatch({
+    type: types.SET_APPOINTMENT,
+    payload: localStorage.getItem('uid'),
+    userType: localStorage.getItem('userType')
+  })
+ }
+}
+
+
+
+
+
+
 
 //CAN DELETE THE ONES BELOW WHEN WE ARE DONE ^^ THESE ARE THE ONES IN CURRENT USE
-
-
-
-
-
-
-
-
-
 ////////////////LOGIN LOGIN LOGIN ///////////////
 
 const requestLogin = (creds) => {

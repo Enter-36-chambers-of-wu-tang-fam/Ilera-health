@@ -10,6 +10,7 @@ export default class Profile extends Component {
       return (
           <div>
           Hello from Profile!
+          {this.props.children}
           </div>
       );
     }

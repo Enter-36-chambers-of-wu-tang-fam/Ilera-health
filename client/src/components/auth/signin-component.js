@@ -39,7 +39,10 @@ class SigninForm extends Component {
 
         localStorage.setItem('uid',encodedId);          
         localStorage.setItem('userType',props.userType);
+        
         this.props.authenticateUser();       
+          
+        this.context.router.push(`${props.userType}/dashboard`);
       })
       .catch( err => {
           console.log("LOGIN ERROR", err);
@@ -92,3 +95,4 @@ function mapDispatchToProps(dispatch) {
 }
 
 export default connect(null, mapDispatchToProps)(SigninForm)
+

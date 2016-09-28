@@ -32,6 +32,7 @@ import InsuranceForm from './containers/forms/insurance-policy-form.js';
 import PatientDashboard from './components/patient-app/patient-dashboard.jsx';
 import HealthLog from './components/patient-app/health-log.jsx';
 import Medications from './components/patient-app/medications.jsx';
+import PhysicianCalendar from './components/patient-app/physician-profile-calendar.jsx';
 
 export default (
     <Router path='/' component= { App } >
@@ -42,7 +43,7 @@ export default (
         <Route path='provider' component={ PhysicianAuth(PhysicianApp) } >
             <Route path="dashboard" component={ PhysicianDashboard } />
             <Route path="patients" component={ AllUsers } >
-              <Route path=':first:last' component={ Profile } />
+              <Route path=':patientId' component={ Profile } />
             </Route>
             <Route path="notes" component={ Notes } />
             <Route path="messages" component={ Chat } />
@@ -59,7 +60,9 @@ export default (
             <Route path="dashboard" component={ PatientDashboard } />
             <Route path="healthlog" component={ HealthLog } />
             <Route path="physicians" component={ AllUsers } >
-              <Route path=':first:last' component={ Profile } />
+              <Route path=':provider' component={ Profile } >
+                <Route path='calendar' component={ PhysicianCalendar } />
+              </Route>
             </Route>
             <Route path="messages" component={ Chat } />
             <Route path="profile" component={ Profile } />
