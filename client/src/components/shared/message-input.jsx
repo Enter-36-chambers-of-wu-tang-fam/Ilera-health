@@ -20,7 +20,7 @@ export default class MessageInput extends Component {
         user: user,
       };
       socket.emit('new message', newMessage);
-      socket.emit('stop typing', { user: "Yara" });
+      socket.emit('stop typing', { user: user });
       this.props.onSave(newMessage);
       this.setState({ text: '', typing: false });
     }
@@ -42,10 +42,11 @@ export default class MessageInput extends Component {
       <div style={{
         width: '100%',
       }}>
-        <input
+        <textarea
           style={{
             height: '100px',
           }}
+          id='messageInput'
           type="textarea"
           name="message"
           ref="messageComposer"

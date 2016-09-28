@@ -92,7 +92,7 @@ form > div div{
     min-height: 10px;
 }
 
-.dashboardRows:after, .reminders:after{
+.dashboardRows:after, .reminders:after, .chat:after, .messageContacts > ul:after, .contactItem:after{
     clear: both;
     content: '';
     display: block;
@@ -157,13 +157,6 @@ form > div div{
     margin-bottom: 15px;
 }
 
-#chatBoard{
-    min-height: 150px;
-    width: 200px;
-    border: 1px solid black;
-    margin: 0 auto;
-}
-
 .bottomRow p{
     text-align: center;
     font-size: 24px;
@@ -195,8 +188,6 @@ form > div div{
     width: 80%;
 }
 
-
-
 /* Calendar Application */
 
 .scheduling{
@@ -216,4 +207,66 @@ form > div div{
   text-align:justify;
   margin:1em 0;
   width:60%;
+}
+/* CHAT */
+#chatBoard{
+    min-height: 150px;
+    padding: 30px;
+    margin: 0 auto;
+    overflow: auto;
+    max-height: 800px;
+}
+.chat > div{
+    float: left;
+    width: 70%;
+    min-height: 100px;
+}
+
+.chat > div:first-of-type{
+    width: 30%;
+    border-right: 1px solid black;
+}
+
+.contactItem{
+    margin: 20px 10px;
+    background: rgba(248, 248, 248, 0.9);
+    padding: 10px;
+    border-radius: 3px;
+}
+
+.contactItem > div{
+    float: left;
+    width: 20%;
+}
+
+.contactItem h4{
+    font-size: 22px;
+    text-transform: uppercase;
+    font-weight: lighter;
+    padding-top: 10px;
+}
+
+.contactItem img{
+    display: block;
+    width: 50px;
+    height: 50px;
+    margin: 0 auto;
+    border-radius: 50%;
+}
+
+.contactItem > div:nth-of-type(2){
+    width: 60%;
+}
+.contactItem > div:last-of-type i{
+    display: block;
+    float: right;
+    padding: 10px;
+    font-size: 20px;
+}
+#messageInput{
+    width: 100%;
+    padding: 10px;
+    font-size: 16px;
+    border-radius: 5px;
+    min-height: 100px;
 }

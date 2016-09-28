@@ -46,6 +46,12 @@ export const MESSAGE_FETCH_REQUEST = 'MESSAGE_FETCH_REQUEST';
 export const MESSAGE_FETCH_SUCCESS = 'MESSAGE_FETCH_SUCCESS'; 
 export const MESSAGE_FETCH_FAILURE = 'MESSAGE_FETCH_FAILURE'; 
 
+export const RECEIVE_MESSAGE = 'RECEIVE_MESSAGE'; 
+
+export const MESSAGE_TYPING = 'MESSAGE_TYPING'; 
+export const MESSAGE_STOP_TYPING = 'MESSAGE_STOP_TYPING'; 
+
+
 // =================== PATIENT ======================
 // Health-Post - Patient
 export const HEALTH_POST_REQUEST = 'HEALTH_POST_REQUEST'; 

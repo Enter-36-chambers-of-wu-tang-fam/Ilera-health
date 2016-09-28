@@ -41,34 +41,72 @@ export function createMessage(message, sender_id, receiver_id) {
 
 const fetchMessagesRequest = () => {
 	return {
-		type:  types.MESSAGE_FETCH_REQUEST,
+		type: types.MESSAGE_FETCH_REQUEST,
 		isFetching: true,
 	}
 }
 
-const fetchMessagesSuccess = (message) => {
+const fetchMessagesSuccess = (messages) => {
 	return {
-		type:  types.MESSAGE_FETCH_SUCCESS,
+		type: types.MESSAGE_FETCH_SUCCESS,
 		isFetching: false,
-		payload: message
+		payload: messages
 	}
 }
 
 const fetchMessagesFailure = (err) => {
 	return {
-		type:  types.MESSAGE_FETCH_FAILURE,
+		type: types.MESSAGE_FETCH_FAILURE,
 		isFetching: false,
 		payload: err
 	}
 }
 
-export function fetchMessages(receiverId, senderId) {
+export function fetchMessages(userid) {
   console.log("FETCH MESSAGES")
   return dispatch => {
     dispatch(fetchMessagesRequest())
-    return axios.post(`/api/messages/fetch`, {receiver_id: receiverid, sender_id: senderid})
+    return axios.get(`/api/messages/fetch/${userid}`)
       .then(response =>{
-		dispatch(fetchMessagesSuccess(response));	  
+				console.log("RESPONSE", response)
+				dispatch(fetchMessagesSuccess(response));	  
+	  })
+      .catch(error => {
+		  dispatch(fetchMessagesFailure(error));
+	  });
+  }
+}
+
+export function receiveRawMessage(message) {
+  return {
+    type: types.RECEIVE_MESSAGE,
+    payload: message
+  };
+}
+
+export function fetchMyPhysicians(userid) {
+  console.log("FETCH MY PHYSICIANS")
+  return dispatch => {
+    return axios.get(`/api/messages/fetch/${userid}`)
+      .then(response =>{
+				console.log("RESPONSE", response)
+				dispatch(fetchMessagesSuccess(response));	  
+	  })
+      .catch(error => {
+		  dispatch(fetchMessagesFailure(error));
+	  });
+  }
+}
+
+
+export function fetchMyPatients(userid) {
+  console.log("FETCH MY PATIENTS")
+  return dispatch => {
+    dispatch(fetchMessagesRequest())
+    return axios.get(`/api/messages/fetch/${userid}`)
+      .then(response =>{
+				console.log("RESPONSE", response)
+				dispatch(fetchMessagesSuccess(response));	  
 	  })
       .catch(error => {
 		  dispatch(fetchMessagesFailure(error));
