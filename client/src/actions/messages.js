@@ -25,11 +25,11 @@ const addMessageFailed = (err) => {
 	}
 }
 
-export function createMessage(message, sender_id, receiver_id) {
-	console.log("YAAAAAAY")
+export function createMessage(message, senderid, receiverid) {
+	console.log("YAAAAAAY", senderid, receiverid)
   return dispatch => {
     dispatch(addMessageRequest(message))
-    return axios.post('/api/messages/newmessage', {direct_message: message, sender_id: sender_id, receiver_id: receiver_id})
+    return axios.post('/api/messages/newmessage', {"direct_message": `${message.text}`, "sender_id": senderid, "receiver_id": receiverid})
 			.then( success => {
 					dispatch(addMessage(message));
 			})
@@ -84,32 +84,10 @@ export function receiveRawMessage(message) {
   };
 }
 
-export function fetchMyPhysicians(userid) {
-  console.log("FETCH MY PHYSICIANS")
-  return dispatch => {
-    return axios.get(`/api/messages/fetch/${userid}`)
-      .then(response =>{
-				console.log("RESPONSE", response)
-				dispatch(fetchMessagesSuccess(response));	  
-	  })
-      .catch(error => {
-		  dispatch(fetchMessagesFailure(error));
-	  });
-  }
-}
-
-
-export function fetchMyPatients(userid) {
-  console.log("FETCH MY PATIENTS")
-  return dispatch => {
-    dispatch(fetchMessagesRequest())
-    return axios.get(`/api/messages/fetch/${userid}`)
-      .then(response =>{
-				console.log("RESPONSE", response)
-				dispatch(fetchMessagesSuccess(response));	  
-	  })
-      .catch(error => {
-		  dispatch(fetchMessagesFailure(error));
-	  });
-  }
+const fetchPatientPhysicians = (physicians) => {
+	return {
+		type: types.PATIENT_FETCH_PHYSICIANS,
+		isFetching: false,
+		payload: physicians
+	}
 }

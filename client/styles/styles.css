@@ -70,8 +70,23 @@ h2{
 }
 
 header{
-    min-height: 50px;
+    height: 50px;
     box-shadow: 0px 0px 10px 2px #ddd;
+}
+header > h1{
+    float: left;
+    width: 50%;
+}
+header > ul{
+    float: right;
+}
+header > ul > li{
+    float: left;
+    border-left: 1px solid black;
+    height: 50;
+}
+header > ul{
+    float: right;
 }
 
 form {
@@ -92,7 +107,7 @@ form > div div{
     min-height: 10px;
 }
 
-.dashboardRows:after, .reminders:after, .chat:after, .messageContacts > ul:after, .contactItem:after{
+.dashboardRows:after, .reminders:after, .chat:after, .messageContacts > ul:after, .contactItem:after, header:after, header ul:after, main > section > ul:after{
     clear: both;
     content: '';
     display: block;
@@ -234,7 +249,7 @@ form > div div{
     border-radius: 3px;
 }
 
-.contactItem > div{
+.contactItem > a > div{
     float: left;
     width: 20%;
 }
@@ -254,10 +269,10 @@ form > div div{
     border-radius: 50%;
 }
 
-.contactItem > div:nth-of-type(2){
+.contactItem > a > div:nth-of-type(2){
     width: 60%;
 }
-.contactItem > div:last-of-type i{
+.contactItem > a > div:last-of-type i{
     display: block;
     float: right;
     padding: 10px;
@@ -269,4 +284,43 @@ form > div div{
     font-size: 16px;
     border-radius: 5px;
     min-height: 100px;
+}
+
+/* WELCOME */
+main > section{
+    min-height: 350px;
+    padding: 30px 0;
+}
+
+
+main > section:nth-of-type(even){
+    background-color: #203248;
+    color: white;
+}
+
+main > section li{
+    float: left;
+    width: 26%;
+    border-top: 1px solid #ccc;
+    border-bottom: 1px solid #ccc;
+    margin: 15px 3%;
+    padding: 30px 0;
+}
+
+main > section .material-icons{
+    font-size: 110px;
+    text-align: center;
+    padding: 10% 30% 2%;
+}
+
+main > section h4{
+    font-size: 28px;
+    font-weight: lighter;
+    text-align: center;
+}
+
+main > section p{
+    font-size: 20px;
+    font-weight: lighter;
+    text-align: center;
 }

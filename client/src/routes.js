@@ -12,6 +12,7 @@ import GeneralAuth from './components/auth/general_auth.js';
 
 //Shared Components
 import App from './components/app.js';
+import Welcome from './components/shared/welcome.jsx';
 import Signin from './components/auth/signin-component.js';
 import Signup from './components/auth/signup-component.js';
 import AllUsers from './components/shared/allUsers.jsx';
@@ -36,7 +37,7 @@ import PhysicianCalendar from './components/patient-app/physician-profile-calend
 
 export default (
     <Router path='/' component= { App } >
-        <IndexRoute component={ GeneralAuth(Signup) }/>
+        <IndexRoute component={ GeneralAuth(Welcome) }/>
         <Route path='signup' component={ GeneralAuth(Signup) } />
         <Route path='signin' component={ GeneralAuth(Signin) } />
         

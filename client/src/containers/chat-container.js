@@ -1,6 +1,7 @@
 import React, { Component, PropTypes } from 'react';
 import { connect } from 'react-redux';
 import * as actions from '../actions/messages.js';
+import * as contacts from '../actions/contacts.js';
 import CryptoJS from 'crypto-js';
 import Messages from '../components/shared/messages.jsx';
 import MessageContacts from '../components/shared/message-contacts.jsx';
@@ -18,7 +19,7 @@ class ChatContainer extends Component {
 
     constructor(props){
         super(props);
-        console.log("Props in container: ", props.messages)
+        console.log("Props in container: ", props)
         
          //get encoded id from local storage
         let id = localStorage.getItem('uid');
@@ -26,16 +27,20 @@ class ChatContainer extends Component {
         let code  = CryptoJS.AES.decrypt(id.toString(), 'key'); //need to change key
         const uid = code.toString(CryptoJS.enc.Utf8);
         this.state = {
-            uid: uid
+            uid: uid,
+            messages: [],
+            chosen: false,
+            chosenid: ''
         }
     }
     componentWillMount() {
         const { dispatch, user, userType } = this.props;
         dispatch(actions.fetchMessages(this.state.uid));
+        console.log("USER TYPE", userType)
         if(userType === 'patient'){
-            dispatch(actions.fetchMyPhysicians(this.state.uid));
+            dispatch(contacts.fetchMyPhysicians(this.state.uid));
         }else{
-            dispatch(actions.fetchMyPatients(this.state.uid))
+            dispatch(contacts.fetchMyPatients(this.state.uid))
         }
     }
 
@@ -43,11 +48,23 @@ class ChatContainer extends Component {
         
     }
 
+    userSelected (userid, chosenid){
+        const messages = [];
+        this.props.messages.map( message => {
+            if( message.sender_id == userid && message.receiver_id == chosenid || message.sender_id == chosenid && message.receiver_id == userid){
+                messages.push(message);
+            }
+        })
+        console.log("****HERE****", messages)
+        this.setState({ messages: messages, chosen: true, chosenid: chosenid });
+    }
+
     render() {
+        console.log("*****MESSAGES", this.props.messages)
       return (
           <div className="chat">
-            <MessageContacts />
-            <Messages {...this.props} messages={this.props.messages} uid={this.state.uid} socket={ socket } />
+            <MessageContacts {...this.props} userSelected={this.userSelected.bind(this)} contacts={this.props.contacts} user={this.state.uid} />
+            <Messages {...this.props} chosen={this.state.chosen} chosenid={this.state.chosenid} messages={this.state.messages} uid={this.state.uid} socket={ socket } />
           </div>
           
       );
@@ -56,5 +73,6 @@ class ChatContainer extends Component {
 
 export default connect(state => ({
   messages: state.messages.messages,
-  userType: state.authentication.userType
+  userType: state.authentication.userType,
+  contacts: state.contacts
 }))(ChatContainer)

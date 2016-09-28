@@ -8,7 +8,9 @@ export default class Messages extends Component {
   constructor(props, context) {
     super(props, context);
     this.state = {
-      messages: []
+      messages: [],
+      chosen: this.props.chosen,
+      chosenid: ''
     }
   }
 
@@ -17,8 +19,8 @@ export default class Messages extends Component {
   }
   componentWillReceiveProps(nextProps) {
     // if (this.props.messages !== nextProps.messages) {
-      console.log("2 WILL RECEIVE", nextProps)
-      this.setState({ messages: nextProps })
+      console.log("2 WILL RECEIVE", nextProps.chosenid)
+      this.setState({ messages: nextProps.messages, chosen: nextProps.chosen, chosenid: nextProps.chosenid })
     // }
   }
 
@@ -47,20 +49,23 @@ export default class Messages extends Component {
 
   handleSave(newMessage) {
     const { dispatch } = this.props;
+    let user = this.props.uid;
+    let receiver = this.state.chosenid;
+    console.log("RECEIVER", receiver)
     if (newMessage.text.length !== 0) {
-      dispatch(actions.createMessage(newMessage));
+      dispatch(actions.createMessage(newMessage, user, receiver));
     }
   }
 
   render(){
     const { messages, socket, typers, dispatch, uid, screenWidth} = this.props;
     console.log("3 LOGGG", this.state.messages)
-    console.log("3 PROOOOOOPS", this.props.messages, this.props.uid)
-    if(this.props.messages.length > 0){
+    console.log("3 PROOOOOOPS", this.state.messages, this.props.uid)
+    if(this.state.messages.length > 0 && this.state.chosen === true){
       return (
         <div>
           <div id="chatBoard">
-            {messages.map( message => {
+            {this.state.messages.map( message => {
               if(message.sender_id == this.props.uid){
                 return <div>USER1: {message.direct_message}</div>
               }else{
@@ -75,15 +80,10 @@ export default class Messages extends Component {
       return (
         <div>
           <div id="chatBoard">
-            Loading...
+            <h3>Select from the left column...</h3>
           </div>
-          <form >
-            <input 
-              id="message" 
-            />
-             <MessageInput socket={socket} user={uid} onSave={this.handleSave.bind(this)} />
-          </form>
-        </div>
+          <MessageInput socket={socket} user={uid} onSave={this.handleSave.bind(this)} />
+       </div>
     );
     }
     
