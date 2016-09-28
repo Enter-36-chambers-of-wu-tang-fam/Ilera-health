@@ -1,7 +1,7 @@
 const Promise = require("bluebird");
 const bcrypt = require("bcrypt-nodejs");
 const hashHelp = require("../security/hash.js");
-const Staff = require('../controller/staff-helpers.js');
+const Staff = require('../models/staff-helpers.js');
 
 module.exports = {
 

@@ -1,6 +1,6 @@
 'use strict'
 
-const Appointment = require('../controller/appointment-helpers.js');
+const Appointment = require('../models/appointment-helpers.js');
 
 module.exports = {
 

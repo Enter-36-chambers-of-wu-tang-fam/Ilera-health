@@ -1,4 +1,4 @@
-const InsurancePlan = require("../controller/insurance_plan-helpers.js");
+const InsurancePlan = require("../models/insurance_plan-helpers.js");
 
 module.exports = {
 

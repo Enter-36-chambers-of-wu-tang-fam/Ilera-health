@@ -1,6 +1,6 @@
 'use strict'
 
-const Relation = require('../controller/relation-patient_physician-helpers.js');
+const Relation = require('../models/relation-patient_physician-helpers.js');
 
 module.exports = {
 

@@ -1,23 +1,26 @@
 const Promise = require("bluebird");
 const bcrypt = require("bcrypt-nodejs");
 const hashHelp = require("../security/hash.js");
-const Patient = require("../controller/patient-helpers.js");
+const Physician = require("../models/physician-helpers.js");
 
 var sess;
 
 module.exports = {
 
   signIn: (req, res) => {
-    Patient.signIn(req.body, (error, data) => {
+    console.log("REQUEST BODY REQUEST BODY", req.body);
+    Physician.signIn(req.body, (error, data) => {
       if(data.length > 0){
         bcrypt.compare(req.body.password, data[0].password, (error, result) => {
+          console.log("RESULT RESULT RESULT", result);
           if(result){
             sess = req.session;
             sess.email = data[0].email;
-            sess.patient = data[0].id;
+            sess.user = data[0].id;
             module.exports.sess = sess;
             res.json(data[0].id);
           } else{
+            console.log(error);
             res.status(401).send("That email and/or password was not found");
           }
         })
@@ -28,9 +31,11 @@ module.exports = {
   },
 
   signUp: (req, res) => {
-    Patient.checkPatient(req.body,(error,data)=> {
+    Physician.checkPhysician(req.body,(error,data) => {
 
-      if(error){ console.log(error);}
+      if(error){
+        console.log(error);
+      }
 
       if(data.length > 0){
         res.status(409).send("The email address you specified is already in use.");
@@ -39,11 +44,11 @@ module.exports = {
         .then(hashed=>{
           req.body.password = hashed;
 
-          Patient.signUp(req.body, (error, data) => {
+          Physician.signUp(req.body, (error, data) => {
             if(error) console.log(error);
             sess = req.session;
             sess.email = req.body.email;
-            sess.patient = data;
+            sess.user = data;
             module.exports.sess = sess;
             res.json(data.insertId);
           });
@@ -51,11 +56,9 @@ module.exports = {
       }
     });
   },
-  // change to put
-  // hash new password and do not hash if it is the same password
 
   put_init_form: (req, res) => {
-    Patient.initform_patient(req.body, (err,data)=>{
+    Physician.update_physician_info(req.body, (err,data)=>{
       if(err) console.log(err);
       res.json(data);
     });
@@ -67,36 +70,28 @@ module.exports = {
       .then( hash => {
         delete req.body.newPassword;
         req.body.password = hash;
-        Patient.update_password(req.body, (error, data) => {
+        Physician.update_password(req.body, (error, data) => {
           if(error) console.log(error);
           res.json(data);
         });
       });
     } else {
-      Patient.update_password(req.body, (error, data) => {
+      Physician.update_password(req.body, (error, data) => {
         if(error) console.log(error);
         res.json(data);
       });
     }
   },
 
-  post_emer_contact: (req, res) => {
-    Patient.emergency_contact_form(req.body, (err,data)=>{
+  getAll_Physicians: (req, res) => {
+    Physician.getAllPhysicians(req.body, (err,data)=>{
       if(err) console.log(err);
       res.json(data);
     });
   },
 
-
-  post_insurance_info: (req, res) => {
-    Patient.init_insurance(req.body, (err,data)=>{
-      if(err) console.log(err);
-      res.json(data);
-    });
-  },
-
-  get_patient_info: (req, res) => {
-    Patient.patient_info(req.body, (err,data)=>{
+  getAll_SpecialtyPhysician: (req, res) => {
+    Physician.getSpecialtyPhysician(req.body, (err,data)=>{
       if(err) console.log(err);
       res.json(data);
     });
@@ -107,11 +102,24 @@ module.exports = {
     req.session.destroy();
     res.status(200).send("Logout complete");
   }
-  //
+
   // (req, res) => {
-  //   Patient.funcHere(req.body, (err,data)=>{
+  //   Physician.funcHere(req.body, (err,data)=>{
   //     if(err) console.log(err);
   //     res.json(data);
   //   });
   // },
+  // (req, res) => {
+  //   Physician.funcHere(req.body, (err,data)=>{
+  //     if(err) console.log(err);
+  //     res.json(data);
+  //   });
+  // },
+  // (req, res) => {
+  //   Physician.funcHere(req.body, (err,data)=>{
+  //     if(err) console.log(err);
+  //     res.json(data);
+  //   });
+  // },
+
 };

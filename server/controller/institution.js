@@ -1,6 +1,6 @@
 'use strict'
 
-const Institution = require('../controller/institution-helpers.js');
+const Institution = require('../models/institution-helpers.js');
 
 module.exports = {
 
