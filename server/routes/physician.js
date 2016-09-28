@@ -58,18 +58,25 @@ module.exports = {
   },
 
   put_init_form: (req, res) => {
+    Physician.update_physician_info(req.body, (err,data)=>{
+      if(err) console.log(err);
+      res.json(data);
+    });
+  },
+
+  put_password: (req, res) => {
     if(req.body.newPassword){
       hashHelp.hashPassword(req.body.password)
       .then( hash => {
         delete req.body.newPassword;
         req.body.password = hash;
-        Physician.update_physician_info(req.body, (error, data) => {
+        Physician.update_password(req.body, (error, data) => {
           if(error) console.log(error);
           res.json(data);
         });
       });
     } else {
-      Physician.update_physician_info(req.body, (error, data) => {
+      Physician.update_password(req.body, (error, data) => {
         if(error) console.log(error);
         res.json(data);
       });
