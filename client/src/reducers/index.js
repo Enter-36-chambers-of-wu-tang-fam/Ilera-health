@@ -8,6 +8,7 @@ import contacts from './contacts-reducer.js';
 
 const rootReducer = combineReducers({
     authentication: authenticated,
+    allPhysicianAppointments: appointments.physAppt,
     form: formReducer,
     messages: messages,
     contacts: contacts

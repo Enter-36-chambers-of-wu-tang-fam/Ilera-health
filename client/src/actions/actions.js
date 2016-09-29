@@ -19,20 +19,6 @@ export function authenticateUser(){
 
 
 
-/////////////////HIGHER ORDER AUTHENTICATION///////////////////////
-export function getAppointments(){
- return function(dispatch){
-  dispatch({
-    type: types.SET_APPOINTMENT,
-    payload: localStorage.getItem('uid'),
-    userType: localStorage.getItem('userType')
-  })
- }
-}
-
-
-
-
 
 
 

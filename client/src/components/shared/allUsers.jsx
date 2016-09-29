@@ -10,7 +10,7 @@ export default class AllUsers extends Component {
       return (
           <div>
           Hello from allUsers!
-     
+          {this.props.children}
           </div>
       );
     }
