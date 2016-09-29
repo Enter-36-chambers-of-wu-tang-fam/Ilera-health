@@ -1,8 +1,10 @@
 import React, { Component } from 'react';
 import DatePicker from 'material-ui/DatePicker';
 import RaisedButton from 'material-ui/RaisedButton';
+import FlatButton from 'material-ui/FlatButton';
 import {RadioButton, RadioButtonGroup} from 'material-ui/RadioButton';
-import {getCurrentBookings, setAppointment} from './../../actions/appointment.js';
+import Dialog from 'material-ui/Dialog';
+import {getAllPhysicianAppts, setAppointment} from './../../actions/appointment.js';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import axios from 'axios';
@@ -69,7 +71,8 @@ class PhysicianCalendar extends Component{
       minDate:minDate,
       maxDate:maxDate,
 
-      autoOk: true,
+      autoOk: true, //Date Picker
+      open: false, //Dialog
 
       morning: {
         '08:00': 'AM',
@@ -142,11 +145,19 @@ class PhysicianCalendar extends Component{
     this.props.getAppointments(physid);
   }
 
+  componentWillReceiveProps(nextProps) {
+    this.setState({
+      unavailableDates: nextProps.unavailableDates
+      // appointmentDate: null,
+      // appointmentTime: false
+    })
+  }
+
   handleSubmit() {
+    this.state.unavailableTimes[this.state.appointmentTime] = true;
     let id = localStorage.getItem('uid');
     let code  = CryptoJS.AES.decrypt(id.toString(), 'key'); //need to change key
     let uid = code.toString(CryptoJS.enc.Utf8);
-
 
     let data = {
       id_patient: uid,
@@ -154,7 +165,8 @@ class PhysicianCalendar extends Component{
       date: this.state.appointmentDate,
       time: this.state.appointmentTime
     }
-    setAppointment(data);
+    this.props.requestAppointment(data);
+    this.props.getAppointments(1);
   }
 
   handleDate(event, date){
@@ -168,24 +180,45 @@ class PhysicianCalendar extends Component{
       this.setState({
         unavailableTimes: this.props.unavailableDates[formattedDate]
       })
-    {console.log(this.props.unavailableTimes)}
     }  
   }
 
+ handleOpen() {
+    this.setState({open: true});
+  };
+
+  handleClose() {
+    this.setState({open: false});
+  };
+
+
   handleTime(time){
     this.setState({
-      appointmentTime: time
+      appointmentTime: time,
     })
   }
 
 
 
   render(){
+        const actions = [
+          <FlatButton
+            label="Close"
+            primary={true}
+            onTouchTap={this.handleClose.bind(this)}
+          />,
+          <FlatButton
+            label="Go Home"
+            primary={true}
+            keyboardFocused={true}
+            onTouchTap={this.handleClose.bind(this)}
+          />,
+        ];
       return (
         <div className="scheduling">
           <DatePicker
             className="datePicker" 
-            hintText="Select a date here" 
+            hintText="Enter a date" 
             container="inline" 
             mode="landscape" 
             autoOk={this.state.autoOk}
@@ -222,7 +255,18 @@ class PhysicianCalendar extends Component{
             })}
           </div>
 
-          <RaisedButton label="Request Appointment" primary={true} style={style} disabled={!this.state.appointmentDate || !this.state.appointmentTime } onClick={this.handleSubmit.bind(this)}/>
+          <RaisedButton label="Request Appointment" primary={true} style={style} onTouchTap={this.handleOpen.bind(this)} disabled={!this.state.appointmentDate || !this.state.appointmentTime } onClick={this.handleSubmit.bind(this)}/>
+
+
+          <Dialog
+          title="Appointment Set"
+          actions={actions}
+          modal={true}
+          open={this.state.open}
+          onRequestClose={this.handleClose}
+          children={`Your appointment has been set for ${moment(this.state.appointmentDate).format("dddd, MMMM Do YYYY")} at ${String(this.state.appointmentTime)} ${this.state.morning[this.state.appointmentTime] ? ' AM' : ' PM'}!`}
+        >
+        </Dialog>
       </div>
     );
   }
@@ -241,7 +285,10 @@ function mapStateToProps (state) {
 const mapDispatchToProps = (dispatch) => {
   return { 
       getAppointments: (id) => {
-        dispatch(getCurrentBookings(id))
+        dispatch(getAllPhysicianAppts(id))
+      },
+      requestAppointment: (data) =>{
+        dispatch(setAppointment(data))
       }
   }
 }
