@@ -15,13 +15,10 @@ export default class Messages extends Component {
   }
 
   componentWillMount() {
-    console.log("1 WILL MOUNT", this.props)
   }
+  
   componentWillReceiveProps(nextProps) {
-    // if (this.props.messages !== nextProps.messages) {
-      console.log("2 WILL RECEIVE", nextProps.chosen)
       this.setState({ messages: nextProps.messages, chosen: nextProps.chosen, chosenid: nextProps.chosenid })
-    // }
   }
 
   componentDidMount() {

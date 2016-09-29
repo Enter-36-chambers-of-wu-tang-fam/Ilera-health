@@ -4,30 +4,26 @@ import * as actions from '../../actions/messages.js';
 import ContactItem from './message-contact-item.jsx';
 
 export default class MessageContacts extends Component {
-    constructor(props, context) {
-        super(props, context);
-        this.state = {
-            contacts: []
-        }
-    }
+	constructor(props, context) {
+		super(props, context);
+		this.state = {
+			contacts: []
+		}
+	}
 
-    componentWillReceiveProps(nextProps) {
-        // if (this.props.messages !== nextProps.messages) {
-        console.log("CONTACTS WILL RECEIVE", nextProps)
-        this.setState({ contacts: nextProps.contacts.contacts.data })
-        // }
-    }
+	componentWillReceiveProps(nextProps) {
+		this.setState({ contacts: nextProps.contacts.contacts.data })
+	}
 
-    render(){
-        console.log("********", this.state.contacts)
-        return (
-            <div className="messageContacts">
-                <ul>
-                    {this.state.contacts.map( contact => {
-                        return <ContactItem user={this.props.user} userSelected={this.props.userSelected} key={ contact.id } contact={contact}/>
-                    })}
-                </ul>
-            </div>
-        );
-    }
+	render(){
+		return (
+			<div className="messageContacts">
+				<ul>
+					{this.state.contacts.map( contact => {
+						return <ContactItem user={this.props.user} userSelected={this.props.userSelected} key={ contact.id } contact={contact}/>
+					})}
+				</ul>
+			</div>
+		);
+	}
 };

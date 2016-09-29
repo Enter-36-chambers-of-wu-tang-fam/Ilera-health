@@ -55,7 +55,7 @@ class ChatContainer extends Component {
                 messages.push(message);
             }
         })
-        console.log("****HERE****", messages)
+        console.log("****HERE****", messages, userid, chosenid)
         this.setState({ messages: messages, chosen: true, chosenid: chosenid });
     }
 
