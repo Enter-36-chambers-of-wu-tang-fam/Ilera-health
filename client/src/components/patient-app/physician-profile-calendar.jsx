@@ -7,7 +7,6 @@ import Dialog from 'material-ui/Dialog';
 import {getAllPhysicianAppts, setAppointment} from './../../actions/appointment.js';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import axios from 'axios';
 import CryptoJS from 'crypto-js';
 import moment from 'moment';
 
@@ -27,7 +26,7 @@ const minDate = new Date();
 const maxDate = new Date();
 
 minDate.setFullYear(minDate.getFullYear());
-minDate.setDate(minDate.getDate());
+minDate.setDate(minDate.getDate()+1); //No same day appointment requests
 minDate.setMonth(minDate.getMonth());
 minDate.setHours(0, 0, 0, 0);
 
@@ -203,14 +202,22 @@ class PhysicianCalendar extends Component{
   render(){
         const actions = [
           <FlatButton
-            label="Close"
+            label="View Appointments"
             primary={true}
+            href="#"
             onTouchTap={this.handleClose.bind(this)}
           />,
           <FlatButton
-            label="Go Home"
+            label="Change Appointment"
+            primary={true}
+            href="#"
+            onTouchTap={this.handleClose.bind(this)}
+          />,
+          <FlatButton
+            label="Dashboard"
             primary={true}
             keyboardFocused={true}
+            href="/patients/dashboard"
             onTouchTap={this.handleClose.bind(this)}
           />,
         ];

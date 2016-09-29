@@ -5,6 +5,14 @@ import {Tabs, Tab} from 'material-ui';
 import SignUp from '../auth/signup-component.js';
 import SignIn from '../auth/signin-component.js';
 
+const buttonStyles = {
+  hoverColor: "#007874",
+  backgroundColor:null,
+  labelStyle: {color:"#999"},
+  rippleColor: '#333',
+  styles: { height: '50px',borderRadius: '0 !important'}
+}
+
 export default class UnauthHeader extends Component {
 
     constructor (props){
@@ -45,16 +53,37 @@ export default class UnauthHeader extends Component {
 
       return (
           <header>
-            <h1>Logo</h1>
+            <h1><a href="/"><img src="../styles/logos/myilera_large_white.png" /></a></h1>
             <ul>
               <li>
-                <FlatButton label="About" style={ { height: '50px' }}/>
+                <FlatButton label="About" 
+                  backgroundColor={buttonStyles.backgroundColor}
+                  hoverColor={buttonStyles.hoverColor} 
+                  style={buttonStyles.styles}
+                  labelStyle={buttonStyles.labelStyle}
+                  rippleColor={buttonStyles.rippleColor}
+
+                />
               </li>
               <li>
-                <FlatButton label="Sign Up" style={ { height: '50px' }} onTouchTap={this.handleSignupOpen.bind(this)}/>
+                <FlatButton label="Sign up" 
+                  backgroundColor={buttonStyles.backgroundColor}
+                  hoverColor={buttonStyles.hoverColor} 
+                  style={buttonStyles.styles}
+                  labelStyle={buttonStyles.labelStyle}
+                  rippleColor={buttonStyles.rippleColor}
+                  onTouchTap={this.handleSignupOpen.bind(this)}
+                />
               </li>
               <li>
-                <FlatButton label="Sign In" style={ { height: '50px' }} onTouchTap={this.handleSigninOpen.bind(this)}/>
+                <FlatButton label="Sign in" 
+                  backgroundColor={buttonStyles.backgroundColor}
+                  hoverColor={buttonStyles.hoverColor} 
+                  style={buttonStyles.styles}
+                  labelStyle={buttonStyles.labelStyle}
+                  rippleColor={buttonStyles.rippleColor}
+                  onTouchTap={this.handleSigninOpen.bind(this)}
+                />
               </li>
             </ul>
             <Dialog

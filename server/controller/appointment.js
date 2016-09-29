@@ -18,8 +18,8 @@ module.exports = {
     });
   },
 
-  getOne_appointmentByPhY_id:(req, res) => {
-    Appointment.get_one_appointment_by_phY_id(req.body, (err,data)=>{
+  getAll_appointmentByPhY_id:(req, res) => {
+    Appointment.get_all_appointment_by_phY_id(req.params, (err,data)=>{
       if(err) console.log(err);
       res.json(data);
     });
