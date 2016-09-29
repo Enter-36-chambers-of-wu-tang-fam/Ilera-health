@@ -8,8 +8,7 @@ CREATE DATABASE `Ilera`;
 
 USE Ilera;
 
--- SET SQL_MODE="NO_AUTO_VALUE_ON_ZERO";
--- SET FOREIGN_KEY_CHECKS=0;
+
 
 -- ---
 -- Table 'patient'
@@ -128,7 +127,7 @@ CREATE TABLE `institution` (
 
 -- ---
 -- Table 'payment'
---
+-- this is to store the bill of each visit the patient makes to the doctor
 -- ---
 
 DROP TABLE IF EXISTS `payment`;
@@ -146,8 +145,8 @@ CREATE TABLE `payment` (
 
 -- ---
 -- Table 'health_log'
---
--- ---
+-- this is a way for the doctor to assign a health/workout regimen
+-- --- and for the patient to log their health as they follow the regimen
 
 DROP TABLE IF EXISTS `health_log`;
 
@@ -166,7 +165,7 @@ CREATE TABLE `health_log` (
 
 -- ---
 -- Table 'appointment_document'
---
+-- this is for the seperate documents that may be required for patients to fill out before each visit
 -- ---
 
 DROP TABLE IF EXISTS `appointment_document`;
@@ -180,7 +179,7 @@ CREATE TABLE `appointment_document` (
 
 -- ---
 -- Table 'insurance_company_professional'
---
+-- this is for the insurance professionals to have a user profile to monitor customer bills and such
 -- ---
 
 DROP TABLE IF EXISTS `insurance_company_professional`;
@@ -199,8 +198,8 @@ CREATE TABLE `insurance_company_professional` (
 
 -- ---
 -- Table 'insurance_plan'
---
--- ---
+-- these are the individual plans the insurance companies offer patients
+-- --- one to one relation for each patients to each plan
 
 DROP TABLE IF EXISTS `insurance_plan`;
 
@@ -249,7 +248,7 @@ CREATE TABLE `emergency_contact` (
 
 -- ---
 -- Table 'patient_medication'
---
+-- the mediacation inforrmation of each patient is stored
 -- ---
 
 DROP TABLE IF EXISTS `patient_medication`;
@@ -266,8 +265,8 @@ CREATE TABLE `patient_medication` (
 
 -- ---
 -- Table 'physician_institution'
---
--- ---
+-- for establishing relation between patient and physician
+-- --- many to many relation
 
 DROP TABLE IF EXISTS `physician_institution`;
 
@@ -401,188 +400,100 @@ ALTER TABLE `company_insurance_plan_types` ADD FOREIGN KEY (id_Insurance_company
 ALTER TABLE `institution_staff` ADD FOREIGN KEY (id_staff) REFERENCES `staff` (`id`);
 ALTER TABLE `institution_staff` ADD FOREIGN KEY (id_institution) REFERENCES `institution` (`id`);
 
--- ---
--- Table Properties
--- ---
-
--- ALTER TABLE `patient` ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
--- ALTER TABLE `physician` ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
--- ALTER TABLE `appointment` ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
--- ALTER TABLE `Patient_Form` ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
--- ALTER TABLE `medication` ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
--- ALTER TABLE `institution` ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
--- ALTER TABLE `payment` ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
--- ALTER TABLE `health_log` ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
--- ALTER TABLE `appointment_document` ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
--- ALTER TABLE `insurance_company_professional` ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
--- ALTER TABLE `insurance_plan` ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
--- ALTER TABLE `administration` ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
--- ALTER TABLE `emergency_contact` ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
--- ALTER TABLE `patient_medication` ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
--- ALTER TABLE `physician_institution` ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
--- ALTER TABLE `messages` ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
--- ALTER TABLE `patient_physician` ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
--- ALTER TABLE `Insurance_company` ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
--- ALTER TABLE `company_insurance_plan_types` ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
--- ALTER TABLE `staff` ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
--- ALTER TABLE `institution_staff` ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
 
 -- ---
--- Test Data
+-- Data For Test Purposes
 -- ---
+
+-- INSERT INTO `physician` (`id`,`first`,`last`,`email`,`phone_number`,`password`,`photo_path`,`specialty`) VALUES
+-- ('','','','','','','','');
 INSERT INTO `physician` (`first`,`last`,`email`,`phone_number`,`password`,`photo_path`,`specialty`) VALUES ('neekon','nee','nee','34214321','nee','nee','nee');
 
 INSERT INTO `physician` (`first`,`last`,`email`,`phone_number`,`password`,`photo_path`,`specialty`) VALUES ('yolo','bee','bee','34321235','bee','bee','bee');
-
+-- INSERT INTO `patient` (`id`,`first`,`last`,`email`,`password`,`pin`,`date_of_birth`,`address`,`city`,`state`,`zip`,`phone_number`,`weight`,`height`,`blood_type`,`photo_path`) VALUES
+-- ('','','','','','','','','','','','','','','','');
 INSERT INTO `patient` (`first`,`last`,`email`,`password`,`pin`,`address`,`city`,`state`,`zip`,`phone_number`,`weight`,`height`,`blood_type`,`photo_path`) VALUES ('bal','bon','afsjon','2345rew','14','mya','at','ca','43522','2435','1231','123','4','a');
 INSERT INTO `patient` (`first`,`last`,`email`,`password`,`pin`,`address`,`city`,`state`,`zip`,`phone_number`,`weight`,`height`,`blood_type`,`photo_path`) VALUES ('abn','bon','jon','2345rew','14','mj','sarat','ca','43522','2435','1231','123','4','a');
 
+
+-- INSERT INTO `patient_physician` (`id`,`id_physician`,`id_patient`) VALUES
+-- ('','','');
 INSERT INTO `patient_physician` (`id_physician`,`id_patient`) VALUES ('1','1');
 INSERT INTO `patient_physician` (`id_physician`,`id_patient`) VALUES ('1','2');
 INSERT INTO `patient_physician` (`id_physician`,`id_patient`) VALUES ('2','2');
 INSERT INTO `patient_physician` (`id_physician`,`id_patient`) VALUES ('2','1');
 
 
-
+-- INSERT INTO `institution` (`id`,`inst_name`,`type`,`description`,`rating`,`phone_number`,`address`,`city`,`state`,`zip`,`email`) VALUES
+-- ('','','','','','','','','','','');
 INSERT INTO `institution` (`inst_name`,`type`,`description`,`rating`,`phone_number`,`address`,`city`,`state`,`zip`,`email`) VALUES ('wu tang','36chambers','fixer','12','1423','2413','sanjose','ca','4231','wu@gmail');
 INSERT INTO `institution` (`inst_name`,`type`,`description`,`rating`,`phone_number`,`address`,`city`,`state`,`zip`,`email`) VALUES ('gza','chamberlane','tester','54','3542','4123','frisco','va','4231','wafsdu@gmail');
+
+-- INSERT INTO `physician_institution` (`id`,`id_institution`,`id_physician`) VALUES
+-- ('','','');
 INSERT INTO `physician_institution` (`id_institution`,`id_physician`) VALUES ('1','1');
 INSERT INTO `physician_institution` (`id_institution`,`id_physician`) VALUES ('1','2');
 
+
+-- INSERT INTO `health_log` (`id`,`physician_date`,`physician_notes`,`physician_photo_path`,`patient_date`,`patient_note`,`patient_photo_path`,`id_physician`,`id_patient`) VALUES
+-- ('','','','','','','','','');
 INSERT INTO `health_log` (`physician_notes`,`physician_photo_path`,`patient_note`,`patient_photo_path`,`id_physician`,`id_patient`) VALUES ('he needs to shape up','upyours','doctor sucks','yolo','1','1');
 INSERT INTO `health_log` (`physician_notes`,`physician_photo_path`,`patient_note`,`patient_photo_path`,`id_physician`,`id_patient`) VALUES ('he make big moves','upyours and hers','doctor sucks at life','yolo is my name o','1','2');
 INSERT INTO `health_log` (`physician_notes`,`physician_photo_path`,`patient_note`,`patient_photo_path`,`id_physician`,`id_patient`) VALUES ('he make big moves all day erry day','up this','doctor sucks at life and more','yolo is my name o bro','2','2');
 
+-- INSERT INTO `messages` (`id`,`direct_message`,`date`,`sender_id`,`receiver_id`) VALUES
+-- ('','','','','');
 INSERT INTO `messages` (`direct_message`,`sender_id`,`receiver_id`,`sender_type`, `receiver_type`) VALUES ('what up','1','2','physician','patient');
 INSERT INTO `messages` (`direct_message`,`sender_id`,`receiver_id`,`sender_type`, `receiver_type`) VALUES ('hello bernard livelars','1','2','physician','patient');
 INSERT INTO `messages` (`direct_message`,`sender_id`,`receiver_id`,`sender_type`, `receiver_type`) VALUES ('yolo','2','1','patient','physician');
 INSERT INTO `messages` (`direct_message`,`sender_id`,`receiver_id`,`sender_type`, `receiver_type`) VALUES ('howdy','2','1','patient','physician');
 
+-- INSERT INTO `emergency_contact` (`id`,`first`,`last`,`phone`,`email`,`relationship`,`id_patient`) VALUES
+-- ('','','','','','','');
 INSERT INTO `emergency_contact` (`first`,`last`,`phone`,`email`,`relationship`,`id_patient`) VALUES ('helen','yara','1234','yolomail','momma','1');
 
+-- INSERT INTO `medication` (`id`,`drug_name`,`details`) VALUES
+-- ('','','');
 INSERT INTO `medication` (`drug_name`,`details`) VALUES ('kush','thr stickiest of the ickiest');
+
+-- INSERT INTO `patient_medication` (`id`,`drug_name`,`dosage`,`id_medication`,`id_physician`,`id_patient`) VALUES
+-- ('','','','','','');
 INSERT INTO `patient_medication` (`drug_name`,`dosage`,`id_medication`,`id_physician`,`id_patient`) VALUES ('kush','enough','1','1','1');
+
+-- INSERT INTO `appointment` (`id`,`date`,`time`,`notes`,`id_physician`,`id_patient`,`id_institution`) VALUES
+-- ('','','','','','','');
 INSERT INTO `appointment` (`time`,`notes`,`id_physician`,`id_patient`,`id_institution`) VALUES ('245','needs to protect his kneck','1','1','1');
 
+-- INSERT INTO `appointment_document` (`id`,`document`,`id_appointment`) VALUES
+-- ('','','');
 INSERT INTO `appointment_document` (`document`,`id_appointment`) VALUES ('yolo','1');
 
 
--- INSERT INTO `patient` (`id`,`first`,`last`,`email`,`password`,`pin`,`date_of_birth`,`address`,`city`,`state`,`zip`,`phone_number`,`weight`,`height`,`blood_type`,`photo_path`) VALUES
--- ('','','','','','','','','','','','','','','','');
--- INSERT INTO `physician` (`id`,`first`,`last`,`email`,`phone_number`,`password`,`photo_path`,`specialty`) VALUES
--- ('','','','','','','','');
--- INSERT INTO `appointment` (`id`,`date`,`time`,`notes`,`id_physician`,`id_patient`,`id_institution`) VALUES
--- ('','','','','','','');
--- INSERT INTO `Patient_Form` (`id`,`doctor_notes`,`id_physician`,`id_patient`) VALUES
--- ('','','','');
--- INSERT INTO `medication` (`id`,`drug_name`,`details`) VALUES
--- ('','','');
--- INSERT INTO `institution` (`id`,`inst_name`,`type`,`description`,`rating`,`phone_number`,`address`,`city`,`state`,`zip`,`email`) VALUES
--- ('','','','','','','','','','','');
--- INSERT INTO `payment` (`id`,`copay`,`bill`,`bill_statement`,`due_date`,`id_physician`,`id_patient`) VALUES
--- ('','','','','','','');
--- INSERT INTO `health_log` (`id`,`physician_date`,`physician_notes`,`physician_photo_path`,`patient_date`,`patient_note`,`patient_photo_path`,`id_physician`,`id_patient`) VALUES
--- ('','','','','','','','','');
--- INSERT INTO `appointment_document` (`id`,`document`,`id_appointment`) VALUES
--- ('','','');
--- INSERT INTO `insurance_company_professional` (`id`,`company_name`,`username`,`password`,`id_Insurance_company`,`photo_path`) VALUES
--- ('','','','','','');
--- INSERT INTO `insurance_plan` (`id`,`plan`,`policy_number`,`member_id`,`payer_id`,`id_patient`,`id_Insurance_company`) VALUES
--- ('','','','','','','');
 -- INSERT INTO `administration` (`id`,`login`,`password`) VALUES
 -- ('','','');
--- INSERT INTO `emergency_contact` (`id`,`first`,`last`,`phone`,`email`,`relationship`,`id_patient`) VALUES
+
+-- INSERT INTO `company_insurance_plan_types` (`id`,`id_insurance`,`id_Insurance_company`) VALUES
+-- ('','','');
+
+
+-- INSERT INTO `Patient_Form` (`id`,`doctor_notes`,`id_physician`,`id_patient`) VALUES
+-- ('','','','');
+
+
+-- INSERT INTO `payment` (`id`,`copay`,`bill`,`bill_statement`,`due_date`,`id_physician`,`id_patient`) VALUES
 -- ('','','','','','','');
--- INSERT INTO `patient_medication` (`id`,`drug_name`,`dosage`,`id_medication`,`id_physician`,`id_patient`) VALUES
--- ('','','','','','');
--- INSERT INTO `physician_institution` (`id`,`id_institution`,`id_physician`) VALUES
--- ('','','');
--- INSERT INTO `messages` (`id`,`direct_message`,`date`,`sender_id`,`receiver_id`) VALUES
--- ('','','','','');
--- INSERT INTO `patient_physician` (`id`,`id_physician`,`id_patient`) VALUES
--- ('','','');
+
 -- INSERT INTO `Insurance_company` (`id`,`company_name`,`phone_number_for_patients`,`phone_number_for_institutions`) VALUES
 -- ('','','','');
--- INSERT INTO `company_insurance_plan_types` (`id`,`id_insurance`,`id_Insurance_company`) VALUES
+
+-- INSERT INTO `insurance_company_professional` (`id`,`company_name`,`username`,`password`,`id_Insurance_company`,`photo_path`) VALUES
+-- ('','','','','','');
+
+-- INSERT INTO `insurance_plan` (`id`,`plan`,`policy_number`,`member_id`,`payer_id`,`id_patient`,`id_Insurance_company`) VALUES
+-- ('','','','','','','');
+
+
+-- INSERT INTO `institution_staff` (`id`,`id_staff`,`id_institution`) VALUES
 -- ('','','');
 -- INSERT INTO `staff` (`id`,`first`,`last`,`email`,`phone_number`,`password`,`photo_path`) VALUES
 -- ('','','','','','','');
--- INSERT INTO `institution_staff` (`id`,`id_staff`,`id_institution`) VALUES
--- ('','','');
--- ---
--- Table Properties
--- ---
-
-
--- INSERT INTO `patient` (`id`,`first`,`last`,`email`,`password`,`pin`,`date_of_birth`,`address`,`city`,`state`,`zip`,`phone_number`,`weight`,`height`,`blood_type`,`photo_path`) VALUES
--- ('','','','','','','','','','','','','','','','');
--- INSERT INTO `physician` (`id`,`first`,`last`,`email`,`phone_number`,`password`,`photo_path`,`specialty`) VALUES
--- ('','','','','','','','');
--- INSERT INTO `appointment` (`id`,`date`,`time`,`notes`,`id_physician`,`id_patient`,`id_institution`) VALUES
--- ('','','','','','','');
--- INSERT INTO `Patient_Form` (`id`,`doctor_notes`,`id_physician`,`id_patient`) VALUES
--- ('','','','');
--- INSERT INTO `medication` (`id`,`drug_name`,`details`) VALUES
--- ('','','');
--- INSERT INTO `institution` (`id`,`inst_name`,`type`,`description`,`rating`,`phone_number`) VALUES
--- ('','','','','','');
--- INSERT INTO `payment` (`id`,`copay`,`bill`,`bill_statement`,`due_date`,`id_physician`,`id_patient`) VALUES
--- ('','','','','','','');
--- INSERT INTO `health_log` (`id`,`physician_date`,`physician_notes`,`physician_photo_path`,`patient_date`,`patient_note`,`patient_photo_path`,`id_physician`,`id_patient`) VALUES
--- ('','','','','','','','','');
--- INSERT INTO `appointment_document` (`id`,`document`,`id_appointment`) VALUES
--- ('','','');
--- INSERT INTO `insurance_company_client` (`id`,`company_name`,`username`,`password`) VALUES
--- ('','','','');
--- INSERT INTO `insurance` (`id`,`company_name`,`policy_number`,`type`,`id_insurance_client`,`id_patient`) VALUES
--- ('','','','','','');
--- INSERT INTO `administration` (`id`,`login`,`password`) VALUES
--- ('','','');
--- INSERT INTO `emergency_contact` (`id`,`first`,`last`,`phone`,`email`,`relationship`,`id_patient`) VALUES
--- ('','','','','','','');
--- INSERT INTO `patient_medication` (`id`,`drug_name`,`dosage`,`id_medication`,`id_physician`,`id_patient`) VALUES
--- ('','','','','','');
--- INSERT INTO `physician_institution` (`id`,`id_institution`,`id_physician`) VALUES
--- ('','','');
--- INSERT INTO `messages` (`id`,`direct_message`,`date`,`sender_id`,`receiver_id`,`previous_message_id`) VALUES
--- ('','','','','','');
--- INSERT INTO `patient_physician` (`id`,`id_physician`,`id_patient`) VALUES
--- ('','','');
--- ---
--- Test Data
--- ---
-
--- INSERT INTO `patient` (`id`,`first`,`last`,`email`,`password`,`pin`,`date_of_birth`,`address`,`city`,`state`,`zip`,`phone_number`,`weight`,`height`,`blood_type`,`photo_path`) VALUES
--- ('','','','','','','','','','','','','','','','');
--- INSERT INTO `physician` (`id`,`first`,`last`,`email`,`phone_number`,`password`,`photo_path`,`specialty`) VALUES
--- ('','','','','','','','');
--- INSERT INTO `appointment` (`id`,`date`,`time`,`notes`,`id_physician`,`id_patient`,`id_institution`) VALUES
--- ('','','','','','','');
--- INSERT INTO `Patient_Form` (`id`,`doctor_notes`,`id_physician`,`id_patient`) VALUES
--- ('','','','');
--- INSERT INTO `medication` (`id`,`drug_name`,`details`) VALUES
--- ('','','');
--- INSERT INTO `institution` (`id`,`inst_name`,`type`,`description`,`rating`,`phone_number`) VALUES
--- ('','','','','','');
--- INSERT INTO `payment` (`id`,`copay`,`bill`,`bill_statement`,`due_date`,`id_physician`,`id_patient`) VALUES
--- ('','','','','','','');
--- INSERT INTO `health_log` (`id`,`physician_date`,`physician_notes`,`physician_photo_path`,`patient_date`,`patient_note`,`patient_photo_path`,`id_physician`,`id_patient`) VALUES
--- ('','','','','','','','','');
--- INSERT INTO `appointment_document` (`id`,`document`,`id_appointment`) VALUES
--- ('','','');
--- INSERT INTO `insurance_company_client` (`id`,`company_name`,`username`,`password`) VALUES
--- ('','','','');
--- INSERT INTO `insurance` (`id`,`company_name`,`policy_number`,`type`,`id_insurance_client`,`id_patient`) VALUES
--- ('','','','','','');
--- INSERT INTO `administration` (`id`,`login`,`password`) VALUES
--- ('','','');
--- INSERT INTO `emergency_contact` (`id`,`first`,`last`,`phone`,`email`,`relationship`,`id_patient`) VALUES
--- ('','','','','','','');
--- INSERT INTO `patient_medication` (`id`,`drug_name`,`dosage`,`id_medication`,`id_physician`,`id_patient`) VALUES
--- ('','','','','','');
--- INSERT INTO `physician_institution` (`id`,`id_institution`,`id_physician`) VALUES
--- ('','','');
--- INSERT INTO `messages` (`id`,`direct_message`,`date`,`sender_id`,`receiver_id`,`previous_message_id`) VALUES
--- ('','','','','','');
--- INSERT INTO `patient_physician` (`id`,`id_physician`,`id_patient`) VALUES
--- ('','','');
