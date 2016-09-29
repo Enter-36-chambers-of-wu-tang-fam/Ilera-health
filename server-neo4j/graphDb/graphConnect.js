@@ -8,7 +8,7 @@ console.log("Neo your Database is now connected to the Matrix");
 module.exports = {
   graphdb: graphdb,
   connection: connection
-}
+};
 // name: Ilera
 // password: wutangfam
 

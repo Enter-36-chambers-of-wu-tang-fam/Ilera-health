@@ -4,17 +4,17 @@ const app = express();
 const session = require('express-session');
 const path = require('path');
 const db = require('./db/dbConnect/connection.js');
-const Appointment = require('./models/appointment.js');
-const HealthLog = require('./models/health_log.js');
-const Institution = require('./models/institution.js');
-const InsurancePlan = require('./models/insurance_plan.js');
-const InsuranceProfesional = require('./models/insurance_professional.js');
-const Medication = require('./models/medication.js');
-const Message = require('./models/messages.js');
-const Patient = require('./models/patient.js');
-const Physician = require('./models/physician.js');
-const Relation_PatPhy = require('./models/relation-patient_physician.js');
-const Staff = require('./models/staff.js');
+const Appointment = require('./controller/appointment.js');
+const HealthLog = require('./controller/health_log.js');
+const Institution = require('./controller/institution.js');
+const InsurancePlan = require('./controller/insurance_plan.js');
+const InsuranceProfesional = require('./controller/insurance_professional.js');
+const Medication = require('./controller/medication.js');
+const Message = require('./controller/messages.js');
+const Patient = require('./controller/patient.js');
+const Physician = require('./controller/physician.js');
+const Relation_PatPhy = require('./controller/relation-patient_physician.js');
+const Staff = require('./controller/staff.js');
 // sockets
 const SocketIo = require('socket.io');
 
@@ -85,9 +85,9 @@ app.post('/api/physician/logout', Physician.logout);
 
 app.post('/api/messages/newmessage', Message.postMessage);
 
-app.get('/api/messages/:physid/:patid', Message.getMessages);
-app.get('/api/messages/:physid/:patid', Message.getMessages);
-app.get('/api/messages/:patid/:physid', Message.getMessages);
+
+app.get('/api/messages/:physid/:patid', Message.getAllMessages_phy_from_pat);
+app.get('/api/messages/:patid/:physid', Message.getAllMessages_pat_from_phy);
 
 app.get('/api/messages/getOne', Message.getOneMessage);
 app.put('/api/messages/edit', Message.editOneMessage);
