@@ -8,9 +8,13 @@ export class ContactItem extends Component {
     }
 
     userSelected (){
+        console.log("YOOOOO", this.props.user, this.props.contact.id_physician)
         let user = this.props.user;
-        let receiver = this.props.contact.id_physician || 1;
-        this.props.userSelected(user, receiver);
+        if(this.props.contact.id_physician){
+            let receiver = this.props.contact.id_physician;
+            let receiverType = 'physician';
+        }
+        this.props.userSelected(user, receiver, receiverType);
     }
 
     render(){

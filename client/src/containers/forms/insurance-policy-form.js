@@ -3,6 +3,8 @@ import axios from 'axios';
 import React, { Component, PropTypes } from 'react';
 import { Field, reduxForm } from 'redux-form';
 import { Router, Route, Link, browserHistory } from 'react-router';
+import RaisedButton from 'material-ui/RaisedButton';
+import FlatButton from 'material-ui/FlatButton';
 import CryptoJS from 'crypto-js';
 import {
   AutoComplete,
@@ -42,23 +44,34 @@ class InsuranceForm extends Component {
     router: React.PropTypes.object
   }
 
-  onSubmit(props){
-    
+  submitMe(prop) {
     //get encoded id from local storage
-    let id = localStorage.getItem('uid');
-    //code to decode user id stored in local storage
-    let code  = CryptoJS.AES.decrypt(id.toString(), 'key'); //need to change key
-     props.uid = code.toString(CryptoJS.enc.Utf8);
-     props.id_insurance_client = '1'; //created sample data to test, will need to add
-     //sample data --> insert into insurance_company_client(company_name,username,password) VALUES('aetna','John','King');
-    axios.post('/api/patient/insurance', props)
-    .then( found => {
-      this.context.router.push('/patient/dashboard');
-    })
-    .catch( err => {
-        console.log("ERROR ENTERING INFORMATION", err);
-    })       
+		let id = localStorage.getItem('uid');
+		//code to decode user id stored in local storage
+		let code  = CryptoJS.AES.decrypt(id.toString(), 'key'); //need to change key
+		prop.uid = code.toString(CryptoJS.enc.Utf8);
+
+    axios.post('/api/patient/insurance', prop)
+      .then( found => {
+        this.context.router.push('/patient/dashboard');
+      })
+      .catch( err => {
+          console.log("ERROR ENTERING INFORMATION", err);
+      })    
   }
+
+  getStepContent(){
+    let steps=this.props.stepIndex;
+    this.props.getStepContent(steps);
+	}
+
+	handlePrev(){
+    this.props.handlePrev();
+	}
+
+	handleNext(){
+    this.props.handleNext();
+	}
 
   renderTextField (props) {
         return(
@@ -78,17 +91,29 @@ class InsuranceForm extends Component {
       return (
           <div>
               <h2>Insurance Info</h2>
-              <form onSubmit={ handleSubmit(props => this.onSubmit(props)) }>
+              <form onSubmit={handleSubmit(props => this.submitMe(props))}>
                   <Field name="company_name" type="text" component={this.renderTextField} label="Insurance Name"/>
                   <Field name="type" type="text" component={this.renderTextField} label="Insurance Type"/>
                   <Field name="policy_number" type="number" component={this.renderTextField} label="Policy Number"/>
                   {error && <strong>{error}</strong>}
-                   <div className="formBtns clearfix">
-                        <Link to='/patient/form/background' >
-                            <div className='btn btn-back'> Back </div>
-                        </Link>
-                        <button type='submit' className='btn'>Finish</button>
+                  <div className="formBtns clearfix">
+                    <div>{this.getStepContent(this.props.stepIndex)}</div>
+                    <div style={{marginTop: 12}}>
+                      <FlatButton
+                        label="Back"
+                        disabled={this.props.stepIndex === 0}
+                        onTouchTap={this.handlePrev.bind(this)}
+                        style={{marginRight: 12}}
+                        className='btn btn-back'
+                      />
+                      <RaisedButton
+                        label={this.props.stepIndex === 2 ? 'Finish' : 'Next'}
+                        primary={true}
+                        type='submit'
+                        className='btn btn-back'
+                      />
                     </div>
+                  </div> 
               </form>
           </div>
       );
@@ -98,5 +123,6 @@ class InsuranceForm extends Component {
 // user types...recorded on application state
 export default reduxForm({
     form: 'InsuranceContactForm',
+    destroyOnUnmount: false,
     validate
 })(InsuranceForm);

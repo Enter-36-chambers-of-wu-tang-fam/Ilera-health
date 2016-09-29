@@ -60,7 +60,7 @@ app.put('/api/patient/password/update', Patient.put_password);
 // Post request to: /api/patient/emergency_contacts => { Emergency Table }
 app.post('/api/patient/emergency_contacts', Patient.post_emer_contact);
 // Post Request To: api/patient/insurance => { insurance }
-app.post('/api/patient/insurance', Patient.post_insurance_info);
+app.post('/api/patient/insurance', InsurancePlan.post_initInsurance_plan);
 
 app.post('api/patient/logout', Patient.logout);
 
@@ -94,7 +94,7 @@ app.put('/api/messages/edit', Message.editOneMessage);
 app.delete('/api/messages/delete', Message.deleteOneMessage);
 
 // Relation_PatPhy
-app.get('/api/patient/physicians', Relation_PatPhy.getAll_physicians_of_patient);
+app.get('/api/patient/:userid/physicians', Relation_PatPhy.getAll_physicians_of_patient);
 app.get('/api/relation', Relation_PatPhy.getPatientPhysicianRelation);
 app.get('/api/physician/patients', Relation_PatPhy.getAll_patients_of_Physician);
 app.post('/api/relation/create', Relation_PatPhy.createPatientPhysicianRelation);

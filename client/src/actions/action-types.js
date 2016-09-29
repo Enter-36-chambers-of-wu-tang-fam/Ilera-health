@@ -60,6 +60,11 @@ export const MESSAGE_TYPING = 'MESSAGE_TYPING';
 export const MESSAGE_STOP_TYPING = 'MESSAGE_STOP_TYPING'; 
 
 
+// Forms
+export const FORM_SUBMITTED = 'FORM_SUBMITTED'; 
+
+
+
 // =================== PATIENT ======================
 // Health-Post - Patient
 export const HEALTH_POST_REQUEST = 'HEALTH_POST_REQUEST'; 

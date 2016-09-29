@@ -3,6 +3,8 @@ import axios from 'axios';
 import React, { Component, PropTypes } from 'react';
 import { Field, reduxForm } from 'redux-form';
 import { Router, Route, Link, browserHistory } from 'react-router';
+import RaisedButton from 'material-ui/RaisedButton';
+import FlatButton from 'material-ui/FlatButton';
 import CryptoJS from 'crypto-js';
 import {
   AutoComplete,
@@ -46,63 +48,91 @@ class EmergencyContactForm extends Component {
   }
 
   static contextTypes = {
-    router: React.PropTypes.objects
+    router: React.PropTypes.object
   }
 
-  onSubmit = (props) => {
+  submitMe(prop) {
+    this.props.handleNext();
     //get encoded id from local storage
-    let id = localStorage.getItem('uid');
-    //code to decode user id stored in local storage
-    let code  = CryptoJS.AES.decrypt(id.toString(), 'key'); //need to change key
-    props.uid = code.toString(CryptoJS.enc.Utf8);
-    axios.post('/api/patient/emergency_contacts', props)
+		let id = localStorage.getItem('uid');
+		//code to decode user id stored in local storage
+		let code  = CryptoJS.AES.decrypt(id.toString(), 'key'); //need to change key
+		prop.uid = code.toString(CryptoJS.enc.Utf8);
+
+    axios.post('/api/patient/emergency_contacts', prop)
       .then( found => {
-        this.context.router.push('/patient/form/insurance/');
+        // this.context.router.push('/patient/form/insurance/');
       })
       .catch( err => {
           console.log("ERROR ENTERING INFORMATION");
-      })         
+      })      
   }
 
+  getStepContent(){
+    let steps=this.props.stepIndex;
+    this.props.getStepContent(steps);
+	}
+
+	handlePrev(){
+    this.props.handlePrev();
+	}
+
+	handleNext(){
+    this.props.handleNext();
+	}
+
   renderTextField (props) {
-        return(
-        <TextField 
-            hintText={props.label}
-            floatingLabelText={props.label}
-            fullWidth={true}
-            errorText={props.touched && props.error}
-            {...props}
-        />
-        )
-    }
+    return(
+      <TextField 
+          hintText={props.label}
+          floatingLabelText={props.label}
+          fullWidth={true}
+          errorText={props.touched && props.error}
+          {...props}
+      />
+    )
+  }
 
   render() {
-      const { error, handleSubmit, pristine, reset, submitting } = this.props;
+    const { error, handleSubmit, pristine, reset, submitting } = this.props;
 
-      return (
-        <div>
-          <h2>Emergency Contact Info</h2>
-          <form onSubmit={ handleSubmit(props => this.onSubmit(props)) }>
-            <Field name="first" type="text" component={this.renderTextField} label="First Name"/>
-            <Field name="last" type="text" component={this.renderTextField} label="Last Name"/>
-            <Field name="phone" type="text" component={this.renderTextField} label="Phone Number"/>
-            <Field name="email" type="email" component={this.renderTextField} label="Email"/>
-            <Field name="relationship" type="text" component={this.renderTextField} label="Relationship"/>
-            {error && <strong>{error}</strong>}
-            <div className="formBtns clearfix">
-              <Link to='/patient/form/background' >
-                <div className='btn btn-back'> Back </div>
-              </Link>
-              <button type='submit'  className='btn'>Next</button>
+    return (
+      <div>
+        <h2>Emergency Contact Info</h2>
+        <form onSubmit={handleSubmit(props => this.submitMe(props))}>
+          <Field name="first" type="text" component={this.renderTextField} label="First Name"/>
+          <Field name="last" type="text" component={this.renderTextField} label="Last Name"/>
+          <Field name="phone" type="text" component={this.renderTextField} label="Phone Number"/>
+          <Field name="email" type="email" component={this.renderTextField} label="Email"/>
+          <Field name="relationship" type="text" component={this.renderTextField} label="Relationship"/>
+          {error && <strong>{error}</strong>}
+          <div className="formBtns clearfix">
+            <div>{this.getStepContent()}</div>
+            <div style={{marginTop: 12}}>
+              <FlatButton
+                label="Back"
+                disabled={this.props.stepIndex === 0}
+                onTouchTap={this.handlePrev.bind(this)}
+                style={{marginRight: 12}}
+                className='btn btn-back'
+              />
+              <RaisedButton
+                label={this.props.stepIndex === 2 ? 'Finish' : 'Next'}
+                primary={true}
+                type='submit'
+                className='btn btn-back'
+              />
             </div>
-          </form>
-        </div>
-      );
+          </div>   
+        </form>
+      </div>
+    );
   }   
 };
 
 // user types...recorded on application state
 export default reduxForm({
   form: 'EmergencyContactForm',
+  destroyOnUnmount: false,
   validate
 })(EmergencyContactForm);

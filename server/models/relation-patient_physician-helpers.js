@@ -33,7 +33,7 @@ module.exports = {
   },
 
   get_all_physicians_of_patient: (params, cb) => {
-    let data = [params.id_patient];
+    let data = [params.userid];
     const queryString = "SELECT pr.id_physician, py.id, py.first, py.last, \
       py.email, py.phone_number, py.photo_path, py.specialty, i.id, \
       i.inst_name, i.type, i.description, i.rating, i.phone_number, \
