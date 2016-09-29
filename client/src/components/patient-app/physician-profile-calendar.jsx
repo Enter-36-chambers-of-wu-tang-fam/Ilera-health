@@ -181,7 +181,6 @@ class PhysicianCalendar extends Component{
 
 
   render(){
-    {console.log(this.props)}
       return (
         <div className="scheduling">
           <DatePicker

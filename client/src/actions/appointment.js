@@ -4,6 +4,7 @@ export const getCurrentBookings = (physid) => {
   let currAppts = {};
   axios.get(`/api/patient/getappointment/${physid}`).then( dates => { //get all of the physicians currently booked appointments
     dates.data.forEach(item => {
+      console.log("****ITEMITEMITEM****",item);
       let date = item.date.slice(0,10);  
       if(currAppts[date]) currAppts[date][item.time] = true;
       else {
