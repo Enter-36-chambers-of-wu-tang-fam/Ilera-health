@@ -60,7 +60,7 @@ module.exports = {
     });
   },
 
-  put_staffInfo: (req, res) => {
+  put_password: (req, res) => {
     if(req.body.newPassword){
       hashHelp.hashPassword(req.body.password)
       .then( hash => {
