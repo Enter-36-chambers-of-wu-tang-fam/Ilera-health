@@ -16,17 +16,10 @@ class PatientApp extends Component {
       router: React.PropTypes.object
   }
 
-  logOut() {
-    localStorage.removeItem('uid');          
-    localStorage.removeItem('userType');
-  }
-
-
   render(){
     return (
       <div>
       <Header />
-      <a href="#" onClick={this.logOut}>Click to be able to return to signIn page (find me in patient-app)</a>
         { this.props.children }
       </div>
     ); 

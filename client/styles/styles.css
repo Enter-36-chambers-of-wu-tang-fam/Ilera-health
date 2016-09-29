@@ -71,18 +71,25 @@ h2{
 
 header{
     height: 50px;
-    box-shadow: 0px 0px 10px 2px #ddd;
+    background-color: #fcfcfc;
+    border-bottom:thin solid #CCC;
+    box-shadow: 0px 0px 2px 2px #ddd;
 }
 header > h1{
-    float: left;
-    width: 50%;
+    float:left;
+    padding-left:1.618em;
+    padding-top:.6em;
 }
+
+header > h1 img{
+  width:50px;
+}
+
 header > ul{
     float: right;
 }
 header > ul > li{
     float: left;
-    border-left: 1px solid black;
     height: 50;
 }
 header > ul{
@@ -293,6 +300,46 @@ main > section{
     padding: 30px 0;
 }
 
+main > .welcomeHeader {
+  background-image:  linear-gradient(to top left, rgba(0, 0, 0, .8), rgba(255, 255, 255, 0)), url(./background_images/female_stretching.jpg);
+  background-size: cover;
+  background-attachment: fixed;
+  max-height:1000px;
+  height:100%;
+}
+
+.welcomeHeader > img {
+  width:20%
+}
+
+main .welcomeMessage {
+  position:relative;
+  margin: 15% 0% 15% 55%;
+  font-weight:300;
+  color:#fff;
+  text-align: right !important;
+  height:15em;
+}
+
+main .welcomeMessage > h1{
+  font-size: 3.64em;
+  text-align:left;
+  margin-bottom:.5em;
+}
+main .welcomeMessage li{
+  font-size: 1.21em;
+  margin:.75em 0em;
+  font-weight: 100;
+  list-style-type:circle;
+  margin-left:2em;
+  text-align:justify;
+}
+
+main .welcomeMessage > button {
+  float:left;
+  margin-left:2em !important;
+  margin-top:1em !important;
+}
 
 main > section:nth-of-type(even){
     background-color: #203248;
@@ -300,12 +347,12 @@ main > section:nth-of-type(even){
 }
 
 main > section li{
-    float: left;
+    /*float: left;
     width: 26%;
     border-top: 1px solid #ccc;
     border-bottom: 1px solid #ccc;
     margin: 15px 3%;
-    padding: 30px 0;
+    padding: 30px 0;*/
 }
 
 main > section .material-icons{
@@ -319,6 +366,7 @@ main > section h4{
     font-weight: lighter;
     text-align: center;
 }
+
 
 main > section p{
     font-size: 20px;

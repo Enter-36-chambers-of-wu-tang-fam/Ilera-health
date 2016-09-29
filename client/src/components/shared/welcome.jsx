@@ -1,9 +1,30 @@
 import React, { Component } from 'react';
+import FlatButton from 'material-ui/FlatButton';
+
+const buttonStyles = {
+  hoverColor: "rgba(255,255,255,1)",
+  backgroundColor:"rgba(255,255,255,.6)",
+  labelStyle: {color:"#fff"},
+  rippleColor: '#333',
+  styles: { height: '50px', borderRadius:'1em'}
+}
 
 const Welcome = () => {
     return (
         <main>
-            <section></section>
+            <section className="welcomeHeader">
+            <img src="../styles/logos/myilera_large_white.png" />
+              <div className="welcomeMessage">
+                <h1>Your Health in Your Hands</h1>
+                <ul>
+                  <li>Manage your entire health portfolio in one place</li>
+                  <li>Manage and conenct with healthcare providers across disciplines</li>
+                  <li>Choose which providers you share your information with</li>
+                  <li>Manage all of your medical billing in one place</li>
+                </ul>
+                <FlatButton label="Learn More" hoverColor={buttonStyles.hoverColor} style={buttonStyles.styles} backgroundColor={buttonStyles.backgroundColor} />
+              </div>
+            </section>
             <section>
                 <h2>For Patients</h2>
                 <ul>
