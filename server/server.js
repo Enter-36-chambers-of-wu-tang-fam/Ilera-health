@@ -103,7 +103,7 @@ app.post('/api/relation/create', Relation_PatPhy.createPatientPhysicianRelation)
 app.post('/api/staff/signup', Staff.signUp);
 app.get('/api/staff/signin', Staff.signIn);
 app.put('/api/staff/background', Staff.put_staffInfo);
-app.put('/api/staff/password/update', Staff.put_password);
+// app.put('/api/staff/password/update', Staff.put_password);
 app.post('/api/staff', Staff.logout);
 
 // INSERTED TEMPORARLILY TO TEST OUT ROUTING ON FRONT END
