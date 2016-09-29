@@ -134,18 +134,8 @@ form > div div{
 }
 
 .btn{
-    width: 140px;
-    padding: 8px;
-    text-transform: uppercase;
-    text-align: center;
-    border-radius: 3px;
-    font-size: 20px;
-    border: none;
-    box-shadow: 2px 2px 2px 1px #ddd;
+    
     float: right;
-    margin: 20px 0;
-    background: #01A2A6;
-    color: white;
 }
 
 .btn-back{
