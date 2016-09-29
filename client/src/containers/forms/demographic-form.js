@@ -191,7 +191,7 @@ class DemographicForm extends Component {
 						</Field>
 						{error && <strong>{error}</strong>}
 						<div className="formBtns clearfix">
-							<p>{this.getStepContent()}</p>
+							<div>{this.getStepContent()}</div>
 							<div style={{marginTop: 12}}>
 								<FlatButton
 									label="Back"

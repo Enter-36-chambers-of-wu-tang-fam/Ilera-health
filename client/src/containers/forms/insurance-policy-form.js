@@ -45,17 +45,15 @@ class InsuranceForm extends Component {
   }
 
   submitMe(prop) {
-    this.props.handleNext();
     //get encoded id from local storage
 		let id = localStorage.getItem('uid');
 		//code to decode user id stored in local storage
 		let code  = CryptoJS.AES.decrypt(id.toString(), 'key'); //need to change key
 		prop.uid = code.toString(CryptoJS.enc.Utf8);
 
-    axios.post('/api/patient/insurance', info)
+    axios.post('/api/patient/insurance', prop)
       .then( found => {
-        console.log("INSURANCE INFO LOGGED", err);
-        // this.context.router.push('/patient/dashboard');
+        this.context.router.push('/patient/dashboard');
       })
       .catch( err => {
           console.log("ERROR ENTERING INFORMATION", err);
@@ -99,7 +97,7 @@ class InsuranceForm extends Component {
                   <Field name="policy_number" type="number" component={this.renderTextField} label="Policy Number"/>
                   {error && <strong>{error}</strong>}
                   <div className="formBtns clearfix">
-                    <p>{this.getStepContent(this.props.stepIndex)}</p>
+                    <div>{this.getStepContent(this.props.stepIndex)}</div>
                     <div style={{marginTop: 12}}>
                       <FlatButton
                         label="Back"

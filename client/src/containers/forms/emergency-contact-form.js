@@ -107,7 +107,7 @@ class EmergencyContactForm extends Component {
           <Field name="relationship" type="text" component={this.renderTextField} label="Relationship"/>
           {error && <strong>{error}</strong>}
           <div className="formBtns clearfix">
-            <p>{this.getStepContent(this.props.stepIndex)}</p>
+            <div>{this.getStepContent()}</div>
             <div style={{marginTop: 12}}>
               <FlatButton
                 label="Back"
