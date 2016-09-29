@@ -94,7 +94,7 @@ app.put('/api/messages/edit', Message.editOneMessage);
 app.delete('/api/messages/delete', Message.deleteOneMessage);
 
 // Relation_PatPhy
-app.get('/api/patient/physicians', Relation_PatPhy.getAll_physicians_of_patient);
+app.get('/api/patient/:userid/physicians', Relation_PatPhy.getAll_physicians_of_patient);
 app.get('/api/relation', Relation_PatPhy.getPatientPhysicianRelation);
 app.get('/api/physician/patients', Relation_PatPhy.getAll_patients_of_Physician);
 app.post('/api/relation/create', Relation_PatPhy.createPatientPhysicianRelation);
