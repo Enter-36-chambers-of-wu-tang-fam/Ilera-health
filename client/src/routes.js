@@ -34,6 +34,7 @@ import PatientDashboard from './components/patient-app/patient-dashboard.jsx';
 import HealthLog from './components/patient-app/health-log.jsx';
 import Medications from './components/patient-app/medications.jsx';
 import PhysicianCalendar from './components/patient-app/physician-profile-calendar.jsx';
+import PatientAppFormContainer from './components/patient-app/patient-signup-forms.jsx';
 
 export default (
     <Router path='/' component= { App } >
@@ -53,10 +54,7 @@ export default (
         </Route>  
         <Route path='patient' component={ PatientAuth(PatientApp) } >
             <Route path="form" > 
-                <IndexRoute component={ BackgroundForm } />
-                <Route path='background' component={ BackgroundForm } />
-                <Route path='emergencyContact' component={ EmergencyContactForm } />
-                <Route path='insurance' component={ InsuranceForm } />
+                <IndexRoute component={ PatientAppFormContainer } />
             </Route>
             <Route path="dashboard" component={ PatientDashboard } />
             <Route path="healthlog" component={ HealthLog } />

@@ -5,6 +5,7 @@ import { Field, reduxForm } from 'redux-form';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { authenticateUser } from '../../actions/actions.js';
+import storeFormInfo from '../../actions/forms.js';
 import CryptoJS from 'crypto-js';
 import {
   AutoComplete,
@@ -49,15 +50,18 @@ class SignupForm extends Component {
   }
 
 	onSubmit(props) {       
+    
     axios.post(`/api/${this.state.userType}/signup`, props)
     .then( registered => {
       console.log(registered);
+      storeFormInfo("test", registered)
       let encodedId = CryptoJS.AES.encrypt(String(registered.data), 'key');  //need to change key to actual key 
 
       localStorage.setItem('uid',encodedId);
       localStorage.setItem('userType',this.state.userType);
       this.props.authenticateUser();
-      if(this.state.userType === 'patient') this.context.router.push('/patient/form/background');
+      
+      if(this.state.userType === 'patient') this.context.router.push('/patient/form');
       else this.context.router.push('provider/');
 
     })
@@ -114,6 +118,7 @@ class SignupForm extends Component {
 
 SignupForm = reduxForm({
 	form: 'SignupForm',
+  destroyOnUnmount: false,
 	validate
 }, null, {  })(SignupForm);
 
