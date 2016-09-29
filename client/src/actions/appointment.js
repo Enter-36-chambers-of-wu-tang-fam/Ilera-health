@@ -70,6 +70,7 @@ export const getAllPhysicianAppts = (physid) => {
   let currAppts = {};
   axios.get(`/api/patient/getappointment/${physid}`).then( dates => { 
     dates.data.forEach(item => {
+      console.log("****ITEMITEMITEM****",item);
       let date = item.date.slice(0,10);  
       if(currAppts[date]) currAppts[date][item.time] = true;
       else {

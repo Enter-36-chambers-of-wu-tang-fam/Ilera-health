@@ -482,6 +482,7 @@ INSERT INTO `emergency_contact` (`first`,`last`,`phone`,`email`,`relationship`,`
 INSERT INTO `medication` (`drug_name`,`details`) VALUES ('kush','thr stickiest of the ickiest');
 
 INSERT INTO `patient_medication` (`drug_name`,`dosage`,`id_medication`,`id_physician`,`id_patient`) VALUES ('kush','enough','1','1','1');
+
 INSERT INTO `appointment` (`date`,`time`,`notes`,`id_physician`,`id_patient`,`id_institution`) VALUES ('2016-10-20','230','needs to protect his kneck','1','1','1');
 
 INSERT INTO `appointment_document` (`document`,`id_appointment`) VALUES ('yolo','1');
