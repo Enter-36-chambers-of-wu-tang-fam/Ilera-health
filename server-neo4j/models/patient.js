@@ -1,12 +1,18 @@
-// const gdb = require('../graphDb/graphConnect.js').graphdb;
+const gdb = require('../graphDb/graphConnect.js').graphdb;
 //
-// module.exports = {
-//   patient: (params, cb) => {
-//     let data = ['CREATE (user:User {params})',
-//         'RETURN user',
-//     ].join('\n');]
-//   }
-// };
+module.exports = {
+  signUp: function(req, res){
+      gdb
+        .run('CREATE(n:patient {first:{parfirst}, last:{parlast}, email:{paremail}, password:{parpassword}}) RETURN n', {parfirst:req.body.first, parlast:req.body.last, paremail:req.body.email, parpassword:req.body.password})
+        .then((patient)=>{
+          console.log(patient);
+          gdb.close();
+        })
+        .catch((err)=>{
+          console.log(err);
+        })
+    }
+};
 
 // `id` INTEGER NOT NULL AUTO_INCREMENT,
 // `first` VARCHAR(30) NULL DEFAULT NULL,
@@ -33,3 +39,43 @@
 //     expect(err.fields[0].code).toBe( "Neo.ClientError.Statement.SyntaxError" );
 //     done();
 //   });
+
+
+// models
+// signUp: (params, cb) => {
+//   let data = [params.first, params.last, params.email, params.password];
+//   const queryString = "INSERT INTO patient (first, last, email, password) \
+//     VALUES (?,?,?,?)";
+//   db.query(queryString, data, (error, results) => cb(error, results) );
+// },
+//
+// checkPatient: (params, cb) => {
+//   let data = [params.email];
+//   const queryString = "SELECT * FROM patient WHERE email=? LIMIT 1";
+//   db.query(queryString, data, (error, results) => cb(error, results) );
+// }
+// controller
+// signUp: (req, res) => {
+//   Patient.checkPatient(req.body,(error,data)=> {
+//
+//     if(error){ console.log(error);}
+//
+//     if(data.length > 0){
+//       res.status(409).send("The email address you specified is already in use.");
+//     } else {
+//       hashHelp.hashPassword(req.body.password)
+//       .then(hashed=>{
+//         req.body.password = hashed;
+//
+//         Patient.signUp(req.body, (error, data) => {
+//           if(error) console.log(error);
+//           sess = req.session;
+//           sess.email = req.body.email;
+//           sess.patient = data;
+//           module.exports.sess = sess;
+//           res.json(data.insertId);
+//         });
+//       })
+//     }
+//   });
+// }
