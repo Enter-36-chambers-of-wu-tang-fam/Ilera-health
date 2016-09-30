@@ -16,7 +16,10 @@ module.exports = {
             sess.email = data[0].email;
             sess.patient = data[0].id;
             module.exports.sess = sess;
-            res.json(data[0]);
+            res.json({
+              id: data[0].id,
+              email: data[0].email
+            });
           } else{
             res.status(401).send("That email and/or password was not found");
           }
@@ -45,7 +48,14 @@ module.exports = {
             sess.email = req.body.email;
             sess.patient = data;
             module.exports.sess = sess;
-            res.json(data.insertId);
+            res.json({
+              data: data,
+              first: req.body.first,
+              last: req.body.last,
+              email: req.body.email,
+              user: data.insertId
+            })
+            // res.json(data.insertId);
           });
         })
       }

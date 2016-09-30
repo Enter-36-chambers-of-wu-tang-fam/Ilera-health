@@ -17,7 +17,7 @@ const neodb = require('./graphDb/graphConnect.js').graphdb;
 // const Medication = require('./models/medication.js');
 // const Message = require('./models/messages.js');
 const Patient = require('./models/patient.js');
-// const Physician = require('./models/physician.js');
+const Physician = require('./models/physician.js');
 // const Relation_PatPhy = require('./models/relation-patient_physician.js');
 // const Staff = require('./models/staff.js');
 
@@ -84,9 +84,9 @@ app.post('/api/patient/signup', Patient.signUp);
 
 // Physician
 // Post Request To: /api/physician/signup i think this is a guess
-// app.post('/api/physician/signup', Physician.signUp);
+app.post('/api/physician/signup', Physician.signUp);
 //
-// app.post('/api/physician/signin', Physician.signIn);
+app.post('/api/physician/signin', Physician.signIn);
 // app.post('/api/patient/getallphy', Physician.getAll_Physicians);
 // app.post('/api/patient/getallphy/specialty', Physician.getAll_SpecialtyPhysician);
 // app.put('/api/physician/background', Physician.put_init_form);
