@@ -4,8 +4,9 @@ const app = express();
 const session = require('express-session');
 const path = require('path');
 const neodb = require('./graphDb/graphConnect.js').graphdb;
-// "./server-neo4j/neo-server.js"
-
+// the lines below are for the package json
+// ./server-neo4j/neo-server.js
+// ./server/server.js
 // const neo4j = require('neo4j-driver').v1;
 
 // const Appointment = require('./models/appointment.js');
@@ -29,12 +30,12 @@ const Patient = require('./models/patient.js');
 app.use(express.static(__dirname + '/../client'));
 app.use(bodyParser.json());
 
-// app.use(session({
-//   secret: 'Welcome to the 36 chambers',
-//   resave: false,
-//   saveUninitialized: true,
-//   cookie: {}
-// }));
+app.use(session({
+  secret: 'Welcome to the 36 chambers',
+  resave: false,
+  saveUninitialized: true,
+  cookie: {}
+}));
 
 // const driver = neo4j.driver('bolt://localhost', neo4j.auth.basic('neo4j','wutangfam'));
 // const graphsession = driver.session();
@@ -42,7 +43,7 @@ app.use(bodyParser.json());
 
 // const gdb = require('./graphDb/graphConnect.js').graphdb;
 
-app.post('/api/patient/signup', Patient.signUp);
+
 
 // Appointment
 // app.get('/api/physician/getappointment', Appointment.getOne_AppointmentByPat_id);
@@ -59,16 +60,20 @@ app.post('/api/patient/signup', Patient.signUp);
 // app.post('/api/professional/logout', InsuranceProfesional.logout);
 
 // Patient
-// app.post('/api/patient/signin', Patient.signIn);
-//
+app.post('/api/patient/signin', Patient.signIn);
+
+
 // //not for now but this will get all of the patient info eventually we are still in stage 1
 // app.get('/api/patient/dashboard', Patient.get_patient_info);
 //
 // // Post Request to: api/patient/signup  =>   { Patient Table}
-// app.post('/api/patient/signup', Patient.signUp);
+app.post('/api/patient/signup', Patient.signUp);
+// MATCH (n { name: 'Andres' })
+// SET n.position = 'Developer', n.surname = 'Taylor'
 //
 // // Post request to: /api/patient/background => { Patient }
 // app.put('/api/patient/background', Patient.put_init_form);
+
 // app.put('/api/patient/password/update', Patient.put_password);
 // // Post request to: /api/patient/emergency_contacts => { Emergency Table }
 // app.post('/api/patient/emergency_contacts', Patient.post_emer_contact);

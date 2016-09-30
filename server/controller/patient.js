@@ -16,7 +16,7 @@ module.exports = {
             sess.email = data[0].email;
             sess.patient = data[0].id;
             module.exports.sess = sess;
-            res.json(data[0].id);
+            res.json(data[0]);
           } else{
             res.status(401).send("That email and/or password was not found");
           }
