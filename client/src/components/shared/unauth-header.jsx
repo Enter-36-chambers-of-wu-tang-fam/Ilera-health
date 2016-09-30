@@ -106,7 +106,14 @@ export default class UnauthHeader extends Component {
               open={this.state.openSignin}
               onRequestClose={this.handleSigninClose.bind(this)}
             >
-              <SignIn />
+              <Tabs>
+                <Tab label="Patient" onActive={this.handleActive.bind(this)}>
+                  <SignIn userType={'patient'} title={'Patient'}/>
+                </Tab>
+                <Tab label="Physician" onActive={this.handleActive.bind(this)}>
+                  <SignIn userType={'physician'} title={'Physician'} />
+                </Tab>
+              </Tabs>
             </Dialog>
           </header>
       );

@@ -6,6 +6,14 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { authenticateUser } from '../../actions/actions.js';
 import CryptoJS from 'crypto-js';
+import RaisedButton from 'material-ui/RaisedButton';
+import {
+  AutoComplete,
+  RadioButtonGroup,
+  RadioButton,
+  SelectField,
+  TextField
+} from 'redux-form-material-ui'
 
 const validate = values => {
   const errors = {}
@@ -25,6 +33,9 @@ class SigninForm extends Component {
   
   constructor(props){
     super(props);
+    this.state = {
+			userType: props.userType
+		}
   }
 
   static contextTypes = {
@@ -32,8 +43,8 @@ class SigninForm extends Component {
   }
 
   onSubmit(props) {
-
-    axios.post(`/api/${props.userType}/signin`, props)  
+    console.log(this.state.userType)
+    axios.post(`/api/${this.state.userType}/signin`, props)  
       .then( found => {
         let encodedId = CryptoJS.AES.encrypt(String(found.data), 'key');
 
@@ -42,22 +53,22 @@ class SigninForm extends Component {
         
         this.props.authenticateUser();       
           
-        this.context.router.push(`${props.userType}/dashboard`);
+        this.context.router.push(`${this.state.userType}/dashboard`);
       })
       .catch( err => {
           console.log("LOGIN ERROR", err);
       })
   }
 
-  renderField = ({ input, label, type, meta: { touched, error } }) => {
+  renderTextField (props) {
     return(
-      <div key={label}>
-        <label>{label}</label>
-        <input {...input} placeholder={label} type={type} />
-        <div className='formErrors'>
-            { touched && error && <span>{error}</span> }
-        </div>
-      </div>
+      <TextField 
+        hintText={props.label}
+        floatingLabelText={props.label}
+        fullWidth={true}
+        errorText={props.touched && props.error}
+        {...props}
+      />
     )
   }
 
@@ -66,17 +77,19 @@ class SigninForm extends Component {
 
     return (
       <div>
-          <h2>Sign In</h2>
+          <h2>{this.state.userType} Sign In</h2>
           <form onSubmit={ handleSubmit(props => this.onSubmit(props)) }>
-              <Field name="email" type="text" component={this.renderField} label="Username"/>
-              <Field name="password" type="password" component={this.renderField} label="Password"/>
-              <Field name="userType" component="select">
-                  <option></option>
-                  <option value="patient">Patient</option>
-                  <option value="physician">Provider</option>
-              </Field>
-              {error && <strong>{error}</strong>}
-              <button type='submit' className='btn'>Sign In</button>
+            <div>
+              <Field name="email" type="text" component={this.renderTextField} label="Username/Email"/>
+            </div>
+            <div>
+              <Field name="password" type="text" component={this.renderTextField} label="Password"/>
+            </div>
+            {error && <strong>{error}</strong>}
+            <RaisedButton label="Sign In" type='submit' className='btn' style={{
+                width: '100%',
+                margin: '20px 0 0 0'
+              }}/>
           </form>
       </div>
     );
