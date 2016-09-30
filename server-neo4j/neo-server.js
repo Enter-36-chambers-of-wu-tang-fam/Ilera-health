@@ -137,7 +137,7 @@ app.get('*', function (req, res) {
 
 
 const server = app.listen(3636);
-console.log("Server is Doing Big ThIngs You can Now Enter the 36 Chambers of the WU on PORT 3636");
+console.log("Neo-Server is Doing Big ThIngs You can Now Enter the 36 Chambers of the WU on PORT 3636");
 
 // const io = new SocketIo(server, {path: '/patient/messages'})
 // const socketEvents = require('./sockets/socket-events')(io);

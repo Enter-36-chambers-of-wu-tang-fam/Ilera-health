@@ -39,7 +39,7 @@ class SignupForm extends Component {
 
   constructor(props){
     super(props);
-    console.log("*****YO", props.userType) 
+    console.log("*****YO", props.userType)
 		this.state = {
 			userType: props.userType
 		}
@@ -49,18 +49,18 @@ class SignupForm extends Component {
     router: React.PropTypes.object
   }
 
-	onSubmit(props) {       
-    
+	onSubmit(props) {
+
     axios.post(`/api/${this.state.userType}/signup`, props)
     .then( registered => {
-      console.log(registered);
+      console.log("here", registered);
       storeFormInfo("test", registered)
-      let encodedId = CryptoJS.AES.encrypt(String(registered.data), 'key');  //need to change key to actual key 
+      let encodedId = CryptoJS.AES.encrypt(String(registered.data), 'key');  //need to change key to actual key
 
       localStorage.setItem('uid',encodedId);
       localStorage.setItem('userType',this.state.userType);
       this.props.authenticateUser();
-      
+
       if(this.state.userType === 'patient') this.context.router.push('/patient/form');
       else this.context.router.push('provider/');
 
@@ -76,7 +76,7 @@ class SignupForm extends Component {
 
   renderTextField (props) {
     return(
-      <TextField 
+      <TextField
         hintText={props.label}
         floatingLabelText={props.label}
         fullWidth={true}
@@ -90,12 +90,12 @@ class SignupForm extends Component {
 		const { error, handleSubmit, pristine, reset, submitting } = this.props;
 			return (
 				<div>
-					<h2>{this.props.title} Sign Up</h2>					
+					<h2>{this.props.title} Sign Up</h2>
 					<form onSubmit={ handleSubmit(props => this.onSubmit(props)) }>
               <div>
                 <Field name="first" type="text" component={this.renderTextField} label="First"/>
               </div>
-              <div>  
+              <div>
                 <Field name="last" type="text" component={this.renderTextField} label="Last"/>
               </div>
               <div>
