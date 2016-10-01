@@ -1,4 +1,5 @@
 import { combineReducers } from 'redux';
+import PhysicianListReducer from './physician-list-reducer';
 
 import { reducer as formReducer } from 'redux-form';
 
@@ -12,7 +13,9 @@ const rootReducer = combineReducers({
     allPhysicianAppointments: appointments.physAppt,
     form: formReducer,
     messages: messages,
-    contacts: contacts
+    contacts: contacts,
+    physicians: PhysicianListReducer
+
 });
 
 export default rootReducer;

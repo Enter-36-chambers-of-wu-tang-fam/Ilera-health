@@ -32,13 +32,13 @@ import HealthLog from './components/patient-app/health-log.jsx';
 import Medications from './components/patient-app/medications.jsx';
 import PhysicianCalendar from './components/patient-app/physician-profile-calendar.jsx';
 import PatientAppFormContainer from './components/patient-app/patient-signup-forms.jsx';
+import PhysicianList from './containers/PhysicianList.jsx'
 
 export default (
     <Router path='/' component= { App } >
         <IndexRoute component={ GeneralAuth(Welcome) }/>
         <Route path='signup' component={ GeneralAuth(Signup) } />
         <Route path='signin' component={ GeneralAuth(Signin) } />
-        
         <Route path='provider' component={ PhysicianAuth(PhysicianApp) } >
             <Route path="dashboard" component={ PhysicianDashboard } />
             <Route path="patients" component={ AllUsers } >
@@ -47,22 +47,22 @@ export default (
             <Route path="notes" component={ Notes } />
             <Route path="messages" component={ Chat } />
             <Route path="profile" component={ Profile } />
-            <Route path="calendar" component ={ Calendar }/>  
-        </Route>  
+            <Route path="calendar" component ={ Calendar }/>
+        </Route>
         <Route path='patient' component={ PatientAuth(PatientApp) } >
-            <Route path="form" > 
+            <Route path="form" >
                 <IndexRoute component={ PatientAppFormContainer } />
             </Route>
             <Route path="dashboard" component={ PatientDashboard } />
             <Route path="healthlog" component={ HealthLog } />
-            <Route path="physicians" component={ AllUsers } >
+            <Route path="physicians" component={ PhysicianList } >
               <Route path=':provider' component={ Profile } >
                 <Route path='calendar' component={ PhysicianCalendar } />
               </Route>
             </Route>
             <Route path="messages" component={ Chat } />
             <Route path="profile" component={ Profile } />
-            <Route path="medications" component ={ Medications } />                 
+            <Route path="medications" component ={ Medications } />
         </Route>
     </Router>
 );

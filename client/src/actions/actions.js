@@ -5,6 +5,37 @@ import CryptoJS from 'crypto-js';
 import { browserHistory } from 'react-router'
 import * as types from './action-types';
 
+
+
+const FETCH_URL = 'http://localhost:3636/api/'
+
+export function fetchPhysicians(){
+  return {
+    type: FETCH_PHYSICIANS,
+    payload: request
+  };
+
+}
+
+
+// export function fetchPhysicians(){
+//   return function (dispatch){
+//   axios.get(FETCH_URL).then(function(data){
+//     // console.log('Data:', data);
+//
+//     dispatch(test(data))
+//   })
+//   }
+// }
+//  function test(data){
+//     return {
+//       type: types.FETCH_PHYSICIANS,
+//       payload: data
+//     }
+//   }
+
+
+
 /***********************SIGN IN && SIGN UP *****************************/
 
 ////////////////LOGIN LOGIN LOGIN ///////////////
@@ -34,15 +65,14 @@ const failedAuth = (message) => {
     message: message
   }
 };
-
 export function authenticateUser(userType,data,reqType){
   if(reqType === "login"){
     return function(dispatch){
       dispatch(requestAuth(null));
-      axios.post(`/api/${userType}/signin`, data)  
+      axios.post(`/api/${userType}/signin`, data)
         .then( found => {
           let encodedId = CryptoJS.AES.encrypt(String(found.data), 'key'); //need to change key
-          localStorage.setItem('uid',encodedId);          
+          localStorage.setItem('uid',encodedId);
           localStorage.setItem('userType',userType);
           dispatch(verifiedAuth(encodedId,userType,false)); //false -> reroutes to dashboard in place of signup via general_auth component
         })
@@ -53,7 +83,7 @@ export function authenticateUser(userType,data,reqType){
     return function(dispatch){
       dispatch(requestAuth(data));
       axios.post(`/api/${userType}/signup`, data)
-      .then(registered => {  
+      .then(registered => {
         let encodedId = CryptoJS.AES.encrypt(String(registered.data.user), 'key');  //need to change key to actual key
         localStorage.setItem('uid',encodedId);
         localStorage.setItem('userType',userType);
@@ -202,7 +232,7 @@ console.log("IN ACTION")
       type: types.EMERGENCY_CONTACT_SUCCESS,
       payload: contact
     }
-   
+
   // return function(dispatch) {
   //  console.log("HERE", id, contact)
   //   dispatch(requestEmergencyContact(contact));
@@ -222,7 +252,7 @@ console.log("IN ACTION")
   //       console.log("ERRROORRRR")
   //       dispatch(failedEmergencyContact(response));
   //     });
-    
+
   // }
 }
 
