@@ -16,22 +16,6 @@ authenticated: (state = {authenticated: localStorage.getItem('uid'), userType: l
               default:
                 return state
             }
-          },
-          
-  logout: (state = {}, action) => {
-            switch(action.type) {
-              case types.LOGOUT_REQUEST:
-                console.log("LOGING OUT REQUEST");
-                return {...state, loggedOut: action.loggedOut, isFetching: action.isFetching}
-              case types.LOGOUT_SUCCESS:
-                console.log("LOGING OUT SUCCESS");
-                return {...state, loggedOut: action.loggedOut, isFetching: action.isFetching}
-              case types.LOGOUT_FAILURE:
-                console.log("LOGGING OUT FAILURE");
-                return {...state, loggedOut: action.loggedOut, isFetching: action.isFetching, message: action.message }
-              default:
-                return state
-            }
           }
 }
 

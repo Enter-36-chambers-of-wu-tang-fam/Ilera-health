@@ -9,7 +9,6 @@ import appointments from './appointment-reducer.js';
 
 const rootReducer = combineReducers({
     authentication: authenticate.authenticated,
-    logout: authenticate.logout,
     allPhysicianAppointments: appointments.physAppt,
     form: formReducer,
     messages: messages,

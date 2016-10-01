@@ -1,6 +1,6 @@
 import React, { Component, PropTypes } from 'react';
 import { connect } from 'react-redux';
-import { logOut } from './../../actions/actions.js';
+import { authenticateUser } from './../../actions/actions.js';
 import { bindActionCreators } from 'redux';
 
 class Header extends Component {
@@ -17,15 +17,8 @@ class Header extends Component {
     let userType = localStorage.getItem('userType');
     localStorage.removeItem('uid');          
     localStorage.removeItem('userType');
-    this.props.logOut(userType);
+    this.props.authenticateUser(userType, null, "logout"); //(User type, data , form of authentication)
   }   
-
-  componentWillUpdate(nextProps) {
-    if(nextProps.loggedOut === true){
-      this.context.router.push('/');
-    }
-  }
-
 
     render() {
       return (
@@ -40,14 +33,13 @@ class Header extends Component {
 };
 const mapStateToProps = (state) => {
   return {
-    loggedOut: state.logout.loggedOut,
     authentication: state.authentication.authenticated
     }
 }
 
 
 const mapDispatchToProps = (dispatch) => {
-  return bindActionCreators({ logOut }, dispatch);
+  return bindActionCreators({ authenticateUser }, dispatch);
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(Header);
