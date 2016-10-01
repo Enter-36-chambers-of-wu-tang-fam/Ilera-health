@@ -9,7 +9,7 @@ import { fetchPhysicians } from '../actions/actions';
 
 class PhysicianList extends Component {
 
-  this.props.fetchPhysicians();
+ // this.props.fetchPhysicians();
 
 //   constructor(props){
 //     super(props)
