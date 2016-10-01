@@ -6,6 +6,7 @@ module.exports = {
 
   make_appointment:(params, cb) => {
     let data = [params.date, params.time, params.notes, params.id_physician, params.id_patient];
+    console.log("DATA", data);
     const queryString = 'INSERT INTO appointment(date, time, notes, id_physician, id_patient) value (?, ?, ?, ?, ?)';
     db.query(queryString, data, (error, results) => cb(error, results) );
   },

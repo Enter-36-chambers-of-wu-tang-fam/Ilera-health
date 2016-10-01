@@ -30,6 +30,7 @@ const setAppointmentFailure = (errorMsg) => {
 
 export const setAppointment = (appt) => {
   return function(dispatch){
+    console.log("SET APPOINTMENT IS BEING CALLED PROPERLY");
     dispatch(setAppointmentSuccess(appt));
     axios.post('/api/patient/setappointment', appt)
       .then(setDate => {

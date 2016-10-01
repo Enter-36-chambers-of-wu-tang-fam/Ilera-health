@@ -141,6 +141,7 @@ class PhysicianCalendar extends Component{
     let physid = code.toString(CryptoJS.enc.Utf8); //Get decoded physician id --> This should most likely be taking place on the backend
     
     physid = 1; /********CHANGE ONCE WE HAVE THE PHYSICIAN VIEWS GOING**********/
+    console.log("I AM CALLED CALLED CALLED");
     this.props.getAppointments(physid);
   }
 
@@ -164,6 +165,7 @@ class PhysicianCalendar extends Component{
       date: this.state.appointmentDate,
       time: this.state.appointmentTime
     }
+    console.log("SUBMIT IS BEING CALLED PROPERLY");
     this.props.requestAppointment(data);
     this.props.getAppointments(1);
   }
