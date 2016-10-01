@@ -7,10 +7,9 @@ import Messages from '../components/shared/messages.jsx';
 import MessageContacts from '../components/shared/message-contacts.jsx';
 import { router } from 'react-router';
 
-
 // Sockets
 import io from 'socket.io-client';
-const socket = io('', { path: '/patient/messages' });
+window.socket = io.connect();
 
 class ChatContainer extends Component {
     static contextTypes = {
@@ -64,7 +63,7 @@ class ChatContainer extends Component {
       return (
           <div className="chat">
             <MessageContacts {...this.props} userSelected={this.userSelected.bind(this)} contacts={this.props.contacts} user={this.state.uid} />
-            <Messages {...this.props} chosen={this.state.chosen} chosenid={this.state.chosenid} messages={this.state.messages} uid={this.state.uid} socket={ socket } />
+            <Messages {...this.props} chosen={this.state.chosen} chosenid={this.state.chosenid} messages={this.state.messages} uid={this.state.uid} socket={ window.socket } />
           </div>
           
       );
