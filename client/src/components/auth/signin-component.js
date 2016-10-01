@@ -43,21 +43,7 @@ class SigninForm extends Component {
   }
 
   onSubmit(props) {
-    console.log(this.state.userType)
-    axios.post(`/api/${this.state.userType}/signin`, props)  
-      .then( found => {
-        let encodedId = CryptoJS.AES.encrypt(String(found.data), 'key');
-
-        localStorage.setItem('uid',encodedId);          
-        localStorage.setItem('userType',props.userType);
-        
-        this.props.authenticateUser();       
-          
-        this.context.router.push(`${this.state.userType}/dashboard`);
-      })
-      .catch( err => {
-          console.log("LOGIN ERROR", err);
-      })
+    this.props.authenticateUser(this.state.userType, props, "login");       
   }
 
   renderTextField (props) {

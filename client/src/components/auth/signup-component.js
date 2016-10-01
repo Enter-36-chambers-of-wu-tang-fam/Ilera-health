@@ -49,24 +49,7 @@ class SignupForm extends Component {
   }
 
 	onSubmit(props) {
-
-    axios.post(`/api/${this.state.userType}/signup`, props)
-    .then( registered => {
-      console.log("here", registered);
-      storeFormInfo("test", registered)
-      let encodedId = CryptoJS.AES.encrypt(String(registered.data), 'key');  //need to change key to actual key
-
-      localStorage.setItem('uid',encodedId);
-      localStorage.setItem('userType',this.state.userType);
-      this.props.authenticateUser();
-
-      if(this.state.userType === 'patient') this.context.router.push('/patient/form');
-      else this.context.router.push('provider/');
-
-    })
-    .catch( err => {
-        console.log("LOGIN ERROR", err);
-    })
+    this.props.authenticateUser(this.state.userType, props,"signup")
   }
 
 	handleChange(event) {

@@ -68,7 +68,7 @@ app.post('/api/patient/emergency_contacts', Patient.post_emer_contact);
 // Post Request To: api/patient/insurance => { insurance }
 app.post('/api/patient/insurance', InsurancePlan.post_initInsurance_plan);
 
-app.post('api/patient/logout', Patient.logout);
+app.post('/api/patient/logout', Patient.logout);
 
 // Physician
 // Post Request To: /api/physician/signup i think this is a guess
