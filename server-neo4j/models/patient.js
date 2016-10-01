@@ -9,14 +9,18 @@ module.exports = {
   signUp: (req, res) => {
     gdb
     .run('MATCH (n:patient) WHERE n.email={paremail} RETURN n', {paremail:req.body.email })
-    .then(function(data){
+    .then(data => {
       if(data.records.length <= 0){
         hashHelp.hashPassword(req.body.password)
         .then(hashed =>{
           req.body.password = hashed;
           gdb
-            .run('CREATE(n:patient {first:{parfirst}, last:{parlast}, email:{paremail}, password:{parpassword}}) RETURN n', {parfirst:req.body.first, parlast:req.body.last, paremail:req.body.email, parpassword:req.body.password})
-            .then((data)=>{
+            .run('CREATE(n:patient {first:{parfirst}, \
+              last:{parlast}, email:{paremail}, password:{parpassword}}) \
+              RETURN n', {parfirst:req.body.first,
+              parlast:req.body.last, paremail:req.body.email,
+              parpassword:req.body.password})
+            .then(data=>{
               console.log(data);
               var sess = req.session;
               sess.email = data.records[0]._fields[0].properties.email;
@@ -45,8 +49,9 @@ module.exports = {
   signIn: (req, res) => {
     var passwordz = req.body.password;
     gdb
-      .run('MATCH (n:patient) WHERE n.email={paremail} RETURN n', {paremail:req.body.email })
-      .then((data)=>{
+      .run('MATCH (n:patient) WHERE n.email={paremail} RETURN n',
+        {paremail:req.body.email })
+      .then(data =>{
         console.log(data, data.records[0]._fields[0].properties.email);
         bcrypt.compare(passwordz, data.records[0]._fields[0].properties.password, (error, result) => {
           if(result){
@@ -65,12 +70,39 @@ module.exports = {
         })
         // gdb.close();
       })
-      .catch((err)=>{
+      .catch(err=>{
         console.log(err);
       })
 
 
+  },
+
+  put_init_form: (req, res) => {
+    gdb
+      .run('MATCH (n:patient) WHERE id(n)={parid} SET n.first={parfirst}, \
+        n.last={parlast}, n.date_of_birth={pardob}, n.address={para}, \
+        n.city={parcity}, n.state={parstate}, n.zip={parzip}, n.email={paremail}, n.phone_number={parpn}, \
+        n.photo_path={parpp}, n.weight={parweight}, n.height={parheight}, n.blood_type={parbt}',
+        {parid:req.body.uid, parfirst:req.body.first, parlast:req.body.last,
+          pardob:req.body.date_of_birth, para:req.body.address,
+          parcity:req.body.city, parstate:req.body.state, parzip:req.body.zip,
+          paremail:req.body.email, parpn:req.body.phone_number,
+          parpp:req.body.photo_path, parweight:req.body.weight,
+          parheight:req.body.height, parbt:req.body.blood_type })
+      .then(data=>{
+        console.log(data.records[0]._fields[0].properties);
+        gdb.close();
+        res.json({
+          properties: data.records[0]._fields[0].properties,
+          uid: data.records[0]._fields[0].identity.low
+        });
+      })
+      .catch(err =>{
+        console.log(err);
+      })
+
   }
+
 
 };
 
