@@ -34,17 +34,19 @@ class InsuranceForm extends Component {
       insurer: '',
       insuererType: '',
       network: '',
+      docSelectedName: '',
       insurerSelected: false,
       insurerTypeSelected: false,
+      docSelected: false,
       insurers: [1, 2, 3],
       types: [1, 2, 3],
       networks: [],
-      docs: []
+      docs: [],
+      docSelectedInfo: {}
     };
   }
 
-  static contextTypes = {
-    router: React.PropTypes.object
+  componentWillMount(){
   }
 
   submitMe(prop) {
@@ -76,8 +78,14 @@ class InsuranceForm extends Component {
     this.props.handleNext();
 	}
 
+  onClick(key){
+    console.log("CONFIRMED", this.state.docs[key]);
+    this.setState({docSelected: true, docSelectedInfo: this.state.docs[key], docSelectedName: `${this.state.docs[key].last_name},${this.state.docs[key].first_name}`});
+  }
+
   handleInputChange(e){
     console.log("YOOOOOOOO", e.target.value)
+    this.setState({value: e.target.value});
     let query = `https://api.betterdoctor.com/2016-03-01/doctors?query=${e.target.value}&sort=best-match-desc&skip=0&limit=40&user_key=bdd1495417e49ba2f1aa40461ce8f17d`;
     if(e.target.value.length > 2){
       axios.get(query)
@@ -138,7 +146,7 @@ class InsuranceForm extends Component {
       const { error, handleSubmit, pristine, reset, submitting } = this.props;
 
       return (
-          <div>
+          <div  className="forms">
               <h2>Provider Info</h2>
               <form onSubmit={handleSubmit(props => this.submitMe(props))}>
                 <h4>PRIMARY CARE</h4>
@@ -146,13 +154,76 @@ class InsuranceForm extends Component {
                     hintText="Search for Provider"
                     floatingLabelText={"Search for Provider"}
                     fullWidth={true}
+                    value={this.state.docSelectedName.length ? this.state.docSelectedName : this.state.value}
                     onChange={this.handleInputChange.bind(this)}
                 />
-                <ul className={this.state.docs.length ? 'docSearchResult' : 'docSearchResultHide'}>
-                  {this.state.docs.map(doc => {
-                    return <li>{doc.last_name}, {doc.first_name} {doc.title}</li>
+                <ul className={this.state.docs.length && !this.state.docSelected ? 'docSearchResult' : 'docSearchResultHide'}>
+                  {this.state.docs.map( (doc, key) => {
+                    return <li onClick={this.onClick.bind(this, key)}>{doc.last_name}, {doc.first_name} {doc.title}</li>
                   })}
                 </ul>
+                <h5 className="extraTopMargin">Can't find your primary doctor?</h5> 
+                <h5>Add yours below.</h5>
+                <Field name="primary_name" type="text" component={this.renderTextField} label="Full Name"/>
+                <Field name="primary_phone" type="text" component={this.renderTextField} label="Phone Number"/>
+                <Field name="primary_address" type="text" component={this.renderTextField} label="Address"/>
+                <Field name="primary_city" type="text" component={this.renderTextField} label="City"/>
+                <div>
+                  <Field name="primary_state" component={this.renderSelectField} label="State">
+                    <MenuItem value="AL" primaryTex ="Alabama" />
+                    <MenuItem value="AK" primaryText="Alaska" />
+                    <MenuItem value="AZ" primaryText="Arizona" />
+                    <MenuItem value="AR" primaryText="Arkansas" />
+                    <MenuItem value="CA" primaryText="California" />
+                    <MenuItem value="CO" primaryText="Colorado" />
+                    <MenuItem value="CT" primaryText="Connecticut" />
+                    <MenuItem value="DE" primaryText="Delaware" />
+                    <MenuItem value="DC" primaryText="District Of Columbia" />
+                    <MenuItem value="FL" primaryText="Florida" />
+                    <MenuItem value="GA" primaryText="Georgia" />
+                    <MenuItem value="HI" primaryText="Hawaii" />
+                    <MenuItem value="ID" primaryText="Idaho" />
+                    <MenuItem value="IL" primaryText="Illinois" />
+                    <MenuItem value="IN" primaryText="Indiana" />
+                    <MenuItem value="IA" primaryText="Iowa" />
+                    <MenuItem value="KS" primaryText="Kansas" />
+                    <MenuItem value="KY" primaryText="Kentucky" />
+                    <MenuItem value="LA" primaryText="Louisiana" />
+                    <MenuItem value="ME" primaryText="Maine" />
+                    <MenuItem value="MD" primaryText="Maryland" />
+                    <MenuItem value="MA" primaryText="Massachusetts" />
+                    <MenuItem value="MI" primaryText="Michigan" />
+                    <MenuItem value="MN" primaryText="Minnesota" />
+                    <MenuItem value="MS" primaryText="Mississippi" />
+                    <MenuItem value="MO" primaryText="Missouri" />
+                    <MenuItem value="MT" primaryText="Montana" />
+                    <MenuItem value="NE" primaryText="Nebraska" />
+                    <MenuItem value="NV" primaryText="Nevada" />
+                    <MenuItem value="NH" primaryText="New Hampshire" />
+                    <MenuItem value="NJ" primaryText="New Jersey" />
+                    <MenuItem value="NM" primaryText="New Mexico" />
+                    <MenuItem value="NY" primaryText="New York" />
+                    <MenuItem value="NC" primaryText="North Carolina" />
+                    <MenuItem value="ND" primaryText="North Dakota" />
+                    <MenuItem value="OH" primaryText="Ohio" />
+                    <MenuItem value="OK" primaryText="Oklahoma" />
+                    <MenuItem value="OR" primaryText="Oregon" />
+                    <MenuItem value="PA" primaryText="Pennsylvania" />
+                    <MenuItem value="RI" primaryText="Rhode Island" />
+                    <MenuItem value="SC" primaryText="South Carolina" />
+                    <MenuItem value="SD" primaryText="South Dakota" />
+                    <MenuItem value="TN" primaryText="Tennessee" />
+                    <MenuItem value="TX" primaryText="Texas" />
+                    <MenuItem value="UT" primaryText="Utah" />
+                    <MenuItem value="VT" primaryText="Vermont" />
+                    <MenuItem value="VA" primaryText="Virginia" />
+                    <MenuItem value="WA" primaryText="Washington" />
+                    <MenuItem value="WV" primaryText="West Virginia" />
+                    <MenuItem value="WI" primaryText="Wisconsin" />
+                    <MenuItem value="WY" primaryText="Wyoming" />
+                  </Field>
+                </div>
+                <Field name="primary_zip" type="text" component={this.renderTextField} label="Zip Code"/>
                 <h4>INSURANCE</h4>
                   <div>
                     <Field name="insurer1" component={this.renderSelectField} label="Insurance Company">
@@ -176,7 +247,8 @@ class InsuranceForm extends Component {
                     </Field>
                   </div>
                   <Field name="policy_number1" type="number" component={this.renderTextField} label="Policy Number"/>
-                  <h4>Can't find your insurer? Add yours below.</h4>
+                  <h5 className="extraTopMargin">Can't find your insurer?</h5> 
+                  <h5>Add yours below.</h5>
                   <Field name="insurer2" type="text" component={this.renderTextField} label="Insurance Company"/>
                   <Field name="insurance_type2" type="text" component={this.renderTextField} label="Insurance Type"/>
                   <Field name="insurance_network2" component={this.renderTextField} label="Insurance Network" />
