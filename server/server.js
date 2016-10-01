@@ -1,6 +1,7 @@
 const express = require('express');
 const bodyParser = require('body-parser');
 const app = express();
+const server = require('http').Server(app);
 const session = require('express-session');
 const path = require('path');
 const db = require('./db/dbConnect/connection.js');
@@ -17,8 +18,8 @@ const Physician = require('./controller/physician.js');
 const Relation_PatPhy = require('./controller/relation-patient_physician.js');
 const Staff = require('./controller/staff.js');
 // sockets
-const SocketIo = require('socket.io');
-
+const io = require('socket.io')(server);
+const socketEvents = require('./sockets/socket-events')(io);
 
 // this was just to test that the server worked feel free to delete
 
@@ -124,10 +125,9 @@ app.get('*', function (req, res) {
 });
 
 
-const server = app.listen(3636);
+server.listen(3636);
 console.log("Server is Doing Big ThIngs You can Now Enter the 36 Chambers of the WU on PORT 3636");
 
-const io = new SocketIo(server, {path: '/patient/messages'})
-const socketEvents = require('./sockets/socket-events')(io);
+
 
 module.exports = app;
