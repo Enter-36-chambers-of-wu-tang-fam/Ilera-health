@@ -90,7 +90,7 @@
 <part>id</part>
 </key>
 </table>
-<table x="655" y="147" name="physician">
+<table x="654" y="162" name="physician">
 <row name="id" null="0" autoincrement="1">
 <datatype>INTEGER</datatype>
 </row>
@@ -125,10 +125,10 @@
 </row>
 <row name="date" null="1" autoincrement="0">
 <datatype>DATE</datatype>
-</row>
+<default>NULL</default></row>
 <row name="time" null="1" autoincrement="0">
 <datatype>TIME</datatype>
-</row>
+<default>NULL</default></row>
 <row name="notes" null="1" autoincrement="0">
 <datatype>VARCHAR(10000)</datatype>
 <default>NULL</default></row>
@@ -167,7 +167,7 @@
 <part>id</part>
 </key>
 </table>
-<table x="1355" y="388" name="medication">
+<table x="1305" y="390" name="medication">
 <row name="id" null="0" autoincrement="1">
 <datatype>INTEGER</datatype>
 </row>
@@ -247,7 +247,7 @@
 <part>id</part>
 </key>
 </table>
-<table x="1202" y="32" name="health_log">
+<table x="1159" y="29" name="health_log">
 <row name="id" null="0" autoincrement="1">
 <datatype>INTEGER</datatype>
 </row>
@@ -281,7 +281,7 @@
 <part>id</part>
 </key>
 </table>
-<table x="585" y="33" name="appointment_document">
+<table x="587" y="27" name="appointment_document">
 <row name="id" null="0" autoincrement="1">
 <datatype>INTEGER</datatype>
 </row>
@@ -292,11 +292,14 @@
 <datatype>INTEGER</datatype>
 <default>NOT NULL</default><relation table="appointment" row="id" />
 </row>
+<row name="type" null="1" autoincrement="0">
+<datatype>VARCHAR(300)</datatype>
+</row>
 <key type="PRIMARY" name="">
 <part>id</part>
 </key>
 </table>
-<table x="1443" y="619" name="insurance_company_professional">
+<table x="1444" y="615" name="insurance_company_professional">
 <row name="id" null="0" autoincrement="1">
 <datatype>INTEGER</datatype>
 </row>
@@ -389,7 +392,7 @@
 <part>id</part>
 </key>
 </table>
-<table x="1080" y="322" name="patient_medication">
+<table x="1053" y="321" name="patient_medication">
 <row name="id" null="0" autoincrement="1">
 <datatype>INTEGER</datatype>
 </row>
@@ -411,6 +414,12 @@
 <datatype>INTEGER</datatype>
 <default>NOT NULL</default><relation table="patient" row="id" />
 </row>
+<row name="start_date" null="1" autoincrement="0">
+<datatype>DATE</datatype>
+</row>
+<row name="end_date" null="1" autoincrement="0">
+<datatype>DATE</datatype>
+</row>
 <key type="PRIMARY" name="">
 <part>id</part>
 </key>
@@ -431,7 +440,7 @@
 <part>id</part>
 </key>
 </table>
-<table x="1478" y="62" name="messages">
+<table x="1367" y="55" name="messages">
 <row name="id" null="0" autoincrement="1">
 <datatype>INTEGER</datatype>
 </row>
@@ -449,10 +458,10 @@
 <default>NOT NULL</default></row>
 <row name="sender_type" null="1" autoincrement="0">
 <datatype>VARCHAR(300)</datatype>
-</row>
+<default>NULL</default></row>
 <row name="receiver_type" null="1" autoincrement="0">
 <datatype>VARCHAR(300)</datatype>
-</row>
+<default>NULL</default></row>
 <key type="PRIMARY" name="">
 <part>id</part>
 </key>
@@ -543,6 +552,26 @@
 <row name="id_institution" null="0" autoincrement="0">
 <datatype>INTEGER</datatype>
 <default>NOT NULL</default><relation table="institution" row="id" />
+</row>
+<key type="PRIMARY" name="">
+<part>id</part>
+</key>
+</table>
+<table x="1522" y="427" name="insurance">
+<row name="id" null="1" autoincrement="1">
+<datatype>INTEGER</datatype>
+<default>NULL</default></row>
+<row name="insurer" null="1" autoincrement="0">
+<datatype>VARCHAR(255)</datatype>
+</row>
+<row name="type" null="1" autoincrement="0">
+<datatype>VARCHAR(255)</datatype>
+</row>
+<row name="network" null="1" autoincrement="0">
+<datatype>VARCHAR(255)</datatype>
+</row>
+<row name="uid" null="1" autoincrement="0">
+<datatype>VARCHAR(255)</datatype>
 </row>
 <key type="PRIMARY" name="">
 <part>id</part>
