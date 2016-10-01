@@ -179,15 +179,7 @@ class HealthInfo extends Component {
 						<Field name="procedures" type="text" component={this.renderMultiLineTextField} label="Past Procedures (include dates)"/>  
 						<Field name="conditions" type="text" component={this.renderMultiLineTextField} label="Conditions"/> 
 						<Field name="medications" type="text" component={this.renderMultiLineTextField} label="Medications (include dosage/frequency)"/> 
-						<h4>ALLERGIES</h4>
-						<div className="allergyTable">
-							{this.state.allergies.map( (row, index) => (
-								<div key={index} className="allergyRow">
-									<label name={`${row}${index}`}>{row}</label>
-									<Field name={`${row}AllergyInfo`} type="text" component={this.renderMultiLineTextField} label="Details (allergy; reaction)"/>
-								</div>
-								))}
-						</div>
+						<Field name="allergies" type="text" component={this.renderMultiLineTextField} label="Allergies (Ex: allergy-reaction;)"/> 
 						
 						{error && <strong>{error}</strong>}
 						<div className="formBtns clearfix">
