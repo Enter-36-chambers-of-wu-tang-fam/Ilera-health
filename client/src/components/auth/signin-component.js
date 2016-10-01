@@ -43,7 +43,7 @@ class SigninForm extends Component {
   }
 
   onSubmit(props) {
-    this.props.authenticateUser(this.state.userType, props, "login");       
+    this.props.authenticateUser(this.state.userType, props, "login");
   }
 
   renderTextField (props) {
