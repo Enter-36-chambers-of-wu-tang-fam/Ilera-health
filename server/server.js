@@ -7,6 +7,7 @@ const db = require('./db/dbConnect/connection.js');
 const Appointment = require('./controller/appointment.js');
 const HealthLog = require('./controller/health_log.js');
 const Institution = require('./controller/institution.js');
+const Insurance = require('./controller/insurance.js');
 const InsurancePlan = require('./controller/insurance_plan.js');
 const InsuranceProfesional = require('./controller/insurance_professional.js');
 const Medication = require('./controller/medication.js');
@@ -44,6 +45,11 @@ app.post('/api/professional', InsuranceProfesional.signUp);
 app.put('/api/professional', InsuranceProfesional.put_initForm);
 app.put('/api/professional', InsuranceProfesional.put_password);
 app.post('/api/professional/logout', InsuranceProfesional.logout);
+
+
+// Insurance
+app.get('/api/insurance/insurer', Insurance.get_insurance);
+app.get('/api/insurance/insurer/:specific', Insurance.get_specific_insurance);
 
 // Patient
 app.post('/api/patient/signin', Patient.signIn);

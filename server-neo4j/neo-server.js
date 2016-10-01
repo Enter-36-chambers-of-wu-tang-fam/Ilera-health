@@ -72,7 +72,7 @@ app.post('/api/patient/signup', Patient.signUp);
 // SET n.position = 'Developer', n.surname = 'Taylor'
 //
 // // Post request to: /api/patient/background => { Patient }
-// app.put('/api/patient/background', Patient.put_init_form);
+app.put('/api/patient/background', Patient.put_init_form);
 
 // app.put('/api/patient/password/update', Patient.put_password);
 // // Post request to: /api/patient/emergency_contacts => { Emergency Table }
