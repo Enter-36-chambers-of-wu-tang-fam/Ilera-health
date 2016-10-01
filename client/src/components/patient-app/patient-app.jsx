@@ -19,8 +19,10 @@ class PatientApp extends Component {
   render(){
     return (
       <div>
-      <Header />
-        { this.props.children }
+        <Header />
+        <main>
+          { this.props.children }
+        </main>
       </div>
     ); 
   }

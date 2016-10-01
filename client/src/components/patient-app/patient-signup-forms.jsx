@@ -12,9 +12,11 @@ import CryptoJS from 'crypto-js';
 
 
 // Components
-import BackgroundForm from '../../containers/forms/demographic-form.js';
-import EmergencyContactForm from '../../containers/forms/emergency-contact-form.js';
+import BackgroundInfoForm from '../../containers/forms/basic-info-form.js';
+import ContactInfoForm from '../../containers/forms/contact-info-form.js';
 import InsuranceForm from '../../containers/forms/insurance-policy-form.js';
+import FormIntro from '../../containers/forms/form-intro.js';
+import HealthInfo from '../../containers/forms/health-info-form.js';
 
 class PatientAppFormsContainer extends Component {
 	static contextTypes = {
@@ -49,13 +51,17 @@ class PatientAppFormsContainer extends Component {
   getStepContent(stepIndex) {
     switch (stepIndex) {
       case 0:
-        return <BackgroundForm stepIndex={this.state.stepIndex} getStepContent={this.getStepContent.bind(this)} handleNext={this.handleNext.bind(this)} handlePrev={this.handlePrev.bind(this)}/>;
+        return <FormIntro stepIndex={this.state.stepIndex} getStepContent={this.getStepContent.bind(this)} handleNext={this.handleNext.bind(this)} handlePrev={this.handlePrev.bind(this)}/>
       case 1:
-        return <EmergencyContactForm stepIndex={this.state.stepIndex} getStepContent={this.getStepContent.bind(this)} handleNext={this.handleNext.bind(this)} handlePrev={this.handlePrev.bind(this)}/>;
+        return <BackgroundInfoForm stepIndex={this.state.stepIndex} getStepContent={this.getStepContent.bind(this)} handleNext={this.handleNext.bind(this)} handlePrev={this.handlePrev.bind(this)}/>;
       case 2:
+        return <ContactInfoForm stepIndex={this.state.stepIndex} getStepContent={this.getStepContent.bind(this)} handleNext={this.handleNext.bind(this)} handlePrev={this.handlePrev.bind(this)}/>;
+      case 3:
+        return <HealthInfo stepIndex={this.state.stepIndex} getStepContent={this.getStepContent.bind(this)} handleNext={this.handleNext.bind(this)} handlePrev={this.handlePrev.bind(this)}/>;
+      case 4:
         return <InsuranceForm stepIndex={this.state.stepIndex} getStepContent={this.getStepContent.bind(this)} handleNext={this.handleNext.bind(this)} handlePrev={this.handlePrev.bind(this)}/>;
       default:
-        return 'You\'re a long way from home sonny jim!';
+        return <FormIntro />;
     }
   }
 
@@ -63,16 +69,22 @@ class PatientAppFormsContainer extends Component {
 		const {finished, stepIndex} = this.state;
     const contentStyle = {margin: '0 16px'};
 		return (
-				<div style={{width: '100%', maxWidth: 700, margin: 'auto'}}>
+				<div style={{width: '100%', maxWidth: 700, margin: '0 auto 30px'}}>
 					<Stepper activeStep={stepIndex}>
+            <Step>
+							<StepLabel>Welcome</StepLabel>
+						</Step>
 						<Step>
 							<StepLabel>Basic Info</StepLabel>
 						</Step>
 						<Step>
-							<StepLabel>Emergency Contact</StepLabel>
+							<StepLabel>Contact Info</StepLabel>
+						</Step>
+            <Step>
+							<StepLabel>Health Info</StepLabel>
 						</Step>
 						<Step>
-							<StepLabel>Insurance Info</StepLabel>
+							<StepLabel>Provider Info</StepLabel>
 						</Step>
 					</Stepper>
 					<div>{this.getStepContent(stepIndex)}</div>

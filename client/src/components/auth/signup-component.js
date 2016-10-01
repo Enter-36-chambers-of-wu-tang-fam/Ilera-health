@@ -5,8 +5,8 @@ import { Field, reduxForm } from 'redux-form';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { authenticateUser } from '../../actions/actions.js';
-import storeFormInfo from '../../actions/forms.js';
 import CryptoJS from 'crypto-js';
+import RaisedButton from 'material-ui/RaisedButton';
 import {
   AutoComplete,
   RadioButtonGroup,
@@ -39,7 +39,6 @@ class SignupForm extends Component {
 
   constructor(props){
     super(props);
-    console.log("*****YO", props.userType)
 		this.state = {
 			userType: props.userType
 		}
@@ -108,7 +107,10 @@ class SignupForm extends Component {
                 <Field name="reTypePassword" type="password" component={this.renderTextField} label="Re-Type Password"/>
               </div>
               {error && <strong>{error}</strong>}
-						  <button type='submit' className='btn'>Sign Up</button>
+						  <RaisedButton label="Sign Up" type='submit' className='btn' style={{
+                width: '100%',
+                margin: '20px 0 0 0'
+              }}/>
 						</form>
 				</div>
 			)
