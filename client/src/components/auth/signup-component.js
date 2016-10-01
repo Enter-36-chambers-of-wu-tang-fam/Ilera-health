@@ -49,7 +49,9 @@ class SignupForm extends Component {
   }
 
 	onSubmit(props) {
-    this.props.authenticateUser(this.state.userType, props,"signup")
+    this.props.authenticateUser(this.state.userType, props,"signup");
+    if(this.state.userType === 'physician') this.context.router.push('provider/');
+    if(this.state.userType === 'patient') this.context.router.push('/patient/form');
   }
 
 	handleChange(event) {
