@@ -17,9 +17,9 @@ export default class MessageInput extends Component {
       var newMessage = {
         id: `${Date.now()}`,
         text: text,
-        user: user,
+        user: user
       };
-      socket.emit('new message', newMessage);
+      socket.emit('message', newMessage);
       socket.emit('stop typing', { user: user });
       this.props.onSave(newMessage);
       this.setState({ text: '', typing: false });

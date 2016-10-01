@@ -1,4 +1,3 @@
-import _ from 'lodash';
 import axios from 'axios';
 import React, { Component, PropTypes } from 'react';
 import { Field, reduxForm } from 'redux-form';
@@ -107,10 +106,13 @@ class InsuranceForm extends Component {
                         className='btn btn-back'
                       />
                       <RaisedButton
-                        label={this.props.stepIndex === 2 ? 'Finish' : 'Next'}
+                        label={this.props.stepIndex === 3 ? 'Finish' : 'Next'}
                         primary={true}
                         type='submit'
                         className='btn btn-back'
+                        style={{
+                          float: 'right'
+                        }}
                       />
                     </div>
                   </div> 

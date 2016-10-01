@@ -30,6 +30,7 @@ footer, header, hgroup, menu, nav, section {
 body {
 	line-height: 1;
     font-family: 'Roboto', sans-serif;
+    background-color: #FFFFFF;
 }
 ol, ul {
 	list-style: none;
@@ -62,6 +63,16 @@ h2{
     text-align: center;
     font-size: 42px;
     margin: 20px 0;
+    font-family: 'Lato', sans-serif;
+    font-weight: 700;
+}
+
+h4{
+    text-align: center;
+    font-size: 24px;
+    margin: 30px 0 10px;
+    font-family: 'Lato', sans-serif;
+    font-weight: 600;
 }
 
 #app{
@@ -95,25 +106,18 @@ header > ul > li{
 header > ul{
     float: right;
 }
-
 form {
     width: 100%;
     max-width: 500px;
     min-width: 300px;
     margin: 0 auto;
 }
-
 input[type='radio']{
     display: inline;
-}
-
-form > div div{
-    width: 500px;
 }
 .dashboardRows{
     min-height: 10px;
 }
-
 .dashboardRows:after, .reminders:after, .chat:after, .messageContacts > ul:after, .contactItem:after, header:after, header ul:after, main > section > ul:after{
     clear: both;
     content: '';
@@ -147,6 +151,10 @@ form > div div{
 
 .btn-back{
     float: left;
+}
+
+main{
+    padding-bottom: 70px;
 }
 
 /* DASHBOARD */
@@ -363,3 +371,19 @@ main > section p{
     font-weight: lighter;
     text-align: center;
 }
+
+.formIntro p{
+    font-size: 18px;
+    line-height: 150%;
+    margin-bottom: 20px;
+}
+
+.forms h6{
+    text-align: center;
+    color: red;
+}
+
+.bold{
+    font-weight: bold;
+}
+
