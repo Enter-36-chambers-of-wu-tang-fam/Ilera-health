@@ -7,7 +7,6 @@ import Messages from '../components/shared/messages.jsx';
 import MessageContacts from '../components/shared/message-contacts.jsx';
 import { router } from 'react-router';
 
-
 // Sockets
 // separte file connecting to socket
 import io from 'socket.io-client';
