@@ -48,8 +48,8 @@ app.post('/api/professional/logout', InsuranceProfesional.logout);
 
 
 // Insurance
-app.get('/api/insurance/insurer', Insurance.get_insurance);
-app.get('/api/insurance/insurer/:specific', Insurance.get_specific_insurance);
+app.get('/api/insurance/insurer', Insurance.getAllInsurance);
+app.get('/api/insurance/insurer/:specific', Insurance.get_specificInsurance);
 
 // Patient
 app.post('/api/patient/signin', Patient.signIn);

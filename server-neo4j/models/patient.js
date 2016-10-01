@@ -81,8 +81,9 @@ module.exports = {
     gdb
       .run('MATCH (n:patient) WHERE id(n)={parid} SET n.first={parfirst}, \
         n.last={parlast}, n.date_of_birth={pardob}, n.address={para}, \
-        n.city={parcity}, n.state={parstate}, n.zip={parzip}, n.email={paremail}, n.phone_number={parpn}, \
-        n.photo_path={parpp}, n.weight={parweight}, n.height={parheight}, n.blood_type={parbt}',
+        n.city={parcity}, n.state={parstate}, n.zip={parzip}, n.email={paremail}, \
+        n.phone_number={parpn}, n.photo_path={parpp}, n.weight={parweight}, \
+        n.height={parheight}, n.blood_type={parbt}',
         {parid:req.body.uid, parfirst:req.body.first, parlast:req.body.last,
           pardob:req.body.date_of_birth, para:req.body.address,
           parcity:req.body.city, parstate:req.body.state, parzip:req.body.zip,
