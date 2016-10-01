@@ -1,20 +1,73 @@
 // ACTIONS FOR LOGIN, SIGNUP AND LOGOUT
 
 import axios from 'axios';
+import CryptoJS from 'crypto-js';
 import { browserHistory } from 'react-router'
 import * as types from './action-types';
 
 /***********************SIGN IN && SIGN UP *****************************/
 
-/////////////////HIGHER ORDER AUTHENTICATION///////////////////////
-export function authenticateUser(){
- return function(dispatch){
-  dispatch({
-    type: types.AUTHENTICATE,
-    payload: localStorage.getItem('uid'),
-    userType: localStorage.getItem('userType')
-  })
- }
+////////////////LOGIN LOGIN LOGIN ///////////////
+const requestAuth = (creds) => {
+  return {
+    type: types.AUTH_REQUEST,
+    payload: creds,
+    userType: null
+  }
+};
+
+
+const verifiedAuth = (user,userType, signUp) =>{
+  return {
+    type: types.AUTH_SUCCESS,
+    payload: user,
+    userType: userType,
+    signUp: signUp
+    }
+};
+
+const failedAuth = (message) => {
+  return {
+    type: types.AUTH_FAILURE,
+    payload: null,
+    userType: null,
+    message: message
+  }
+};
+
+export function authenticateUser(userType,data,reqType,cb){
+  if(reqType === "login"){
+    return function(dispatch){
+      dispatch(requestAuth(null));
+      axios.post(`/api/${userType}/signin`, data)  
+        .then( found => {
+          let encodedId = CryptoJS.AES.encrypt(String(found.data), 'key');
+          localStorage.setItem('uid',encodedId);          
+          localStorage.setItem('userType',userType);
+          dispatch(verifiedAuth(encodedId,userType,false));
+          //this.context.router.push(`${this.state.userType}/dashboard`); //The higher order component automatically reroutes
+        })
+        .catch( err => dispatch(failedAuth(err)) )
+    }
+  }
+  if(reqType === "signup"){
+    return function(dispatch){
+      dispatch(requestAuth(data));
+      axios.post(`/api/${userType}/signup`, data)
+      .then(registered => {
+        //storeFormInfo("test", registered)    
+        console.log(registered.data.user);
+        let encodedId = CryptoJS.AES.encrypt(String(registered.data.user), 'key');  //need to change key to actual key
+        localStorage.setItem('uid',encodedId);
+        localStorage.setItem('userType',userType);
+        dispatch(verifiedAuth(encodedId, userType, true)); //Not using sign up to keep authentication streamlined
+        if(this.state.userType === 'patient') this.context.router.push('/patient/form');
+        else this.context.router.push('provider/');
+        cb(registered);
+      })
+      .catch(error => failedAuth(error))
+    }
+  }
 }
 
 
@@ -23,56 +76,7 @@ export function authenticateUser(){
 
 
 //CAN DELETE THE ONES BELOW WHEN WE ARE DONE ^^ THESE ARE THE ONES IN CURRENT USE
-////////////////LOGIN LOGIN LOGIN ///////////////
 
-const requestLogin = (creds) => {
-  return {
-    type: types.LOGIN_REQUEST,
-    isFetching: true,
-    isAuthenticated: false,
-    payload: creds
-  }
-};
-
-
-const verifiedLogin = (creds) =>{
-  return {
-      type: types.LOGIN_SUCCESS,
-      isFetching: false,
-      isAuthenticated: true,
-      payload: creds
-    }
-};
-
-const failedLogin = (message) => {
-  return {
-    type: types.LOGIN_FAILURE,
-    isFetching: false,
-    isAuthenticated: false,
-    payload: message
-  }
-};
-
-//Action call below for sign in 
-//Type is either patient or physician
-
-export const signIn = (user, userType) => {
-  return (dispatch) => {
-    dispatch(requestLogin(user));
-
-    let credentials = {
-      email: user.email,
-      password: user.password
-    };
-
-    axios.post(`api/${userType}/signin`, credentials).then(verified =>{
-      dispatch(verifiedLogin(verified))
-    })
-    .catch(response => {
-      dispatch(failedLogin(response));
-    });
-  }
-}
 
 
 ////////////////SIGN UP | SIGN UP | SIGN UP ///////////////
@@ -87,14 +91,14 @@ const requestSignUp = (creds) => {
 };
 
 
-const verifiedSignUp = (creds) =>{
-  return {
-      type: types.SIGNUP_SUCCESS,
-      isFetching: false,
-      isAuthenticated: true,
-      payload: creds
-    }
-};
+// const verifiedSignUp = (creds) =>{
+//   return {
+//       type: types.SIGNUP_SUCCESS,
+//       isFetching: false,
+//       isAuthenticated: true,
+//       payload: creds
+//     }
+// };
 
 const failedSignUp = (message) => {
   return {
@@ -107,23 +111,40 @@ const failedSignUp = (message) => {
 
 //Action call below for sign up --> uncomment export default
 
-export const signUp = (user, userType) => {
-  return (dispatch) => {
-    dispatch(requestSignUp(user));
+export const signUp = (userType, data, cb) => {
+  return function(dispatch){
+    console.log(userType, data)
+    dispatch(requestSignUp(data));
+    axios.post(`/api/${userType}/signup`, data)
+    .then( registered => {
+      console.log('REGISTERED', registered.data.user);
+      cb(registered);  //storeFormInfo("test", registered)    
+      let encodedId = CryptoJS.AES.encrypt(String(registered.data.user), 'key');  //need to change key to actual key
+      localStorage.setItem('uid',encodedId);
+      localStorage.setItem('userType',userType);
+      dispatch(verifiedLogin(encodedId, userType)); //Not using sign up to keep authentication streamlined
 
-    let credentials = {
-      first: user.first,
-      last: user.last,
-      email: user.email,
-      password: user.password
-    };
-    axios.post(`api/${userType}/signup`, credentials).then(verified =>{
-      dispatch(verifiedSignUp(verified))
     })
-    .catch(response => {
-      dispatch(failedSignUp(response));
-    });
-  }
+    .catch( err => failedSignUp(err))
+}
+
+
+  // return (dispatch) => {
+  //   dispatch(requestSignUp(user));
+
+  //   let credentials = {
+  //     first: user.first,
+  //     last: user.last,
+  //     email: user.email,
+  //     password: user.password
+  //   };
+  //   axios.post(`api/${userType}/signup`, credentials).then(verified =>{
+  //     dispatch(verifiedSignUp(verified))
+  //   })
+  //   .catch(response => {
+  //     dispatch(failedSignUp(response));
+  //   });
+  // }
 }
 
 
@@ -180,36 +201,43 @@ export const contactPost = (id, info, userType) => {
 ////////////////lOGOUT | LOGOUT | LOGOUT///////////////
 
 
+
 const requestLogout = () =>{
   return {
     type: types.LOGOUT_REQUEST,
     isFetching: true,
-    isAuthenticated: false,
+    loggedOut: false,
   }
 }
 
 // Called upon successfull logout request, info sent to reducers.
-
-const receiveLogout = () => {
+const verifiedLogout = () => {
   return {
     type: types.LOGOUT_SUCCESS,
     isFetching: false,
-    isAuthenticated: false,
+    loggedOut: true,
   }
 }
 
 
-const failedLogout = () => {
+const failedLogout = (message) => {
   return {
-    type: types.LOGOUT_SUCCESS,
+    type: types.LOGOUT_FAILURE,
     isFetching: false,
-    isAuthenticated: false,
+    loggedOut: false,
+    message: message
   }
 }
 
-export const logout = () => {
-  return dispatch => {
+export const logOut = (userType) => {
+  return (dispatch) =>{
     dispatch(requestLogout());
+    axios.post(`/api/${userType}/logout/`).then(loggedout => {
+        dispatch(verifiedLogout());
+    })
+    .catch(error => {
+      dispatch(failedLogout(error));
+    });
   }
 }
 

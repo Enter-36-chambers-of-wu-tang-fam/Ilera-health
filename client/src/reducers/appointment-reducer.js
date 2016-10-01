@@ -2,7 +2,7 @@ import * as types from '../actions/action-types.js';
 
 const appointment = {
 
-  setAppt: function(state={}, action){
+  setAppt: (state={}, action) =>{
             switch(action.type) {
               case types.SET_APPOINTMENT_REQUEST:
                 return Object.assign({},state, {
@@ -27,7 +27,7 @@ const appointment = {
           },
 
 
-  physAppt: function(state={}, action){
+  physAppt: (state={}, action)=>{
             switch(action.type) {
               case types.ALL_PHYSICIAN_APPOINTMENTS_REQUEST:
                 return Object.assign({},state, {
