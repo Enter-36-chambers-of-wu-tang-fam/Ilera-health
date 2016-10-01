@@ -23,7 +23,7 @@ const socketEvents = require('./sockets/socket-events')(io);
 
 // this was just to test that the server worked feel free to delete
 
-app.use(express.static(__dirname + '/../client'));
+app.use(express.static(`${__dirname}/../client`));
 app.use(bodyParser.json());
 
 app.use(session({
@@ -121,7 +121,7 @@ app.post('/api/staff', Staff.logout);
 
 //catch all
 app.get('*', function (req, res) {
-  res.sendFile(path.join(__dirname, '/../client/index.html'));
+  res.sendFile(path.join(`${__dirname}/../client/index.html`));
 });
 
 
