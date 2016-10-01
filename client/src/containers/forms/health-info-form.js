@@ -7,8 +7,10 @@ import RaisedButton from 'material-ui/RaisedButton';
 import FlatButton from 'material-ui/FlatButton';
 import SelectField from 'material-ui/SelectField'
 import MenuItem from 'material-ui/MenuItem';
+import Checkbox from 'material-ui/Checkbox';
+import {Table, TableBody, TableFooter, TableHeader, TableHeaderColumn, TableRow, TableRowColumn}
+  from 'material-ui/Table';
 import {
-	DatePicker,
   TextField
 } from 'redux-form-material-ui'
 
@@ -17,24 +19,12 @@ import { emergencyContact } from '../../actions/actions.js';
 
 const validate = values => {
   const errors = {}
-  if (!values.first || /\d/.test(values.first)) {
-    errors.first = 'Please enter a first name'
-  }
-  if (!values.last || /\d/.test(values.last)) {
-    errors.last = 'Please enter a last name'
-  }
-  if (/\d/.test(values.phone)) {
-    errors.phone = 'Please enter a valid phone number - only numbers'
-  }
-  if (!values.email || !/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(values.email)) {
-    errors.email = 'Invalid email address'
-  }
   
-	if (values.weight && /^[1-9][\.\d]*(,\d+)?$/.test(values.weight)) {
+	if (values.weight && !/^[1-9][\.\d]*(,\d+)?$/.test(values.weight)) {
     errors.weight = 'Please enter a valid weight'
   }
 
-	if (values.height && /^[1-9][\.\d]*(,\d+)?$/.test(values.height)) {
+	if (values.height && !/^[1-9][\.\d]*(,\d+)?$/.test(values.height)) {
     errors.height = 'Please enter a valid height'
   }
 
@@ -50,9 +40,25 @@ class HealthInfo extends Component {
 		let minDate = new Date(1900, 1, 1);
 		console.log(maxDate, minDate);
 		this.state = {
-			maxDate: maxDate,
-			minDate: minDate
-		}
+			fixedHeader: true,
+      fixedFooter: true,
+      stripedRows: false,
+      showRowHover: false,
+      selectable: true,
+      multiSelectable: true,
+      enableSelectAll: true,
+      showCheckboxes: true,
+      height: '300px',
+			allergies: [
+				'Food',
+				'Skin',
+				'Dust',
+				'Insects',
+				'Sinus',
+				'Medicines',
+				'Pets'
+			]
+		};
   }
 
   static contextTypes = {
@@ -61,6 +67,16 @@ class HealthInfo extends Component {
 
 	submitMe(prop){
 		this.props.handleNext();
+		var allergies = {};
+		for(var item in prop){
+			var type = item;
+			if(/AllergyInfo/.test(item)){
+				allergies[item] = prop[item];
+			}
+		}
+
+		prop.allergies = allergies;
+
 		//get encoded id from local storage
 		let id = localStorage.getItem('uid');
 		//code to decode user id stored in local storage
@@ -101,9 +117,14 @@ class HealthInfo extends Component {
 		)
 	}
 
-	renderDatePicker (props) {
+	renderMultiLineTextField (props) {
 		return(
-			<DatePicker 
+			<TextField 
+				hintText={props.label}
+				floatingLabelText={props.label}
+				fullWidth={true}
+				multiLine={true}
+				rowsMax={4}
 				errorText={props.touched && props.error}
 				{...props}
 			/>
@@ -127,8 +148,7 @@ class HealthInfo extends Component {
 
 		return (
 			<div  className="forms">
-				<h2>Basic User Info</h2>
-				<h6>* Required field</h6>
+				<h2>Health Info</h2>
 					<form onSubmit={handleSubmit(props => this.submitMe(props))}>
 						<div>
 							<Field name="sex" component={this.renderSelectField} label="Sex">
@@ -156,6 +176,19 @@ class HealthInfo extends Component {
 								<MenuItem value={'O-'} primaryText="O-"/>
 							</Field>
 						</div>
+						<Field name="procedures" type="text" component={this.renderMultiLineTextField} label="Past Procedures (include dates)"/>  
+						<Field name="conditions" type="text" component={this.renderMultiLineTextField} label="Conditions"/> 
+						<Field name="medications" type="text" component={this.renderMultiLineTextField} label="Medications (include dosage/frequency)"/> 
+						<h4>ALLERGIES</h4>
+						<div className="allergyTable">
+							{this.state.allergies.map( (row, index) => (
+								<div key={index} className="allergyRow">
+									<label name={`${row}${index}`}>{row}</label>
+									<Field name={`${row}AllergyInfo`} type="text" component={this.renderMultiLineTextField} label="Details (allergy; reaction)"/>
+								</div>
+								))}
+						</div>
+						
 						{error && <strong>{error}</strong>}
 						<div className="formBtns clearfix">
 							<div>{this.getStepContent()}</div>
@@ -168,7 +201,7 @@ class HealthInfo extends Component {
 									className='btn btn-back'
 								/>
 								<RaisedButton
-									label={this.props.stepIndex === 3 ? 'Finish' : 'Next'}
+									label={this.props.stepIndex === 4 ? 'Finish' : 'Next'}
 									primary={true}
 									type='submit'
 									className='btn btn-back'

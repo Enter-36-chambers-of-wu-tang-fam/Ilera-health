@@ -5,18 +5,10 @@ import { Router, Route, Link, browserHistory } from 'react-router';
 import RaisedButton from 'material-ui/RaisedButton';
 import FlatButton from 'material-ui/FlatButton';
 import CryptoJS from 'crypto-js';
+import SelectField from 'material-ui/SelectField'
+import MenuItem from 'material-ui/MenuItem';
 import {
-  AutoComplete,
-  Checkbox,
-  DatePicker,
-  TimePicker,
-  RadioButtonGroup,
-  RadioButton,
-  SelectField,
-  Slider,
-  TextField,
-  Toggle,
-  MenuItem
+  TextField
 } from 'redux-form-material-ui';
 
 const validate = values => {
@@ -37,6 +29,18 @@ class InsuranceForm extends Component {
 
   constructor(props){
     super(props);
+    this.state = {
+      value: '',
+      insurer: '',
+      insuererType: '',
+      network: '',
+      insurerSelected: false,
+      insurerTypeSelected: false,
+      insurers: [1, 2, 3],
+      types: [1, 2, 3],
+      networks: [],
+      docs: []
+    };
   }
 
   static contextTypes = {
@@ -72,28 +76,111 @@ class InsuranceForm extends Component {
     this.props.handleNext();
 	}
 
-  renderTextField (props) {
-        return(
-        <TextField 
-            hintText={props.label}
-            floatingLabelText={props.label}
-            fullWidth={true}
-            errorText={props.touched && props.error}
-            {...props}
-        />
-        )
+  handleInputChange(e){
+    console.log("YOOOOOOOO", e.target.value)
+    let query = `https://api.betterdoctor.com/2016-03-01/doctors?query=${e.target.value}&sort=best-match-desc&skip=0&limit=40&user_key=bdd1495417e49ba2f1aa40461ce8f17d`;
+    if(e.target.value.length > 2){
+      axios.get(query)
+      .then( result => {
+        var docs = [];
+        result.data.data.map( doctor => {
+          docs.push({first_name: doctor.profile.first_name, last_name: doctor.profile.last_name, title: doctor.profile.title});
+        })
+        this.setState({docs: docs});
+      })
+      .catch( err => {
+        console.log("ERROR FETCHING DOCTOR INFO")
+      })
+    }else{
+      this.setState({docs: []});
     }
+  }
+
+  renderTextField (props) {
+    return(
+      <TextField 
+          hintText={props.label}
+          floatingLabelText={props.label}
+          fullWidth={true}
+          errorText={props.touched && props.error}
+          {...props}
+      />
+    )
+  }
+
+  renderSpecialTextField ({ input, label, meta: { touched, error }, ...custom }) {
+    return(
+      <TextField 
+          hintText={label}
+          floatingLabelText={label}
+          fullWidth={true}
+          onChange={this.handleInputChange(value)}
+          errorText={touched && error}
+          {...input}
+          {...custom}
+      />
+    )
+  }
+
+  renderSelectField ({ input, label, meta: { touched, error }, children }) {
+		return (
+			<SelectField
+				floatingLabelText={label}
+				errorText={touched && error}
+				fullWidth={true}
+				{...input}
+				onChange={(event, index, value) => input.onChange(value)}
+				children={children}/>
+		)
+	}
 
   render() {
       const { error, handleSubmit, pristine, reset, submitting } = this.props;
 
       return (
           <div>
-              <h2>Insurance Info</h2>
+              <h2>Provider Info</h2>
               <form onSubmit={handleSubmit(props => this.submitMe(props))}>
-                  <Field name="company_name" type="text" component={this.renderTextField} label="Insurance Name"/>
-                  <Field name="type" type="text" component={this.renderTextField} label="Insurance Type"/>
-                  <Field name="policy_number" type="number" component={this.renderTextField} label="Policy Number"/>
+                <h4>PRIMARY CARE</h4>
+                <TextField 
+                    hintText="Search for Provider"
+                    floatingLabelText={"Search for Provider"}
+                    fullWidth={true}
+                    onChange={this.handleInputChange.bind(this)}
+                />
+                <ul className={this.state.docs.length ? 'docSearchResult' : 'docSearchResultHide'}>
+                  {this.state.docs.map(doc => {
+                    return <li>{doc.last_name}, {doc.first_name} {doc.title}</li>
+                  })}
+                </ul>
+                <h4>INSURANCE</h4>
+                  <div>
+                    <Field name="insurer1" component={this.renderSelectField} label="Insurance Company">
+                      {this.state.insurers.map( insurer => {
+                        return <MenuItem value={'insurer'} primaryText={insurer}/>
+                      })}
+                    </Field>
+                  </div>
+                  <div>
+                      <Field name="insurance_type1" component={this.renderSelectField} label="Insurance Type">
+                      {this.state.types.map( type => {
+                        return <MenuItem value={'type'} primaryText={type}/>
+                      })}
+                    </Field>
+                  </div>
+                  <div>
+                      <Field name="insurance_network1" component={this.renderSelectField} label="Insurance Network">
+                      {this.state.networks.map( network => {
+                        return <MenuItem value={'network'} primaryText={network}/>
+                      })}
+                    </Field>
+                  </div>
+                  <Field name="policy_number1" type="number" component={this.renderTextField} label="Policy Number"/>
+                  <h4>Can't find your insurer? Add yours below.</h4>
+                  <Field name="insurer2" type="text" component={this.renderTextField} label="Insurance Company"/>
+                  <Field name="insurance_type2" type="text" component={this.renderTextField} label="Insurance Type"/>
+                  <Field name="insurance_network2" component={this.renderTextField} label="Insurance Network" />
+                  <Field name="policy_number2" type="number" component={this.renderTextField} label="Policy Number"/>
                   {error && <strong>{error}</strong>}
                   <div className="formBtns clearfix">
                     <div>{this.getStepContent(this.props.stepIndex)}</div>
@@ -106,7 +193,7 @@ class InsuranceForm extends Component {
                         className='btn btn-back'
                       />
                       <RaisedButton
-                        label={this.props.stepIndex === 3 ? 'Finish' : 'Next'}
+                        label={this.props.stepIndex === 4 ? 'Finish' : 'Next'}
                         primary={true}
                         type='submit'
                         className='btn btn-back'

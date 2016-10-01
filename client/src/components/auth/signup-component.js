@@ -5,7 +5,6 @@ import { Field, reduxForm } from 'redux-form';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { authenticateUser } from '../../actions/actions.js';
-import storeFormInfo from '../../actions/forms.js';
 import CryptoJS from 'crypto-js';
 import RaisedButton from 'material-ui/RaisedButton';
 import {

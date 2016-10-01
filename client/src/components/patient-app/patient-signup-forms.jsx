@@ -12,10 +12,11 @@ import CryptoJS from 'crypto-js';
 
 
 // Components
-import BackgroundForm from '../../containers/forms/demographic-form.js';
-import EmergencyContactForm from '../../containers/forms/emergency-contact-form.js';
+import BackgroundInfoForm from '../../containers/forms/basic-info-form.js';
+import ContactInfoForm from '../../containers/forms/contact-info-form.js';
 import InsuranceForm from '../../containers/forms/insurance-policy-form.js';
 import FormIntro from '../../containers/forms/form-intro.js';
+import HealthInfo from '../../containers/forms/health-info-form.js';
 
 class PatientAppFormsContainer extends Component {
 	static contextTypes = {
@@ -52,10 +53,12 @@ class PatientAppFormsContainer extends Component {
       case 0:
         return <FormIntro stepIndex={this.state.stepIndex} getStepContent={this.getStepContent.bind(this)} handleNext={this.handleNext.bind(this)} handlePrev={this.handlePrev.bind(this)}/>
       case 1:
-        return <BackgroundForm stepIndex={this.state.stepIndex} getStepContent={this.getStepContent.bind(this)} handleNext={this.handleNext.bind(this)} handlePrev={this.handlePrev.bind(this)}/>;
+        return <BackgroundInfoForm stepIndex={this.state.stepIndex} getStepContent={this.getStepContent.bind(this)} handleNext={this.handleNext.bind(this)} handlePrev={this.handlePrev.bind(this)}/>;
       case 2:
-        return <EmergencyContactForm stepIndex={this.state.stepIndex} getStepContent={this.getStepContent.bind(this)} handleNext={this.handleNext.bind(this)} handlePrev={this.handlePrev.bind(this)}/>;
+        return <ContactInfoForm stepIndex={this.state.stepIndex} getStepContent={this.getStepContent.bind(this)} handleNext={this.handleNext.bind(this)} handlePrev={this.handlePrev.bind(this)}/>;
       case 3:
+        return <HealthInfo stepIndex={this.state.stepIndex} getStepContent={this.getStepContent.bind(this)} handleNext={this.handleNext.bind(this)} handlePrev={this.handlePrev.bind(this)}/>;
+      case 4:
         return <InsuranceForm stepIndex={this.state.stepIndex} getStepContent={this.getStepContent.bind(this)} handleNext={this.handleNext.bind(this)} handlePrev={this.handlePrev.bind(this)}/>;
       default:
         return <FormIntro />;
@@ -76,6 +79,9 @@ class PatientAppFormsContainer extends Component {
 						</Step>
 						<Step>
 							<StepLabel>Contact Info</StepLabel>
+						</Step>
+            <Step>
+							<StepLabel>Health Info</StepLabel>
 						</Step>
 						<Step>
 							<StepLabel>Insurance Info</StepLabel>
