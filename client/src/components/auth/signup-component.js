@@ -17,21 +17,23 @@ import {
 
 const validate = values => {
   const errors = {}
-	 if (!values.first) {
-    errors.first = 'Please enter your first name'
+	 if (!values.first || /\d/.test(values.first)) {
+    errors.first = 'Please enter a valid first name'
   }
-	 if (!values.last) {
-    errors.last = 'Please enter your last name'
+	 if (!values.last || /\d/.test(values.last)) {
+    errors.last = 'Please enter a valid last name'
   }
-  if (values.email && !/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(values.email)) {
+  if (!values.email || !/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(values.email)) {
     errors.email = 'Invalid email address'
   }
-  if (!values.password) {
-    errors.password = 'Password required'
+  if (!values.password || values.password.length < 8) {
+    errors.password = 'Password required. Must be at least 8 charachters long'
   }
-  if (!values.phone) {
-    errors.phone = 'Please re-type your password'
+
+  if (values.reTypePassword && values.reTypePassword !== values.password) {
+    errors.reTypePassword = 'Passwords must match'
   }
+
   return errors
 }
 

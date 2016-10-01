@@ -17,15 +17,13 @@ import {
 
 const validate = values => {
   const errors = {}
-  if (!values.username) {
-    errors.username = 'Please enter your username'
+  if (!values.email || !/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(values.email)) {
+    errors.email = 'Please enter a valid email'
   }
   if (!values.password) {
-    errors.password = 'Password required'
+    errors.password = 'Password required.'
   }
-  if (!values.userType) {
-    errors.phone = 'Please select an option'
-  }
+
   return errors
 }
 
@@ -66,10 +64,10 @@ class SigninForm extends Component {
           <h2>{this.state.userType} Sign In</h2>
           <form onSubmit={ handleSubmit(props => this.onSubmit(props)) }>
             <div>
-              <Field name="email" type="text" component={this.renderTextField} label="Username/Email"/>
+              <Field name="email" type="text" component={this.renderTextField} label="Username (Email)"/>
             </div>
             <div>
-              <Field name="password" type="text" component={this.renderTextField} label="Password"/>
+              <Field name="password" type="password" component={this.renderTextField} label="Password"/>
             </div>
             {error && <strong>{error}</strong>}
             <RaisedButton label="Sign In" type='submit' className='btn' style={{
