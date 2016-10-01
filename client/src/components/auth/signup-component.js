@@ -49,7 +49,7 @@ class SignupForm extends Component {
   }
 
 	onSubmit(props) {
-     this.props.authenticateUser(this.state.userType, props,"signup")
+    this.props.authenticateUser(this.state.userType, props,"signup")
   }
 
 	handleChange(event) {
