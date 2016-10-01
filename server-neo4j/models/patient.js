@@ -8,34 +8,34 @@ const hashHelp = require('../security/hash.js');
 module.exports = {
   signUp: (req, res) => {
     gdb
-    .run('MATCH (n:patient) WHERE n.email={paremail} RETURN n', {paremail:req.body.email })
-    .then(data => {
-      if(data.records.length <= 0){
-        hashHelp.hashPassword(req.body.password)
-        .then(hashed =>{
-          req.body.password = hashed;
-          gdb
-            .run('CREATE(n:patient {first:{parfirst}, \
-              last:{parlast}, email:{paremail}, password:{parpassword}}) \
-              RETURN n', {parfirst:req.body.first,
-              parlast:req.body.last, paremail:req.body.email,
-              parpassword:req.body.password})
-            .then(data=>{
-              console.log(data);
-              var sess = req.session;
-              sess.email = data.records[0]._fields[0].properties.email;
-              sess.patient = data.records[0]._fields[0].identity.low;
-              module.exports.sess = sess;
-              gdb.close();
-              res.json({
-                properties: data.records[0]._fields[0].properties,
-                uid: data.records[0]._fields[0].identity.low
-              });
-            })
-            .catch((err)=>{
-              console.log(err);
-            })
-        })
+      .run('MATCH (n:patient) WHERE n.email={paremail} RETURN n', {paremail:req.body.email })
+      .then(data => {
+        if(data.records.length <= 0){
+          hashHelp.hashPassword(req.body.password)
+          .then(hashed =>{
+            req.body.password = hashed;
+            gdb
+              .run('CREATE(n:patient {first:{parfirst}, \
+                last:{parlast}, email:{paremail}, password:{parpassword}}) \
+                RETURN n', {parfirst:req.body.first,
+                parlast:req.body.last, paremail:req.body.email,
+                parpassword:req.body.password})
+              .then(data=>{
+                console.log(data);
+                var sess = req.session;
+                sess.email = data.records[0]._fields[0].properties.email;
+                sess.patient = data.records[0]._fields[0].identity.low;
+                module.exports.sess = sess;
+                gdb.close();
+                res.json({
+                  properties: data.records[0]._fields[0].properties,
+                  uid: data.records[0]._fields[0].identity.low
+                });
+              })
+              .catch((err)=>{
+                console.log(err);
+              })
+          })
       }
         // res.status(409).send("The email address you specified is already in use.");
         console.log(data);
