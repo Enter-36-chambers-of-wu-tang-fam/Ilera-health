@@ -313,6 +313,7 @@ class AllUsers extends Component {
         </div>
       );
     }
+<<<<<<< 6d9ec2b8d166e3aedef4473243d9e0438ec3f261
 };
 
 AllUsers = reduxForm({
@@ -329,3 +330,6 @@ const mapStateToProps = (state) => {
 }
 
 export default connect(mapStateToProps)(AllUsers);
+=======
+}
+>>>>>>> initial all users attempt
