@@ -25,7 +25,7 @@ const addMessageFailed = (err) => {
 	}
 }
 
-export function createMessage(senderType, receiverType, message, senderid, receiverid) {
+export function newMessage(senderType, receiverType, message, senderid, receiverid) {
 	console.log("YAAAAAAY", senderid, receiverid)
   return dispatch => {
     dispatch(addMessageRequest(message))
