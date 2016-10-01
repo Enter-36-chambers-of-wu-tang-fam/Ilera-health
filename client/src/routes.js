@@ -27,9 +27,6 @@ import Calendar from './components/physician-app/calendar.jsx';
 
 // Patient Components
 import PatientApp from './components/patient-app/patient-app.jsx';
-import BackgroundForm from './containers/forms/demographic-form.js';
-import EmergencyContactForm from './containers/forms/emergency-contact-form.js';
-import InsuranceForm from './containers/forms/insurance-policy-form.js';
 import PatientDashboard from './components/patient-app/patient-dashboard.jsx';
 import HealthLog from './components/patient-app/health-log.jsx';
 import Medications from './components/patient-app/medications.jsx';

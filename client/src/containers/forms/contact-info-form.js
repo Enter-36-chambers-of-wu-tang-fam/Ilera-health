@@ -12,7 +12,7 @@ import FlatButton from 'material-ui/FlatButton';
 import SelectField from 'material-ui/SelectField'
 import MenuItem from 'material-ui/MenuItem';
 import {
-  TextField,
+  TextField
 } from 'redux-form-material-ui';
 
 // FORM VALIDATION
@@ -73,7 +73,7 @@ const validate = values => {
   return errors
 }
 
-class EmergencyContactForm extends Component {
+class ContactInfoForm extends Component {
 
   constructor(props){
     super(props);
@@ -276,7 +276,7 @@ class EmergencyContactForm extends Component {
 };
 
 export default reduxForm({
-  form: 'EmergencyContactForm',
+  form: 'ContactInfoForm',
   destroyOnUnmount: false,
   validate
-})(EmergencyContactForm);
+})(ContactInfoForm);

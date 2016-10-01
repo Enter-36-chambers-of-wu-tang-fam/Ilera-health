@@ -386,4 +386,37 @@ main > section p{
 .bold{
     font-weight: bold;
 }
+.allergyTable{
+    height: 350px;
+    overflow: auto;
+}
 
+.allergyRow{
+    margin-bottom: 30px;
+}
+
+.form-search{
+    width: 100%;
+    border-bottom: 1px solid #ccc;
+    border-left: none;
+    border-right: none;
+    border-top: none;
+    position: relative;
+}
+.docSearchResult{
+    height: 250px;
+    max-width: 500px;
+    width: 100%;
+    overflow: auto;
+    box-shadow: 3px 0px 6px 3px #eee;
+    position: absolute;
+    z-index: 100;
+}
+.docSearchResultHide{
+    display: none;
+}
+.docSearchResult li{
+    padding: 15px;
+    border-bottom: 1px solid #ccc;
+    background-color: white;
+}
