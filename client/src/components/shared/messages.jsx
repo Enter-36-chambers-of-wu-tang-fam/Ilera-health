@@ -30,9 +30,12 @@ export default class Messages extends Component {
     socket.on('join channel', function(channel) {
       cosole.log("JOIN CHANNEL");
     })
+<<<<<<< 570acfa6f8bc2b0f9b8aabc2eeaf539ee2e22cd2
      socket.on('new bc message', function(channel) {
       cosole.log("NEW MESSAGE INCOMING");
     })
+=======
+>>>>>>> reworked sockets on backend
     socket.on('new channel', function(channel) {
       cosole.log("NEW CHANNEL");
     });
