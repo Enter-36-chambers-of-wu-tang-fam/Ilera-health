@@ -21,18 +21,31 @@ CREATE TABLE `patient` (
   `id` INTEGER NOT NULL AUTO_INCREMENT,
   `first` VARCHAR(30) NULL DEFAULT NULL,
   `last` VARCHAR(30) NULL DEFAULT NULL,
+  `middle` VARCHAR(30) NULL DEFAULT NULL,
+  `maiden` VARCHAR(30) NULL DEFAULT NULL,
   `email` VARCHAR(30) NOT NULL,
   `password` VARCHAR(300) NULL DEFAULT NULL,
   `pin` INTEGER(4) NULL DEFAULT NULL,
-  `date_of_birth` DATE NULL DEFAULT NULL,
+  `date_of_birth` VARCHAR(100) NULL DEFAULT NULL,
+  `birth_city` VARCHAR(60) NULL DEFAULT NULL,
+  `birth_country` VARCHAR(60) NULL DEFAULT NULL,
+  `marital_status` VARCHAR(60) NULL DEFAULT NULL,
   `address` VARCHAR(60) NULL DEFAULT NULL,
   `city` VARCHAR(60) NULL DEFAULT NULL,
-  `state` VARCHAR(2) NULL DEFAULT NULL,
+  `state` VARCHAR(20) NULL DEFAULT NULL,
   `zip` VARCHAR(10) NULL DEFAULT NULL,
-  `phone_number` VARCHAR(20) NULL DEFAULT NULL,
+  `primary_phone_number` VARCHAR(20) NULL DEFAULT NULL,
+  `secondary_phone_number` VARCHAR(20) NULL DEFAULT NULL,
+  `gender` VARCHAR(20) NULL DEFAULT NULL,
   `weight` INTEGER NULL DEFAULT NULL,
   `height` INTEGER NULL DEFAULT NULL,
   `blood_type` VARCHAR(3) NULL DEFAULT NULL,
+  `conditions` VARCHAR(500) NULL DEFAULT NULL,
+  `procedures` VARCHAR(500) NULL DEFAULT NULL,
+  `medications` VARCHAR(500) NULL DEFAULT NULL,
+  `allergies` VARCHAR(500) NULL DEFAULT NULL,
+  `primary_language` VARCHAR(30) NULL DEFAULT NULL,
+  `secondary_language` VARCHAR(30) NULL DEFAULT NULL,
   `photo_path` VARCHAR(200) NULL DEFAULT NULL,
   PRIMARY KEY (`id`)
 );
@@ -205,8 +218,20 @@ DROP TABLE IF EXISTS `insurance_plan`;
 
 CREATE TABLE `insurance_plan` (
   `id` INTEGER NOT NULL AUTO_INCREMENT,
-  `plan` VARCHAR(100) NULL,
-  `policy_number` VARCHAR(100) NULL DEFAULT NULL,
+  `primary_name` VARCHAR(30) NULL,
+  `primary_phone` VARCHAR(30) NULL,
+  `primary_address` VARCHAR(30) NULL,
+  `primary_city` VARCHAR(30) NULL,
+  `primary_state` VARCHAR(30) NULL,
+  `primary_zip` VARCHAR(30) NULL,
+  `insurer1` VARCHAR(100) NULL,
+  `insurance_type1` VARCHAR(100) NULL,
+  `insurance_network1` VARCHAR(100) NULL,
+  `policy_number1` VARCHAR(100) NULL DEFAULT NULL,
+  `insurer2` VARCHAR(100) NULL,
+  `insurance_type2` VARCHAR(100) NULL,
+  `insurance_network2` VARCHAR(100) NULL,
+  `policy_number2` VARCHAR(100) NULL DEFAULT NULL,
   `member_id` VARCHAR(30) NULL,
   `payer_id` VARCHAR(20) NULL,
   `id_patient` INTEGER DEFAULT NULL,
@@ -253,11 +278,16 @@ DROP TABLE IF EXISTS `emergency_contact`;
 
 CREATE TABLE `emergency_contact` (
   `id` INTEGER NOT NULL AUTO_INCREMENT,
-  `first` VARCHAR(30) NULL DEFAULT NULL,
-  `last` VARCHAR(30) NULL DEFAULT NULL,
-  `phone` VARCHAR(20) NULL DEFAULT NULL,
-  `email` VARCHAR(30) NULL DEFAULT NULL,
-  `relationship` VARCHAR(30) NULL DEFAULT NULL,
+  `e_1_contact_first` VARCHAR(30) NULL DEFAULT NULL,
+  `e_1_contact_last` VARCHAR(30) NULL DEFAULT NULL,
+  `e_1_contact_phone` VARCHAR(20) NULL DEFAULT NULL,
+  `e_1_contact_email` VARCHAR(30) NULL DEFAULT NULL,
+  `e_1_contact_relationship` VARCHAR(30) NULL DEFAULT NULL,
+  `e_2_contact_first` VARCHAR(30) NULL DEFAULT NULL,
+  `e_2_contact_last` VARCHAR(30) NULL DEFAULT NULL,
+  `e_2_contact_phone` VARCHAR(20) NULL DEFAULT NULL,
+  `e_2_contact_email` VARCHAR(30) NULL DEFAULT NULL,
+  `e_2_contact_relationship` VARCHAR(30) NULL DEFAULT NULL,
   `id_patient` INTEGER DEFAULT NULL,
   PRIMARY KEY (`id`)
 );
@@ -437,8 +467,8 @@ INSERT INTO `physician` (`first`,`last`,`email`,`phone_number`,`password`,`photo
 INSERT INTO `physician` (`first`,`last`,`email`,`phone_number`,`password`,`photo_path`,`specialty`) VALUES ('yolo','bee','bee','34321235','bee','bee','bee');
 -- INSERT INTO `patient` (`id`,`first`,`last`,`email`,`password`,`pin`,`date_of_birth`,`address`,`city`,`state`,`zip`,`phone_number`,`weight`,`height`,`blood_type`,`photo_path`) VALUES
 -- ('','','','','','','','','','','','','','','','');
-INSERT INTO `patient` (`first`,`last`,`email`,`password`,`pin`,`address`,`city`,`state`,`zip`,`phone_number`,`weight`,`height`,`blood_type`,`photo_path`) VALUES ('bal','bon','afsjon','2345rew','14','mya','at','ca','43522','2435','1231','123','4','a');
-INSERT INTO `patient` (`first`,`last`,`email`,`password`,`pin`,`address`,`city`,`state`,`zip`,`phone_number`,`weight`,`height`,`blood_type`,`photo_path`) VALUES ('abn','bon','jon','2345rew','14','mj','sarat','ca','43522','2435','1231','123','4','a');
+INSERT INTO `patient` (`first`,`last`,`email`,`password`,`pin`,`address`,`city`,`state`,`zip`,`primary_phone_number`,`weight`,`height`,`blood_type`,`photo_path`) VALUES ('bal','bon','afsjon','2345rew','14','mya','at','ca','43522','2435','1231','123','4','a');
+INSERT INTO `patient` (`first`,`last`,`email`,`password`,`pin`,`address`,`city`,`state`,`zip`,`primary_phone_number`,`weight`,`height`,`blood_type`,`photo_path`) VALUES ('abn','bon','jon','2345rew','14','mj','sarat','ca','43522','2435','1231','123','4','a');
 
 
 -- INSERT INTO `patient_physician` (`id`,`id_physician`,`id_patient`) VALUES
@@ -475,7 +505,7 @@ INSERT INTO `messages` (`direct_message`,`sender_id`,`receiver_id`,`sender_type`
 
 -- INSERT INTO `emergency_contact` (`id`,`first`,`last`,`phone`,`email`,`relationship`,`id_patient`) VALUES
 -- ('','','','','','','');
-INSERT INTO `emergency_contact` (`first`,`last`,`phone`,`email`,`relationship`,`id_patient`) VALUES ('helen','yara','1234','yolomail','momma','1');
+INSERT INTO `emergency_contact` (`e_1_contact_first`,`e_1_contact_last`,`e_1_contact_phone`,`e_1_contact_email`,`e_1_contact_relationship`,`id_patient`) VALUES ('helen','yara','1234','yolomail','momma','1');
 
 -- INSERT INTO `medication` (`id`,`drug_name`,`details`) VALUES
 -- ('','','');

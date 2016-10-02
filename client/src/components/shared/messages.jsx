@@ -30,6 +30,9 @@ export default class Messages extends Component {
     socket.on('join channel', function(channel) {
       cosole.log("JOIN CHANNEL");
     })
+     socket.on('new bc message', function(channel) {
+      cosole.log("NEW MESSAGE INCOMING");
+    })
     socket.on('new channel', function(channel) {
       cosole.log("NEW CHANNEL");
     });
@@ -41,10 +44,8 @@ export default class Messages extends Component {
   handleSave(newMessage) {
     const { dispatch } = this.props;
     let user = this.props.uid;
-    let receiver = this.state.chosenid;
-    console.log("RECEIVER", receiver)
     if (newMessage.text.length !== 0) {
-      dispatch(actions.createMessage(senderType, receiverType, newMessage, user, receiver));
+      dispatch(actions.newMessage('patient', 'physician', newMessage, user, 1));
     }
   }
 

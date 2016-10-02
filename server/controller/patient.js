@@ -65,7 +65,16 @@ module.exports = {
   // hash new password and do not hash if it is the same password
 
   put_init_form: (req, res) => {
+    console.log("INFO", req.body)
     Patient.initform_patient(req.body, (err,data)=>{
+      if(err) console.log(err);
+      res.json(data);
+    });
+  },
+
+  put_init_form_health: (req, res) => {
+    console.log("INFO", req.body)
+    Patient.initform_patient_health(req.body, (err,data)=>{
       if(err) console.log(err);
       res.json(data);
     });
@@ -91,10 +100,14 @@ module.exports = {
   },
 
   post_emer_contact: (req, res) => {
-    Patient.emergency_contact_form(req.body, (err,data)=>{
+    Patient.emergency_contact_form(req.body, (err,edata)=>{
       if(err) console.log(err);
-      res.json(data);
+        Patient.initform_patient_contact(req.body, (err,data)=>{
+          if(err) console.log(err);
+          res.json({contacts: edata, patientContact: data});
+        });
     });
+    
   },
 
 

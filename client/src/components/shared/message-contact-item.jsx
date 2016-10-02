@@ -11,10 +11,10 @@ export class ContactItem extends Component {
         console.log("YOOOOO", this.props.user, this.props.contact.id_physician)
         let user = this.props.user;
         if(this.props.contact.id_physician){
-            let receiver = this.props.contact.id_physician;
             let receiverType = 'physician';
         }
-        this.props.userSelected(user, receiver, receiverType);
+        console.log("IN MESSAGE-CONTACT-ITEM", receiver)
+        this.props.userSelected(user, 1, receiverType);
     }
 
     render(){
