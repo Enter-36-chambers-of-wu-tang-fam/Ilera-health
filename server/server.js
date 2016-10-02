@@ -4,6 +4,7 @@ const app = express();
 const server = require('http').Server(app);
 const session = require('express-session');
 const path = require('path');
+// HERE
 const db = require('./db/dbConnect/connection.js');
 const Appointment = require('./controller/appointment.js');
 const HealthLog = require('./controller/health_log.js');
