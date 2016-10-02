@@ -4,8 +4,13 @@
   "description": "yolo",
   "main": "./server/server.js",
   "scripts": {
-    "test": "mocha --compilers js:babel-core/register './client/spec/**/*test.js'",
+    "test": "mocha './client/spec/**/*test.js'",
     "build": "webpack -p"
+  },
+  "babel": {
+  "presets": [
+    "es2015"
+  ]
   },
   "repository": {
     "type": "git",
