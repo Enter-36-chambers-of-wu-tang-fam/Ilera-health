@@ -3,6 +3,7 @@ const InsurancePlan = require("../models/insurance_plan-helpers.js");
 module.exports = {
 
   post_initInsurance_plan: (req, res) => {
+    console.log("HERE DUDE", req.body)
     InsurancePlan.init_insurance_plan(req.body, (err,data)=>{
       if(err) console.log(err);
       res.json(data);
