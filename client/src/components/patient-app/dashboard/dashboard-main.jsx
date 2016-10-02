@@ -6,10 +6,11 @@ const DashboardMain = () => {
     return (
         <div className="dashboardMain">
            
-            <DashboardInsurance />
+            
             <div>
-                <h3>Statements</h3>
+                <h3>Welcome, Yara!</h3>
             </div>
+            <DashboardInsurance />
             <div>
                 <h3>Reminders</h3>
                 <div id="dashReminders">

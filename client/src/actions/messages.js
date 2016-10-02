@@ -29,7 +29,7 @@ export function newMessage(senderType, receiverType, message, senderid, receiver
 	console.log("YAAAAAAY", senderid, receiverid)
   return dispatch => {
     dispatch(addMessageRequest(message))
-    return axios.post('/api/messages/newmessage', {"sender_type": senderType, "receiver_type": receiverType, "direct_message": `${message.text}`, "sender_id": senderid, "receiver_id": receiverid})
+    return axios.post('/api/messages/newmessage', {"sender_type": 'patient', "receiver_type": 'physician', "direct_message": `${message.text}`, "sender_id": senderid, "receiver_id": receiverid})
 			.then( success => {
 					dispatch(addMessage(message));
 			})
