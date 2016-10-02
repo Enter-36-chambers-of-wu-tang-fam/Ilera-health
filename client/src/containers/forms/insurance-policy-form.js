@@ -13,15 +13,16 @@ import {
 
 const validate = values => {
   const errors = {}
-  if (!values.insurance_name) {
-    errors.insurance_name = 'Please enter an insurance name'
+  if ( values.primary_name && /\d/.test(values.primary_name)) {
+    errors.primary_name = 'Please enter a valid name'
   }
-  if (!values.insurance_type) {
-    errors.insurance_type = 'Please enter an insurance type'
+  if ( values.primary_city && /\d/.test(values.primary_city)) {
+    errors.primary_city = 'Please enter a valid city name'
   }
-  if (!values.policy_number) {
-    errors.policy_number = 'Please enter a policy number'
+  if (values.primary_phone && !/^[0-9]+$/.test(values.primary_phone)) {
+    errors.primary_phone = 'Invalid phone number - no special charachters'
   }
+  
   return errors
 };
 
@@ -38,8 +39,8 @@ class InsuranceForm extends Component {
       insurerSelected: false,
       insurerTypeSelected: false,
       docSelected: false,
-      insurers: [1, 2, 3],
-      types: [1, 2, 3],
+      insurers: [],
+      types: [],
       networks: [],
       docs: [],
       docSelectedInfo: {}
@@ -66,7 +67,10 @@ class InsuranceForm extends Component {
 		//code to decode user id stored in local storage
 		let code  = CryptoJS.AES.decrypt(id.toString(), 'key'); //need to change key
 		prop.uid = code.toString(CryptoJS.enc.Utf8);
-
+    prop.insurer1 = this.state.insurer;
+    prop.insurance_type1 = this.state.insuererType;
+    prop.insurance_network1 = this.state.network;
+    prop.betterDoctorUID = this.state.docSelectedInfo.betterDoctorUID;
     axios.post('/api/patient/insurance', prop)
       .then( found => {
         this.context.router.push('/patient/dashboard');
@@ -91,14 +95,12 @@ class InsuranceForm extends Component {
 
   onClick(key){
     console.log("CONFIRMED", this.state.docs[key]);
-    this.setState({docSelected: true, docSelectedInfo: this.state.docs[key], docSelectedName: `${this.state.docs[key].last_name},${this.state.docs[key].first_name}`});
+    this.setState({docSelected: true, docSelectedInfo: this.state.docs[key], docSelectedName: `${this.state.docs[key].last_name},${this.state.docs[key].first_name}`, insurerTypeSelected: true});
   }
 
   onInsurerClick(key){
-    console.log("YO", this.state.insurers[key].insurer)
      axios.get(`/api/insurance/insurer/${this.state.insurers[key].insurer}`)
       .then( found => {
-        console.log("INSURERES", found.data)
         var type = [];
         var network = [];
         found.data.map( insurer =>{
@@ -126,9 +128,11 @@ class InsuranceForm extends Component {
       axios.get(query)
       .then( result => {
         var docs = [];
+        
         result.data.data.map( doctor => {
-          docs.push({first_name: doctor.profile.first_name, last_name: doctor.profile.last_name, title: doctor.profile.title});
+          docs.push({first_name: doctor.profile.first_name, last_name: doctor.profile.last_name, title: doctor.profile.title, npi: doctor.npi, betterDoctorUID: doctor.uid});
         })
+        console.log("DOCSSSS", docs)
         this.setState({docs: docs});
       })
       .catch( err => {
