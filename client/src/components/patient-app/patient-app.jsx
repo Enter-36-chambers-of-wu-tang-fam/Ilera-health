@@ -11,7 +11,7 @@ class PatientApp extends Component {
   constructor(props) {
     super(props);
   }
-  
+
   static contextTypes = {
       router: React.PropTypes.object
   }
@@ -24,7 +24,7 @@ class PatientApp extends Component {
           { this.props.children }
         </main>
       </div>
-    ); 
+    );
   }
 };
 
