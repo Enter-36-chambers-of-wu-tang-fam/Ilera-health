@@ -67,15 +67,6 @@ class HealthInfo extends Component {
 
 	submitMe(prop){
 		this.props.handleNext();
-		var allergies = {};
-		for(var item in prop){
-			var type = item;
-			if(/AllergyInfo/.test(item)){
-				allergies[item] = prop[item];
-			}
-		}
-
-		prop.allergies = allergies;
 
 		//get encoded id from local storage
 		let id = localStorage.getItem('uid');
@@ -83,7 +74,7 @@ class HealthInfo extends Component {
 		let code  = CryptoJS.AES.decrypt(id.toString(), 'key'); //need to change key
 		prop.uid = code.toString(CryptoJS.enc.Utf8);
 
-		axios.put('/api/patient/background', prop)
+		axios.put('/api/patient/health', prop)
 			.then( found => {
 					// this.context.router.push('/patient/form/emergencyContact/');
 			})
@@ -151,9 +142,9 @@ class HealthInfo extends Component {
 				<h2>Health Info</h2>
 					<form onSubmit={handleSubmit(props => this.submitMe(props))}>
 						<div>
-							<Field name="sex" component={this.renderSelectField} label="Sex">
-									<MenuItem value={'Man'} primaryText="Man"/>
-									<MenuItem value={'Woman'} primaryText="Woman"/>
+							<Field name="gender" component={this.renderSelectField} label="Gender">
+									<MenuItem value={'Male'} primaryText="Man"/>
+									<MenuItem value={'Female'} primaryText="Woman"/>
 									<MenuItem value={'Transgender'} primaryText="Transgender"/>
 									<MenuItem value={'Transsexual'} primaryText="Transsexual"/>
 									<MenuItem value={'Trans Woman'} primaryText="Trans Woman"/>

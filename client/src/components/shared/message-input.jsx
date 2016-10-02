@@ -20,10 +20,7 @@ export default class MessageInput extends Component {
         text: text,
         user: user
       };
-      socket.on('new message', function(msg) {
-        console.log("NEW MESSAGE")
-        dispatch(actions.newMessage(msg));
-      });
+      socket.emit('new message', newMessage);
       socket.emit('stop typing', { user: user });
       this.props.onSave(newMessage);
       this.setState({ text: '', typing: false });

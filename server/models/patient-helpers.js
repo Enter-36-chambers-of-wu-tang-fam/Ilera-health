@@ -19,6 +19,7 @@ module.exports = {
   },
 
   checkPatient: (params, cb) => {
+    console.log("**", params.email)
     let data = [params.email];
     const queryString = "SELECT * FROM patient WHERE email=? LIMIT 1";
     db.query(queryString, data, (error, results) => cb(error, results) );
@@ -26,14 +27,27 @@ module.exports = {
 
   initform_patient: (params, cb) => {
     // Post Request to: api/user/initform  =>   { Patient Table}
-    let data = [ params.first, params.last, params.date_of_birth, params.address,
-      params.city, params.state, params.zip, params.email,
-      params.phone_number, params.photo_path, params.weight, params.height,
-      params.blood_type];
-    const queryString ='UPDATE patient SET first=?, last=?, date_of_birth=?, address=?, \
-      city=?, state=?, zip=?, email=?, phone_number=?, photo_path=?, \
-      weight=?, height=?, blood_type=? WHERE id='+ params.uid;
+    let data = [ params.first, params.last, params.middle, params.maiden, params.date_of_birth, params.birth_city,
+      params.birth_country, params.marital_status, params.primary_language, params.secondary_language, params.gender, params.weight, params.height, params.blood_type, params.conditions, params.procedures, params.medications, params.allergies];
+    const queryString ='UPDATE patient SET first=?, last=?, middle=?, maiden=?, date_of_birth=?, birth_city=?, \
+      birth_country=?, marital_status=?, primary_language=?, secondary_language=? WHERE id='+ params.uid;
     db.query(queryString, data, (error, results) => cb(error, results) );
+  },
+
+  initform_patient_health: (params, cb) => {
+    // Post Request to: api/user/initform  =>   { Patient Table}
+    let data = [ params.gender, params.weight, params.height, params.blood_type, params.conditions, params.procedures, params.medications, params.allergies];
+    const queryString ='UPDATE patient SET gender=?, weight=?, height=?, blood_type=?, conditions=?, procedures=?, \
+    medications=?, allergies=? WHERE id='+ params.uid;
+    db.query(queryString, data, (error, results) => cb(error, results) );
+  },
+
+  initform_patient_contact: (params, cb) => {
+    // Post Request to: api/user/initform  =>   { Patient Table}
+    let data = [ params.address, params.city, params.state, params.zip, params.primary_phone_number, params.secondary_phone_number];
+    const queryString ='UPDATE patient SET address=?, city=?, state=?, zip=?, primary_phone_number=?, secondary_phone_number=? \
+      WHERE id='+ params.uid;
+      db.query(queryString, data, (error, results) => cb(error, results) );
   },
 
   update_password: (params, cb) => {
@@ -44,11 +58,13 @@ module.exports = {
   },
 
   emergency_contact_form:(params, cb) => {
-    let data = [params.first, params.last, params.phone, params.email,
-      params.relationship, params.uid];
+    let data = [params.e_1_contact_first, params.e_1_contact_last, params.e_1_contact_phone, params.e_1_contact_email,
+      params.e_1_contact_relationship, params.e_2_contact_first, params.e_2_contact_last, params.e_2_contact_phone, params.e_2_contact_email,
+      params.e_2_contact_relationship, params.uid];
     // Post request to: /api/user/emergency_contacts => { Emergency Table }
-    const queryString = 'INSERT INTO emergency_contact(first, last, phone, email, \
-      relationship, id_patient) value (?, ?, ?, ?, ?, ?)';
+    const queryString = 'INSERT INTO emergency_contact(e_1_contact_first, e_1_contact_last, e_1_contact_phone, \
+    e_1_contact_email, e_1_contact_relationship, e_2_contact_first, e_2_contact_last, e_2_contact_phone, \
+    e_2_contact_email, e_2_contact_relationship, id_patient) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)';
     db.query(queryString, data, (error, results) => cb(error, results) );
   },
 

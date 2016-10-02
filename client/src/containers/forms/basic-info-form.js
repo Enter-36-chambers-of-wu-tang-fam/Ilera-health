@@ -19,20 +19,17 @@ import { emergencyContact } from '../../actions/actions.js';
 
 const validate = values => {
   const errors = {}
-  if (!values.first || /\d/.test(values.first)) {
-    errors.first = 'Please enter a valid first name'
-  }
+  // if (!values.first || /\d/.test(values.first)) {
+  //   errors.first = 'Please enter a valid first name'
+  // }
 	if (values.middle && /\d/.test(values.middle)) {
     errors.middle = 'Please enter a valid middle name'
   }
-  if (!values.last || /\d/.test(values.last)) {
-    errors.last = 'Please enter a valid last name'
-  }
+  // if (!values.last || /\d/.test(values.last)) {
+  //   errors.last = 'Please enter a valid last name'
+  // }
 	if (values.maiden && /\d/.test(values.maiden)) {
     errors.maiden = 'Please enter a valid maiden name'
-  }
-  if (!values.email || !/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(values.email)) {
-    errors.email = 'Invalid email address'
   }
 	if (values.birth_city && /\d/.test(values.birth_city)) {
     errors.birth_city = 'Please enter a valid city of birth'
@@ -106,6 +103,33 @@ class BackgroundInfoForm extends Component {
 		)
 	}
 
+	renderTextFieldFirst (props) {
+		return(
+			<TextField 
+				hintText={props.label}
+				floatingLabelText={props.label}
+				fullWidth={true}
+				value={localStorage.getItem('first')}
+				errorText={props.touched && props.error}
+				{...props}
+			/>
+		)
+	}
+
+	renderTextFieldLast (props) {
+		return(
+			<TextField 
+				hintText={props.label}
+				floatingLabelText={props.label}
+				fullWidth={true}
+				value={localStorage.getItem('last')}
+				defaultValue={localStorage.getItem('last')}
+				errorText={props.touched && props.error}
+				{...props}
+			/>
+		)
+	}
+
 	renderDatePicker (props) {
 		return(
 			<DatePicker 
@@ -135,11 +159,10 @@ class BackgroundInfoForm extends Component {
 				<h2>Basic User Info</h2>
 				<h6>* Required field</h6>
 					<form onSubmit={handleSubmit(props => this.submitMe(props))}>
-						<Field name="first" type="text" component={this.renderTextField} label="First Name*"/>
+						<Field name="first" type="text" component={this.renderTextFieldFirst} label="First Name*"/>
 						<Field name="middle" type="text" component={this.renderTextField} label="Middle Name"/>
-						<Field name="last" type="text" component={this.renderTextField} label="Last Name*"/>
+						<Field name="last" type="text" component={this.renderTextFieldLast} label="Last Name*"/>
 						<Field name="maiden" type="text" component={this.renderTextField} label="Maiden Name"/>
-						<Field name="email" type="text" component={this.renderTextField} label="Email*"/> 
 						<Field name="date_of_birth"  minDate={this.state.minDate} maxDate={this.state.maxDate} type="date" fullWidth={true} floatingLabelText="Date of Birth" floatingLabelFixed={true} component={this.renderDatePicker}/>
 						<div>
 							<Field name="birth_country" component={this.renderSelectField} label="Country of Birth">
@@ -439,5 +462,6 @@ class BackgroundInfoForm extends Component {
 export default reduxForm({
 	form: 'BackgroundInfoForm',
 	destroyOnUnmount: false,
+	initialValues: {first: localStorage.getItem('first'), last: localStorage.getItem('last')},
 	validate
 })(BackgroundInfoForm);

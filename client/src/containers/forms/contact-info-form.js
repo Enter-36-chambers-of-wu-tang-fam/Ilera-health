@@ -91,7 +91,7 @@ class ContactInfoForm extends Component {
 		let code  = CryptoJS.AES.decrypt(id.toString(), 'key'); //need to change key
 		prop.uid = code.toString(CryptoJS.enc.Utf8);
     // store form data
-    axios.post('/api/patient/emergency_contacts', prop)
+    axios.post('/api/patient/contact', prop)
       .then( found => {
         // this.context.router.push('/patient/form/insurance/');
       })

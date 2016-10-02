@@ -12,7 +12,7 @@ module.exports = {
   },
 
   get_specific_insurance: (params, cb) => {
-    let data = [params.insurer];
+    let data = [params.specific];
       console.log("insurance", data);
     const queryString = 'SELECT * FROM insurance WHERE insurer=?';
     db.query(queryString, data, (error, results) => cb(error, results) );
