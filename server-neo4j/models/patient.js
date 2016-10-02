@@ -47,13 +47,13 @@ module.exports = {
   },
 
   signIn: (req, res) => {
-    var passwordz = req.body.password;
+    // var passwordz = req.body.password;
     gdb
       .run('MATCH (n:patient) WHERE n.email={paremail} RETURN n',
         {paremail:req.body.email })
       .then(data =>{
         console.log(data, data.records[0]._fields[0].properties.email);
-        bcrypt.compare(passwordz, data.records[0]._fields[0].properties.password, (error, result) => {
+        bcrypt.compare(req.body.password, data.records[0]._fields[0].properties.password, (error, result) => {
           if(result){
             var sess = req.session;
             sess.email = data.records[0]._fields[0].properties.email;

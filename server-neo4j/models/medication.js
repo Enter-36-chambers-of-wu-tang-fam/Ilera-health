@@ -6,3 +6,20 @@ const gdb = require('../graphDb/graphConnect.js').graphdb;
 //   `details` VARCHAR(1000) NULL DEFAULT NULL,
 //   PRIMARY KEY (`id`)
 // );
+module.exports = {
+
+  postMedication: (req, res)=>{
+    gdb
+      .run()
+      .then()
+      .catch()
+  },
+
+  getAll_patientMeds: (req, res)=>{
+    gdb
+      .run()
+      .then()
+      .catch()
+  }
+
+};
