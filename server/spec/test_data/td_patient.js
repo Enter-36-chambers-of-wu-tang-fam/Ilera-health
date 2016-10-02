@@ -1,19 +1,19 @@
-`id`
-`first`
-`last`
-`email`
-`password`
-`pin`
-`date_of_birth`
-`address`
-`city`
-`state`
-`zip`
-`phone_number`
-`weight`
-`height`
-`blood_type`
-`photo_path`
+// `id`
+// `first`
+// `last`
+// `email`
+// `password`
+// `pin`
+// `date_of_birth`
+// `address`
+// `city`
+// `state`
+// `zip`
+// `phone_number`
+// `weight`
+// `height`
+// `blood_type`
+// `photo_path`
 
 module.exports = {
 
