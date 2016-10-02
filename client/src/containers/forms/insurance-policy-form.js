@@ -99,8 +99,10 @@ class InsuranceForm extends Component {
   }
 
   onInsurerClick(key){
+    console.log("YO", this.state.insurers[key].insurer)
      axios.get(`/api/insurance/insurer/${this.state.insurers[key].insurer}`)
       .then( found => {
+        console.log("INSURERES", found.data)
         var type = [];
         var network = [];
         found.data.map( insurer =>{

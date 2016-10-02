@@ -218,7 +218,10 @@ DROP TABLE IF EXISTS `insurance_plan`;
 
 CREATE TABLE `insurance_plan` (
   `id` INTEGER NOT NULL AUTO_INCREMENT,
+<<<<<<< 3a0e8369013c5b32160e8787b36b9433a34abdef
   `betterDoctorUID` VARCHAR(60) NULL,
+=======
+>>>>>>> insurance form all working, need to connect to back end routes
   `primary_name` VARCHAR(30) NULL,
   `primary_phone` VARCHAR(30) NULL,
   `primary_address` VARCHAR(30) NULL,

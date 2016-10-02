@@ -30,12 +30,18 @@ export default class Messages extends Component {
     socket.on('join channel', function(channel) {
       cosole.log("JOIN CHANNEL");
     })
+<<<<<<< 3a0e8369013c5b32160e8787b36b9433a34abdef
 <<<<<<< a54f3eed1f52b2bd8a82208adae31cd84f970ccb
      socket.on('new bc message', function(channel) {
       cosole.log("NEW MESSAGE INCOMING");
     })
 =======
 >>>>>>> reworked sockets on backend
+=======
+     socket.on('new bc message', function(channel) {
+      cosole.log("NEW MESSAGE INCOMING");
+    })
+>>>>>>> insurance form all working, need to connect to back end routes
     socket.on('new channel', function(channel) {
       cosole.log("NEW CHANNEL");
     });
