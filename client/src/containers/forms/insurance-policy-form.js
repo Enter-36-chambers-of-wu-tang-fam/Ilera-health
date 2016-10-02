@@ -99,8 +99,15 @@ class InsuranceForm extends Component {
   }
 
   onInsurerClick(key){
+<<<<<<< 6e906dda48cdec28af14d9656d14192f5c58882e
      axios.get(`/api/insurance/insurer/${this.state.insurers[key].insurer}`)
       .then( found => {
+=======
+    console.log("YO", this.state.insurers[key].insurer)
+     axios.get(`/api/insurance/insurer/${this.state.insurers[key].insurer}`)
+      .then( found => {
+        console.log("INSURERES", found.data)
+>>>>>>> insurance form all working, need to connect to back end routes
         var type = [];
         var network = [];
         found.data.map( insurer =>{
