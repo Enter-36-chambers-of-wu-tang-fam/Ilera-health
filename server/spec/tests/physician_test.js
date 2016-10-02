@@ -6,7 +6,7 @@ const chai = require('chai');
 const expect = chai.expect;
 const app = require('../../server.js');
 const Physician = require('../../models/physician-helpers.js');
-const patientData = require('.././test_data/td_patient.js');
+const physicianData = require('.././test_data/td_physician.js');
 const Request = require('supertest')('http://localhost:5000');
 
 
@@ -19,49 +19,68 @@ describe('Physician queries', function(){
       setTimeout(() => done(), 2500);
     });
 
-  describe('POST /api/physician/signup', function() {
-    const newPhysician = {
-      first: 'raekwon',
-      last: 'etemad',
-      email: 'raekwon@gmailo.com',
-      password: 'neekonetemad'
-    };
+    describe('POST /api/physician/signup', function() {
 
-    Request
-      .post('/api/physician/signup')
-      .send(newPatient)
-      .expect(httpStatus.OK)
-      .end(function(error, res){
-        if(error){
-          return done(error);
-        }
+      it('It should let a new physician sign up for a new profile', function(done){
 
-        expect(res.body.data).to.be.an('object');
+        const Physiciandata1 = Object.assign({}, physicianData.patient5);
+
+        Request
+          .post('/api/physician/signup')
+          .send(Physiciandata1)
+          .expect(httpStatus.OK)
+          .end(function(error, res){
+            if(error){
+              return done(error);
+            }
+            expect(res.body.data[0].email).to.equal(physicianData.patient5.email)
+
+            expect(res.body.data[0]).to.be.an('object');
+
+          })
 
       })
 
-      // Physician
 
-  })
+      it('It should not let a physician sign up with an email that is already in use', function(done){
 
-  describe('GET /api/physician/signin', function() {
-    // const newPatient = {
-    //   first: 'raekwon',
-    //   last: 'etemad',
-    //   email: 'raekwon@gma.com',
-    //   password: 'neekonetemad'
-    // };
+        const Physiciandata2 = Object.assign({}, physicianData.physician2);
 
-    Request
-      .get('/api/physician/signin')
-      .send(newPatient)
-      .expect(httpStatus.OK)
-      .end(function(error, res){
-        if(error){
-          return done(error);
-        }
+        Request
+          .post('/api/physician/signup')
+          .send(Physiciandata2)
+          .end(function(error, res){
+            if(error){
+              return done(error);
+            }
 
-        expect(res.body.data).to.be.an('object');
+
+            expect(res.body.data[0]).to.equal('The email address you specified is already in use.');
+
+          })
+
+      })
+        // Physician
+
+    })
+
+    describe('GET /api/physician/signin', function() {
+
+      it('It should let a registered Physician sign in', function(done){
+
+
+
+        Request
+          .get('/api/physician/signin')
+          .send(Physiciandata)
+          .end(function(error, res){
+            if(error){
+              return done(error);
+            }
+
+            expect(res.body.data).to.be.an('object');
+
+          })
 
       })
 
