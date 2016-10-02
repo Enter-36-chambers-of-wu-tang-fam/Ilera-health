@@ -218,6 +218,7 @@ DROP TABLE IF EXISTS `insurance_plan`;
 
 CREATE TABLE `insurance_plan` (
   `id` INTEGER NOT NULL AUTO_INCREMENT,
+  `betterDoctorUID` VARCHAR(60) NULL,
   `primary_name` VARCHAR(30) NULL,
   `primary_phone` VARCHAR(30) NULL,
   `primary_address` VARCHAR(30) NULL,
@@ -235,7 +236,7 @@ CREATE TABLE `insurance_plan` (
   `member_id` VARCHAR(30) NULL,
   `payer_id` VARCHAR(20) NULL,
   `id_patient` INTEGER DEFAULT NULL,
-  `id_Insurance_company` INTEGER DEFAULT NULL,
+  `id_insurance_company` INTEGER DEFAULT NULL,
   PRIMARY KEY (`id`)
 );
 
