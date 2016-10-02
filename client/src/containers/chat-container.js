@@ -48,7 +48,7 @@ class ChatContainer extends Component {
         
     }
 
-    userSelected (userid, chosenid){
+    userSelected (userid, chosenid, receiverType){
         const messages = [];
         this.props.messages.map( message => {
             if( message.sender_id == userid && message.receiver_id == chosenid || message.sender_id == chosenid && message.receiver_id == userid){

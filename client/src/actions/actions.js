@@ -87,6 +87,8 @@ export function authenticateUser(userType,data,reqType){
         let encodedId = CryptoJS.AES.encrypt(String(registered.data.user), 'key');  //need to change key to actual key
         localStorage.setItem('uid',encodedId);
         localStorage.setItem('userType',userType);
+        localStorage.setItem('first', registered.data.first);
+        localStorage.setItem('last', registered.data.last);
         dispatch(verifiedAuth(encodedId, userType, true)); //true --> reroutes to sign up form via general_auth component
       })
       .catch(error => failedAuth(error))
