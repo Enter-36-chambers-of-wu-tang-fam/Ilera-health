@@ -84,7 +84,7 @@ module.exports = {
   },
 
   getAll_Physicians: (req, res) => {
-    Physician.getAllPhysicians(req.body, (err,data)=>{
+    Physician.getAllPhysicians((err,data)=>{
       if(err) console.log(err);
       res.json(data);
     });

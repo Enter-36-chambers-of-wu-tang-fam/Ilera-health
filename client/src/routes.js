@@ -32,7 +32,7 @@ import HealthLog from './components/patient-app/health-log.jsx';
 import Medications from './components/patient-app/medications.jsx';
 import PhysicianCalendar from './components/patient-app/physician-profile-calendar.jsx';
 import PatientAppFormContainer from './components/patient-app/patient-signup-forms.jsx';
-import PhysicianList from './containers/PhysicianList.jsx'
+import PhysicianList from './components/patient-app/all-physicians.jsx';
 
 export default (
     <Router path='/' component= { App } >
@@ -55,7 +55,7 @@ export default (
             </Route>
             <Route path="dashboard" component={ PatientDashboard } />
             <Route path="healthlog" component={ HealthLog } />
-            <Route path="physicians" component={ PhysicianList } >
+            <Route path="physicians" component={ AllUsers } >
               <Route path=':provider' component={ Profile } >
                 <Route path='calendar' component={ PhysicianCalendar } />
               </Route>
