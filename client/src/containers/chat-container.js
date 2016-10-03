@@ -20,7 +20,7 @@ class ChatContainer extends Component {
     constructor(props){
         super(props);
         console.log("Props in container: ", props)
-        
+
          //get encoded id from local storage
         let id = localStorage.getItem('uid');
         //code to decode user id stored in local storage
@@ -45,7 +45,7 @@ class ChatContainer extends Component {
     }
 
     componentDidMount(){
-        
+
     }
 
     userSelected (userid, chosenid, receiverType){
@@ -66,7 +66,7 @@ class ChatContainer extends Component {
             <MessageContacts {...this.props} userSelected={this.userSelected.bind(this)} contacts={this.props.contacts} user={this.state.uid} />
             <Messages {...this.props} chosen={this.state.chosen} chosenid={this.state.chosenid} messages={this.state.messages} uid={this.state.uid} socket={ window.socket } />
           </div>
-          
+
       );
     }
 };
