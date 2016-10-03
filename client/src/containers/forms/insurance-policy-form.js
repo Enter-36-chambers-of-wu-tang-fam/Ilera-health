@@ -99,6 +99,7 @@ class InsuranceForm extends Component {
   }
 
   onInsurerClick(key){
+<<<<<<< 9a47393f3d0b72e20ef3a4a3b4a1192bc21a54ac
 <<<<<<< 6e906dda48cdec28af14d9656d14192f5c58882e
      axios.get(`/api/insurance/insurer/${this.state.insurers[key].insurer}`)
       .then( found => {
@@ -108,6 +109,10 @@ class InsuranceForm extends Component {
       .then( found => {
         console.log("INSURERES", found.data)
 >>>>>>> insurance form all working, need to connect to back end routes
+=======
+     axios.get(`/api/insurance/insurer/${this.state.insurers[key].insurer}`)
+      .then( found => {
+>>>>>>> insurance form sending back right info but not displaying right info on click in front end. Will need to debug
         var type = [];
         var network = [];
         found.data.map( insurer =>{
