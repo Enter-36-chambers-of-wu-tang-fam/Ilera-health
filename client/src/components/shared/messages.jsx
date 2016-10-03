@@ -28,16 +28,16 @@ export default class Messages extends Component {
       socket.leave(channel)
     })
     socket.on('join channel', function(channel) {
-      cosole.log("JOIN CHANNEL");
+      console.log("JOIN CHANNEL");
     })
      socket.on('new bc message', function(channel) {
-      cosole.log("NEW MESSAGE INCOMING");
+      console.log("NEW MESSAGE INCOMING");
     })
     socket.on('new channel', function(channel) {
-      cosole.log("NEW CHANNEL");
+      console.log("NEW CHANNEL");
     });
     socket.on('new private channel', function(socketID, channel) {
-      cosole.log("NEW PRIVATE CHANNEL");
+      console.log("NEW PRIVATE CHANNEL");
     })
   }
 
@@ -51,8 +51,6 @@ export default class Messages extends Component {
 
   render(){
     const { messages, socket, typers, dispatch, uid, screenWidth} = this.props;
-    console.log("3 LOGGG", this.state.messages)
-    console.log("3 PROOOOOOPS", this.state.messages, this.props.uid)
     if(this.state.messages.length > 0 && this.state.chosen === true){
       return (
         <div>
