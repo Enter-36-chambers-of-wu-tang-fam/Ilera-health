@@ -55,11 +55,10 @@ export default (
             </Route>
             <Route path="dashboard" component={ PatientDashboard } />
             <Route path="healthlog" component={ HealthLog } />
-            <Route path="physicians" component={ AllUsers } >
-              <Route path=':provider' component={ Profile } >
+            <Route path="physicians" component={ AllUsers } />
+              <Route path='physicians/:provider' component={ Profile } >
                 <Route path='calendar' component={ PhysicianCalendar } />
               </Route>
-            </Route>
             <Route path="messages" component={ Chat } />
             <Route path="profile" component={ Profile } />
             <Route path="medications" component ={ Medications } />
