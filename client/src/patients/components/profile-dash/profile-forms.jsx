@@ -1,10 +1,14 @@
 import React, { Component } from 'react';
 import {Tabs, Tab} from 'material-ui/Tabs';
 // Components
-import BackgroundInfoFormInitialized from '../../../containers/forms/basic-form-initialized.js';
-import ContactInfoFormInitialized from '../../../containers/forms/contact-form-initialized.js';
-import HealthInfoFormInitialized from '../../../containers/forms/health-form-initialized.js';
-import ProviderInfoFormInitialized from '../../../containers/forms/provider-form-initialized.js';
+import BackgroundInfoFormInitialized from '../../containers/redux-forms/profile-update/basic-form-initialized.js';
+// ../../../containers/forms/basic-form-initialized.js
+import ContactInfoFormInitialized from '../../containers/redux-forms/profile-update/contact-form-initialized.js';
+// ../../../containers/forms/contact-form-initialized.js
+import HealthInfoFormInitialized from '../../containers/redux-forms/profile-update/health-form-initialized.js';
+// ../../../containers/forms/health-form-initialized.js
+import ProviderInfoFormInitialized from '../../containers/redux-forms/profile-update/provider-form-initialized.js';
+// ../../../containers/forms/provider-form-initialized.js
 
 import ProfileDash from './profile-board.js';
 
@@ -35,7 +39,7 @@ class ProfileForms extends Component {
 				<ProfileDash />
 				<Tabs
 					value={this.state.value}
-					
+
 				>
 					<Tab onClick={this.handleChange.bind(this, 'a')} label="Basic User Info" style={styles.tab} value="a" >
 						<div>
@@ -43,7 +47,7 @@ class ProfileForms extends Component {
 						</div>
 					</Tab>
 					<Tab onClick={this.handleChange.bind(this, 'b')} label="Contact Info" style={styles.tab} value="b" >
-						<div>	
+						<div>
 							<ContactInfoFormInitialized />
 						</div>
 					</Tab>

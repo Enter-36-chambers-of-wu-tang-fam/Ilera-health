@@ -6,6 +6,7 @@ import { Field, reduxForm } from 'redux-form';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import * as types from '../../../actions/action-constants.js';
+// ../../../actions/action-constants.js
 
 // CryptoJS
 import CryptoJS from 'crypto-js';
@@ -16,35 +17,36 @@ import SelectField from 'material-ui/SelectField'
 import TextField from 'material-ui/TextField';
 import MenuItem from 'material-ui/MenuItem';
 // Actions
-import { emergencyContact } from '../../actions/actions.js';
+// import { emergencyContact } from '../../actions/actions.js';
 // import { getFieldInfo as loadData } from '../../actions/profile.js';
 import * as actions from '../../../actions/profile.js';
 
 
 
-const getData = () => {
-	let id = localStorage.getItem('uid');
-		//code to decode user id stored in local storage
-		let code  = CryptoJS.AES.decrypt(id.toString(), 'key'); //need to change key
-		let uid = code.toString(CryptoJS.enc.Utf8);
-	return axios.get(`/api/patient/${uid}`)
-			.then( data => {
-        // dates.data.forEach(data => {
-        console.log("****data****",data.data[0]);
-				// data = myData;
-				return data.data[0];
-        // this.setState({info: data[0]})
-        //   let date = item.date.slice(0,10);
-        //   if(currAppts[date]) currAppts[date][item.time] = true;
-        //   else {
-        //     currAppts[date] = {};
-        //     currAppts[date][item.time] = true;
-        //   }
-        // })
-    });
-}
+// const getData = () => {
+// 	let id = localStorage.getItem('uid');
+// 		//code to decode user id stored in local storage
+// 		console.log("yolo");
+// 		let code  = CryptoJS.AES.decrypt(id.toString(), 'key'); //need to change key
+// 		let uid = code.toString(CryptoJS.enc.Utf8);
+// 	return axios.get(`/api/patient/${uid}`)
+// 			.then( data => {
+//         // dates.data.forEach(data => {
+//         console.log("****data****",data.data[0]);
+// 				// data = myData;
+// 				return data.data[0];
+//         // this.setState({info: data[0]})
+//         //   let date = item.date.slice(0,10);
+//         //   if(currAppts[date]) currAppts[date][item.time] = true;
+//         //   else {
+//         //     currAppts[date] = {};
+//         //     currAppts[date][item.time] = true;
+//         //   }
+//         // })
+//     });
+// }
 
-const data = getData();
+// const data = getData();
 
 const validate = values => {
   const errors = {}
@@ -422,6 +424,6 @@ class BackgroundInfoFormInitialized extends Component {
 export default BackgroundInfoFormInitialized = reduxForm({
 	form: 'BackgroundInfoFormInitialized',
   destroyOnUnmount: false,
-	initialValues: data,
+	// initialValues: data,
 	validate
 })(BackgroundInfoFormInitialized);

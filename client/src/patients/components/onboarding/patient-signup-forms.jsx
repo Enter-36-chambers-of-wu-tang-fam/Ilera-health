@@ -1,6 +1,6 @@
 // React
 import React, { Component, PropTypes } from 'react';
-import * as actions from '../../../auth-shared/actions';
+import * as actions from '../../../auth-shared/actions/actions.js';
 // ../../actions/actions.js
 import {
   Step,
