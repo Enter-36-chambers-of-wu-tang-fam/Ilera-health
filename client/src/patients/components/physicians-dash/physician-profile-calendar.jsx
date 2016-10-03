@@ -4,7 +4,7 @@ import RaisedButton from 'material-ui/RaisedButton';
 import FlatButton from 'material-ui/FlatButton';
 import {RadioButton, RadioButtonGroup} from 'material-ui/RadioButton';
 import Dialog from 'material-ui/Dialog';
-import {getAllPhysicianAppts, setAppointment} from './../../actions/appointment.js';
+import {getAllPhysicianAppts, setAppointment} from '../../actions/appointment.js';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import CryptoJS from 'crypto-js';
@@ -41,15 +41,15 @@ minDate.setHours(0, 0, 0, 0);
 
 // <RadioButtonGroup name="shipSpeed" defaultSelected="not_light">
 //   { Object.keys(this.state.morning).map(time => {
-//       return <RadioButton key={time} label={time + " AM"} style={style.radioButton} value={time} onClick={this.handleTime.bind(this,time)}/>   
+//       return <RadioButton key={time} label={time + " AM"} style={style.radioButton} value={time} onClick={this.handleTime.bind(this,time)}/>
 //     })}
 
 //   { Object.keys(this.state.afternoon).map(time => {
-//       return <RadioButton key={time} label={time + " AM"} style={style.radioButton} value={time} onClick={this.handleTime.bind(this,time)}/>   
+//       return <RadioButton key={time} label={time + " AM"} style={style.radioButton} value={time} onClick={this.handleTime.bind(this,time)}/>
 //     })}
 
 //   { Object.keys(this.state.evening).map(time => {
-//       return <RadioButton key={time} label={time + " AM"} style={style.radioButton} value={time} onClick={this.handleTime.bind(this,time)}/>   
+//       return <RadioButton key={time} label={time + " AM"} style={style.radioButton} value={time} onClick={this.handleTime.bind(this,time)}/>
 //     })}
 
 // </RadioButtonGroup>
@@ -57,7 +57,7 @@ minDate.setHours(0, 0, 0, 0);
 //<h1>HELLO FROM CALENDAR { this.props.params.provider }</h1>
 
 class PhysicianCalendar extends Component{
-    
+
   constructor(props) {
     super(props);
     this.state = {
@@ -133,13 +133,13 @@ class PhysicianCalendar extends Component{
   }
 
   componentWillMount() {
-    
+
     //Get physician information from local storage to decrypt
 
     let id = this.props.params.provider; //Get encoded provider key from url
     // let code  = CryptoJS.AES.decrypt(id.toString(), 'key'); //need to change key
     // let physid = code.toString(CryptoJS.enc.Utf8); //Get decoded physician id --> This should most likely be taking place on the backend
-    
+
     physid = id; /********CHANGE ONCE WE HAVE THE PHYSICIAN VIEWS GOING**********/
     console.log("I AM CALLED CALLED CALLED");
     this.props.getAppointments(physid);
@@ -176,12 +176,12 @@ class PhysicianCalendar extends Component{
       unavailableTimes: {}
     });
     let formattedDate = moment(date,'MM DD YYYY',true).format().slice(0,10);
-  
+
     if(this.props.unavailableDates[formattedDate]){
       this.setState({
         unavailableTimes: this.props.unavailableDates[formattedDate]
       })
-    }  
+    }
   }
 
  handleOpen() {
@@ -226,10 +226,10 @@ class PhysicianCalendar extends Component{
       return (
         <div className="scheduling">
           <DatePicker
-            className="datePicker" 
-            hintText="Enter a date" 
-            container="inline" 
-            mode="landscape" 
+            className="datePicker"
+            hintText="Enter a date"
+            container="inline"
+            mode="landscape"
             autoOk={this.state.autoOk}
             value={this.state.appointmentDate}
             onChange={this.handleDate.bind(this)}
@@ -239,28 +239,28 @@ class PhysicianCalendar extends Component{
           />
 
           <p>Appointment Time: {this.state.appointmentTime ? this.state.appointmentTime + ' ' : ''}
-            {this.state.morning[this.state.appointmentTime] || 
-            this.state.afternoon[this.state.appointmentTime] || 
+            {this.state.morning[this.state.appointmentTime] ||
+            this.state.afternoon[this.state.appointmentTime] ||
             this.state.evening[this.state.appointmentTime]}
           </p>
           <div className="times morning">
           <h3> Morning </h3>
             { Object.keys(this.state.morning).map(time => {
-              return <RaisedButton key={time} label={time + " AM"} disabled={this.state.unavailableTimes[time+':00'] ? true : false } style={style} onClick={this.handleTime.bind(this,time)}/>   
+              return <RaisedButton key={time} label={time + " AM"} disabled={this.state.unavailableTimes[time+':00'] ? true : false } style={style} onClick={this.handleTime.bind(this,time)}/>
             })}
           </div>
 
           <div className="times afternoon">
           <h3> Afternoon </h3>
             { Object.keys(this.state.afternoon).map(time => {
-              return <RaisedButton key={time} label={time + " PM"} style={style} disabled={this.state.unavailableTimes[time+':00'] ? true : false} onClick={this.handleTime.bind(this,time)}/>   
+              return <RaisedButton key={time} label={time + " PM"} style={style} disabled={this.state.unavailableTimes[time+':00'] ? true : false} onClick={this.handleTime.bind(this,time)}/>
             })}
           </div>
 
          <div className="times evening">
          <h3> Evening </h3>
             { Object.keys(this.state.evening).map(time => {
-              return <RaisedButton key={time} label={time + " PM"} style={style} disabled={this.state.unavailableTimes[time+':00'] ? true : false} onClick={ this.handleTime.bind(this,time) } />   
+              return <RaisedButton key={time} label={time + " PM"} style={style} disabled={this.state.unavailableTimes[time+':00'] ? true : false} onClick={ this.handleTime.bind(this,time) } />
             })}
           </div>
 
@@ -292,7 +292,7 @@ function mapStateToProps (state) {
   }
 }
 const mapDispatchToProps = (dispatch) => {
-  return { 
+  return {
       getAppointments: (id) => {
         dispatch(getAllPhysicianAppts(id))
       },

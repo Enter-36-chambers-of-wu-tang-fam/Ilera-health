@@ -62,7 +62,7 @@ class FormIntro extends Component {
 							}}
 					/>
 			</div>
-			</div>  
+			</div>
 		)
 	}
 };

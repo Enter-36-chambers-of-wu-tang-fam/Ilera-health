@@ -12,7 +12,7 @@
 // const Relation_PatPhy = require('.././controller/relation-patient_physician.js');
 // const Staff = require('.././controller/staff.js');
 //
-// 
+//
 // module.exports = app => {
 //   // Appointment
 //   app.get('/api/physician/getappointment', Appointment.getOne_AppointmentByPat_id);

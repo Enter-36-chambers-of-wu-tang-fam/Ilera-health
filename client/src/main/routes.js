@@ -6,33 +6,52 @@ import ReactDOM from 'react-dom';
 import { Router, Route, IndexRoute } from 'react-router';
 
 //Authentication Requirement
-import PhysicianAuth from './components/auth/physician_auth.js';
-import PatientAuth from './components/auth/patient_auth.js';
-import GeneralAuth from './components/auth/general_auth.js';
+import PhysicianAuth from '.././auth-shared/higher-order-components/physician_auth.js';
+
+import PatientAuth from '.././auth-shared/higher-order-components/patient_auth.js';
+
+import GeneralAuth from '.././auth-shared/higher-order-components/general_auth.js';
 
 //Shared Components
-import App from './components/app.js';
-import Welcome from './components/shared/welcome.jsx';
-import Signin from './components/auth/signin-component.js';
-import Signup from './components/auth/signup-component.js';
-import AllUsers from './components/shared/allUsers.jsx';
-import Profile from './components/patient-app/profile/patient-profile.jsx';
-import Chat from './containers/chat-container.js';
+import App from './app.js';
+import Welcome from '.././auth-shared/components/welcome.jsx';
+// ./components/shared/welcome.jsx
+import Signin from '.././auth-shared/components/signin-component.js';
+// ./components/auth/signin-component.js
+import Signup from '.././auth-shared/components/signup-component.js';
+// ./components/auth/signup-component.js
+import AllUsers from '.././patients/components/physicians-dash/allUsers.jsx';
+// ./components/shared/allUsers.jsx
+import Profile from '.././patients/components/profile-dash/patient-profile.jsx';
+// ./components/patient-app/profile/patient-profile.jsx
+import Chat from '.././patients/containers/messages/chat-container.js';
+// ./containers/chat-container.js
 
 // Physician Components
-import PhysicianApp from './components/physician-app/physician-app.jsx';
-import PhysicianDashboard from './components/physician-app/physician-dashboard.jsx';
-import Notes from './components/physician-app/notes.jsx';
-import Calendar from './components/physician-app/calendar.jsx';
+import PhysicianApp from '.././physicians/physician-app/physician-app.jsx';
+// ./components/physician-app/physician-app.jsx
+import PhysicianDashboard from '.././physicians/physician-app/physician-dashboard.jsx';
+// ./components/physician-app/physician-dashboard.jsx
+import Notes from '.././physicians/physician-app/notes.jsx';
+// ./components/physician-app/notes.jsx
+import Calendar from '.././physicians/physician-app/calendar.jsx';
+// ./components/physician-app/calendar.jsx
 
 // Patient Components
-import PatientApp from './components/patient-app/patient-app.jsx';
-import PatientDashboard from './components/patient-app/patient-dashboard.jsx';
-import HealthLog from './components/patient-app/health-log.jsx';
-import Medications from './components/patient-app/medication-dash/medication-class.jsx';
-import PhysicianCalendar from './components/patient-app/physician-profile-calendar.jsx';
-import PatientAppFormContainer from './components/patient-app/patient-signup-forms.jsx';
-import PhysicianList from './components/patient-app/all-physicians.jsx';
+import PatientApp from '.././patients/components/patient-app.jsx';
+// ./components/patient-app/patient-app.jsx
+import PatientDashboard from '.././patients/components/main-dash/patient-dashboard.jsx';
+// ./components/patient-app/patient-dashboard.jsx
+import HealthLog from '.././patients/components/health-log-dash/health-log.jsx';
+// ./components/patient-app/health-log.jsx
+import Medications from '.././patients/components/medication-dash/medication-class.jsx';
+// ./components/patient-app/medication-dash/medication-class.jsx
+import PhysicianCalendar from '.././patients/components/physicians-dash/physician-profile-calendar.jsx';
+// ./components/patient-app/physician-profile-calendar.jsx
+import PatientAppFormContainer from '.././patients/components/onboarding/patient-signup-forms.jsx';
+// ./components/patient-app/patient-signup-forms.jsx
+import PhysicianList from '.././patients/components/physicians-dash/all-physicians.jsx';
+// ./components/patient-app/all-physicians.jsx
 
 export default (
     <Router path='/' component= { App } >

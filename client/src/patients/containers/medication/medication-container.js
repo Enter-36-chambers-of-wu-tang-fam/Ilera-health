@@ -1,8 +1,9 @@
 import React, { Component, PropTypes } from 'react';
 import { connect } from 'react-redux';
 // import {  } from '.././reducers/medication-reducer.js';
-import * as actions from '../actions/medication.js';
-import Medication from '../components/patient-app/medication-dash/medication-class.jsx';
+import * as actions from '../../actions/medication.js';
+import Medication from '../../components/medication-dash/medication-class.jsx';
+
 import { router } from 'react-router';
 
 class MedsContainer extends Component {
