@@ -19,6 +19,7 @@ const Physician = require('./controller/physician.js');
 const Relation_PatPhy = require('./controller/relation-patient_physician.js');
 const Staff = require('./controller/staff.js');
 // sockets
+
 const io = require('socket.io')(server);
 const socketEvents = require('./sockets/socket-events')(io);
 
@@ -78,7 +79,7 @@ app.post('/api/patient/logout', Patient.logout);
 app.post('/api/physician/signup', Physician.signUp);
 
 app.post('/api/physician/signin', Physician.signIn);
-app.post('/api/patient/getallphy', Physician.getAll_Physicians);
+app.get('/api/patient/getallphy', Physician.getAll_Physicians);
 app.post('/api/patient/getallphy/specialty', Physician.getAll_SpecialtyPhysician);
 app.put('/api/physician/background', Physician.put_init_form);
 app.put('/api/physician/password/update', Physician.put_password);
