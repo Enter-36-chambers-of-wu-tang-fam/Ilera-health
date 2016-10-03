@@ -20,8 +20,8 @@ const Relation_PatPhy = require('./controller/relation-patient_physician.js');
 const Staff = require('./controller/staff.js');
 // sockets
 
-// const io = require('socket.io')(server);
-// const socketEvents = require('./sockets/socket-events')(io);
+const io = require('socket.io')(server);
+const socketEvents = require('./sockets/socket-events')(io);
 
 // this was just to test that the server worked feel free to delete
 
