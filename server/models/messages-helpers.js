@@ -7,23 +7,24 @@ module.exports = {
 
   get_all_messages_pat_from_phy: (params, cb) => {
     // Get Request → /api/messages/:physid/:patid  [limit 5]
-    let data = [params.userid, params.userid];
-    const queryString = 'SELECT p.id, p.first, p.last, p.email, p.phone_number, \
+    console.log(params.patid, params.physid);
+    let data = [params.patid, params.physid];
+    const queryString = 'SELECT p.id, p.first, p.last, p.email, p.primary_phone_number, \
       p.photo_path, py.id, py.first, py.last, py.email, py.phone_number, \
       py.photo_path, m.id, m.direct_message, m.date, m.sender_id, m.receiver_id, \
       m.sender_type \
       FROM messages m \
       JOIN patient p ON p.id = m.sender_id \
       JOIN physician py ON py.id = m.receiver_id \
-      WHERE (sender_id="'+params.userid+'" AND sender_type="'+params.sender_type+'") OR \
-      (receiver_id="'+params.userid+'" AND receiver_type="'+params.sender_type+'") LIMIT 25';
+      WHERE (sender_id="'+params.patid+'" AND receiver_id="'+params.physid+'" AND receiver_type="physician") OR \
+      (receiver_id="'+params.patid+'" AND sender_id="'+params.physid+'" AND receiver_type="patient") LIMIT 25';
     db.query(queryString, data, (error, results) => cb(error, results) );
   },
 
   get_all_messages_phy_from_pat: (params, cb) => {
     // Get Request → /api/messages/:physid/:patid  [limit 5]
     let data = [params.userid, params.userid];
-    const queryString = 'SELECT p.id, p.first, p.last, p.email, p.phone_number, p.photo_path, \
+    const queryString = 'SELECT p.id, p.first, p.last, p.email, p.primary_phone_number, p.photo_path, \
       py.id, py.first, py.last, py.email, py.phone_number, py.photo_path, \
       m.id, m.direct_message, m.date, m.sender_id, m.receiver_id, \
       m.receiver_type \

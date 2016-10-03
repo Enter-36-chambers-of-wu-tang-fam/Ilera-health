@@ -62,11 +62,11 @@ const fetchMessagesFailure = (err) => {
 	}
 }
 
-export function fetchMessages(userid) {
+export function fetchMessages(userid, physid) {
   console.log("FETCH MESSAGES")
   return dispatch => {
     dispatch(fetchMessagesRequest())
-    return axios.get(`/api/messages/fetch/${userid}`)
+    return axios.get(`/api/messages/patient/${userid}/${physid}`)
       .then(response =>{
 				console.log("RESPONSE", response)
 				dispatch(fetchMessagesSuccess(response));	  

@@ -58,7 +58,8 @@ app.get('/api/insurance/insurer/:specific', Insurance.get_specificInsurance);
 app.post('/api/patient/signin', Patient.signIn);
 
 //not for now but this will get all of the patient info eventually we are still in stage 1
-app.get('/api/patient/dashboard', Patient.get_patient_info);
+// app.get('/api/patient/dashboard', Patient.get_patient_info);
+app.get('/api/patient/:userid', Patient.get_patient_info);
 
 // Post Request to: api/patient/signup  =>   { Patient Table}
 app.post('/api/patient/signup', Patient.signUp);
@@ -97,7 +98,7 @@ app.post('/api/messages/newmessage', Message.postMessage);
 
 
 app.get('/api/messages/:physid/:patid', Message.getAllMessages_phy_from_pat);
-app.get('/api/messages/:patid/:physid', Message.getAllMessages_pat_from_phy);
+app.get('/api/messages/patient/:patid/:physid', Message.getAllMessages_pat_from_phy);
 
 app.get('/api/messages/getOne', Message.getOneMessage);
 app.put('/api/messages/edit', Message.editOneMessage);

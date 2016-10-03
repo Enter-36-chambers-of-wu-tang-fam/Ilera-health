@@ -35,8 +35,8 @@ class ChatContainer extends Component {
     }
     componentWillMount() {
         const { dispatch, user, userType } = this.props;
-        dispatch(actions.fetchMessages(this.state.uid));
-        console.log("USER TYPE", userType)
+        
+        console.log("USER TYPE", this.props)
         if(userType === 'patient'){
             dispatch(contacts.fetchMyPhysicians(this.state.uid));
         }else{
@@ -44,19 +44,25 @@ class ChatContainer extends Component {
         }
     }
 
-    componentDidMount(){
-
-    }
-
-    userSelected (userid, chosenid, receiverType){
-        const messages = [];
-        this.props.messages.map( message => {
-            if( message.sender_id == userid && message.receiver_id == chosenid || message.sender_id == chosenid && message.receiver_id == userid){
+    componentWillReceiveProps(nextProps){
+        console.log("NEXT PROPS", nextProps)
+				const messages = [];
+        nextProps.messages.map( message => {
+            if( message.sender_id == this.state.uid && message.receiver_id == this.state.chosenid || message.sender_id == this.state.chosenid && message.receiver_id == this.state.uid){
                 messages.push(message);
             }
         })
-        console.log("****HERE****", messages, userid, chosenid)
-        this.setState({ messages: messages, chosen: true, chosenid: chosenid });
+        if(nextProps.newMessage){
+            messages.push(nextProps.newMessage)
+        }
+        console.log("****HERE****", messages)
+        this.setState({ messages: messages});
+    }
+
+    userSelected (userid, chosenid, receiverType){
+			const { dispatch } = this.props;
+				dispatch(actions.fetchMessages(this.state.uid, chosenid));
+				this.setState({ chosen: true, chosenid: chosenid });
     }
 
     render() {

@@ -19,12 +19,7 @@ export default function messageReducer(state = initialState, action) {
         })
     case MESSAGE_ADD_SUCCESS:
       console.log("MESSAGE_ADD_SUCCESS", action.payload);
-      return Object.assign({}, state, {
-        isFetching: false,
-        loaded: true,
-        messages: [],
-        newMessage: messages.push(action.payload)
-      })
+      return { ...state, isFetching: false, loaded: true, newMessage: action.payload }
     case MESSAGE_ADD_FAILURE:
       console.log("MESSAGE_ADD_FAILURE");
       return Object.assign({}, state, {
@@ -52,9 +47,7 @@ export default function messageReducer(state = initialState, action) {
       })
     case RECEIVE_MESSAGE:
       console.log("RECEIVE_MESSAGE");
-      return {...state,
-        data: [...state.messages, action.payload]
-      };
+      return {...state, newMessage: action.payload};
     default:
       return state;
   }
