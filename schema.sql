@@ -59,6 +59,7 @@ DROP TABLE IF EXISTS `physician`;
 
 CREATE TABLE `physician` (
   `id` INTEGER NOT NULL AUTO_INCREMENT,
+  `betterDoctorUID` VARCHAR(100) NULL,
   `first` VARCHAR(30) NULL,
   `last` VARCHAR(30) NULL,
   `email` VARCHAR(30) NULL,
@@ -353,6 +354,7 @@ DROP TABLE IF EXISTS `patient_physician`;
 
 CREATE TABLE `patient_physician` (
   `id` INTEGER NOT NULL AUTO_INCREMENT,
+  `betterDoctorUID` VARCHAR(100) DEFAULT NULL,
   `id_physician` INTEGER DEFAULT NULL,
   `id_patient` INTEGER DEFAULT NULL,
   PRIMARY KEY (`id`)
@@ -465,62 +467,48 @@ ALTER TABLE `company_insurance_plan_types` ADD FOREIGN KEY (id_insurance) REFERE
 -- -- ('','','','','','','','');
 -- INSERT INTO `physician` (`first`,`last`,`email`,`phone_number`,`password`,`photo_path`,`specialty`) VALUES ('neekon','nee','nee','34214321','nee','nee','nee');
 
-<<<<<<< 035bdb61943f92bbb117d014e6cb0fff49d292ab
-INSERT INTO `physician` (`first`,`last`,`email`,`phone_number`,`password`,`photo_path`,`specialty`) VALUES ('yolo','bee','bee','34321235','bee','bee','bee');
--- INSERT INTO `patient` (`id`,`first`,`last`,`email`,`password`,`pin`,`date_of_birth`,`address`,`city`,`state`,`zip`,`phone_number`,`weight`,`height`,`blood_type`,`photo_path`) VALUES
--- ('','','','','','','','','','','','','','','','');
-INSERT INTO `patient` (`first`,`last`,`email`,`password`,`pin`,`address`,`city`,`state`,`zip`,`primary_phone_number`,`weight`,`height`,`blood_type`,`photo_path`) VALUES ('bal','bon','afsjon','2345rew','14','mya','at','ca','43522','2435','1231','123','4','a');
-INSERT INTO `patient` (`first`,`last`,`email`,`password`,`pin`,`address`,`city`,`state`,`zip`,`primary_phone_number`,`weight`,`height`,`blood_type`,`photo_path`) VALUES ('abn','bon','jon','2345rew','14','mj','sarat','ca','43522','2435','1231','123','4','a');
-=======
 -- INSERT INTO `physician` (`first`,`last`,`email`,`phone_number`,`password`,`photo_path`,`specialty`) VALUES ('yolo','bee','bee','34321235','bee','bee','bee');
 -- -- INSERT INTO `patient` (`id`,`first`,`last`,`email`,`password`,`pin`,`date_of_birth`,`address`,`city`,`state`,`zip`,`phone_number`,`weight`,`height`,`blood_type`,`photo_path`) VALUES
 -- -- ('','','','','','','','','','','','','','','','');
--- INSERT INTO `patient` (`first`,`last`,`email`,`password`,`pin`,`address`,`city`,`state`,`zip`,`phone_number`,`weight`,`height`,`blood_type`,`photo_path`) VALUES ('bal','bon','afsjon','2345rew','14','mya','at','ca','43522','2435','1231','123','4','a');
--- INSERT INTO `patient` (`first`,`last`,`email`,`password`,`pin`,`address`,`city`,`state`,`zip`,`phone_number`,`weight`,`height`,`blood_type`,`photo_path`) VALUES ('abn','bon','jon','2345rew','14','mj','sarat','ca','43522','2435','1231','123','4','a');
->>>>>>> appointment-fix
+-- INSERT INTO `patient` (`first`,`last`,`email`,`password`,`pin`,`address`,`city`,`state`,`zip`,`primary_phone_number`,`weight`,`height`,`blood_type`,`photo_path`) VALUES ('bal','bon','afsjon','2345rew','14','mya','at','ca','43522','2435','1231','123','4','a');
+-- INSERT INTO `patient` (`first`,`last`,`email`,`password`,`pin`,`address`,`city`,`state`,`zip`,`primary_phone_number`,`weight`,`height`,`blood_type`,`photo_path`) VALUES ('abn','bon','jon','2345rew','14','mj','sarat','ca','43522','2435','1231','123','4','a');
 
 
--- -- INSERT INTO `patient_physician` (`id`,`id_physician`,`id_patient`) VALUES
--- -- ('','','');
--- INSERT INTO `patient_physician` (`id_physician`,`id_patient`) VALUES ('1','1');
--- INSERT INTO `patient_physician` (`id_physician`,`id_patient`) VALUES ('1','2');
--- INSERT INTO `patient_physician` (`id_physician`,`id_patient`) VALUES ('2','2');
--- INSERT INTO `patient_physician` (`id_physician`,`id_patient`) VALUES ('2','1');
+-- -- -- INSERT INTO `patient_physician` (`id`,`id_physician`,`id_patient`) VALUES
+-- -- -- ('','','');
+-- -- INSERT INTO `patient_physician` (`id_physician`,`id_patient`) VALUES ('1','1');
+-- -- INSERT INTO `patient_physician` (`id_physician`,`id_patient`) VALUES ('1','2');
+-- -- INSERT INTO `patient_physician` (`id_physician`,`id_patient`) VALUES ('2','2');
+-- -- INSERT INTO `patient_physician` (`id_physician`,`id_patient`) VALUES ('2','1');
 
 
--- -- INSERT INTO `institution` (`id`,`inst_name`,`type`,`description`,`rating`,`phone_number`,`address`,`city`,`state`,`zip`,`email`) VALUES
--- -- ('','','','','','','','','','','');
--- INSERT INTO `institution` (`inst_name`,`type`,`description`,`rating`,`phone_number`,`address`,`city`,`state`,`zip`,`email`) VALUES ('wu tang','36chambers','fixer','12','1423','2413','sanjose','ca','4231','wu@gmail');
--- INSERT INTO `institution` (`inst_name`,`type`,`description`,`rating`,`phone_number`,`address`,`city`,`state`,`zip`,`email`) VALUES ('gza','chamberlane','tester','54','3542','4123','frisco','va','4231','wafsdu@gmail');
+-- -- -- INSERT INTO `institution` (`id`,`inst_name`,`type`,`description`,`rating`,`phone_number`,`address`,`city`,`state`,`zip`,`email`) VALUES
+-- -- -- ('','','','','','','','','','','');
+-- -- INSERT INTO `institution` (`inst_name`,`type`,`description`,`rating`,`phone_number`,`address`,`city`,`state`,`zip`,`email`) VALUES ('wu tang','36chambers','fixer','12','1423','2413','sanjose','ca','4231','wu@gmail');
+-- -- INSERT INTO `institution` (`inst_name`,`type`,`description`,`rating`,`phone_number`,`address`,`city`,`state`,`zip`,`email`) VALUES ('gza','chamberlane','tester','54','3542','4123','frisco','va','4231','wafsdu@gmail');
 
--- -- INSERT INTO `physician_institution` (`id`,`id_institution`,`id_physician`) VALUES
--- -- ('','','');
--- INSERT INTO `physician_institution` (`id_institution`,`id_physician`) VALUES ('1','1');
--- INSERT INTO `physician_institution` (`id_institution`,`id_physician`) VALUES ('1','2');
+-- -- -- INSERT INTO `physician_institution` (`id`,`id_institution`,`id_physician`) VALUES
+-- -- -- ('','','');
+-- -- INSERT INTO `physician_institution` (`id_institution`,`id_physician`) VALUES ('1','1');
+-- -- INSERT INTO `physician_institution` (`id_institution`,`id_physician`) VALUES ('1','2');
 
 
--- -- INSERT INTO `health_log` (`id`,`physician_date`,`physician_notes`,`physician_photo_path`,`patient_date`,`patient_note`,`patient_photo_path`,`id_physician`,`id_patient`) VALUES
--- -- ('','','','','','','','','');
--- INSERT INTO `health_log` (`physician_notes`,`physician_photo_path`,`patient_note`,`patient_photo_path`,`id_physician`,`id_patient`) VALUES ('he needs to shape up','upyours','doctor sucks','yolo','1','1');
--- INSERT INTO `health_log` (`physician_notes`,`physician_photo_path`,`patient_note`,`patient_photo_path`,`id_physician`,`id_patient`) VALUES ('he make big moves','upyours and hers','doctor sucks at life','yolo is my name o','1','2');
--- INSERT INTO `health_log` (`physician_notes`,`physician_photo_path`,`patient_note`,`patient_photo_path`,`id_physician`,`id_patient`) VALUES ('he make big moves all day erry day','up this','doctor sucks at life and more','yolo is my name o bro','2','2');
+-- -- -- INSERT INTO `health_log` (`id`,`physician_date`,`physician_notes`,`physician_photo_path`,`patient_date`,`patient_note`,`patient_photo_path`,`id_physician`,`id_patient`) VALUES
+-- -- -- ('','','','','','','','','');
+-- -- INSERT INTO `health_log` (`physician_notes`,`physician_photo_path`,`patient_note`,`patient_photo_path`,`id_physician`,`id_patient`) VALUES ('he needs to shape up','upyours','doctor sucks','yolo','1','1');
+-- -- INSERT INTO `health_log` (`physician_notes`,`physician_photo_path`,`patient_note`,`patient_photo_path`,`id_physician`,`id_patient`) VALUES ('he make big moves','upyours and hers','doctor sucks at life','yolo is my name o','1','2');
+-- -- INSERT INTO `health_log` (`physician_notes`,`physician_photo_path`,`patient_note`,`patient_photo_path`,`id_physician`,`id_patient`) VALUES ('he make big moves all day erry day','up this','doctor sucks at life and more','yolo is my name o bro','2','2');
 
--- -- INSERT INTO `messages` (`id`,`direct_message`,`date`,`sender_id`,`receiver_id`) VALUES
--- -- ('','','','','');
--- INSERT INTO `messages` (`direct_message`,`sender_id`,`receiver_id`,`sender_type`, `receiver_type`) VALUES ('what up','1','2','physician','patient');
--- INSERT INTO `messages` (`direct_message`,`sender_id`,`receiver_id`,`sender_type`, `receiver_type`) VALUES ('hello bernard livelars','1','2','physician','patient');
--- INSERT INTO `messages` (`direct_message`,`sender_id`,`receiver_id`,`sender_type`, `receiver_type`) VALUES ('yolo','2','1','patient','physician');
--- INSERT INTO `messages` (`direct_message`,`sender_id`,`receiver_id`,`sender_type`, `receiver_type`) VALUES ('howdy','2','1','patient','physician');
+-- -- -- INSERT INTO `messages` (`id`,`direct_message`,`date`,`sender_id`,`receiver_id`) VALUES
+-- -- -- ('','','','','');
+-- -- INSERT INTO `messages` (`direct_message`,`sender_id`,`receiver_id`,`sender_type`, `receiver_type`) VALUES ('what up','1','2','physician','patient');
+-- -- INSERT INTO `messages` (`direct_message`,`sender_id`,`receiver_id`,`sender_type`, `receiver_type`) VALUES ('hello bernard livelars','1','2','physician','patient');
+-- -- INSERT INTO `messages` (`direct_message`,`sender_id`,`receiver_id`,`sender_type`, `receiver_type`) VALUES ('yolo','2','1','patient','physician');
+-- -- INSERT INTO `messages` (`direct_message`,`sender_id`,`receiver_id`,`sender_type`, `receiver_type`) VALUES ('howdy','2','1','patient','physician');
 
-<<<<<<< 035bdb61943f92bbb117d014e6cb0fff49d292ab
--- INSERT INTO `emergency_contact` (`id`,`first`,`last`,`phone`,`email`,`relationship`,`id_patient`) VALUES
--- ('','','','','','','');
-INSERT INTO `emergency_contact` (`e_1_contact_first`,`e_1_contact_last`,`e_1_contact_phone`,`e_1_contact_email`,`e_1_contact_relationship`,`id_patient`) VALUES ('helen','yara','1234','yolomail','momma','1');
-=======
 -- -- INSERT INTO `emergency_contact` (`id`,`first`,`last`,`phone`,`email`,`relationship`,`id_patient`) VALUES
 -- -- ('','','','','','','');
--- INSERT INTO `emergency_contact` (`first`,`last`,`phone`,`email`,`relationship`,`id_patient`) VALUES ('helen','yara','1234','yolomail','momma','1');
->>>>>>> appointment-fix
+-- INSERT INTO `emergency_contact` (`e_1_contact_first`,`e_1_contact_last`,`e_1_contact_phone`,`e_1_contact_email`,`e_1_contact_relationship`,`id_patient`) VALUES ('helen','yara','1234','yolomail','momma','1');
 
 -- -- INSERT INTO `medication` (`id`,`drug_name`,`details`) VALUES
 -- -- ('','','');
