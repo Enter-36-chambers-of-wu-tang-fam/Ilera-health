@@ -7,7 +7,6 @@ import Messages from '../components/shared/messages.jsx';
 import MessageContacts from '../components/shared/message-contacts.jsx';
 import { router } from 'react-router';
 
-
 // Sockets
 // separte file connecting to socket
 import io from 'socket.io-client';
@@ -49,7 +48,7 @@ class ChatContainer extends Component {
         
     }
 
-    userSelected (userid, chosenid){
+    userSelected (userid, chosenid, receiverType){
         const messages = [];
         this.props.messages.map( message => {
             if( message.sender_id == userid && message.receiver_id == chosenid || message.sender_id == chosenid && message.receiver_id == userid){

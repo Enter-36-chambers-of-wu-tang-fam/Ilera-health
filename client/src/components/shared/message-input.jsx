@@ -1,4 +1,5 @@
 import React, { Component, PropTypes } from 'react';
+import * as actions from '../../actions/messages.js';
 
 export default class MessageInput extends Component {
 
@@ -19,7 +20,7 @@ export default class MessageInput extends Component {
         text: text,
         user: user
       };
-      socket.emit('message', newMessage);
+      socket.emit('new message', newMessage);
       socket.emit('stop typing', { user: user });
       this.props.onSave(newMessage);
       this.setState({ text: '', typing: false });
@@ -29,11 +30,11 @@ export default class MessageInput extends Component {
     const { socket, user } = this.props;
     this.setState({ text: event.target.value });
     if (event.target.value.length > 0 && !this.state.typing) {
-      socket.emit('typing', { user: "Yara" });
+      socket.emit('typing', { user: user });
       this.setState({ typing: true});
     }
     if (event.target.value.length === 0 && this.state.typing) {
-      socket.emit('stop typing', { user: "Yara" });
+      socket.emit('stop typing', { user: user });
       this.setState({ typing: false});
     }
   }

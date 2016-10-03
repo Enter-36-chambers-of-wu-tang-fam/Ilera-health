@@ -13,15 +13,16 @@ import {
 
 const validate = values => {
   const errors = {}
-  if (!values.insurance_name) {
-    errors.insurance_name = 'Please enter an insurance name'
+  if ( values.primary_name && /\d/.test(values.primary_name)) {
+    errors.primary_name = 'Please enter a valid name'
   }
-  if (!values.insurance_type) {
-    errors.insurance_type = 'Please enter an insurance type'
+  if ( values.primary_city && /\d/.test(values.primary_city)) {
+    errors.primary_city = 'Please enter a valid city name'
   }
-  if (!values.policy_number) {
-    errors.policy_number = 'Please enter a policy number'
+  if (values.primary_phone && !/^[0-9]+$/.test(values.primary_phone)) {
+    errors.primary_phone = 'Invalid phone number - no special charachters'
   }
+  
   return errors
 };
 
@@ -38,15 +39,26 @@ class InsuranceForm extends Component {
       insurerSelected: false,
       insurerTypeSelected: false,
       docSelected: false,
-      insurers: [1, 2, 3],
-      types: [1, 2, 3],
+      insurers: [],
+      types: [],
       networks: [],
       docs: [],
       docSelectedInfo: {}
     };
   }
 
-  componentWillMount(){
+  static contextTypes = {
+    router: React.PropTypes.object
+  }
+
+  componentDidMount(){
+    axios.get('/api/insurance/insurer')
+      .then( found => {
+        this.setState({insurers: found.data})
+      })
+      .catch( err => {
+          console.log("ERROR GETTING INFORMATION", err);
+      })   
   }
 
   submitMe(prop) {
@@ -55,7 +67,10 @@ class InsuranceForm extends Component {
 		//code to decode user id stored in local storage
 		let code  = CryptoJS.AES.decrypt(id.toString(), 'key'); //need to change key
 		prop.uid = code.toString(CryptoJS.enc.Utf8);
-
+    prop.insurer1 = this.state.insurer;
+    prop.insurance_type1 = this.state.insuererType;
+    prop.insurance_network1 = this.state.network;
+    prop.betterDoctorUID = this.state.docSelectedInfo.betterDoctorUID;
     axios.post('/api/patient/insurance', prop)
       .then( found => {
         this.context.router.push('/patient/dashboard');
@@ -80,20 +95,44 @@ class InsuranceForm extends Component {
 
   onClick(key){
     console.log("CONFIRMED", this.state.docs[key]);
-    this.setState({docSelected: true, docSelectedInfo: this.state.docs[key], docSelectedName: `${this.state.docs[key].last_name},${this.state.docs[key].first_name}`});
+    this.setState({docSelected: true, docSelectedInfo: this.state.docs[key], docSelectedName: `${this.state.docs[key].last_name},${this.state.docs[key].first_name}`, insurerTypeSelected: true});
   }
 
+  onInsurerClick(key){
+     axios.get(`/api/insurance/insurer/${this.state.insurers[key].insurer}`)
+      .then( found => {
+        var type = [];
+        var network = [];
+        found.data.map( insurer =>{
+          if(type.indexOf(insurer.type) === -1){
+            type.push(insurer.type);
+          }
+          network.push(insurer.network);
+        })
+        this.setState({insurerSelected: true, insurerer: this.state.insurers[key].insurer, types: type, networks: network});
+      })
+      .catch( err => {
+          console.log("ERROR GETTING INFORMATION", err);
+      })   
+    
+  }
+
+  handleChange (event, index, value) {
+    this.setState({value});
+  } 
+
   handleInputChange(e){
-    console.log("YOOOOOOOO", e.target.value)
     this.setState({value: e.target.value});
     let query = `https://api.betterdoctor.com/2016-03-01/doctors?query=${e.target.value}&sort=best-match-desc&skip=0&limit=40&user_key=bdd1495417e49ba2f1aa40461ce8f17d`;
     if(e.target.value.length > 2){
       axios.get(query)
       .then( result => {
         var docs = [];
+        
         result.data.data.map( doctor => {
-          docs.push({first_name: doctor.profile.first_name, last_name: doctor.profile.last_name, title: doctor.profile.title});
+          docs.push({first_name: doctor.profile.first_name, last_name: doctor.profile.last_name, title: doctor.profile.title, npi: doctor.npi, betterDoctorUID: doctor.uid});
         })
+        console.log("DOCSSSS", docs)
         this.setState({docs: docs});
       })
       .catch( err => {
@@ -226,9 +265,9 @@ class InsuranceForm extends Component {
                 <Field name="primary_zip" type="text" component={this.renderTextField} label="Zip Code"/>
                 <h4>INSURANCE</h4>
                   <div>
-                    <Field name="insurer1" component={this.renderSelectField} label="Insurance Company">
-                      {this.state.insurers.map( insurer => {
-                        return <MenuItem value={'insurer'} primaryText={insurer}/>
+                    <Field name="insurer1" value={this.state.value} onChange={this.handleChange} component={this.renderSelectField} label="Insurance Company">
+                      {this.state.insurers.map( (insurer, key) => {
+                        return <MenuItem key={key} onClick={this.onInsurerClick.bind(this, key)} value={'insurer.insurer'} primaryText={insurer.insurer}/>
                       })}
                     </Field>
                   </div>

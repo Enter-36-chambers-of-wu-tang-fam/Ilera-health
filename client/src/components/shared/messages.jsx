@@ -24,33 +24,28 @@ export default class Messages extends Component {
   componentDidMount() {
     const { socket, uid, dispatch } = this.props;
     socket.emit('chat mounted', uid);
-    socket.on('new bc message', msg =>
-      dispatch(actions.receiveRawMessage(msg))
-    );
-    socket.on('typing bc', uid =>
-      dispatch(actions.typing(uid))
-    );
-    socket.on('stop typing bc', uid =>
-      dispatch(actions.stopTyping(uid))
-    );
-    // socket.on('new channel', channel =>
-    //   dispatch(actions.receiveRawChannel(channel))
-    // );
-    // socket.on('receive socket', socketID =>
-    //   dispatch(authActions.receiveSocket(socketID))
-    // );
-    // socket.on('receive private channel', channel =>
-    //   dispatch(actions.receiveRawChannel(channel))
-    // );
+    socket.on('leave channel', function(channel) {
+      socket.leave(channel)
+    })
+    socket.on('join channel', function(channel) {
+      cosole.log("JOIN CHANNEL");
+    })
+     socket.on('new bc message', function(channel) {
+      cosole.log("NEW MESSAGE INCOMING");
+    })
+    socket.on('new channel', function(channel) {
+      cosole.log("NEW CHANNEL");
+    });
+    socket.on('new private channel', function(socketID, channel) {
+      cosole.log("NEW PRIVATE CHANNEL");
+    })
   }
 
   handleSave(newMessage) {
     const { dispatch } = this.props;
     let user = this.props.uid;
-    let receiver = this.state.chosenid;
-    console.log("RECEIVER", receiver)
     if (newMessage.text.length !== 0) {
-      dispatch(actions.createMessage(senderType, receiverType, newMessage, user, receiver));
+      dispatch(actions.newMessage('patient', 'physician', newMessage, user, 1));
     }
   }
 

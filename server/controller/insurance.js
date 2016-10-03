@@ -13,7 +13,7 @@ module.exports = {
   },
 
   get_specificInsurance: (req, res) => {
-    Insurance.get_specific_insurance(req.body, (err,data)=>{
+    Insurance.get_specific_insurance(req.params, (err,data)=>{
       if(err) console.log(err);
       res.json(data);
     });
