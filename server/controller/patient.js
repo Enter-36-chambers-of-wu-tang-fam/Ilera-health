@@ -119,7 +119,7 @@ module.exports = {
   },
 
   get_patient_info: (req, res) => {
-    Patient.patient_info(req.body, (err,data)=>{
+    Patient.get_patient(req.params, (err,data)=>{
       if(err) console.log(err);
       res.json(data);
     });

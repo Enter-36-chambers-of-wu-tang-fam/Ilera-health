@@ -8,6 +8,7 @@ import medication from './medication-reducer.js';
 import messages from './messages-reducer.js';
 import contacts from './contacts-reducer.js';
 import appointments from './appointment-reducer.js';
+import profile from './profile-reducer.js';
 
 const rootReducer = combineReducers({
     authentication: authenticate.authenticated,
@@ -16,6 +17,7 @@ const rootReducer = combineReducers({
     medication: medication,
     messages: messages,
     contacts: contacts,
+    profile: profile,
     physicians: PhysicianListReducer
 
 });
