@@ -15,7 +15,8 @@ import {
   TextField
 } from 'redux-form-material-ui'
 // Actions
-import { emergencyContact } from '../../actions/actions.js';
+import { emergencyContact } from '../../../../auth-shared/actions/actions.js';
+
 
 const validate = values => {
   const errors = {}
@@ -45,7 +46,7 @@ const validate = values => {
 }
 
 class BackgroundInfoForm extends Component {
-  
+
   constructor(props){
     super(props);
 		let maxDate = new Date();
@@ -75,7 +76,7 @@ class BackgroundInfoForm extends Component {
 			})
 			.catch( err => {
 					console.log("ERROR ENTERING INFORMATION", err);
-			}) 
+			})
 	}
 
 	getStepContent(){
@@ -93,7 +94,7 @@ class BackgroundInfoForm extends Component {
 
 	renderTextField (props) {
 		return(
-			<TextField 
+			<TextField
 				hintText={props.label}
 				floatingLabelText={props.label}
 				fullWidth={true}
@@ -105,7 +106,7 @@ class BackgroundInfoForm extends Component {
 
 	renderTextFieldFirst (props) {
 		return(
-			<TextField 
+			<TextField
 				hintText={props.label}
 				floatingLabelText={props.label}
 				fullWidth={true}
@@ -118,7 +119,7 @@ class BackgroundInfoForm extends Component {
 
 	renderTextFieldLast (props) {
 		return(
-			<TextField 
+			<TextField
 				hintText={props.label}
 				floatingLabelText={props.label}
 				fullWidth={true}
@@ -132,7 +133,7 @@ class BackgroundInfoForm extends Component {
 
 	renderDatePicker (props) {
 		return(
-			<DatePicker 
+			<DatePicker
 				errorText={props.touched && props.error}
 				{...props}
 			/>
@@ -429,7 +430,7 @@ class BackgroundInfoForm extends Component {
 					</div>
 					<Field name="primary_language" type="text" component={this.renderTextField} label="Primary Language"/>
 					<Field name="secondary_language" type="text" component={this.renderTextField} label="Secondary Language"/>
-						
+
 					{error && <strong>{error}</strong>}
 
 					<div className="formBtns clearfix">
@@ -453,11 +454,11 @@ class BackgroundInfoForm extends Component {
 								}}
 							/>
 						</div>
-					</div>                    
+					</div>
 				</form>
 			</div>
 		);
-	}   
+	}
 };
 
 export default reduxForm({

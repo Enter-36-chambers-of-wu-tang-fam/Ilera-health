@@ -1,10 +1,13 @@
 import React, { Component, PropTypes } from 'react';
 import { connect } from 'react-redux';
-import * as actions from '../actions/messages.js';
-import * as contacts from '../actions/contacts.js';
+import * as actions from '../../actions/messages.js';
+
+import * as contacts from '../../actions/contacts.js';
 import CryptoJS from 'crypto-js';
-import Messages from '../components/shared/messages.jsx';
-import MessageContacts from '../components/shared/message-contacts.jsx';
+import Messages from '../../components/messages-dash/messages.jsx';
+
+import MessageContacts from '../../components/messages-dash/message-contacts.jsx';
+
 import { router } from 'react-router';
 
 // Sockets
@@ -35,7 +38,7 @@ class ChatContainer extends Component {
     }
     componentWillMount() {
         const { dispatch, user, userType } = this.props;
-        
+
         console.log("USER TYPE", this.props)
         if(userType === 'patient'){
             dispatch(contacts.fetchMyPhysicians(this.state.uid));

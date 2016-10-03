@@ -15,11 +15,11 @@ import {
 } from 'redux-form-material-ui'
 
 // Actions
-import { emergencyContact } from '../../actions/actions.js';
+import { emergencyContact } from '../../../../auth-shared/actions/actions.js';
 
 const validate = values => {
   const errors = {}
-  
+
 	if (values.weight && !/^[1-9][\.\d]*(,\d+)?$/.test(values.weight)) {
     errors.weight = 'Please enter a valid weight'
   }
@@ -32,11 +32,11 @@ const validate = values => {
 }
 
 class HealthInfo extends Component {
-  
+
   constructor(props){
     super(props);
 		let maxDate = new Date();
-		
+
 		let minDate = new Date(1900, 1, 1);
 		console.log(maxDate, minDate);
 		this.state = {
@@ -80,7 +80,7 @@ class HealthInfo extends Component {
 			})
 			.catch( err => {
 					console.log("ERROR ENTERING INFORMATION", err);
-			}) 
+			})
 	}
 
 	getStepContent(){
@@ -98,7 +98,7 @@ class HealthInfo extends Component {
 
 	renderTextField (props) {
 		return(
-			<TextField 
+			<TextField
 				hintText={props.label}
 				floatingLabelText={props.label}
 				fullWidth={true}
@@ -110,7 +110,7 @@ class HealthInfo extends Component {
 
 	renderMultiLineTextField (props) {
 		return(
-			<TextField 
+			<TextField
 				hintText={props.label}
 				floatingLabelText={props.label}
 				fullWidth={true}
@@ -154,7 +154,7 @@ class HealthInfo extends Component {
 							</Field>
 						</div>
 						<Field name="weight" type="text" component={this.renderTextField} label="Weight (lbs)"/>
-						<Field name="height" type="text" component={this.renderTextField} label="Height (0.0)"/>   
+						<Field name="height" type="text" component={this.renderTextField} label="Height (0.0)"/>
 						<div>
 							<Field name="blood_type" component={this.renderSelectField} label="Blood Type">
 								<MenuItem value={'A+'} primaryText="A+"/>
@@ -167,11 +167,11 @@ class HealthInfo extends Component {
 								<MenuItem value={'O-'} primaryText="O-"/>
 							</Field>
 						</div>
-						<Field name="procedures" type="text" component={this.renderMultiLineTextField} label="Past Procedures (include dates)"/>  
-						<Field name="conditions" type="text" component={this.renderMultiLineTextField} label="Conditions"/> 
-						<Field name="medications" type="text" component={this.renderMultiLineTextField} label="Medications (include dosage/frequency)"/> 
-						<Field name="allergies" type="text" component={this.renderMultiLineTextField} label="Allergies (Ex: allergy-reaction;)"/> 
-						
+						<Field name="procedures" type="text" component={this.renderMultiLineTextField} label="Past Procedures (include dates)"/>
+						<Field name="conditions" type="text" component={this.renderMultiLineTextField} label="Conditions"/>
+						<Field name="medications" type="text" component={this.renderMultiLineTextField} label="Medications (include dosage/frequency)"/>
+						<Field name="allergies" type="text" component={this.renderMultiLineTextField} label="Allergies (Ex: allergy-reaction;)"/>
+
 						{error && <strong>{error}</strong>}
 						<div className="formBtns clearfix">
 							<div>{this.getStepContent()}</div>
@@ -194,11 +194,11 @@ class HealthInfo extends Component {
 									}}
 								/>
 							</div>
-						</div>                    
+						</div>
 					</form>
 			</div>
 			);
-	}   
+	}
 };
 
 export default reduxForm({

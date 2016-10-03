@@ -5,7 +5,7 @@ import React, { Component, PropTypes } from 'react';
 import { Field, reduxForm } from 'redux-form';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
-import * as types from '../../actions/action-types';
+import * as types from '../../../actions/action-constants.js';
 
 // CryptoJS
 import CryptoJS from 'crypto-js';
@@ -18,7 +18,7 @@ import MenuItem from 'material-ui/MenuItem';
 // Actions
 import { emergencyContact } from '../../actions/actions.js';
 // import { getFieldInfo as loadData } from '../../actions/profile.js';
-import * as actions from '../../actions/profile.js';
+import * as actions from '../../../actions/profile.js';
 
 
 
@@ -28,18 +28,18 @@ const getData = () => {
 		let code  = CryptoJS.AES.decrypt(id.toString(), 'key'); //need to change key
 		let uid = code.toString(CryptoJS.enc.Utf8);
 	return axios.get(`/api/patient/${uid}`)
-			.then( data => { 
+			.then( data => {
         // dates.data.forEach(data => {
         console.log("****data****",data.data[0]);
 				// data = myData;
 				return data.data[0];
         // this.setState({info: data[0]})
-        //   let date = item.date.slice(0,10);  
+        //   let date = item.date.slice(0,10);
         //   if(currAppts[date]) currAppts[date][item.time] = true;
         //   else {
         //     currAppts[date] = {};
         //     currAppts[date][item.time] = true;
-        //   } 
+        //   }
         // })
     });
 }
@@ -74,7 +74,7 @@ const validate = values => {
 }
 
 class BackgroundInfoFormInitialized extends Component {
-  
+
   constructor(props){
     super(props);
 		this.state = {};
@@ -97,13 +97,13 @@ class BackgroundInfoFormInitialized extends Component {
 			})
 			.catch( err => {
 					console.log("ERROR ENTERING INFORMATION", err);
-			}) 
+			})
 	}
 
 
 	renderTextField ({ input, label, meta: { touched, error } }) {
 		return(
-			<TextField 
+			<TextField
 				hintText={label}
 				floatingLabelText={label}
 				fullWidth={true}
@@ -404,9 +404,9 @@ class BackgroundInfoFormInitialized extends Component {
 					</div>
 					<Field name="primary_language" type="text" component={this.renderTextField} label="Primary Language"/>
 					<Field name="secondary_language" type="text" component={this.renderTextField} label="Secondary Language"/>
-						
+
 					{error && <strong>{error}</strong>}
-					
+
                     <RaisedButton
                         label='Save'
                         primary={true}
@@ -416,7 +416,7 @@ class BackgroundInfoFormInitialized extends Component {
 				</form>
 			</div>
 		);
-	}   
+	}
 };
 
 export default BackgroundInfoFormInitialized = reduxForm({

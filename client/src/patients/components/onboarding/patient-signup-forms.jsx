@@ -1,6 +1,7 @@
 // React
 import React, { Component, PropTypes } from 'react';
-import * as actions from '../../actions/actions.js';
+import * as actions from '../../../auth-shared/actions';
+// ../../actions/actions.js
 import {
   Step,
   Stepper,
@@ -12,11 +13,11 @@ import CryptoJS from 'crypto-js';
 
 
 // Components
-import BackgroundInfoForm from '../../containers/redux-forms/basic-info-form.js';
-import ContactInfoForm from '../../containers/redux-forms/contact-info-form.js';
-import InsuranceForm from '../../containers/redux-forms/provider-form.js';
-import FormIntro from '../../containers/redux-forms/form-intro.js';
-import HealthInfo from '../../containers/redux-forms/health-info-form.js';
+import BackgroundInfoForm from '../../containers/redux-forms/onboarding/basic-info-form.js';
+import ContactInfoForm from '../../containers/redux-forms/onboarding/contact-info-form.js';
+import InsuranceForm from '../../containers/redux-forms/onboarding/provider-form.js';
+import FormIntro from '../../containers/redux-forms/onboarding/form-intro.js';
+import HealthInfo from '../../containers/redux-forms/onboarding/health-info-form.js';
 
 class PatientAppFormsContainer extends Component {
 	static contextTypes = {
@@ -31,7 +32,7 @@ class PatientAppFormsContainer extends Component {
 			uid: null
 		};
 	}
-	
+
 
   handleNext() {
     const {stepIndex} = this.state;
@@ -89,7 +90,7 @@ class PatientAppFormsContainer extends Component {
 					</Stepper>
 					<div>{this.getStepContent(stepIndex)}</div>
 				</div>
-		); 
+		);
 	}
 };
 
