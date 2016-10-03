@@ -74,3 +74,10 @@ export const INSURANCE_POST_SUCCESS = 'INSURANCE_POST_SUCCESS';
 export const INSURANCE_POST_FAILURE = 'INSURANCE_POST_FAILURE';
 
 // =================== PHYSICIAN ======================
+
+
+// ================== MEDICATION ======================
+
+export const MEDS_FETCH_REQUEST = 'MEDS_FETCH_REQUEST';
+export const MEDS_FETCH_SUCCESS = 'MEDS_FETCH_SUCCESS';
+export const MEDS_FETCH_FAILURE = 'MEDS_FETCH_FAILURE';

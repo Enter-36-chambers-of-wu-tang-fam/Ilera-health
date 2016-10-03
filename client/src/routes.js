@@ -29,7 +29,7 @@ import Calendar from './components/physician-app/calendar.jsx';
 import PatientApp from './components/patient-app/patient-app.jsx';
 import PatientDashboard from './components/patient-app/patient-dashboard.jsx';
 import HealthLog from './components/patient-app/health-log.jsx';
-import Medications from './components/patient-app/medications.jsx';
+import Medications from './components/patient-app/medication-dash/medication-class.jsx';
 import PhysicianCalendar from './components/patient-app/physician-profile-calendar.jsx';
 import PatientAppFormContainer from './components/patient-app/patient-signup-forms.jsx';
 import PhysicianList from './components/patient-app/all-physicians.jsx';

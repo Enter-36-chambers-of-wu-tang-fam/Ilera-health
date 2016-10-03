@@ -35,7 +35,7 @@ export const setAppointment = (appt) => {
       .then(setDate => {
         dispatch(setAppointmentSuccess(setDate));
       })
-      .catch(error => dispatch(setAppointmentFailure(error))) 
+      .catch(error => dispatch(setAppointmentFailure(error)))
   }
 }
 
@@ -68,22 +68,18 @@ const getAllPhysicianApptsFailure = (errorMsg) => {
 
 export const getAllPhysicianAppts = (physid) => {
   let currAppts = {};
-  axios.get(`/api/patient/getappointment/${physid}`).then( dates => { 
+  axios.get(`/api/patient/getappointment/${physid}`).then( dates => {
     dates.data.forEach(item => {
       console.log("****ITEMITEMITEM****",item);
-      let date = item.date.slice(0,10);  
+      let date = item.date.slice(0,10);
       if(currAppts[date]) currAppts[date][item.time] = true;
       else {
         currAppts[date] = {};
         currAppts[date][item.time] = true;
-      } 
+      }
     })
   })
   .catch(err => console.log(err) );
 
   return getAllPhysicianApptsSuccess(currAppts);
 }
-
-
-
-

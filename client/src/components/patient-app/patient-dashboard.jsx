@@ -22,7 +22,7 @@ export default class PatientDashboard extends Component {
             </div>
 
             <div className="dashboardRows bottomRow clearfix">
-              <Link to='patient/records'> 
+              <Link to='patient/records'>
                 <DashboardRecords />
               </Link>
               <Link to='/patient/messages'>
@@ -39,9 +39,11 @@ export default class PatientDashboard extends Component {
               <Link to='patient/healthLog'>
                 <DashboardHealthLog />
               </Link>
+
               <Link to='patient/profile'>
                 <DashboardProfile />
               </Link>
+
             </div>
           </div>
       );
