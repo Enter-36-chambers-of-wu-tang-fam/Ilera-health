@@ -1,3 +1,5 @@
+import { reduxForm } from 'redux-form';
+
 // ================== SHARED ACTION TYPES ====================
 
 //Authentication --> Sign up & Sign In
@@ -53,6 +55,9 @@ export const MESSAGE_STOP_TYPING = 'MESSAGE_STOP_TYPING';
 export const FORM_SUBMIT_REQUEST = 'FORM_SUBMIT_REQUEST';
 export const FORM_SUBMIT_SUCCESS = 'FORM_SUBMIT_SUCCESS';
 export const FORM_SUBMIT_FAILURE = 'FORM_SUBMIT_FAILURE';
+
+// Profile
+export const INITIALIZE = 'redux-form/INITIALIZE'
 
 
 

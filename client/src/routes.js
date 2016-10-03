@@ -16,7 +16,7 @@ import Welcome from './components/shared/welcome.jsx';
 import Signin from './components/auth/signin-component.js';
 import Signup from './components/auth/signup-component.js';
 import AllUsers from './components/shared/allUsers.jsx';
-import Profile from './components/shared/profile.jsx';
+import Profile from './components/patient-app/profile/profile.jsx';
 import Chat from './containers/chat-container.js';
 
 // Physician Components

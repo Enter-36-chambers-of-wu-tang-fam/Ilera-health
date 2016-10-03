@@ -3,19 +3,48 @@ import axios from 'axios';
 // React, Redux, Redux-Form
 import React, { Component, PropTypes } from 'react';
 import { Field, reduxForm } from 'redux-form';
+import { bindActionCreators } from 'redux';
+import { connect } from 'react-redux';
+import * as types from '../../actions/action-types';
+
 // CryptoJS
 import CryptoJS from 'crypto-js';
 // Material UI
 import RaisedButton from 'material-ui/RaisedButton';
 import FlatButton from 'material-ui/FlatButton';
 import SelectField from 'material-ui/SelectField'
+import TextField from 'material-ui/TextField';
 import MenuItem from 'material-ui/MenuItem';
-import {
-	DatePicker,
-  TextField
-} from 'redux-form-material-ui'
 // Actions
 import { emergencyContact } from '../../actions/actions.js';
+// import { getFieldInfo as loadData } from '../../actions/profile.js';
+import * as actions from '../../actions/profile.js';
+
+
+
+const getData = () => {
+	let id = localStorage.getItem('uid');
+		//code to decode user id stored in local storage
+		let code  = CryptoJS.AES.decrypt(id.toString(), 'key'); //need to change key
+		let uid = code.toString(CryptoJS.enc.Utf8);
+	return axios.get(`/api/patient/${uid}`)
+			.then( data => { 
+        // dates.data.forEach(data => {
+        console.log("****data****",data.data[0]);
+				// data = myData;
+				return data.data[0];
+        // this.setState({info: data[0]})
+        //   let date = item.date.slice(0,10);  
+        //   if(currAppts[date]) currAppts[date][item.time] = true;
+        //   else {
+        //     currAppts[date] = {};
+        //     currAppts[date][item.time] = true;
+        //   } 
+        // })
+    });
+}
+
+const data = getData();
 
 const validate = values => {
   const errors = {}
@@ -44,17 +73,11 @@ const validate = values => {
   return errors
 }
 
-class BackgroundInfoForm extends Component {
+class BackgroundInfoFormInitialized extends Component {
   
   constructor(props){
     super(props);
-		let maxDate = new Date();
-		let minDate = new Date(1900, 1, 1);
-		console.log(maxDate, minDate);
-		this.state = {
-			maxDate: maxDate,
-			minDate: minDate
-		}
+		this.state = {};
   }
 
   static contextTypes = {
@@ -62,7 +85,6 @@ class BackgroundInfoForm extends Component {
   }
 
 	submitMe(prop){
-		this.props.handleNext();
 		//get encoded id from local storage
 		let id = localStorage.getItem('uid');
 		//code to decode user id stored in local storage
@@ -78,63 +100,16 @@ class BackgroundInfoForm extends Component {
 			}) 
 	}
 
-	getStepContent(){
-		let steps=this.props.stepIndex;
-		this.props.getStepContent(steps);
-	}
 
-	handlePrev(){
-		this.props.handlePrev();
-	}
-
-	handleNext(){
-		this.props.handleNext();
-	}
-
-	renderTextField (props) {
+	renderTextField ({ input, label, meta: { touched, error } }) {
 		return(
 			<TextField 
-				hintText={props.label}
-				floatingLabelText={props.label}
+				hintText={label}
+				floatingLabelText={label}
 				fullWidth={true}
-				errorText={props.touched && props.error}
-				{...props}
-			/>
-		)
-	}
-
-	renderTextFieldFirst (props) {
-		return(
-			<TextField 
-				hintText={props.label}
-				floatingLabelText={props.label}
-				fullWidth={true}
-				value={localStorage.getItem('first')}
-				errorText={props.touched && props.error}
-				{...props}
-			/>
-		)
-	}
-
-	renderTextFieldLast (props) {
-		return(
-			<TextField 
-				hintText={props.label}
-				floatingLabelText={props.label}
-				fullWidth={true}
-				value={localStorage.getItem('last')}
-				defaultValue={localStorage.getItem('last')}
-				errorText={props.touched && props.error}
-				{...props}
-			/>
-		)
-	}
-
-	renderDatePicker (props) {
-		return(
-			<DatePicker 
-				errorText={props.touched && props.error}
-				{...props}
+				onChange={(event, index, value) => input.onChange(value)}
+				errorText={touched && error}
+				{...input}
 			/>
 		)
 	}
@@ -159,11 +134,11 @@ class BackgroundInfoForm extends Component {
 				<h2>Basic User Info</h2>
 				<h6>* Required field</h6>
 					<form onSubmit={handleSubmit(props => this.submitMe(props))}>
-						<Field name="first" type="text" component={this.renderTextFieldFirst} label="First Name*"/>
+						<Field name="first" type="text" component={this.renderTextField} label="First Name*"/>
 						<Field name="middle" type="text" component={this.renderTextField} label="Middle Name"/>
-						<Field name="last" type="text" component={this.renderTextFieldLast} label="Last Name*"/>
+						<Field name="last" type="text" component={this.renderTextField} label="Last Name*"/>
 						<Field name="maiden" type="text" component={this.renderTextField} label="Maiden Name"/>
-						<Field name="date_of_birth"  minDate={this.state.minDate} maxDate={this.state.maxDate} type="date" fullWidth={true} floatingLabelText="Date of Birth" floatingLabelFixed={true} component={this.renderDatePicker}/>
+						<Field name="date_of_birth" label="Date of Birth" component={this.renderTextField}/>
 						<div>
 							<Field name="birth_country" component={this.renderSelectField} label="Country of Birth">
 								<MenuItem value="Afghanistan" primaryText="Afghanistan" />
@@ -431,38 +406,22 @@ class BackgroundInfoForm extends Component {
 					<Field name="secondary_language" type="text" component={this.renderTextField} label="Secondary Language"/>
 						
 					{error && <strong>{error}</strong>}
-
-					<div className="formBtns clearfix">
-						<div>{this.getStepContent()}</div>
-						<div style={{margin: '20px 0'}}>
-							<FlatButton
-								label="Back"
-								disabled={this.props.stepIndex === 0}
-								onTouchTap={this.handlePrev.bind(this)}
-								style={{marginRight: 12}}
-								className='btn btn-back'
-							/>
-							<RaisedButton
-								label={this.props.stepIndex === 3 ? 'Finish' : 'Next'}
-								primary={true}
-								type='submit'
-								className='btn btn-back'
-								style={{
-									'float': 'right',
-									'backgroundColor': '#fff'
-								}}
-							/>
-						</div>
-					</div>                    
+					
+                    <RaisedButton
+                        label='Save'
+                        primary={true}
+                        type='submit'
+                        className='btn'
+                    />
 				</form>
 			</div>
 		);
 	}   
 };
 
-export default reduxForm({
-	form: 'BackgroundInfoForm',
-	destroyOnUnmount: false,
-	initialValues: {first: localStorage.getItem('first'), last: localStorage.getItem('last')},
+export default BackgroundInfoFormInitialized = reduxForm({
+	form: 'BackgroundInfoFormInitialized',
+  destroyOnUnmount: false,
+	initialValues: data,
 	validate
-})(BackgroundInfoForm);
+})(BackgroundInfoFormInitialized);

@@ -68,6 +68,13 @@ module.exports = {
     db.query(queryString, data, (error, results) => cb(error, results) );
   },
 
+  get_patient: (params, cb) => {
+    console.log("**", params.userid)
+    let data = [params.userid];
+    const queryString = "SELECT * FROM patient WHERE id=? LIMIT 1";
+    db.query(queryString, data, (error, results) => cb(error, results) );
+  },
+
 
   // need to update this
   patient_info: (params, cb) => {
