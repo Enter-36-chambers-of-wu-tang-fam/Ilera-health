@@ -5,24 +5,17 @@ import MessageInput from './message-input.jsx';
 
 export default class Messages extends Component {
 
-  constructor(props, context) {
-    super(props, context);
-    this.state = {
-      messages: [],
-      chosen: this.props.chosen,
-      chosenid: ''
-    }
+  constructor(props) {
+    super(props);
   }
 
-  componentWillMount() {
-  }
-  
   componentWillReceiveProps(nextProps) {
-      this.setState({ messages: nextProps.messages, chosen: nextProps.chosen, chosenid: nextProps.chosenid })
+    console.log("NEXTPROPS", nextProps)
   }
 
   componentDidMount() {
-    const { socket, uid, dispatch } = this.props;
+    const { socket, uid, dispatch, chosenid } = this.props;
+    var that = this;
     socket.emit('chat mounted', uid);
     socket.on('leave channel', function(channel) {
       socket.leave(channel)
@@ -30,8 +23,10 @@ export default class Messages extends Component {
     socket.on('join channel', function(channel) {
       console.log("JOIN CHANNEL");
     })
-     socket.on('new bc message', function(channel) {
+     socket.on('new bc message', function(msg) {
       console.log("NEW MESSAGE INCOMING");
+      console.log("NEW MESSAGE INCOMING", msg, uid, chosenid);
+      that.handleSave(msg);
     })
     socket.on('new channel', function(channel) {
       console.log("NEW CHANNEL");
@@ -50,16 +45,16 @@ export default class Messages extends Component {
   }
 
   render(){
-    const { messages, socket, typers, dispatch, uid, screenWidth} = this.props;
-    if(this.state.messages.length > 0 && this.state.chosen === true){
+    const { messages, socket, chosen, dispatch, uid} = this.props;
+    if(messages.length > 0 && chosen === true){
       return (
         <div>
           <div id="chatBoard">
-            {this.state.messages.map( message => {
+            {messages.map( message => {
               if(message.sender_id == this.props.uid){
-                return <div>USER1: {message.direct_message}</div>
+                return <div>USER1: {message.text || message.direct_message}</div>
               }else{
-                return <div>USER2: {message.direct_message}</div>
+                return <div>USER2: {message.text || message.direct_message}</div>
               }
             })}
           </div>
