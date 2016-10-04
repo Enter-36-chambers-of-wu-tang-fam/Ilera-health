@@ -50,7 +50,6 @@ import PhysicianCalendar from './patients/components/physicians-dash/physician-p
 // ./components/patient-app/physician-profile-calendar.jsx
 import PatientAppFormContainer from './patients/components/onboarding/patient-signup-forms.jsx';
 // ./components/patient-app/patient-signup-forms.jsx
-import PhysicianList from './patients/components/physicians-dash/all-physicians.jsx';
 // ./components/patient-app/all-physicians.jsx
 
 export default (

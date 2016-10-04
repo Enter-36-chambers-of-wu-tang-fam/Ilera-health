@@ -1,38 +1,37 @@
 import React, { Component, PropTypes } from 'react';
-import { connect } from 'react-redux';
-import * as actions from '../../actions/messages.js';
 
-export default class ContactItem extends Component {
-    constructor(props){
-        super(props);
-    }
+const ContactItem = ({user, userSelected, contact}) => {
 
-    handleClick (){
-        let user = this.props.user;
-        let receiver = this.props.contact.id_physician;
-        if(this.props.contact.id_physician){
-            var receiverType = 'physician';
+    let handleClick = () => {
+			var receiverType, receiver, senderType;
+        if(contact.id_physician){
+            receiverType = 'physician';
+            receiver = contact.id_physician;
+            senderType = 'patient'
+        }else{
+            receiverType = 'patient';
+            receiver = contact.id;
+            senderType = 'physician';
         }
-        this.props.userSelected(user, receiver, receiverType);
+        userSelected(user, receiver, receiverType, senderType);
     }
 
-    render(){
-        return (
-        <li className="contactItem">    
-            <a onClick={ this.handleClick.bind(this) }>
-                <div>
-                    <img src="https://pbs.twimg.com/profile_images/446566229210181632/2IeTff-V.jpeg" alt=""/>
-                </div>
-            
-                <div>
-                    <h4>{ this.props.contact.first } { this.props.contact.last}</h4>
-                </div>
-                <div>
-                    <i className="fa fa-comment" aria-hidden="true"></i>
-                </div>
-            </a>
-        </li>
-      );
-    }
+    return (
+			<li className='contactItem'>    
+					<a onClick={ handleClick.bind(this) }>
+							<div>
+									<img src='https://pbs.twimg.com/profile_images/446566229210181632/2IeTff-V.jpeg' alt=''/>
+							</div>
+							<div>
+									<h4>{ contact.first } { contact.last}</h4>
+							</div>
+							<div>
+									<i className='fa fa-comment' aria-hidden='true'></i>
+							</div>
+					</a>
+			</li>
+    );
       
 };
+
+export default ContactItem;

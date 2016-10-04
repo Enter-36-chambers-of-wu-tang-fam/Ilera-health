@@ -12,7 +12,7 @@ export default class PhysicianApp extends Component {
         return (
             <div>
                 { this.props.children }
-                <PhysicianList />
+                
             </div>
         );
     }
