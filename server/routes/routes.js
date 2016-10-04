@@ -7,6 +7,7 @@
 // const InsuranceProfesional = require('.././controller/insurance_professional.js');
 // const Medication = require('.././controller/medication.js');
 // const Message = require('.././controller/messages.js');
+// const Mj = require('./controller/major-joins.js');
 // const Patient = require('.././controller/patient.js');
 // const Physician = require('.././controller/physician.js');
 // const Relation_PatPhy = require('.././controller/relation-patient_physician.js');
@@ -35,7 +36,8 @@
 //
 //   // Patient
 //   app.post('/api/patient/signin', Patient.signIn);
-//
+//   // Patient major join
+//   // app.get('/api/patient/something', Mj.getAll);
 //   //not for now but this will get all of the patient info eventually we are still in stage 1
 //   app.get('/api/patient/dashboard', Patient.get_patient_info);
 //
