@@ -3,12 +3,14 @@
 const db = require('../db/dbConnect/connection.js');
 
 
-module.exports = {
+//
+//   app.get('/api/messages/:senderType/:userid/:receiverType/:rid', Message.getAllMessages);
 
-  get_all_messages_pat_from_phy: (params, cb) => {
+module.exports = {
+  get_all_messages: (params, cb) => {
     // Get Request → /api/messages/:physid/:patid  [limit 5]
-    console.log(params.patid, params.physid);
-    let data = [params.patid, params.physid];
+    console.log(params.userid, params.senderType, params.rid, params.receiverType);
+    let data = [params.userid, params.senderType, params.rid, params.receiverType];
     const queryString = 'SELECT p.id, p.first, p.last, p.email, p.primary_phone_number, \
       p.photo_path, py.id, py.first, py.last, py.email, py.phone_number, \
       py.photo_path, m.id, m.direct_message, m.date, m.sender_id, m.receiver_id, \
@@ -16,25 +18,43 @@ module.exports = {
       FROM messages m \
       JOIN patient p ON p.id = m.sender_id \
       JOIN physician py ON py.id = m.receiver_id \
-      WHERE (sender_id="'+params.patid+'" AND receiver_id="'+params.physid+'" AND receiver_type="physician") OR \
-      (receiver_id="'+params.patid+'" AND sender_id="'+params.physid+'" AND receiver_type="patient") LIMIT 25';
+      WHERE (sender_id="'+params.userid+'" AND receiver_id="'+params.rid+'" AND sender_type="'+params.senderType+'" \
+      AND receiver_type="'+params.receiverType+'") OR \
+      (sender_id="'+params.rid+'" AND receiver_id="'+params.userid+'" AND sender_type="'+params.receiverType+'" \
+      AND receiver_type="'+params.senderType+'") LIMIT 25';
     db.query(queryString, data, (error, results) => cb(error, results) );
   },
-
-  get_all_messages_phy_from_pat: (params, cb) => {
-    // Get Request → /api/messages/:physid/:patid  [limit 5]
-    let data = [params.userid, params.userid];
-    const queryString = 'SELECT p.id, p.first, p.last, p.email, p.primary_phone_number, p.photo_path, \
-      py.id, py.first, py.last, py.email, py.phone_number, py.photo_path, \
-      m.id, m.direct_message, m.date, m.sender_id, m.receiver_id, \
-      m.receiver_type \
-      FROM messages m \
-      JOIN patient p ON p.id = m.sender_id \
-      JOIN physician py ON py.id = m.receiver_id \
-      WHERE (sender_id="'+params.userid+'" AND sender_type="'+params.sender_type+'") OR \
-      (receiver_id="'+params.userid+'" AND receiver_type="'+params.sender_type+'") LIMIT 25';
-    db.query(queryString, data, (error, results) => cb(error, results) );
-  },
+  // get_all_messages_pat_from_phy
+  // get_all_patMessages: (params, cb) => {
+  //   // Get Request → /api/messages/:physid/:patid  [limit 5]
+  //   console.log(params.patid, params.physid);
+  //   let data = [params.patid, params.physid];
+  //   const queryString = 'SELECT p.id, p.first, p.last, p.email, p.primary_phone_number, \
+  //     p.photo_path, py.id, py.first, py.last, py.email, py.phone_number, \
+  //     py.photo_path, m.id, m.direct_message, m.date, m.sender_id, m.receiver_id, \
+  //     m.sender_type \
+  //     FROM messages m \
+  //     JOIN patient p ON p.id = m.sender_id \
+  //     JOIN physician py ON py.id = m.receiver_id \
+  //     WHERE (sender_id="'+params.patid+'" AND receiver_id="'+params.physid+'" AND receiver_type="physician") OR \
+  //     (receiver_id="'+params.patid+'" AND sender_id="'+params.physid+'" AND receiver_type="patient") LIMIT 25';
+  //   db.query(queryString, data, (error, results) => cb(error, results) );
+  // },
+  // // get_all_messages_phy_from_pat
+  // get_all_phyMessages_from_pat: (params, cb) => {
+  //   // Get Request → /api/messages/:physid/:patid  [limit 5]
+  //   let data = [params.userid, params.userid];
+  //   const queryString = 'SELECT p.id, p.first, p.last, p.email, p.primary_phone_number, p.photo_path, \
+  //     py.id, py.first, py.last, py.email, py.phone_number, py.photo_path, \
+  //     m.id, m.direct_message, m.date, m.sender_id, m.receiver_id, \
+  //     m.receiver_type \
+  //     FROM messages m \
+  //     JOIN patient p ON p.id = m.sender_id \
+  //     JOIN physician py ON py.id = m.receiver_id \
+  //     WHERE (sender_id="'+params.userid+'" AND sender_type="'+params.sender_type+'") OR \
+  //     (receiver_id="'+params.userid+'" AND receiver_type="'+params.sender_type+'") LIMIT 25';
+  //   db.query(queryString, data, (error, results) => cb(error, results) );
+  // },
   // const queryString = 'SELECT * FROM messages WHERE receiver_id=? OR sender_id=?\
   //   ORDER BY date DESC LIMIT 25';
   // may not need this
@@ -84,14 +104,27 @@ module.exports = {
 
 
 
-// SELECT p.id, p.first, p.last, p.email, p.phone_number, p.photo_path, py.id, py.first, py.last,
+// SELECT p.id, p.first, p.last, p.email, p.primary_phone_number, p.photo_path, py.id, py.first, py.last,
 // py.email, py.phone_number, py.photo_path, m.id, m.direct_message, m.date, m.sender_id,
 // m.receiver_id, m.sender_type FROM messages m JOIN patient p ON p.id = m.sender_id
 // JOIN physician py ON py.id = m.receiver_id WHERE (sender_id=2 AND sender_type= 'patient') OR
 // (receiver_id=2 AND receiver_type= 'patient') LIMIT 25;
 //
-// SELECT p.id, p.first, p.last, p.email, p.phone_number, p.photo_path, py.id, py.first, py.last,
+// SELECT p.id, p.first, p.last, p.email, p.primary_phone_number, p.photo_path, py.id, py.first, py.last,
 // py.email, py.phone_number, py.photo_path, m.id, m.direct_message, m.date, m.sender_id,
 // m.receiver_id, m.receiver_type FROM messages m JOIN patient p ON p.id = m.sender_id
 // JOIN physician py ON py.id = m.receiver_id WHERE (sender_id=2 AND sender_type= 'patient') OR
 // (receiver_id=2 AND receiver_type= 'patient') LIMIT 25;
+
+// Yara
+// SELECT p.id, p.first, p.last, p.email, p.primary_phone_number,
+// p.photo_path, py.id, py.first, py.last, py.email, py.phone_number,
+// py.photo_path, m.id, m.direct_message, m.date, m.sender_id, m.receiver_id,
+// m.sender_type
+// FROM messages m
+// JOIN patient p ON p.id = m.sender_id
+// JOIN physician py ON py.id = m.receiver_id
+// WHERE (sender_id=1 AND receiver_id=2 AND sender_type='patient'
+// AND receiver_type='physician') OR
+// (sender_id=2 AND receiver_id=1 AND sender_type='patient'
+// AND receiver_type='physician') LIMIT 25;

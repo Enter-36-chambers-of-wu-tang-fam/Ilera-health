@@ -5,8 +5,10 @@ const Promise = require("bluebird");
 
 module.exports = {
 
-  getAllMessages_pat_from_phy: (req, res) => {
-    Message.get_all_messages_pat_from_phy(req.params, (err,data)=>{
+  
+  getAllMessages: (req, res) => {
+    console.log(req.params);
+    Message.get_all_messages(req.params, (err,data)=>{
       if(err) console.log(err);
       res.json(data);
     });

@@ -32,11 +32,14 @@ class MedsContainer extends Component {
   render(){
     console.log(this.state.meds)
     return (
-      <Medication
+      <div>
+        <Medication
 
         meds={this.state.meds}
         />
-
+        Anything
+      </div>
+      
     );
   }
 }

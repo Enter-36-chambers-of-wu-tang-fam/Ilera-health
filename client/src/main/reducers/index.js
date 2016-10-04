@@ -18,7 +18,7 @@ const rootReducer = combineReducers({
     messages: messages,
     contacts: contacts,
     profile: profile,
-    healthLogs: healthLogs,
+    healthLogs: healthLog,
 
 });
 

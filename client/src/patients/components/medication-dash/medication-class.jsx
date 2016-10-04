@@ -6,19 +6,19 @@ export default class Medication extends Component {
   constructor(props){
     super(props);
     console.log(props);
-    this.state = {
-      uid: '',
-      meds: props.meds,
-      chosenMed: '',
-      infoChosenMed: {}
-    };
+    // this.state = {
+    //   uid: '',
+    //   meds: props.meds,
+    //   chosenMed: '',
+    //   infoChosenMed: {}
+    // };
 
 
   }
   render() {
     return(
       <ul>
-        {this.state.meds.map(medication=>{
+        {this.props.meds.map(medication=>{
           return ( <li>
             {medication}
           </li> )
