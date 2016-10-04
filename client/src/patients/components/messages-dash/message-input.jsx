@@ -22,7 +22,7 @@ export default class MessageInput extends Component {
       };
       socket.emit('new message', newMessage);
       socket.emit('stop typing', { user: user });
-      this.props.onSave(newMessage);
+      // this.props.onSave(newMessage);
       this.setState({ text: '', typing: false });
     }
   }

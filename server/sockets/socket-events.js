@@ -14,7 +14,7 @@ exports = module.exports = function(io) {
     })
     socket.on('new message', function(msg) {
       console.log("NEW MESSAGE")
-      socket.emit('new bc message', msg);
+      socket.broadcast.emit('new bc message', msg);
     });
     socket.on('new channel', function(channel) {
       socket.broadcast.emit('new channel', channel)

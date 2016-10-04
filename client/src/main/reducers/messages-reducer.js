@@ -12,43 +12,51 @@ const initialState = {
 export default function messageReducer(state = initialState, action) {
   switch (action.type) {
     case MESSAGE_ADD_REQUEST:
-        console.log("MESSAGE_ADD");
-        return Object.assign({}, state, {
-            isFetching: true,
-            loaded: false
-        })
+        return { 
+          ...state, 
+          isFetching: true, 
+          loaded: false 
+        }
     case MESSAGE_ADD_SUCCESS:
-      console.log("MESSAGE_ADD_SUCCESS", action.payload);
-      var messages = state.messages.push(action.payload);
-      return { ...state, messages: [...state.messages, action.payload], isFetching: false, loaded: true, newMessage: action.payload }
+    console.log("$$", state.messages, action.payload)
+      return { 
+        ...state, 
+        messages: [...state.messages, action.payload], 
+        isFetching: false, 
+        loaded: true, 
+        newMessage: action.payload 
+      }
     case MESSAGE_ADD_FAILURE:
-      console.log("MESSAGE_ADD_FAILURE");
-      return Object.assign({}, state, {
-        isFetching: false,
-      })
+      return { 
+          ...state, 
+          isFetching: false, 
+          loaded: false 
+      }
     case MESSAGE_FETCH_REQUEST:
-      console.log("MESSAGE_FETCH_REQUEST");
-      return Object.assign({}, state, {
-        isFetching: true,
-        loaded: false
-      })
+      return { 
+        ...state, 
+        isFetching: true, 
+        loaded: false 
+      }
     case MESSAGE_FETCH_SUCCESS:
-      console.log("MESSAGE_FETCH_SUCCESS");
-        console.log("ACTION", action.payload)
-      return Object.assign({}, state, {
-        isFetching: false,
-        loaded: true,
-        messages: action.payload.data
-      })
+      return { 
+        ...state, 
+        messages: [action.payload], 
+        isFetching: false, 
+        loaded: true 
+      }
     case MESSAGE_FETCH_FAILURE:
-      console.log("MESSAGE_FETCH_FAILURE");
-      return Object.assign({}, state, {
-        isFetching: false,
-        loaded: false
-      })
+      return { 
+        ...state, 
+        isFetching: false, 
+        loaded: false 
+      }
     case RECEIVE_MESSAGE:
-      console.log("RECEIVE_MESSAGE");
-      return {...state, newMessage: action.payload};
+      return {
+        ...state, 
+        messages: [...state.messages, action.payload], 
+        newMessage: action.payload
+      };
     default:
       return state;
   }
