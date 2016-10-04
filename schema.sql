@@ -520,6 +520,12 @@ INSERT INTO `appointment` (`date`,`time`,`notes`,`id_physician`,`id_patient`,`id
 
 INSERT INTO `appointment_document` (`document`,`id_appointment`) VALUES ('yolo','1');
 
+INSERT INTO `Insurance_company` (`company_name`,`phone_number_for_patients`,`phone_number_for_institutions`) VALUES
+('jojo','1423','1423');
+
+INSERT INTO `insurance_plan` (`primary_name`, `primary_phone`, `id_patient`, `id_insurance_company`) VALUES ('yolo', '4325', '1', '1');
+
+INSERT INTO `payment` (`copay`,`bill`,`bill_statement`,`id_physician`,`id_patient`) VALUES ('342','1423','142','1','1');
 
 -- INSERT INTO `administration` (`id`,`login`,`password`) VALUES
 -- ('','','');
