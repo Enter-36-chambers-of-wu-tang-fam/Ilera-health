@@ -5,6 +5,7 @@ var APP_DIR = path.resolve(`${__dirname}/client/src`);
 var BUILD_DIR = path.resolve(`${__dirname}client/dist`);
 
 var config = {
+  devtool: 'inline-source-map',
   entry: `${APP_DIR}/index.js`,
   output: {
     path: BUILD_DIR,
@@ -14,7 +15,6 @@ var config = {
     extensions: ['', '.js', '.jsx']
   },
   module: {
-    devtool: 'inline-source-map',
     loaders: [
       {
         test: /\.jsx?$/,
