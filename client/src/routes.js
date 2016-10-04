@@ -44,7 +44,7 @@ import PatientDashboard from './patients/components/main-dash/patient-dashboard.
 // ./components/patient-app/patient-dashboard.jsx
 import HealthLog from './patients/components/health-log-dash/health-log.jsx';
 // ./components/patient-app/health-log.jsx
-import Medications from './patients/components/medication-dash/medication-class.jsx';
+import Medication from './patients/containers/medication/medication-container.js';
 // ./components/patient-app/medication-dash/medication-class.jsx
 import PhysicianCalendar from './patients/components/physicians-dash/physician-profile-calendar.jsx';
 // ./components/patient-app/physician-profile-calendar.jsx
@@ -79,7 +79,7 @@ export default (
               </Route>
             <Route path="messages" component={ Chat } />
             <Route path="profile" component={ Profile } />
-            <Route path="medications" component ={ Medications } />
+            <Route path="medications" component ={ Medication } />
         </Route>
     </Router>
 );

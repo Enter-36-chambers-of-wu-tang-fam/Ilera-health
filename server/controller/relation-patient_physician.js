@@ -35,7 +35,7 @@ module.exports = {
   //   });
   // },
   getAll_patients_of_Physician: (req, res) => {
-    Relation.get_all_patients_of_Physician(req.body, (err,data)=>{
+    Relation.get_all_patients_of_Physician(req.params, (err,data)=>{
       if(err) console.log(err);
       res.json(data);
     });
@@ -49,7 +49,7 @@ module.exports = {
   },
 
   test_getAll_physicians_of_patient: (req, res) => {
-    Relation.test_get_all_physicians_of_patient(req.body, (err,data)=>{
+    Relation.test_get_all_physicians_of_patient(req.params, (err,data)=>{
       if(err) console.log(err);
       res.json(data);
     });

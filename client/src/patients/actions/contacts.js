@@ -17,6 +17,20 @@ const fetchPatientPhysiciansFailure = (err) => {
 	}
 }
 
+export function fetchMyPhysicians(userid) {
+  console.log("FETCH MY PHYSICIANS")
+  return dispatch => {
+    return axios.get(`/api/patient/${userid}/physicians`)
+      .then(response =>{
+        console.log("RESPONSE FETCH PATIENTS", response)
+        dispatch(fetchPatientPhysicians(response));	  
+	  })
+      .catch(error => {
+		  dispatch(fetchPatientPhysiciansFailure(error));
+	  });
+  }
+}
+
 const fetchPhysicianPatients = (patients) => {
 	return {
 		type: types.PHYSICIAN_FETCH_PATIENTS,
@@ -33,19 +47,7 @@ const fetchPhysicianPatientsFailure = (err) => {
 	}
 }
 
-export function fetchMyPhysicians(userid) {
-  console.log("FETCH MY PHYSICIANS")
-  return dispatch => {
-    return axios.get(`/api/patient/${userid}/physicians`)
-      .then(response =>{
-        console.log("RESPONSE FETCH PATIENTS", response)
-        dispatch(fetchPhysicianPatients(response));	  
-	  })
-      .catch(error => {
-		  dispatch(fetchPhysicianPatientsFailure(error));
-	  });
-  }
-}
+
 
 
 export function fetchMyPatients(userid) {

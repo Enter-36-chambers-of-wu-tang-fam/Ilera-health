@@ -22,10 +22,10 @@ module.exports = {
   },
 
   get_all_patients_of_Physician: (params, cb) => {
-    let data = [params.id_physician];
+    let data = [params.userid];
     const queryString = "SELECT p.id, p.first, p.last, p.email, \
       p.date_of_birth, p.address, p.city, p.state, p.zip, \
-      p.phone_number, p.weight, p.height, p.blood_type, p.photo_path \
+      p.primary_phone_number, p.weight, p.height, p.blood_type, p.photo_path \
       FROM patient_physician pr \
       JOIN patient p ON p.id = pr.id_patient AND pr.id_physician=? \
       ORDER BY p.last DESC";
