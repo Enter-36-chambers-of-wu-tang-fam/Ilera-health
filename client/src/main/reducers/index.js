@@ -8,6 +8,7 @@ import messages from './messages-reducer.js';
 import contacts from './contacts-reducer.js';
 import appointments from './appointment-reducer.js';
 import profile from './profile-reducer.js';
+import healthLog from './health-log-reducer';
 
 const rootReducer = combineReducers({
     authentication: authenticate.authenticated,
@@ -17,6 +18,7 @@ const rootReducer = combineReducers({
     messages: messages,
     contacts: contacts,
     profile: profile,
+    healthLogs: healthLogs,
 
 });
 
