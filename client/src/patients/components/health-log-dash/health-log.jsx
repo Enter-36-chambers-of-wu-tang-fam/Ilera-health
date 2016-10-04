@@ -1,4 +1,6 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
+import healthLogs from '../../../main/reducers/health-log-reducer';
 
 export default class HealthLog extends Component {
 
@@ -13,4 +15,11 @@ export default class HealthLog extends Component {
           </div>
       );
     }
+}
+
+const mapStateToProps = (state) => {
+  console.log(state.healthLogsReducer())
+  return {
+    healthLogs: state.healthLogsReducer()
+  }
 }
