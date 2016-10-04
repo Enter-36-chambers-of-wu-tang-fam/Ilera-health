@@ -24,21 +24,21 @@ module.exports = {
     });
   },
 
-  add_healthLog: (req, res) => {
+  postHealthLog: (req, res) => {
     Health_log.add_health_log(req.body, (err,data)=>{
       if(err) console.log(err);
       res.json(data);
     });
   },
 
-  patient_update_healthLog: (req, res) => {
+  put_patient_healthLog: (req, res) => {
     Health_log.patient_update_health_log(req.body, (err,data)=>{
       if(err) console.log(err);
       res.json(data);
     });
   },
 
-  physician_update_healthLog: (req, res) => {
+  put_physician_healthLog: (req, res) => {
     Health_log.physician_update_health_log(req.body, (err,data)=>{
       if(err) console.log(err);
       res.json(data);
