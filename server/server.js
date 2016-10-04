@@ -4,8 +4,39 @@ const app = express();
 const server = require('http').Server(app);
 const session = require('express-session');
 const path = require('path');
-// HERE
 const db = require('./db/dbConnect/connection.js');
+const router = require('./routes/routes.js');
+const io = require('socket.io')(server);
+const socketEvents = require('./sockets/socket-events')(io);
+
+
+
+app.use(express.static(`${__dirname}/../client`));
+app.use(bodyParser.json());
+
+app.use(session({
+  secret: 'Welcome to the 36 chambers',
+  resave: false,
+  saveUninitialized: true,
+  cookie: {}
+}));
+
+router(app);
+
+app.get('*', function (req, res) {
+  res.sendFile(path.join(`${__dirname}/../client/index.html`));
+});
+
+
+server.listen(3636);
+console.log("Server is Doing Big ThIngs You can Now Enter the 36 Chambers of the WU on PORT 3636");
+
+
+
+module.exports = server;
+
+
+// this was just to test that the server worked feel free to delete
 // const Appointment = require('./controller/appointment.js');
 // const HealthLog = require('./controller/health_log.js');
 // const Institution = require('./controller/institution.js');
@@ -20,22 +51,7 @@ const db = require('./db/dbConnect/connection.js');
 // const Relation_PatPhy = require('./controller/relation-patient_physician.js');
 // const Staff = require('./controller/staff.js');
 // sockets
-const router = require('./routes/routes.js');
-const io = require('socket.io')(server);
-const socketEvents = require('./sockets/socket-events')(io);
 
-// this was just to test that the server worked feel free to delete
-
-app.use(express.static(`${__dirname}/../client`));
-app.use(bodyParser.json());
-
-app.use(session({
-  secret: 'Welcome to the 36 chambers',
-  resave: false,
-  saveUninitialized: true,
-  cookie: {}
-}));
-router(app);
 // // Appointment
 // app.get('/api/physician/getappointment', Appointment.getOne_AppointmentByPat_id);
 // app.get('/api/patient/getappointment/:id_physician', Appointment.getAll_appointmentByPhY_id);
@@ -130,14 +146,3 @@ router(app);
 
 
 //catch all
-app.get('*', function (req, res) {
-  res.sendFile(path.join(`${__dirname}/../client/index.html`));
-});
-
-
-server.listen(3636);
-console.log("Server is Doing Big ThIngs You can Now Enter the 36 Chambers of the WU on PORT 3636");
-
-
-
-module.exports = server;
