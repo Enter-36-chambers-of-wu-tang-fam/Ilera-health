@@ -298,8 +298,4 @@ const mapDispatchToProps = (dispatch) => {
   }
 }
 
-<<<<<<< dbc80250cdb466fd2c4c43c183a1186c695b7b8e
 export default connect(mapStateToProps, mapDispatchToProps)(PhysicianCalendar);
-=======
-export default connect(mapStateToProps, mapDispatchToProps)(PhysicianCalendar);
->>>>>>> final updates
