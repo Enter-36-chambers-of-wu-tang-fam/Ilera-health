@@ -105,6 +105,12 @@ const mapStateToProps = (state) => {
   }
 }
 
+const mapDispatchToProps = (dispatch) => {
+  return {
+    isMyPhysician: (pat,phy) => dispatch 
+  }
+}
+
 export default connect(mapStateToProps)(ViewProfile);
 
 
