@@ -134,13 +134,9 @@ class PhysicianCalendar extends Component{
 
   componentWillMount() {
 
-    //Get physician information from local storage to decrypt
+    let id = this.props.params.provider; 
 
-    let id = this.props.params.provider; //Get encoded provider key from url
-    // let code  = CryptoJS.AES.decrypt(id.toString(), 'key'); //need to change key
-    // let physid = code.toString(CryptoJS.enc.Utf8); //Get decoded physician id --> This should most likely be taking place on the backend
-
-    physid = id; /********CHANGE ONCE WE HAVE THE PHYSICIAN VIEWS GOING**********/
+   let physid = 1;
     console.log("I AM CALLED CALLED CALLED");
     this.props.getAppointments(physid);
   }

@@ -1,6 +1,7 @@
 const path = require('path');
 const webpack = require('webpack');
 
+<<<<<<< bc537a1e9d9bd58607b721ae79fb5c36f9b8f234
 <<<<<<< 604926ca56d22fb682160f7e4c0ca25d739a9413
 <<<<<<< 47c680c13e6c6969629f4681de2c64e42f6968c5
 var APP_DIR = path.resolve(`${__dirname}/client/src`);
@@ -10,10 +11,14 @@ var APP_DIR = path.resolve(__dirname,'client/src');
 =======
 var APP_DIR = path.resolve(__dirname,'client/src/');
 >>>>>>> viewAllProfile
+=======
+var APP_DIR = path.resolve(`${__dirname}/client/src`);
+>>>>>>> physician views
 var BUILD_DIR = path.resolve(__dirname, 'client/dist');
 >>>>>>> webpack update
 
 var config = {
+<<<<<<< 1b64729dd5b8cf6732c45d06555a4d28700c0d51
 <<<<<<< a01fa2ea55f37ece752339cd19b44658b53a2e68
 <<<<<<< b937006af912ffcfbdb07a80ec5bcd9845929327
 <<<<<<< 0bfd8677f9e1ddaf66ba5796be25c8fde817ac42
@@ -29,6 +34,9 @@ var config = {
 =======
   entry: `${APP_DIR}/main/index.js`,
 >>>>>>> viewAllProfile
+=======
+  entry: APP_DIR + '/index.js',
+>>>>>>> physician views
   output: {
     path: BUILD_DIR,
     filename: 'bundle.js'

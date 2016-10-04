@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { Field, reduxForm, formValueSelector } from 'redux-form';
 import { Router, Route, Link } from 'react-router'
 import { connect } from 'react-redux';
+import CryptoJS from 'crypto-js';
 import axios from 'axios';
 
 
@@ -46,10 +47,14 @@ class ViewProfile extends Component {
               });
             })
             .catch(err => { console.log("ERROR FETCHING DOCTOR INFO", err) }) 
+
+          if(this.props.relationship){
+
+          }
       
-    } else {
+    }else {
         this.setState({doc: {}});
-    }
+    } 
 
     //PHYSICIAN VIEW OF ALL PATIENTS
 
@@ -57,6 +62,21 @@ class ViewProfile extends Component {
       
 
     }
+  }
+
+  createRelation() {
+    let id = localStorage.getItem('uid');
+    let code  = CryptoJS.AES.decrypt(id.toString(), 'key'); //need to change key
+    let uid = code.toString(CryptoJS.enc.Utf8);
+
+    let relationship = {
+      id_physician: 1,
+      id_patient: uid 
+    };
+    axios.post('/api/relation/create', relationship)
+    .then(response => {
+      console.log("This Worked", response);
+    })
   }  
 
   render() {
@@ -68,6 +88,7 @@ class ViewProfile extends Component {
               <img src={this.state.image} />
               <p className="searchProfileTitle">{this.state.name}, {this.state.title}</p>
               <p className="SearchProfileText">{this.state.bio}</p>
+              <button onClick={this.createRelation.bind(this)}>Add Physician</button>
               <div className="appointment">
               {this.props.children}
               </div>
@@ -79,7 +100,8 @@ class ViewProfile extends Component {
 const mapStateToProps = (state) => {
   return {
     uid: state.authentication.authenticated,
-    userType: state.authentication.userType
+    userType: state.authentication.userType,
+    myPhysician: state.physician.currentPhysician
   }
 }
 
