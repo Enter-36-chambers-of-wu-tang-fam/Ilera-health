@@ -7,5 +7,6 @@ module.exports = app => {
   app.get('/api/relation', Relation_PatPhy.getPatientPhysicianRelation);
   app.get('/api/physician/patients', Relation_PatPhy.getAll_patients_of_Physician);
   app.post('/api/relation/create', Relation_PatPhy.createPatientPhysicianRelation);
-  
-}
+  app.delete('/api/relation/delete', Relation_PatPhy.deletePatientPhysicianRelation);
+
+};
