@@ -10,7 +10,7 @@ import injectTapEventPlugin from 'react-tap-event-plugin';
 injectTapEventPlugin();
 
 // Components
-import App from './app.js';
+import App from './main/app.js';
 
 
 // Router
@@ -28,7 +28,7 @@ import ReduxPromise from 'redux-promise';
 const logger = createLogger();
 
 // Reducers
-import rootReducer from './reducers/index.js';
+import rootReducer from './main/reducers/index.js';
 
 // store
 const store = createStore(
