@@ -54,9 +54,14 @@ module.exports = {
       JOIN physician py ON py.id = pr.id_physician AND pr.id_patient=? \
       ORDER BY py.last DESC";
     db.query(queryString, data, (error, results) => cb(error, results) );
+  },
+
+  delete_PatientPhysicianRelation: (params, cb) => {
+    let data = [params.id_physician, params.id_patient];
+    const queryString = "DELETE FROM patient_physician WHERE \
+      id_physician=? AND id_patient=?";
+    db.query(queryString, data, (error, results) => cb(error, results) );
   }
-
-
 
   // (params, cb) => {
   //   let data = [params.id_physician, params.id_patient];
