@@ -31,6 +31,13 @@ module.exports = {
       if(err) console.log(err);
       res.json(data);
     });
+  },
+
+  test_getAll_physicians_of_patient: (req, res) => {
+    Relation.test_get_all_physicians_of_patient(req.body, (err,data)=>{
+      if(err) console.log(err);
+      res.json(data);
+    });
   }
   // (req, res) => {
   //   Relation.getAll_patient_medication(req.body, (err,data)=>{

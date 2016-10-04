@@ -8,7 +8,7 @@ module.exports = {
     // Get Request → /api/patient_physician/:physicianid  [limit 5] =>  { patient_physician }
     let data = [params.id_patient, params.id_physician];
     const queryString = 'SELECT * FROM patient_physician WHERE id_patient=? \
-    AND id_physician=? LIMIT 50';
+    OR id_physician=?';
     db.query(queryString, data, (error, results) => cb(error, results) );
   },
 
@@ -44,7 +44,19 @@ module.exports = {
       JOIN institution i ON i.id = pi.id_institution \
       ORDER BY py.last DESC";
     db.query(queryString, data, (error, results) => cb(error, results) );
+  },
+
+  test_get_all_physicians_of_patient: (params, cb) => {
+    let data = [params.userid];
+    const queryString = "SELECT pr.id_physician, py.id, py.first, py.last, \
+      py.email, py.phone_number, py.photo_path, py.specialty \
+      FROM patient_physician pr \
+      JOIN physician py ON py.id = pr.id_physician AND pr.id_patient=? \
+      ORDER BY py.last DESC";
+    db.query(queryString, data, (error, results) => cb(error, results) );
   }
+
+
 
   // (params, cb) => {
   //   let data = [params.id_physician, params.id_patient];
