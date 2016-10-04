@@ -22,6 +22,8 @@ import Signup from './auth-shared/components/signup-component.js';
 // ./components/auth/signup-component.js
 import AllUsers from './patients/components/physicians-dash/allUsers.jsx';
 // ./components/shared/allUsers.jsx
+import AllUsersProfile from './patients/components/physicians-dash/allUsersProfile.jsx'
+
 import Profile from './patients/components/profile-dash/patient-profile.jsx';
 // ./components/patient-app/profile/patient-profile.jsx
 import Chat from './patients/containers/messages/chat-container.js';
@@ -74,7 +76,7 @@ export default (
             <Route path="dashboard" component={ PatientDashboard } />
             <Route path="healthlog" component={ HealthLog } />
             <Route path="physicians" component={ AllUsers } />
-              <Route path='physicians/:provider' component={ Profile } >
+              <Route path='physicians/:provider' component={ AllUsersProfile } >
                 <Route path='calendar' component={ PhysicianCalendar } />
               </Route>
             <Route path="messages" component={ Chat } />

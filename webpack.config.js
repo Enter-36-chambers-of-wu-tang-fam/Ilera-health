@@ -10,6 +10,7 @@ var BUILD_DIR = path.resolve(__dirname, 'client/dist');
 >>>>>>> webpack update
 
 var config = {
+<<<<<<< b937006af912ffcfbdb07a80ec5bcd9845929327
 <<<<<<< 0bfd8677f9e1ddaf66ba5796be25c8fde817ac42
   devtool: 'inline-source-map',
 =======
@@ -17,8 +18,9 @@ var config = {
 >>>>>>> webpack update
   entry: `${APP_DIR}/index.js`,
 =======
+=======
+>>>>>>> allUsersProfile
   entry: APP_DIR + '/main/index.js',
->>>>>>> webpack update
   output: {
     path: BUILD_DIR,
     filename: 'bundle.js'
