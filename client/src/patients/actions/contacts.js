@@ -47,9 +47,6 @@ const fetchPhysicianPatientsFailure = (err) => {
 	}
 }
 
-
-
-
 export function fetchMyPatients(userid) {
   console.log("FETCH MY PATIENTS")
   return dispatch => {
