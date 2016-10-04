@@ -4,12 +4,9 @@ const app = express();
 const server = require('http').Server(app);
 const session = require('express-session');
 const path = require('path');
-const db = require('./db/dbConnect/connection.js');
 const router = require('./routes/routes.js');
 const io = require('socket.io')(server);
 const socketEvents = require('./sockets/socket-events')(io);
-
-
 
 app.use(express.static(`${__dirname}/../client`));
 app.use(bodyParser.json());
@@ -27,16 +24,21 @@ app.get('*', function (req, res) {
   res.sendFile(path.join(`${__dirname}/../client/index.html`));
 });
 
-
 server.listen(3636);
 console.log("Server is Doing Big ThIngs You can Now Enter the 36 Chambers of the WU on PORT 3636");
-
-
 
 module.exports = server;
 
 
+
+
+
+
+
+
+// ========+++++++++++========OLD WAY +++++++++++++=============+++++++++==============
 // this was just to test that the server worked feel free to delete
+// const db = require('./db/dbConnect/connection.js');
 // const Appointment = require('./controller/appointment.js');
 // const HealthLog = require('./controller/health_log.js');
 // const Institution = require('./controller/institution.js');
