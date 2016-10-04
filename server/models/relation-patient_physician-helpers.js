@@ -8,7 +8,7 @@ module.exports = {
     // Get Request → /api/patient_physician/:physicianid  [limit 5] =>  { patient_physician }
     let data = [params.id_patient, params.id_physician];
     const queryString = 'SELECT * FROM patient_physician WHERE id_patient=? \
-    OR id_physician=?';
+    AND id_physician=?';
     db.query(queryString, data, (error, results) => cb(error, results) );
   },
 
@@ -58,6 +58,7 @@ module.exports = {
 
   delete_PatientPhysicianRelation: (params, cb) => {
     let data = [params.id_physician, params.id_patient];
+    console.log(data);
     const queryString = "DELETE FROM patient_physician WHERE \
       id_physician=? AND id_patient=?";
     db.query(queryString, data, (error, results) => cb(error, results) );
