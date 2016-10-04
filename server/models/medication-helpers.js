@@ -12,13 +12,20 @@ module.exports = {
       id_medication, id_physician, id_patient) value (?,?,?,?,?)';
     db.query(queryString, data, (error, results) => cb(error, results) );
   },
-
+  
   // added
   getAll_patient_medication: (params, cb)=>{
-    let data = [params.id_patient];
+    let data = [params.userid];
     const queryString = 'SELECT * FROM patient_medication WHERE \
       id_patient=? LIMIT 40';
     db.query(queryString, data, (error, results) => cb(error, results) );
   }
-  
+
+  // (params, cb)=>{
+  //   let data = [params.userid];
+  //   const queryString = 'SELECT * FROM patient_medication WHERE \
+  //     id_patient=? LIMIT 40';
+  //   db.query(queryString, data, (error, results) => cb(error, results) );
+  // }
+
 };
