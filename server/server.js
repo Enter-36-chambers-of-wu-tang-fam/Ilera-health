@@ -5,6 +5,7 @@ const server = require('http').Server(app);
 const session = require('express-session');
 const path = require('path');
 const router = require('./routes/routes.js');
+const Message = require('./controller/messages.js');
 const io = require('socket.io')(server);
 const socketEvents = require('./sockets/socket-events')(io);
 
@@ -19,6 +20,15 @@ app.use(session({
 }));
 
 router(app);
+app.post('/api/messages/newmessage', Message.postMessage);
+
+// app.get('/api/messages/:senderType/:userid/:receiverType/:rid', Message.getAllMessages);
+app.get('/api/messages/:physid/:patid', Message.getAllMessages_phy_from_pat);
+// app.get('/api/messages/patient/:patid/:physid', Message.getAllMessages_pat_from_phy);
+app.get('/api/messages/:senderType/:userid/:receiverType/:rid', Message.getAllMessages);
+app.get('/api/messages/getOne', Message.getOneMessage);
+app.put('/api/messages/edit', Message.editOneMessage);
+app.delete('/api/messages/delete', Message.deleteOneMessage);
 
 app.get('*', function (req, res) {
   res.sendFile(path.join(`${__dirname}/../client/index.html`));

@@ -4,8 +4,8 @@ const Message = require("../models/messages-helpers.js");
 const Promise = require("bluebird");
 
 module.exports = {
-
   
+
   getAllMessages: (req, res) => {
     console.log(req.params);
     Message.get_all_messages(req.params, (err,data)=>{
@@ -13,7 +13,7 @@ module.exports = {
       res.json(data);
     });
   },
-  
+
   getAllMessages_phy_from_pat: (req, res) => {
     Message.get_all_messages_phy_from_pat(req.params, (err,data)=>{
       if(err) console.log(err);
