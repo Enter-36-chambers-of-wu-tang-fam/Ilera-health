@@ -62,6 +62,13 @@ class ViewProfile extends Component {
       
     } else {
         this.setState({doc: {}});
+<<<<<<< ffcd7974ed02640199d0bc264cd783f2603257d8
+=======
+    } 
+      
+    } else {
+        this.setState({doc: {}});
+>>>>>>> viewAllProfile
     }
 
     //PHYSICIAN VIEW OF ALL PATIENTS
