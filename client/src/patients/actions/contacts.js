@@ -35,6 +35,25 @@ export function fetchMyPhysicians(userid) {
       .then(response =>{
         console.log("RESPONSE FETCH PATIENTS", response)
         dispatch(fetchPatientPhysicians(response));	  
+<<<<<<< 1c6901422f62fdd9ded7683404f86f468b8eb065
+=======
+	  })
+      .catch(error => {
+        console.log(error);
+		  dispatch(fetchPatientPhysiciansFailure(error));
+	  });
+  }
+}
+
+
+export function fetchMyPatients(userid) {
+  console.log("FETCH MY PATIENTS")
+  return dispatch => {
+    return axios.get(`/api/physician/${userid}/patients`)
+      .then(response =>{
+        console.log("RESPONSE", response)
+        dispatch(fetchPhysicianPatients(response));	  
+>>>>>>> can create and remove physician relationships
 	  })
       .catch(error => {
 		  dispatch(fetchPatientPhysiciansFailure(error));
@@ -58,8 +77,49 @@ const fetchPhysicianPatientsFailure = (err) => {
 	}
 }
 
+<<<<<<< 1c6901422f62fdd9ded7683404f86f468b8eb065
 export function fetchMyPatients(userid) {
   console.log("FETCH MY PATIENTS")
+=======
+export const makeMyPhysician = (relationship) => {
+  console.log("MAKE MY PHYSICIAN")
+  return dispatch => {
+    dispatch(makeMyPhysicianRequest(relationship));
+    return axios.post(`/api/relation/create`, relationship)
+      .then(response =>{
+        console.log("BEEN MADE MY DOCTOR", response)
+        dispatch(makeMyPhysicianSuccess(response));	  
+	  })
+      .catch(error => dispatch(makeMyPhysicianFailure(error)) )
+  }
+}
+
+//REMOVE RELATIONSHIP (PHYSICIAN AND PATIENT BOTH CAN)
+
+const removeRelationshipRequest = () => {
+	return {
+		type: REMOVE_RELATIONSHIP_REQUEST,
+		relation: false,
+	}
+}
+
+const removeRelationshipSuccess = () => {
+	return {
+		type: REMOVE_RELATIONSHIP_SUCCESS,
+		relation: true,
+	}
+}
+
+const removeRelationshipFailure = () => {
+	return {
+		type: REMOVE_RELATIONSHIP_FAILURE,
+		relation: false,
+	}
+}
+
+export const removeRelationship = (relationship) => {
+  console.log("RELATION", relationship);
+>>>>>>> can create and remove physician relationships
   return dispatch => {
     return axios.get(`/api/physician/${userid}/patients`)
       .then(response =>{

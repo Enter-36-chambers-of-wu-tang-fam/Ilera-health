@@ -48,7 +48,7 @@ import HealthLog from './patients/components/health-log-dash/health-log.jsx';
 // ./components/patient-app/health-log.jsx
 import Medication from './patients/containers/medication/medication-container.js';
 // ./components/patient-app/medication-dash/medication-class.jsx
-import PhysicianCalendar from './patients/components/physicians-dash/physician-profile-calendar.jsx';
+import PhysicianCalendar from './patients/components/physicians-dash/physicianAppointment.jsx';
 // ./components/patient-app/physician-profile-calendar.jsx
 import PatientAppFormContainer from './patients/components/onboarding/patient-signup-forms.jsx';
 // ./components/patient-app/patient-signup-forms.jsx

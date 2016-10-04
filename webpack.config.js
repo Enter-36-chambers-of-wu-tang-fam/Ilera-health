@@ -2,7 +2,7 @@ const path = require('path');
 const webpack = require('webpack');
 
 var APP_DIR = path.resolve(`${__dirname}/client/src`);
-var BUILD_DIR = path.resolve(`${__dirname}client/dist`);
+var BUILD_DIR = path.resolve(`${__dirname}/client/dist`);
 
 var config = {
 <<<<<<< 324e89bc40dfbcb2f4c08f1f20ea30c2106dad76

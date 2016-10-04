@@ -9,6 +9,7 @@ import { fetchMyPhysicians, makeMyPhysician, removeRelationship } from '../../ac
 import CryptoJS from 'crypto-js';
 import axios from 'axios';
 
+<<<<<<< 1c6901422f62fdd9ded7683404f86f468b8eb065
 
 <<<<<<< dbc80250cdb466fd2c4c43c183a1186c695b7b8e
 class ViewProfile extends Component {
@@ -21,6 +22,8 @@ let code  = CryptoJS.AES.decrypt(id.toString(), 'key'); //need to change key
 let uid = code.toString(CryptoJS.enc.Utf8);
 
 
+=======
+>>>>>>> can create and remove physician relationships
 class ViewProfile extends Component {
   constructor(props){
     super(props);
@@ -43,6 +46,7 @@ class ViewProfile extends Component {
   }
 
   componentWillMount() {
+<<<<<<< 1c6901422f62fdd9ded7683404f86f468b8eb065
 <<<<<<< dbc80250cdb466fd2c4c43c183a1186c695b7b8e
 =======
     this.props.getMyPhysicians(uid);
@@ -50,6 +54,15 @@ class ViewProfile extends Component {
       allDocs: this.props.myPhysicians
     });
 >>>>>>> final updates
+=======
+    
+    let id = localStorage.getItem('uid');
+    let code  = CryptoJS.AES.decrypt(id.toString(), 'key'); //need to change key
+    let uid = code.toString(CryptoJS.enc.Utf8);
+
+    this.props.getMyPhysicians('uid');
+
+>>>>>>> can create and remove physician relationships
     let that = this;
     if(this.props.userType === 'patient'){
           let query = `https://api.betterdoctor.com/2016-03-01/doctors/${this.props.params.provider}?user_key=bdd1495417e49ba2f1aa40461ce8f17d`;
@@ -89,6 +102,7 @@ class ViewProfile extends Component {
   }
 
   createRelation() {
+<<<<<<< 1c6901422f62fdd9ded7683404f86f468b8eb065
 <<<<<<< dbc80250cdb466fd2c4c43c183a1186c695b7b8e
     let id = localStorage.getItem('uid');
     let code  = CryptoJS.AES.decrypt(id.toString(), 'key'); //need to change key
@@ -96,6 +110,11 @@ class ViewProfile extends Component {
 
 =======
 >>>>>>> final updates
+=======
+    let id = localStorage.getItem('uid');
+    let code  = CryptoJS.AES.decrypt(id.toString(), 'key'); //need to change key
+    let uid = code.toString(CryptoJS.enc.Utf8);
+>>>>>>> can create and remove physician relationships
     let relationship = {
       id_physician: 1,
       id_patient: uid 
@@ -113,12 +132,16 @@ class ViewProfile extends Component {
   }  
 
   removeRelation() {
+    let id = localStorage.getItem('uid');
+    let code  = CryptoJS.AES.decrypt(id.toString(), 'key'); //need to change key
+    let uid = code.toString(CryptoJS.enc.Utf8);
+
     let relationship = {
       id_physician: 1,
       id_patient: uid 
     };
     this.props.removePhysician(relationship);
-    this.props.getMyPhysicians(uid);
+    //this.props.getMyPhysicians(uid);
   } 
 
 >>>>>>> final updates
@@ -131,12 +154,17 @@ class ViewProfile extends Component {
               <img src={this.state.image} />
               <p className="searchProfileTitle">{this.state.name}, {this.state.title}</p>
               <p className="SearchProfileText">{this.state.bio}</p>
+<<<<<<< 1c6901422f62fdd9ded7683404f86f468b8eb065
 <<<<<<< dbc80250cdb466fd2c4c43c183a1186c695b7b8e
               <button onClick={this.createRelation.bind(this)}>Add Physician</button>
 =======
               <button onClick={this.manageRelation.bind(this)}>Add Physician</button>
               <button onClick={this.manageRelation.bind(this)}>Add Physician</button>
 >>>>>>> final updates
+=======
+              <button onClick={this.createRelation.bind(this)}>Add Physician</button>
+              <button onClick={this.removeRelation.bind(this)}>Remove Physician</button>
+>>>>>>> can create and remove physician relationships
               <div className="appointment">
               {this.props.children}
               </div>
@@ -149,11 +177,15 @@ const mapStateToProps = (state) => {
   return {
     uid: state.authentication.authenticated,
     userType: state.authentication.userType,
+<<<<<<< 1c6901422f62fdd9ded7683404f86f468b8eb065
 <<<<<<< dbc80250cdb466fd2c4c43c183a1186c695b7b8e
     myPhysician: state.physician.currentPhysician
 =======
     myPhysicians: state.contacts
 >>>>>>> final updates
+=======
+    getMyPhysicians: state.contacts
+>>>>>>> can create and remove physician relationships
   }
 }
 
@@ -169,7 +201,7 @@ const mapDispatchToProps = (dispatch) => {
   }
 }
 
-export default connect(mapStateToProps)(ViewProfile);
+export default connect(mapStateToProps, mapDispatchToProps)(ViewProfile);
 
 
 
