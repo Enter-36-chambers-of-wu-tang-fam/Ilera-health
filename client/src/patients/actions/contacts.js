@@ -1,7 +1,4 @@
 import axios from 'axios';
-<<<<<<< dbc80250cdb466fd2c4c43c183a1186c695b7b8e
-import * as types from './action-constants';
-=======
 import {
   PATIENT_FETCH_PHYSICIANS, PATIENT_FETCH_PHYSICIANS_FAILURE,
   PHYSICIAN_FETCH_PATIENTS, PHYSICIAN_FETCH_PATIENTS_FAILURE,
@@ -10,11 +7,10 @@ import {
 } from './action-constants';
 
 //FETCH FUNCTIONS FOR PATIENT AND PHYSICIANS
->>>>>>> final updates
 
 const fetchPatientPhysicians = (physicians) => {
 	return {
-		type: types.PATIENT_FETCH_PHYSICIANS,
+		type: PATIENT_FETCH_PHYSICIANS,
 		loaded: true,
 		payload: physicians
 	}
@@ -22,7 +18,23 @@ const fetchPatientPhysicians = (physicians) => {
 
 const fetchPatientPhysiciansFailure = (err) => {
 	return {
-		type: types.PATIENT_FETCH_PHYSICIANS_FAILURE,
+		type: PATIENT_FETCH_PHYSICIANS_FAILURE,
+		loaded: false,
+		payload: err
+	}
+}
+
+const fetchPhysicianPatients = (patients) => {
+	return {
+		type: PHYSICIAN_FETCH_PATIENTS,
+		loaded: true,
+		payload: patients
+	}
+}
+
+const fetchPhysicianPatientsFailure = (err) => {
+	return {
+		type: PHYSICIAN_FETCH_PATIENTS_FAILURE,
 		loaded: false,
 		payload: err
 	}
@@ -35,8 +47,6 @@ export function fetchMyPhysicians(userid) {
       .then(response =>{
         console.log("RESPONSE FETCH PATIENTS", response)
         dispatch(fetchPatientPhysicians(response));	  
-<<<<<<< 1c6901422f62fdd9ded7683404f86f468b8eb065
-=======
 	  })
       .catch(error => {
         console.log(error);
@@ -53,34 +63,40 @@ export function fetchMyPatients(userid) {
       .then(response =>{
         console.log("RESPONSE", response)
         dispatch(fetchPhysicianPatients(response));	  
->>>>>>> can create and remove physician relationships
 	  })
       .catch(error => {
-		  dispatch(fetchPatientPhysiciansFailure(error));
+		  dispatch(fetchPhysicianPatientsFailure(error));
 	  });
   }
 }
 
-const fetchPhysicianPatients = (patients) => {
+//CREATE RELATIONSHIP FOR PATIENT (MAKE RELATION WITH PHYSICIAN)
+
+
+const makeMyPhysicianRequest = (relationship) => {
 	return {
-		type: types.PHYSICIAN_FETCH_PATIENTS,
-		loaded: true,
-		payload: patients
+		type: MAKE_MY_PHYSICIAN_REQUEST,
+		relation: false,
+		payload: relationship
 	}
 }
 
-const fetchPhysicianPatientsFailure = (err) => {
+const makeMyPhysicianSuccess = (response) => {
 	return {
-		type: types.PHYSICIAN_FETCH_PATIENTS_FAILURE,
+		type: MAKE_MY_PHYSICIAN_SUCCESS,
+		relation: true,
+		payload: response
+	}
+}
+
+const makeMyPhysicianFailure = (err) => {
+	return {
+		type: MAKE_MY_PHYSICIAN_FAILURE,
 		loaded: false,
 		payload: err
 	}
 }
 
-<<<<<<< 1c6901422f62fdd9ded7683404f86f468b8eb065
-export function fetchMyPatients(userid) {
-  console.log("FETCH MY PATIENTS")
-=======
 export const makeMyPhysician = (relationship) => {
   console.log("MAKE MY PHYSICIAN")
   return dispatch => {
@@ -119,16 +135,14 @@ const removeRelationshipFailure = () => {
 
 export const removeRelationship = (relationship) => {
   console.log("RELATION", relationship);
->>>>>>> can create and remove physician relationships
   return dispatch => {
-    return axios.get(`/api/physician/${userid}/patients`)
+    dispatch(removeRelationshipRequest());
+    return axios.post(`/api/relation/delete`, relationship)
       .then(response =>{
-        console.log("RESPONSE", response)
-        dispatch(fetchPhysicianPatients(response));	  
+        console.log("NO MORE RELATIONSHIP", response)
+        dispatch(removeRelationshipSuccess());	  
 	  })
-      .catch(error => {
-		  dispatch(fetchPhysicianPatientsFailure(error));
-	  });
+      .catch(error => dispatch(removeRelationshipFailure(error)) )
   }
 }
 
