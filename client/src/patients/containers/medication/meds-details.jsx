@@ -12,7 +12,7 @@ class MedicationDetail extends Component {
   render(){
     return (
       <div>
-          { this.props.chosenMed ? this.props.chosenMed.drug_name : "YOLO!"}
+          { this.props.chosenMed ? this.props.chosenMed.dosage : "YOLO!"}
       </div>
     );
   }
