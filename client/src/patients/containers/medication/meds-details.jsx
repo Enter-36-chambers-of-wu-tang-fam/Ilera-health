@@ -28,6 +28,37 @@ class MedicationDetail extends Component {
             "We Cannot provide you with any information at this time" }
         </li>
 
+        <li>
+          { this.props.chosenMed ?
+            this.props.chosenMed.first :
+            "We Cannot provide you with any information at this time" }
+        </li>
+        <li>
+          { this.props.chosenMed ?
+            this.props.chosenMed.last :
+            "We Cannot provide you with any information at this time" }
+        </li>
+        <li>
+          { this.props.chosenMed ?
+            this.props.chosenMed.specialty :
+            "We Cannot provide you with any information at this time" }
+        </li>
+
+        <li>
+          { this.props.chosenMed ?
+            this.props.chosenMed.phone_number :
+            "We Cannot provide you with any information at this time" }
+        </li>
+        <li>
+          { this.props.chosenMed ?
+            this.props.chosenMed.email :
+            "We Cannot provide you with any information at this time" }
+        </li>
+        <li>
+          { this.props.chosenMed ?
+            this.props.chosenMed.photo_path :
+            "We Cannot provide you with any information at this time" }
+        </li>
       </ul>
     );
   }

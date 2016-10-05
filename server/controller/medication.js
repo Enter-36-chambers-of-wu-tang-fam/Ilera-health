@@ -1,6 +1,8 @@
 'use strict'
 
 const Medication = require('../models/medication-helpers.js');
+const Physician = require("../models/physician-helpers.js");
+// this file is a duplicate
 
 module.exports = {
 
