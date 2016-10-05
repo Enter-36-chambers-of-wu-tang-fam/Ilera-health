@@ -8,6 +8,7 @@ const router = require('./routes/routes.js');
 const Message = require('./controller/messages.js');
 const io = require('socket.io')(server);
 const socketEvents = require('./sockets/socket-events')(io);
+const getAll = require('./controller/allPatient.js');
 
 app.use(express.static(`${__dirname}/../client`));
 app.use(bodyParser.json());
@@ -29,6 +30,36 @@ app.get('/api/messages/:senderType/:userid/:receiverType/:rid', Message.getAllMe
 app.get('/api/messages/getOne', Message.getOneMessage);
 app.put('/api/messages/edit', Message.editOneMessage);
 app.delete('/api/messages/delete', Message.deleteOneMessage);
+
+//Record for the photo upload
+app.post('/upload/medRecord', (req,res) =>{
+console.log(req.body);
+  res.status(200).send();
+})
+
+
+app.get('/api/allPatient/:userid', getAll.get_patient);
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 app.get('*', function (req, res) {
   res.sendFile(path.join(`${__dirname}/../client/index.html`));

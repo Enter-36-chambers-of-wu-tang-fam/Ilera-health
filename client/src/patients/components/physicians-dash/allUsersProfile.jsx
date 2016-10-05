@@ -60,9 +60,9 @@ class ViewProfile extends Component {
 
           }
       
-    }else {
+    } else {
         this.setState({doc: {}});
-    } 
+    }
 
     //PHYSICIAN VIEW OF ALL PATIENTS
 
