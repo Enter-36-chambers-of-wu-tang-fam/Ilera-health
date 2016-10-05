@@ -1,6 +1,6 @@
 import React, { Component, PropTypes } from 'react';
 import { connect } from 'react-redux';
-import Medication from './medication-class.jsx';
+import Medication from '../../components/medication-dash/meds-page/medication-class.jsx';
 
 
 class MedicationDetail extends Component {

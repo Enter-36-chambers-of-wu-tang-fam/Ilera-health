@@ -1,8 +1,8 @@
 import React, { Component, PropTypes } from 'react';
 import MedsContainer from '../../../containers/medication/medication-container.js';
 import axios from 'axios';
-import MedicationList from './meds-list.jsx';
-import MedicationDetail from './meds-details.jsx';
+import MedicationList from '../../../containers/medication/meds-list.jsx';
+import MedicationDetail from '../../../containers/medication/meds-details.jsx';
 
 export default class Medication extends Component {
   constructor(props){

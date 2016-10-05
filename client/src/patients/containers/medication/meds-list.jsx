@@ -1,7 +1,7 @@
 import React, { Component, PropTypes } from 'react';
 import { connect } from 'react-redux';
-import { medChosen } from '../../../actions/medication.js';
-import Medication from './medication-class.jsx';
+import { medChosen } from '../../actions/medication.js';
+import Medication from '../../components/medication-dash/meds-page/medication-class.jsx';
 import MedicationDetail from './meds-details.jsx';
 
 class MedicationList extends Component{
@@ -28,7 +28,7 @@ class MedicationList extends Component{
             </li>
           )
         })}
-        
+
       </ul>
     );
   }
