@@ -11,9 +11,24 @@ class MedicationDetail extends Component {
 
   render(){
     return (
-      <div>
-          { this.props.chosenMed ? this.props.chosenMed.dosage : "YOLO!"}
-      </div>
+      <ul>
+        <li>
+          { this.props.chosenMed ?
+            this.props.chosenMed.start_date :
+            "We Cannot provide you with any information at this time" }
+        </li>
+        <li>
+          { this.props.chosenMed ?
+            this.props.chosenMed.end_date :
+            "We Cannot provide you with any information at this time" }
+        </li>
+        <li>
+          { this.props.chosenMed ?
+            this.props.chosenMed.dosage :
+            "We Cannot provide you with any information at this time" }
+        </li>
+
+      </ul>
     );
   }
 }
