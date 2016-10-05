@@ -59,10 +59,10 @@ module.exports = {
   },
 
   delete_PatientPhysicianRelation: (params, cb) => {
-    let data = [params.id_physician, params.id_patient];
+    let data = [params.betterDocId, params.id_patient];
     console.log(data);
     const queryString = "DELETE FROM patient_physician WHERE \
-      id_physician=? AND id_patient=?";
+      betterDoctorUID=? AND id_patient=?";
     db.query(queryString, data, (error, results) => cb(error, results) );
   }
 
