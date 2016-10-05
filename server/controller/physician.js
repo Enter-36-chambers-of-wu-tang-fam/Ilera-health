@@ -104,10 +104,17 @@ module.exports = {
   },
 
   addBetterDoc: (req,res) => {
-    Physician.addBetterDocId(req.body, (err,data) =>{
-      if(err) console.log(err);
-      res.json(data);
-    });
+    Physician.checkBetterDoc(req.body, (err,exists) => {
+      if(exists.length === 0){
+        Physician.addBetterDocId(req.body, (error,data) =>{
+          if(err) console.log(error);
+          res.json(data.insertId);
+        });
+      }else{
+        res.json(exists);
+      }
+    })
+    
   }
   // (req, res) => {
   //   Physician.funcHere(req.body, (err,data)=>{

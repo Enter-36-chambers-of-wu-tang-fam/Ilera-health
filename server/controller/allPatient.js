@@ -1,8 +1,5 @@
 'use strict'
-<<<<<<< 9f5fdeb7e266567c5f66038137540bc52aa9d037
-=======
 
->>>>>>> initial betterDoc changes
 const Patient = require("../models/patient-helpers.js");
 const Appointment = require("../models/appointment-helpers.js");
 const Healthlog = require("../models/health_log-helpers.js");

@@ -32,7 +32,7 @@ class ViewProfile extends Component {
     let code  = CryptoJS.AES.decrypt(id.toString(), 'key'); //need to change key
     let uid = code.toString(CryptoJS.enc.Utf8);
 
-    this.props.getMyPhysicians('uid');
+    this.props.getMyPhysicians(uid);
 
     let that = this;
     if(this.props.userType === 'patient'){
@@ -60,18 +60,8 @@ class ViewProfile extends Component {
 
           }
       
-<<<<<<< 96a9bd0a0c15deb7a0c560c933451d90fce5ce0f
     } else {
         this.setState({doc: {}});
-<<<<<<< ffcd7974ed02640199d0bc264cd783f2603257d8
-=======
-    } 
-      
-=======
->>>>>>> merge fixes
-    } else {
-        this.setState({doc: {}});
->>>>>>> viewAllProfile
     }
 
     //PHYSICIAN VIEW OF ALL PATIENTS
@@ -86,11 +76,11 @@ class ViewProfile extends Component {
     let id = localStorage.getItem('uid');
     let code  = CryptoJS.AES.decrypt(id.toString(), 'key'); //need to change key
     let uid = code.toString(CryptoJS.enc.Utf8);
-    let relationship = {
-      id_physician: 1,
+    let createRelationship = {
+      betterDocId: this.props.params.provider,
       id_patient: uid 
     };
-    this.props.addPhysician(relationship);
+    this.props.addPhysician(createRelationship);
     this.props.getMyPhysicians(uid);
   }  
 
@@ -99,11 +89,12 @@ class ViewProfile extends Component {
     let code  = CryptoJS.AES.decrypt(id.toString(), 'key'); //need to change key
     let uid = code.toString(CryptoJS.enc.Utf8);
 
-    let relationship = {
-      id_physician: 1,
+    let deleteRelationship = {
+      betterDocId: this.props.params.provider,
+      id_physician: null, //need to fill this out later
       id_patient: uid 
     };
-    this.props.removePhysician(relationship);
+    this.props.removePhysician(deleteRelationship);
     //this.props.getMyPhysicians(uid);
   } 
 
@@ -137,8 +128,8 @@ const mapStateToProps = (state) => {
 const mapDispatchToProps = (dispatch) => {
   return {
     getMyPhysicians: (patient) => dispatch(fetchMyPhysicians(patient)),
-    addPhysician: (relationship) => dispatch(makeMyPhysician(relationship)),
-    removePhysician: (relationship) => dispatch(removeRelationship(relationship))
+    addPhysician: (makeRelationship) => dispatch(makeMyPhysician(makeRelationship)),
+    removePhysician: (endRelationship) => dispatch(removeRelationship(endRelationship))
   }
 }
 

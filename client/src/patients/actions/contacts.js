@@ -70,6 +70,9 @@ export function fetchMyPatients(userid) {
   }
 }
 
+
+
+
 //CREATE RELATIONSHIP FOR PATIENT (MAKE RELATION WITH PHYSICIAN)
 
 
@@ -98,15 +101,22 @@ const makeMyPhysicianFailure = (err) => {
 }
 
 export const makeMyPhysician = (relationship) => {
-  console.log("MAKE MY PHYSICIAN")
+  console.log("MAKE MY PHYSICIAN");
   return dispatch => {
     dispatch(makeMyPhysicianRequest(relationship));
-    return axios.post(`/api/relation/create`, relationship)
-      .then(response =>{
-        console.log("BEEN MADE MY DOCTOR", response)
-        dispatch(makeMyPhysicianSuccess(response));	  
-	  })
-      .catch(error => dispatch(makeMyPhysicianFailure(error)) )
+      return axios.post('/api/physician/addbetterDoc', { betterDocId: relationship.betterDocId})
+        .then(docId => {
+          relationship.id_physician = docId.data;
+          axios.post(`/api/relation/create`, relationship)
+            .then(response =>{
+              console.log("BEEN MADE MY DOCTOR", response)
+              dispatch(makeMyPhysicianSuccess(response));	  
+            })
+          })
+          .catch(error => {
+          console.log("SHOULDN'T BE SURPRISED THIS DIDN'T WORK", error);
+            dispatch(makeMyPhysicianFailure(error))
+          })
   }
 }
 

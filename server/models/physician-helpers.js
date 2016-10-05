@@ -52,8 +52,19 @@ module.exports = {
     let data = [params.specialty];
     const queryString = 'SELECT * FROM physician WHERE specialty=? LIMIT 20'
     db.query(queryString, data, (error, results) => cb(error, results) );
-  }
+  },
 
+  checkBetterDoc: (params, cb) => {
+    let data = [params.betterDocId];
+    const queryString = "SELECT * FROM physician WHERE betterDoctorUID=?";
+    db.query(queryString, data, (error, results) => cb(error, results) );
+  },
+
+  addBetterDocId: (params, cb) =>  {
+    let data = [params.betterDocId];
+    const queryString = "INSERT INTO physician (betterDoctorUID) VALUE (?)";
+    db.query(queryString, data, (error, results) => cb(error, results) );
+  }
 
 
   // (params, cb) => {
