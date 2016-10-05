@@ -101,8 +101,14 @@ module.exports = {
     sess = undefined;
     req.session.destroy();
     res.status(200).send("Logout complete");
-  }
+  },
 
+  addBetterDoc: (req,res) => {
+    Physician.addBetterDocId(req.body, (err,data) =>{
+      if(err) console.log(err);
+      res.json(data);
+    });
+  }
   // (req, res) => {
   //   Physician.funcHere(req.body, (err,data)=>{
   //     if(err) console.log(err);
