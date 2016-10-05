@@ -31,7 +31,10 @@ class MedsContainer extends Component {
 
 
   componentWillReceiveProps(nextProps){
-    this.setState({meds:nextProps.meds})
+    this.setState({
+      meds:nextProps.meds,
+      chosenMed:nextProps.chosenMed
+  })
   }
 
   render(){
@@ -39,10 +42,9 @@ class MedsContainer extends Component {
     return (
       <div>
         <Medication
-
+        chosenMed={this.state.chosenMed}
         meds={this.state.meds}
         />
-        Anything
       </div>
 
     );
@@ -52,6 +54,5 @@ class MedsContainer extends Component {
 // getAllPatientMedication
 export default connect(state => ({
   meds: state.meds.medication,
-  chosenMed: state.chosenMed,
-  infoChosenMed: state.infoChosenMed
+  chosenMed: state.meds.chosenMed
 }))(MedsContainer)
