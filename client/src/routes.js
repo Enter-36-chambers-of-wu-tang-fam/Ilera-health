@@ -53,6 +53,7 @@ import PhysicianCalendar from './patients/components/physicians-dash/physicianAp
 import PatientAppFormContainer from './patients/components/onboarding/patient-signup-forms.jsx';
 // ./components/patient-app/patient-signup-forms.jsx
 // ./components/patient-app/all-physicians.jsx
+import MedicalHistory from './patients/components/medical-history-dash/medical-history-dashboard.jsx';
 
 export default (
     <Router path='/' component= { App } >
@@ -81,7 +82,8 @@ export default (
               </Route>
             <Route path="messages" component={ Chat } />
             <Route path="profile" component={ Profile } />
-            <Route path="medications" component ={ Medication } />
+            <Route path="medications" component={ Medication } />
+            <Route path="medicalhistory" component={ MedicalHistory } />
         </Route>
     </Router>
 );
