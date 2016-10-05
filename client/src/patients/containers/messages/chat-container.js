@@ -12,53 +12,57 @@ import io from 'socket.io-client';
 window.socket = io.connect();
 
 class ChatContainer extends Component {
-    static contextTypes = {
-        router: React.PropTypes.object
-    }
+	static contextTypes = {
+		router: React.PropTypes.object
+	}
 
-    constructor(props){
-        super(props);
-        let id = localStorage.getItem('uid');
-        let code  = CryptoJS.AES.decrypt(id.toString(), 'key'); //need to change key
-        const uid = code.toString(CryptoJS.enc.Utf8);
-        this.state = {
-            uid: uid,
-            messages: [],
-            chosen: false,
-            chosenid: ''
-        }
-    }
-    componentWillMount() {
-        const { dispatch, user, userType } = this.props;
-        if(userType === 'patient'){
-            dispatch(contacts.fetchMyPhysicians(this.state.uid));
-        }else{
-            dispatch(contacts.fetchMyPatients(this.state.uid))
-        }
-    }
+	constructor(props){
+		super(props);
+		let id = localStorage.getItem('uid');
+		let code  = CryptoJS.AES.decrypt(id.toString(), 'key'); //need to change key
+		const uid = code.toString(CryptoJS.enc.Utf8);
+		this.state = {
+			uid: uid,
+			messages: [],
+			chosen: false,
+			chosenid: ''
+		}
+	}
+	componentWillMount() {
+		const { dispatch, userType } = this.props;
+		if(userType === 'patient'){
+			dispatch(contacts.fetchMyPhysicians(this.state.uid));
+		}else{
+			dispatch(contacts.fetchMyPatients(this.state.uid))
+		}
+	}
 
-    userSelected (userid, chosenid, receiverType, senderType){
-        const { dispatch } = this.props;
-        dispatch(actions.fetchMessages(this.state.uid, senderType, chosenid, receiverType));
-        this.setState({ chosen: true, chosenid: chosenid, senderType: senderType, receiverType: receiverType });
-    }
+	userSelected (userid, chosenid, receiverType, senderType, contact){
+		const { dispatch } = this.props;
+		dispatch(actions.fetchMessages(this.state.uid, senderType, chosenid, receiverType));
+		this.setState({ chosen: true, chosenid: chosenid, senderType: senderType, receiverType: receiverType, chosenContact: contact});
+	}
 
-    render() {
-      return (
-          <div className="chat">
-            <MessageContacts {...this.props} userSelected={this.userSelected.bind(this)} contacts={this.props.contacts.data || []} user={this.state.uid} />
-            <Messages {...this.props} 
-                chosen={this.state.chosen} 
-                chosenid={this.state.chosenid} 
-                messages={this.props.messages || []} 
-                user={this.state.uid} 
-                senderType={this.state.senderType}
-                receiverType={this.state.receiverType}
-                socket={ window.socket } />
-          </div>
+	render() {
+		return (
+			<div className="chat">
+				<MessageContacts {...this.props} 
+					userSelected={this.userSelected.bind(this)} 
+					contacts={this.props.contacts.data || []} 
+					user={this.state.uid} />
+				<Messages {...this.props} 
+					chosen={this.state.chosen} 
+					chosenid={this.state.chosenid} 
+					messages={this.props.messages || []} 
+					user={this.state.uid} 
+					contact={ this.state.chosenContact }
+					senderType={this.state.senderType}
+					receiverType={this.state.receiverType}
+					socket={ window.socket } />
+			</div>
 
-      );
-    }
+		);
+	}
 };
 
 export default connect(state => ({

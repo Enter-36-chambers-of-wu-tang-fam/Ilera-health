@@ -421,9 +421,16 @@ class BackgroundInfoFormInitialized extends Component {
 	}
 };
 
-export default BackgroundInfoFormInitialized = reduxForm({
-	form: 'BackgroundInfoFormInitialized',
+BackgroundInfoFormInitialized = reduxForm({
+  form: 'BackgroundInfoFormInitialized',
   destroyOnUnmount: false,
-	// initialValues: data,
-	validate
+  validate
 })(BackgroundInfoFormInitialized);
+
+BackgroundInfoFormInitialized = connect(
+  state => ({
+    initialValues: state.userBasic
+  })
+)(BackgroundInfoFormInitialized)
+
+export default BackgroundInfoFormInitialized;

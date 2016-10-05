@@ -87,12 +87,14 @@ h4{
 header{
     height: 50px;
     background-color: #fcfcfc;
-    border-bottom:thin solid #CCC;
     box-shadow: 0px 0px 2px 2px #ddd;
+    position: fixed;
+    left: 0;
+    right: 0;
 }
 header > h1{
     float:left;
-    padding-left:1.618em;
+    padding-left:2.618em;
     padding-top:.6em;
 }
 
@@ -122,7 +124,7 @@ input[type='radio']{
 .dashboardRows{
     min-height: 10px;
 }
-.dashboardRows:after, .reminders:after, .profileDash:after, .chat:after, .messageContacts > ul:after, .contactItem:after, header:after, header ul:after, main > section > ul:after{
+.dashboardRows:after, .reminders:after, .profileDash:after, .chat:after, .messageContacts > ul:after, .contactItem:after, header:after, header ul:after, main > section > ul:after, .welcomeHeader:after, section:after{
     clear: both;
     content: '';
     display: block;
@@ -167,7 +169,7 @@ input[type='radio']{
 }
 
 main{
-    padding-bottom: 70px;
+    padding: 50px 0;
 }
 
 /* DASHBOARD */
@@ -325,44 +327,107 @@ main{
 }
 
 /* WELCOME */
-main > section{
+main > .wrapper > section{
     min-height: 350px;
     padding: 30px 0;
 }
 
-main > .welcomeHeader {
-  background-image:  linear-gradient(to top left, rgba(0, 0, 0, .8), rgba(255, 255, 255, 0)), url(./background_images/female_stretching.jpg);
+main > section:nth-of-type(odd){
+    background-color: #203248;
+}
+
+.wrapper{
+    width: 90%;
+    margin: 0 auto;
+}
+
+.welcomeHeader{
+    box-shadow: 0px 0px 6px 2px #eee;
+}
+
+.welcomeHeader > div{
+    float: left;
+    width: 50%;
+    min-height: 550px;
+}
+
+.welcomeHeader > div:nth-of-type(2){
+    color: #333;
+    padding-right: 3%;
+    background-color: white;
+}
+
+.welcomeHeader > div:first-of-type {
+  background-image:  url('./background_images/mockup.png');
+  background-position: center 160px;
+  background-repeat: no-repeat;
+  background-size: 90%;
+  background-color: #203248;
+  
+}
+
+.introPhotos {
+  background-image:  url('./background_images/patients.jpeg');
+  background-position: center;
+  background-repeat: no-repeat;
   background-size: cover;
-  background-attachment: fixed;
-  max-height:1000px;
-  height:100%;
+  height: 250px;
+}
+
+.introProviders {
+  background-image:  url('./background_images/providers.jpg');
+  background-position: center -190px;
+}
+
+.introPhotos h2 {
+    text-transform: uppercase;
+    text-align: center;
+    font-size: 42px;
+    font-family: 'Lato', sans-serif;
+    font-weight: 700;
+    background: rgba(255,255,255,0.8);
+    padding: 10px 0;
+    margin: 0;
 }
 
 .welcomeHeader > img {
   width:20%
 }
 
+.splitLogo{
+    font-size: 8vw;
+    margin: 25px 0;
+    font-weight: 300;
+}
+
+.welcomeMy{
+    color: white;
+    text-align: right;
+    padding-right: 10px;
+}
+
+.welcomeIlera{
+    color: #203248;
+    text-align: left;
+    padding-left: 10px;
+}
+
 main .welcomeMessage {
-  position:relative;
-  margin: 15% 0% 15% 55%;
+  margin: 5% 0% 5% 5%;
   font-weight:300;
-  color:#fff;
-  text-align: right !important;
-  height:15em;
 }
 
 main .welcomeMessage > h1{
-  font-size: 3.64em;
+  font-size: 3.2vw;
   text-align:left;
   margin-bottom:.5em;
+  font-weight: 500;
 }
 main .welcomeMessage li{
   font-size: 1.21em;
   margin:.75em 0em;
-  font-weight: 100;
   list-style-type:circle;
   margin-left:2em;
-  text-align:justify;
 }
 
 main .welcomeMessage > button {
@@ -371,18 +436,15 @@ main .welcomeMessage > button {
   margin-top:1em !important;
 }
 
-main > section:nth-of-type(even){
-    background-color: #203248;
-    color: white;
-}
 
-main > section li{
-    /*float: left;
+
+main > section:not(.welcomeHeader) li{
+    float: left;
     width: 26%;
     border-top: 1px solid #ccc;
     border-bottom: 1px solid #ccc;
     margin: 15px 3%;
-    padding: 30px 0;*/
+    padding: 30px 0;
 }
 
 main > section .material-icons{

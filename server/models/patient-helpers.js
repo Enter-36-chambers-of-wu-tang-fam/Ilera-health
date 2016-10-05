@@ -27,6 +27,7 @@ module.exports = {
 
   initform_patient: (params, cb) => {
     // Post Request to: api/user/initform  =>   { Patient Table}
+    console.log("GAAAAHHH", params)
     let data = [ params.first, params.last, params.middle, params.maiden, params.date_of_birth, params.birth_city,
       params.birth_country, params.marital_status, params.primary_language, params.secondary_language, params.gender, params.weight, params.height, params.blood_type, params.conditions, params.procedures, params.medications, params.allergies];
     const queryString ='UPDATE patient SET first=?, last=?, middle=?, maiden=?, date_of_birth=?, birth_city=?, \
