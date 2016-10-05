@@ -61,6 +61,11 @@ app.get('/api/allPatient/:userid', getAll.get_patient);
 
 
 
+app.post('/upload/medRecord', (req,res) =>{
+console.log(req.body);
+  res.status(200).send();
+})
+
 app.get('*', function (req, res) {
   res.sendFile(path.join(`${__dirname}/../client/index.html`));
 });

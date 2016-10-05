@@ -1,4 +1,5 @@
 'use strict'
+
 const Patient = require("../models/patient-helpers.js");
 const Appointment = require("../models/appointment-helpers.js");
 const Healthlog = require("../models/health_log-helpers.js");

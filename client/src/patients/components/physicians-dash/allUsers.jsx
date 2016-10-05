@@ -55,7 +55,7 @@ class AllUsers extends Component {
         navigator.geolocation.getCurrentPosition(function(position){
           let lat = position.coords.latitude;
           let lon = position.coords.longitude;
-          let query = `https://api.betterdoctor.com/2016-03-01/doctors?location=${lat}%2C${lon}%2C100&user_location=${lat}%2C${lon}&skip=0&limit=50&user_key=bdd1495417e49ba2f1aa40461ce8f17d`;
+          let query = `https://api.betterdoctor.com/2016-03-01/doctors?location=${lat}%2C${lon}%2C100&user_location=${lat}%2C${lon}&skip=0&limit=10&user_key=bdd1495417e49ba2f1aa40461ce8f17d`;
           axios.get(query)
             .then(result => {
               let docs = [];

@@ -101,8 +101,21 @@ module.exports = {
     sess = undefined;
     req.session.destroy();
     res.status(200).send("Logout complete");
-  }
+  },
 
+  addBetterDoc: (req,res) => {
+    Physician.checkBetterDoc(req.body, (err,exists) => {
+      if(exists.length === 0){
+        Physician.addBetterDocId(req.body, (error,data) =>{
+          if(err) console.log(error);
+          res.json(data.insertId);
+        });
+      }else{
+        res.json(exists);
+      }
+    })
+    
+  }
   // (req, res) => {
   //   Physician.funcHere(req.body, (err,data)=>{
   //     if(err) console.log(err);
