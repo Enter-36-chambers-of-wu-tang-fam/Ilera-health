@@ -8,15 +8,24 @@ module.exports = {
   init_insurance_plan: (params, cb) => {
     console.log("INSURANCE", params)
     // Post Request To: api/user/insurance => { insurance }
-    let data = [params.uid, params.id_insurance_company, params.betterDoctorUID, params.primary_name, params.primary_phone, params.primary_address, params.primary_city, params.primary_state, params.primary_zip, params.insurer1, params.insurance_type1, params.insurance_network1, params.policy_number1, params.insurer2, params.insurance_type2, params.insurance_network2, params.policy_number2, params.member_id, params.payer_id];
+    let data = [params.uid, params.id_insurance_company, params.betterDoctorUID,
+      params.primary_name, params.primary_phone, params.primary_address,
+      params.primary_city, params.primary_state, params.primary_zip,
+      params.insurer1, params.insurance_type1, params.insurance_network1,
+      params.policy_number1, params.insurer2, params.insurance_type2,
+      params.insurance_network2, params.policy_number2, params.member_id,
+      params.payer_id];
       console.log("init_insurance_plan", data);
-    const queryString = 'INSERT INTO insurance_plan(id_patient, id_insurance_company, betterDoctorUID, \
-    primary_name, primary_phone, primary_address, primary_city, primary_state, primary_zip, \
-    insurer1, insurance_type1, insurance_network1, policy_number1, insurer2, insurance_type2, \
-    insurance_network2, policy_number2, member_id, payer_id) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)';
+    const queryString = 'INSERT INTO insurance_plan(id_patient, \
+      id_insurance_company, betterDoctorUID, primary_name, \
+      primary_phone, primary_address, primary_city, primary_state, \
+      primary_zip, insurer1, insurance_type1, insurance_network1, \
+      policy_number1, insurer2, insurance_type2, insurance_network2, \
+      policy_number2, member_id, payer_id) \
+      values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)';
     db.query(queryString, data, (error, results) => cb(error, results) );
   },
-  
+
   get_one_by_id: (params, cb) => {
     let data = [params.id];
     console.log("get_one", data);

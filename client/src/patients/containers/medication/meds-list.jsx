@@ -20,7 +20,7 @@ class MedicationList extends Component{
         {this.props.meds.map(medication=>{
           return (
             <li
-              key={medication.id}
+              key={medication.id*Math.random()}
               onClick={ this.handleClick.bind(this, medication) }
             >
 
