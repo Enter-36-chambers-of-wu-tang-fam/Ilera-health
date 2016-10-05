@@ -10,7 +10,7 @@ class ViewProfile extends Component {
   constructor(props){
     super(props);
     this.state = {
-      allDocs: [],   
+      allDocs: [],
       doc: {},
       title: null,
       name: null,
@@ -22,12 +22,12 @@ class ViewProfile extends Component {
       languages: [],
       practices: [],
       insurances: []
-           
+
     }
   }
 
   componentWillMount() {
-    
+
     let id = localStorage.getItem('uid');
     let code  = CryptoJS.AES.decrypt(id.toString(), 'key'); //need to change key
     let uid = code.toString(CryptoJS.enc.Utf8);
@@ -54,12 +54,12 @@ class ViewProfile extends Component {
                 insurances: doctor.data.data.insurances
               });
             })
-            .catch(err => { console.log("ERROR FETCHING DOCTOR INFO", err) }) 
+            .catch(err => { console.log("ERROR FETCHING DOCTOR INFO", err) })
 
           if(this.props.relationship){
 
           }
-      
+
     } else {
         this.setState({doc: {}});
     }
@@ -67,7 +67,7 @@ class ViewProfile extends Component {
     //PHYSICIAN VIEW OF ALL PATIENTS
 
     if(this.props.userType === 'physician'){
-      
+
 
     }
   }
@@ -78,11 +78,11 @@ class ViewProfile extends Component {
     let uid = code.toString(CryptoJS.enc.Utf8);
     let createRelationship = {
       betterDocId: this.props.params.provider,
-      id_patient: uid 
+      id_patient: uid
     };
     this.props.addPhysician(createRelationship);
     this.props.getMyPhysicians(uid);
-  }  
+  }
 
   removeRelation() {
     let id = localStorage.getItem('uid');
@@ -91,17 +91,16 @@ class ViewProfile extends Component {
 
     let deleteRelationship = {
       betterDocId: this.props.params.provider,
-      id_physician: null, //need to fill this out later
       id_patient: uid 
     };
     this.props.removePhysician(deleteRelationship);
     //this.props.getMyPhysicians(uid);
-  } 
+  }
 
   render() {
     console.log("STATA", this.state)
       return (
-        
+
           <div>
             <div className="searchProfile">
               <img src={this.state.image} />
@@ -134,8 +133,3 @@ const mapDispatchToProps = (dispatch) => {
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(ViewProfile);
-
-
-
-
-

@@ -111,10 +111,11 @@ module.exports = {
           res.json(data.insertId);
         });
       }else{
-        res.json(exists);
+        console.log(exists);
+        res.json(exists[0].id);
       }
     })
-    
+
   }
   // (req, res) => {
   //   Physician.funcHere(req.body, (err,data)=>{
