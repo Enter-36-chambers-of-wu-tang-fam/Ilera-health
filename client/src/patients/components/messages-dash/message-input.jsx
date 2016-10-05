@@ -13,16 +13,17 @@ export default class MessageInput extends Component {
   handleSubmit(event) {
     const { user, socket, activeChannel} = this.props;
     const text = event.target.value.trim();
+    console.log("llllll", text)
     if (event.which === 13) {
       event.preventDefault();
       var newMessage = {
         id: `${Date.now()}`,
-        text: text,
+        direct_message: text,
         user: user
       };
       socket.emit('new message', newMessage);
       socket.emit('stop typing', { user: user });
-      // this.props.onSave(newMessage);
+      this.props.handleSave(newMessage);
       this.setState({ text: '', typing: false });
     }
   }

@@ -21,7 +21,7 @@ module.exports = {
       WHERE (sender_id="'+params.userid+'" AND receiver_id="'+params.rid+'" AND sender_type="'+params.senderType+'" \
       AND receiver_type="'+params.receiverType+'") OR \
       (sender_id="'+params.rid+'" AND receiver_id="'+params.userid+'" AND sender_type="'+params.receiverType+'" \
-      AND receiver_type="'+params.senderType+'") LIMIT 25';
+      AND receiver_type="'+params.senderType+'")';
     db.query(queryString, data, (error, results) => cb(error, results) );
   },
   // get_all_messages_pat_from_phy
