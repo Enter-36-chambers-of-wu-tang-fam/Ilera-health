@@ -31,10 +31,11 @@ app.get('/api/messages/getOne', Message.getOneMessage);
 app.put('/api/messages/edit', Message.editOneMessage);
 app.delete('/api/messages/delete', Message.deleteOneMessage);
 
-// app.post('/upload/medRecord', (req,res) =>{
-// console.log(req.body);
-//   res.status(200).send();
-// })
+//Record for the photo upload
+app.post('/upload/medRecord', (req,res) =>{
+console.log(req.body);
+  res.status(200).send();
+})
 
 
 app.get('/api/allPatient/:userid', getAll.get_patient);
