@@ -60,12 +60,15 @@ class ViewProfile extends Component {
 
           }
       
+<<<<<<< 96a9bd0a0c15deb7a0c560c933451d90fce5ce0f
     } else {
         this.setState({doc: {}});
 <<<<<<< ffcd7974ed02640199d0bc264cd783f2603257d8
 =======
     } 
       
+=======
+>>>>>>> merge fixes
     } else {
         this.setState({doc: {}});
 >>>>>>> viewAllProfile
