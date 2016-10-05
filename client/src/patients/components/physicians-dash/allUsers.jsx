@@ -3,13 +3,15 @@ import { Field, reduxForm, formValueSelector } from 'redux-form';
 import { Router, Route, Link } from 'react-router'
 import { connect } from 'react-redux';
 import axios from 'axios';
+import { fetchMyPhysicians } from '../../actions/contacts';
+import CryptoJS from 'crypto-js';
 
 const getPhysicians = '/api/patient/getallphy';
 const getPatients = '/api/physician/patients';
-   
+
 //BETTER DOCTOR ALL DOC REQUIREMENTS: At least one of the request parameters 'query', 'location', 'name', 'first_name', 'last_name' needs to be provided",
 
-const renderInput = field => 
+const renderInput = field =>
   <div>
     <input {...field.input} type={field.type} onChange={field.onChange} value={field.value}/>
     {field.meta.touched &&
@@ -22,7 +24,7 @@ class AllUsers extends Component {
   constructor(props){
     super(props);
     this.state = {
-      docs: [],   
+      docs: [],
       doc_name: null,
       doc_specialty: null,
       doc_query: null,
@@ -33,22 +35,26 @@ class AllUsers extends Component {
       doc_city:null,
       lat: undefined,
       lon: undefined,
-      
-      
+
+
       pats: [],
       pat_first: null,
       pat_last: null,
       pat_gender: null,
       pat_sort: null,
       pat_limit: null,
-      pat_location:null,      
+      pat_location:null,
     }
   }
 
   componentWillMount() {
     let that = this;
+    let id = localStorage.getItem('uid');
+    let code  = CryptoJS.AES.decrypt(id.toString(), 'key'); //need to change key
+    let uid = code.toString(CryptoJS.enc.Utf8);
 
     // PATIENT VIEW OF ALL PHYSICIANS -- Initialize to show physicians close to them
+    this.props.getMyPhysicians(uid);
 
     if(this.props.userType === 'patient'){
       if(navigator.geolocation){
@@ -62,8 +68,8 @@ class AllUsers extends Component {
               result.data.data.map(doctor => {
                 docs.push({
                   title: doctor.profile.title,
-                  first_name: doctor.profile.first_name, 
-                  last_name: doctor.profile.last_name,  
+                  first_name: doctor.profile.first_name,
+                  last_name: doctor.profile.last_name,
                   image: doctor.profile.image_url,
                   specialty: doctor.specialties,
                   bd_uid: doctor.uid
@@ -73,7 +79,7 @@ class AllUsers extends Component {
             })
             .catch(err => { console.log("ERROR FETCHING DOCTOR INFO", err) })
         })
-      } 
+      }
     } else {
         this.setState({docs: []});
     }
@@ -81,7 +87,7 @@ class AllUsers extends Component {
     //PHYSICIAN VIEW OF ALL PATIENTS
 
     if(this.props.userType === 'physician'){
-      
+
 
     }
   }
@@ -105,8 +111,8 @@ class AllUsers extends Component {
           result.data.data.map(doctor => {
             docs.push({
               title: doctor.profile.title,
-              first_name: doctor.profile.first_name, 
-              last_name: doctor.profile.last_name,  
+              first_name: doctor.profile.first_name,
+              last_name: doctor.profile.last_name,
               image: doctor.profile.image_url,
               specialty: doctor.specialties,
               bd_uid: doctor.uid
@@ -131,14 +137,14 @@ class AllUsers extends Component {
     })
   }
 
-  
-      
+
+
 
   render() {
     const { handleSubmit} = this.props;
     console.log("PROPPA",this.props);
       return (
-        
+
           <div>
 
             <form onSubmit={handleSubmit(props => this.searchSubmit(props))} >
@@ -296,10 +302,10 @@ class AllUsers extends Component {
                 <button type="submit">Submit</button>
             </form>
 
-                    
+
           <ul>
           {this.state.docs.map((doc,index) => {
-            return ( 
+            return (
               <li key={index}><Link to={"/patient/physicians/"+doc.bd_uid}>
               <img src={doc.image} />
               {doc.title} {doc.first_name} {doc.last_name}
@@ -324,8 +330,15 @@ const selector = formValueSelector('getAllUsers');
 const mapStateToProps = (state) => {
   return {
     userType: state.authentication.userType,
-    searchVals: selector(state, 'docQuery', 'docName', 'docSpecialty', 'docGender', 'docSort', 'docState','docCity')
+    searchVals: selector(state, 'docQuery', 'docName', 'docSpecialty', 'docGender', 'docSort', 'docState','docCity'),
+    myPhysicians: state.contacts
   }
 }
 
-export default connect(mapStateToProps)(AllUsers);
+const mapDispatchToProps = (dispatch) => {
+  return {
+    getMyPhysicians: (patient) => dispatch(fetchMyPhysicians(patient))
+  }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(AllUsers);
