@@ -14,7 +14,7 @@ const rootReducer = combineReducers({
     authentication: authenticate.authenticated,
     allPhysicianAppointments: appointments.physAppt,
     form: formReducer,
-    medication: medication,
+    meds: medication,
     messages: messages,
     contacts: contacts,
     profile: profile,

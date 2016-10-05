@@ -1,6 +1,6 @@
 import React, { Component, PropTypes } from 'react';
-import MedsContainer from '../../containers/medication/medication-container.js';
-import axios from 'axios'
+import MedsContainer from '../../../containers/medication/medication-container.js';
+import axios from 'axios';
 
 export default class Medication extends Component {
   constructor(props){
@@ -12,15 +12,16 @@ export default class Medication extends Component {
     //   chosenMed: '',
     //   infoChosenMed: {}
     // };
-
-
   }
+  
   render() {
+    console.log("meds class", this.props.meds)
     return(
       <ul>
         {this.props.meds.map(medication=>{
-          return ( <li>
-            {medication}
+          return ( <li key={medication.id}>
+
+            {medication.drug_name}
           </li> )
         })}
       </ul>

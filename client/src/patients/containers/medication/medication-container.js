@@ -1,25 +1,30 @@
 import React, { Component, PropTypes } from 'react';
 import { connect } from 'react-redux';
 // import {  } from '.././reducers/medication-reducer.js';
+import CryptoJS from 'crypto-js';
 import * as actions from '../../actions/medication.js';
-import Medication from '../../components/medication-dash/medication-class.jsx';
+import Medication from '../../components/medication-dash/meds-page/medication-class.jsx';
 
 import { router } from 'react-router';
 
 class MedsContainer extends Component {
   constructor(props){
     super(props);
-
+    console.log(props);
     this.state = {
       uid: '',
-      meds: ['hello people'],
+      meds: [],
       chosenMed: '',
       infoChosenMed: {}
     };
 
   }
   componentWillMount(){
-    // dispatch(actions.getAllPatientMediaction(this.state.uid));
+    const { dispatch } = this.props;
+    let id = localStorage.getItem('uid');
+    let code  = CryptoJS.AES.decrypt(id.toString(), 'key'); //need to change key
+    const uid = code.toString(CryptoJS.enc.Utf8);
+    dispatch(actions.getAllPatientMedication(uid));
 
   }
 
@@ -39,14 +44,14 @@ class MedsContainer extends Component {
         />
         Anything
       </div>
-      
+
     );
   }
 }
 
-// getAllPatientMediaction
+// getAllPatientMedication
 export default connect(state => ({
-  meds: ['meds are here'],
+  meds: state.meds.medication,
   chosenMed: state.chosenMed,
   infoChosenMed: state.infoChosenMed
 }))(MedsContainer)
