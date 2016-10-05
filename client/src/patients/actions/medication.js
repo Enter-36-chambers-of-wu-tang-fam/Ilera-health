@@ -25,25 +25,28 @@ const fetchMedsFailure = err => {
 		payload: err
 	}
 }
-export const getAllPatientMediaction = patid => {
-  console.log("getAllPatientMediaction-==-Drugs should be handled with care-==-");
-  return dispatch => {
-    dispatch(fetchMedsRequest())
-		dispatch(fetchMedsSuccess(['yolo']))
-  }
-
-};
 // export const getAllPatientMediaction = patid => {
 //   console.log("getAllPatientMediaction-==-Drugs should be handled with care-==-");
 //   return dispatch => {
 //     dispatch(fetchMedsRequest())
-//     return axios.get(`/api/medication/${patid} something like this`)
-//       .then(res => {
-//         dispatch(fetchMedsSuccess(res))
-//       })
-//       .catch(err => {
-//         dispatch(fetchMedsFailure(err));
-//       })
+// 		dispatch(fetchMedsSuccess(['yolo']))
 //   }
 //
 // };
+export const getAllPatientMedication = userid => {
+  console.log("getAllPatientMedication-==-Drugs should be handled with care-==-");
+	console.log(userid);
+  return dispatch => {
+    dispatch(fetchMedsRequest())
+    return axios.get(`/api/patient/medications/${userid}`)
+      .then(res => {
+				console.log(res);
+        dispatch(fetchMedsSuccess(res.data))
+      })
+      .catch(err => {
+        dispatch(fetchMedsFailure(err));
+      })
+  }
+
+};
+// /api/patient/medications/:userid

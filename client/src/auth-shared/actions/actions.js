@@ -41,7 +41,7 @@ export function authenticateUser(userType,data,reqType){
       dispatch(requestAuth(null));
       axios.post(`/api/${userType}/signin`, data)
         .then( found => {
-          let encodedId = CryptoJS.AES.encrypt(String(found.data), 'key'); //need to change key
+          let encodedId = CryptoJS.AES.encrypt(String(found.data.id), 'key'); //need to change key
           localStorage.setItem('uid',encodedId);
           localStorage.setItem('userType',userType);
           dispatch(verifiedAuth(encodedId,userType,false)); //false -> reroutes to dashboard in place of signup via general_auth component
