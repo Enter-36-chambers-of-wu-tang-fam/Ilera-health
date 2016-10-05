@@ -25,6 +25,13 @@ const fetchMedsFailure = err => {
 		payload: err
 	}
 }
+
+const medClicked = med => {
+	return {
+		type: types.MED_CHOSEN,
+		payload: med
+	}
+}
 // export const getAllPatientMediaction = patid => {
 //   console.log("getAllPatientMediaction-==-Drugs should be handled with care-==-");
 //   return dispatch => {
@@ -50,3 +57,9 @@ export const getAllPatientMedication = userid => {
 
 };
 // /api/patient/medications/:userid
+export const medChosen = med => {
+	console.log("action med chosen");
+	return dispatch =>{
+		dispatch(medClicked(med))
+	}
+}

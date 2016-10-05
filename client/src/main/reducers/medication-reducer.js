@@ -4,7 +4,8 @@ const initialState = {
   isFetching: false,
   loaded: false,
   medication: [],
-  fetchHistory: []
+  fetchHistory: [],
+  chosenMed: []
 };
 
 export default function medsReducer(state = initialState, action){
@@ -18,7 +19,11 @@ export default function medsReducer(state = initialState, action){
     case types.MEDS_FETCH_FAILURE:
       console.log('MEDS_FETCH_FAILURE')
       return { ...state, loaded: false }
+    case types.MED_CHOSEN:
+      return { ...state, chosenMed: action.payload}
     default:
       return state;
   }
 };
+
+// export default function chosenMeds(state = initialState, action)

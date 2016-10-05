@@ -67,3 +67,5 @@ export const INITIALIZE = 'redux-form/INITIALIZE'
 export const MEDS_FETCH_REQUEST = 'MEDS_FETCH_REQUEST';
 export const MEDS_FETCH_SUCCESS = 'MEDS_FETCH_SUCCESS';
 export const MEDS_FETCH_FAILURE = 'MEDS_FETCH_FAILURE';
+// meds select
+export const MED_CHOSEN = 'MED_CHOSEN';
