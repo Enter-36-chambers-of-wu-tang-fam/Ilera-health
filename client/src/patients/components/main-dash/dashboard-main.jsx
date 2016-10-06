@@ -6,11 +6,11 @@ const DashboardMain = () => {
     return (
         <div className="dashboardMain">
            
-            
-            <div>
-                <h3>Welcome, Yara!</h3>
-            </div>
             <DashboardInsurance />
+            <div className="mainDashWelcome">
+                <img src="https://pbs.twimg.com/profile_images/446566229210181632/2IeTff-V.jpeg" alt=""/>
+                <h3>{`Welcome, ${localStorage.getItem('first')}!`}</h3>
+            </div>
             <div>
                 <h3>Reminders</h3>
                 <div id="dashReminders">
