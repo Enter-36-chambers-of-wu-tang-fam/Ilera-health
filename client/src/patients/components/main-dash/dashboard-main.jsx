@@ -9,7 +9,7 @@ const DashboardMain = () => {
            
             <DashboardInsurance />
             <div className="mainDashWelcome">
-                <img src="https://pbs.twimg.com/profile_images/446566229210181632/2IeTff-V.jpeg" alt=""/>
+                <img src="../../../styles/background_images/wu.jpg" alt=""/>
                 <h3>{`Welcome, ${localStorage.getItem('first')}!`}</h3>
             </div>
             <DashboardReminders />

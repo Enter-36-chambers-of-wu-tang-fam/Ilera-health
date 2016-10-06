@@ -13,7 +13,6 @@ export default class MessageInput extends Component {
   handleSubmit(event) {
     const { user, socket, activeChannel} = this.props;
     const text = event.target.value.trim();
-    console.log("llllll", text)
     if (event.which === 13) {
       event.preventDefault();
       var newMessage = {

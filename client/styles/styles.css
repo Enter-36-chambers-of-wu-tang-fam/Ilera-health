@@ -129,7 +129,7 @@ input[type='radio']{
 .dashboardRows{
     min-height: 10px;
 }
-.dashboardRows:after, .reminders:after, .profileDash:after, .chat:after, .messageContacts > ul:after, .contactItem:after, header:after, header ul:after, main > section > ul:after, .welcomeHeader:after, section:after{
+.dashboardRows:after, .reminders:after, .profileDash:after, .chat:after, .messageContacts > ul:after, .contactItem:after, header:after, header ul:after, main > section > ul:after, .welcomeHeader:after, section:after, .messagesUser:after, .messagesIncoming:after, .team:after{
     clear: both;
     content: '';
     display: block;
@@ -192,7 +192,6 @@ input[type='radio']{
     height: 150px;
     border-radius: 50%;
     display: block;
-    border: 1px solid white;
     margin: 20px auto ;
 }
 
@@ -336,9 +335,18 @@ main{
 }
 #chatBoard > div:first-of-type, .messageContacts > div:first-of-type{
     height: 50px;
-    padding: 30px;
+    padding: 14px;
     background-color: rgb(242, 108, 44);
     color: white;
+}
+#chatBoard h4{
+    text-align: center;
+    font-size: 24px;
+    font-family: 'Lato', sans-serif;
+    font-weight: 600;
+    color: white;
+    text-transform: uppercase;
+    margin: 0;
 }
 #chatBoard {
     position: relative;
@@ -438,7 +446,6 @@ main > .wrapper > section{
 }
 
 main > section:nth-of-type(odd){
-    background-color: #203248;
 }
 
 .wrapper{
@@ -478,7 +485,10 @@ main > section:nth-of-type(odd){
   background-size: cover;
   height: 250px;
 }
-
+.introTeam{
+    background-image: none;
+    height: 100px;
+}
 .introProviders {
   background-image:  url('./background_images/providers.jpg');
   background-position: center -190px;
@@ -1026,4 +1036,70 @@ text-align:center;
   color:#333;
   margin: 0 auto;
   text-align:left;  
+}
+.messagesIncoming > div, .messagesUser > div{
+    background: #ddd;
+    width: 30%;
+    border-radius: 10px;
+    padding: 20px;
+    margin: 10px 0 10px 20px;
+    position: relative;
+}
+.messagesIncoming img{
+    position: absolute;
+    left: -19px;
+    bottom: -8px;
+}
+.messagesUser img{
+    position: absolute;
+    bottom:  -8px;
+    right: -19px;
+}
+.messagesUser > div {
+    margin: 10px 20px 10px 0;
+    background: rgb(46, 211, 205);
+    float: right;
+}
+main >section .team li{
+    float: left;
+    width: 25%;
+    border: none;
+    margin: 0;
+    padding: 0;
+}
+
+.team img{
+    width: 50%;
+    display: block;
+    border-radius: 50%;
+    margin: 0 auto;
+    border: 3px solid white;
+   
+}
+.teamSec{
+    background-color: #203248;
+    padding: 0px 0 40px;
+    color: white;
+     text-align: center;
+}
+
+.teamSec h2{
+    color: #333;
+}
+.team h4{
+    font-size: 22px;
+    text-align: center;
+    font-weight: normal;
+}
+.team h5{
+    text-transform: uppercase;
+    font-size: 15px;
+    font-weight: 300;
+}
+.team p{
+    font-size: 18px;
+    font-weight: lighter;
+    text-align: center;
+    line-height: 140%;
+    margin: 10px 0;
 }

@@ -21,7 +21,7 @@ export default class Messages extends Component {
     })
      socket.on('new bc message', function(msg) {
       console.log("NEW MESSAGE INCOMING", msg, user, chosenid);
-      that.handleSave(msg);
+      that.handleSave(msg)
     })
     socket.on('new channel', function(channel) {
       console.log("NEW CHANNEL");
@@ -45,7 +45,9 @@ export default class Messages extends Component {
       return (
         <div>
           <div id="chatBoard" style={ {minHeight: height} }>
-            <div></div>
+            <div>
+              <h4>{contact.first} {contact.last}</h4>
+            </div>
             <div>
               {messages.map( message => {
                 console.log("$$MESSAGES", message, user);
@@ -53,13 +55,17 @@ export default class Messages extends Component {
                   return message.map( item => {
                     if(item.sender_id == user || item.user == user){
                       return <div className="messagesUser">
-                                <h5> { localStorage.getItem('first') } { localStorage.getItem('last') }: </h5>
-                                <p> { item.direct_message } </p>
+                                <div>
+                                  <img src="../../styles/background_images/tailBlue.png" alt=""/>
+                                 <p> { item.direct_message } </p>
+                                </div>
                               </div>
                     }else{
                       return <div className="messagesIncoming">
-                                <h5> { localStorage.getItem('first') } { localStorage.getItem('last') }: </h5>
-                                <p> { item.direct_message } </p>
+                                <div>
+                                  <img src="../../styles/background_images/tail.png" alt=""/>
+                                  <p> { item.direct_message } </p>
+                                </div>
                               </div>
                     }
                       
@@ -67,14 +73,18 @@ export default class Messages extends Component {
                 }else{
                   if(message.user == user){
                     return <div className="messagesUser">
-                                <h5> { message.first } { message.last }: </h5>
+                              <div>
+                                <img src="../../styles/background_images/tailBlue.png" alt=""/>
                                 <p> { message.direct_message } </p>
                               </div>
+                          </div>
                   }else{
-                    return <div>
-                      <h5> { contact.first } { contact.last }: </h5>
-                      <p> { message.direct_message } </p>
-                    </div>
+                    return <div className="messagesIncoming">
+                            <div>
+                              <img src="../../styles/background_images/tail.png" alt=""/>
+                              <p> { message.direct_message } </p>
+                            </div>
+                          </div>
                   }
                 }
                 

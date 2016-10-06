@@ -26,7 +26,7 @@ const addMessageFailed = (err) => {
 }
 
 export function newMessage(senderType, receiverType, message, senderid, receiverid) {
-	
+	console.log("NEW MESSAGE POSTING", senderid, receiverid)
   return dispatch => {
     dispatch(addMessageRequest(message))
     return axios.post('/api/messages/newmessage', {sender_type: senderType, receiver_type: receiverType, direct_message: message.direct_message, sender_id: senderid, receiver_id: receiverid})

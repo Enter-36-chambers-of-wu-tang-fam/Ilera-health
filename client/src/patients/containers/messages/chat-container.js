@@ -38,7 +38,7 @@ class ChatContainer extends Component {
 			dispatch(contacts.fetchMyPatients(this.state.uid))
 		}
 
-		this.setState({windowHeight: `${window.innerHeight - 50 }px`});
+		this.setState({windowHeight: window.innerHeight - 50 });
 	}
 
 	userSelected (userid, chosenid, receiverType, senderType, contact){
