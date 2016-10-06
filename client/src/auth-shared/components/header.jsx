@@ -41,7 +41,7 @@ class Header extends Component {
                   href="/"
                   hoverColor={buttonStyles.hoverColor} 
                   style={buttonStyles.styles}
-                  labelStyle={this.state.scroll ? scrollButtonStyles.labelStyle : buttonStyles.labelStyle}
+                  labelStyle={buttonStyles.labelStyle}
                   rippleColor={buttonStyles.rippleColor}
 
                 />
@@ -52,7 +52,7 @@ class Header extends Component {
                   href="/patient/messages"
                   hoverColor={buttonStyles.hoverColor} 
                   style={buttonStyles.styles}
-                  labelStyle={this.state.scroll ? scrollButtonStyles.labelStyle : buttonStyles.labelStyle}
+                  labelStyle={buttonStyles.labelStyle}
                   rippleColor={buttonStyles.rippleColor}
 
                 />
@@ -63,7 +63,7 @@ class Header extends Component {
                   hoverColor={buttonStyles.hoverColor} 
                   href="/patient/physicians"
                   style={buttonStyles.styles}
-                  labelStyle={this.state.scroll ? scrollButtonStyles.labelStyle : buttonStyles.labelStyle}
+                  labelStyle={buttonStyles.labelStyle}
                   rippleColor={buttonStyles.rippleColor}
 
                 />
@@ -74,7 +74,7 @@ class Header extends Component {
                   href="/patient/profile"
                   hoverColor={buttonStyles.hoverColor} 
                   style={buttonStyles.styles}
-                  labelStyle={this.state.scroll ? scrollButtonStyles.labelStyle : buttonStyles.labelStyle}
+                  labelStyle={buttonStyles.labelStyle}
                   rippleColor={buttonStyles.rippleColor}
                 />
               </li>
@@ -83,7 +83,7 @@ class Header extends Component {
                   backgroundColor={buttonStyles.backgroundColor}
                   hoverColor={buttonStyles.hoverColor} 
                   style={buttonStyles.styles}
-                  labelStyle={this.state.scroll ? scrollButtonStyles.labelStyle : buttonStyles.labelStyle}
+                  labelStyle={buttonStyles.labelStyle}
                   rippleColor={buttonStyles.rippleColor}
                   onTouchTap={this.signOut.bind(this)}
                 />
