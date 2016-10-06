@@ -39,6 +39,7 @@ class ChatContainer extends Component {
 		}
 
 		this.setState({windowHeight: window.innerHeight - 50 });
+
 	}
 
 	userSelected (userid, chosenid, receiverType, senderType, contact){

@@ -87,7 +87,7 @@ class Header extends Component {
                   rippleColor={buttonStyles.rippleColor}
                   onTouchTap={this.signOut.bind(this)}
                 />
-              </li>
+              </li>               
             </ul>
           </header>
       );

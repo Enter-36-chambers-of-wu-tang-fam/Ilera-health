@@ -348,6 +348,7 @@ main{
     text-transform: uppercase;
     margin: 0;
 }
+
 #chatBoard {
     position: relative;
 }
