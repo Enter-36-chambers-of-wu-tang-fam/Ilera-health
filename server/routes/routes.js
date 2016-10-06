@@ -2,6 +2,7 @@ const db = require('.././db/dbConnect/connection.js');
 const Mj = require('.././controller/major-joins.js');
 
 const Appointment = require('./subRoutes/appointment.js');
+const EmergencyContact = require('./subRoutes/emergency-contact.js');
 const Patient = require('./subRoutes/patient.js');
 const HealthLog = require('./subRoutes/healthlog.js')
 const Insurance = require('./subRoutes/insurance.js');
@@ -16,14 +17,15 @@ const Staff = require('./subRoutes/staff.js');
 
 module.exports = app => {
   Appointment(app);
+  EmergencyContact(app);
   HealthLog(app);
   Insurance(app);
   InsurancePlan(app);
   InsuranceProfesional(app);
   // Institution(app);
-  PatientMedications(app);
   // Medication(app);
   // Message(app);
+  PatientMedications(app);
   Patient(app);
   Physician(app);
   Relation_PatPhy(app);

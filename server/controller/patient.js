@@ -4,7 +4,7 @@ const Promise = require("bluebird");
 const bcrypt = require("bcrypt-nodejs");
 const hashHelp = require("../security/hash.js");
 const Patient = require("../models/patient-helpers.js");
-const EmergencyContact = require('.././models/emergency_contact.js');
+
 
 
 let sess;
@@ -101,33 +101,6 @@ module.exports = {
         res.json(data);
       });
     }
-  },
-
-  post_emer_contact: (req, res) => {
-    EmergencyContact.emergency_contact_form(req.body, (err,edata)=>{
-      if(err) console.log(err);
-      Patient.initform_patient_contact(req.body, (err,data)=>{
-        if(err) console.log(err);
-        res.json({
-          contacts: edata,
-          patientContact: data
-        });
-      });
-    });
-
-  },
-
-  put_emer_contact: (req, res) => {
-    EmergencyContact.update_emergency_contact_form(req.body, (err, edata)=>{
-      if(err) console.log(err);
-      Patient.initform_patient_contact(req.body, (err, data)=>{
-        if(err) console.log(err)
-        res.json({
-          contacts: edata,
-          patientContact: data
-        });
-      })
-    })
   },
 
   post_insurance_info: (req, res) => {
