@@ -7,7 +7,7 @@ const DashboardPhysicians = () => {
             <h3>Physicians</h3>
             <i className="fa fa-user-md" aria-hidden="true"></i>
             <p className="sneakPeak">
-                Your health in your hands.
+                Your providers
             </p>
         </div>
     );

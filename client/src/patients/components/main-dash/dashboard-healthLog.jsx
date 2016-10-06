@@ -7,7 +7,7 @@ const DashboardHealthLog = () => {
             <h3>Health Log</h3>
             <i className="fa fa-heartbeat" aria-hidden="true"></i>
             <p className="sneakPeak">
-                Something here
+                Keep track
             </p>
         </div>
     );
