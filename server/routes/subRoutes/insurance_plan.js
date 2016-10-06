@@ -1,4 +1,4 @@
-const InsurancePlan = require('../../controller/institution.js');
+const InsurancePlan = require('../../controller/insurance_plan.js');
 
 module.exports = app => {
 
