@@ -32,6 +32,9 @@ body {
     font-family: 'Roboto', sans-serif;
     background-color: #FFFFFF;
 }
+input{
+    font-family: 'Roboto', sans-serif;
+}
 ol, ul {
 	list-style: none;
 }
@@ -84,28 +87,14 @@ h4{
     min-height: 10px;
 }
 
-header.scroll{
+header{
     height: 50px;
     background-color: #fcfcfc;
-    box-shadow: 0px 0px 2px 2px #ddd;
+    box-shadow: 0px 0px 1px 1px #ddd;
     position: fixed;
     left: 0;
     right: 0;
-    transition: all 0.4s ease;
-}
-
-header.scroll ul > li > button:hover > div > span {
-    color: white;
-}
-
-header.noScroll {
-    height: 50px;
-    background-color: rgba(255, 255, 255, 0);
-    box-shadow: none;
-    position: fixed;
-    left: 0;
-    right: 0;
-
+    z-index: 999;
 }
 
 header > h1{
@@ -140,12 +129,17 @@ input[type='radio']{
 .dashboardRows{
     min-height: 10px;
 }
-.dashboardRows:after, .reminders:after, .profileDash:after, .chat:after, .messageContacts > ul:after, .contactItem:after, header:after, header ul:after, main > section > ul:after, .welcomeHeader:after, section:after{
+.dashboardRows:after, .reminders:after, .profileDash:after, .chat:after, .messageContacts > ul:after, .contactItem:after, header:after, header ul:after, main > section > ul:after, .welcomeHeader:after, section:after, .messagesUser:after, .messagesIncoming:after, .team:after{
     clear: both;
     content: '';
     display: block;
 }
-
+.messageContacts{
+    border-right: 2px solid #ddd;
+}
+.messagesUser{
+    text-align: right;
+}
 .dashboardRows a{
     display: block;
     box-shadow: 1px 3px 6px 2px #eee;
@@ -198,7 +192,6 @@ input[type='radio']{
     height: 150px;
     border-radius: 50%;
     display: block;
-    border: 1px solid white;
     margin: 20px auto ;
 }
 
@@ -212,11 +205,10 @@ input[type='radio']{
 }
 
 main{
-    padding: 50px 0;
+    padding: 50px 0 0;
 }
 
 .patientAppMain{
-    padding: 0 0 50px;
 }
 
 /* DASHBOARD */
@@ -335,12 +327,57 @@ main{
 }
 
 /* CHAT */
-#chatBoard{
+#chatBoard > div:nth-of-type(2){
     min-height: 150px;
     padding: 30px;
     margin: 0 auto;
     overflow: auto;
-    max-height: 800px;
+}
+#chatBoard > div:first-of-type, .messageContacts > div:first-of-type{
+    height: 50px;
+    padding: 14px;
+    background-color: rgb(242, 108, 44);
+    color: white;
+}
+#chatBoard h4{
+    text-align: center;
+    font-size: 24px;
+    font-family: 'Lato', sans-serif;
+    font-weight: 600;
+    color: white;
+    text-transform: uppercase;
+    margin: 0;
+}
+
+#chatBoard {
+    position: relative;
+}
+#chatBoard h3{
+    font-size: 4vw;
+    text-align: center;
+    color: #eee;
+    padding: 10% 0;
+}
+#messageSearch{
+    padding: 10px;
+    width: 90%;
+    display: block;
+    margin: 20px auto;
+    border-radius: 10px;
+    border: 1px solid #ddd;
+    font-size: 16px;
+}
+#messageSearch:placeholder-shown{
+    background: #eee;
+}
+::-webkit-input-placeholder, :-moz-placeholder, ::-moz-placeholder, :-ms-input-placeholder {  
+   font-weight: lighter
+}
+.chatInput{
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
 }
 .chat > div{
     float: left;
@@ -350,16 +387,19 @@ main{
 
 .chat > div:first-of-type{
     width: 30%;
-    border-right: 1px solid black;
 }
 
 .contactItem{
-    margin: 20px 10px;
-    background: rgba(248, 248, 248, 0.9);
-    padding: 10px;
+    background: rgba(255, 255, 255, 1);
+    padding: 20px;
     border-radius: 3px;
+    border-top: 1px solid #ddd;
+    border-bottom: 1px solid #ddd;
 }
-
+.contactItem:hover{
+    background: rgb(242, 108, 44);
+    color: white;
+}
 .contactItem > a > div{
     float: left;
     width: 20%;
@@ -369,7 +409,8 @@ main{
     font-size: 22px;
     text-transform: uppercase;
     font-weight: lighter;
-    padding-top: 10px;
+    padding-top: 12px;
+    margin: 0;
 }
 
 .contactItem img{
@@ -390,11 +431,13 @@ main{
     font-size: 20px;
 }
 #messageInput{
-    width: 100%;
+     width: 100%;
     padding: 10px;
     font-size: 16px;
-    border-radius: 5px;
     min-height: 100px;
+    border: none;
+    background: #eee;
+
 }
 
 /* WELCOME */
@@ -404,7 +447,6 @@ main > .wrapper > section{
 }
 
 main > section:nth-of-type(odd){
-    background-color: #203248;
 }
 
 .wrapper{
@@ -444,7 +486,10 @@ main > section:nth-of-type(odd){
   background-size: cover;
   height: 250px;
 }
-
+.introTeam{
+    background-image: none;
+    height: 100px;
+}
 .introProviders {
   background-image:  url('./background_images/providers.jpg');
   background-position: center -190px;
@@ -992,4 +1037,70 @@ text-align:center;
   color:#333;
   margin: 0 auto;
   text-align:left;  
+}
+.messagesIncoming > div, .messagesUser > div{
+    background: #ddd;
+    width: 30%;
+    border-radius: 10px;
+    padding: 20px;
+    margin: 10px 0 10px 20px;
+    position: relative;
+}
+.messagesIncoming img{
+    position: absolute;
+    left: -19px;
+    bottom: -8px;
+}
+.messagesUser img{
+    position: absolute;
+    bottom:  -8px;
+    right: -19px;
+}
+.messagesUser > div {
+    margin: 10px 20px 10px 0;
+    background: rgb(46, 211, 205);
+    float: right;
+}
+main >section .team li{
+    float: left;
+    width: 25%;
+    border: none;
+    margin: 0;
+    padding: 0;
+}
+
+.team img{
+    width: 50%;
+    display: block;
+    border-radius: 50%;
+    margin: 0 auto;
+    border: 3px solid white;
+   
+}
+.teamSec{
+    background-color: #203248;
+    padding: 0px 0 40px;
+    color: white;
+     text-align: center;
+}
+
+.teamSec h2{
+    color: #333;
+}
+.team h4{
+    font-size: 22px;
+    text-align: center;
+    font-weight: normal;
+}
+.team h5{
+    text-transform: uppercase;
+    font-size: 15px;
+    font-weight: 300;
+}
+.team p{
+    font-size: 18px;
+    font-weight: lighter;
+    text-align: center;
+    line-height: 140%;
+    margin: 10px 0;
 }

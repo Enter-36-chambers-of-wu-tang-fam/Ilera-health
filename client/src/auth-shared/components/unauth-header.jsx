@@ -6,11 +6,11 @@ import SignUp from './signup-component.js';
 import SignIn from './signin-component.js';
 
 const buttonStyles = {
-  hoverColor: "#203248",
+  hoverColor: "#eee",
   backgroundColor:null,
-  labelStyle: {color:"#999"},
-  rippleColor: '#333',
-  styles: { height: '50px',borderRadius: '0 !important'}
+  labelStyle: {color:"#203248", fontWeight: 300},
+  rippleColor: '#ccc',
+  styles: { height: '50px'}
 }
 
 export default class UnauthHeader extends Component {

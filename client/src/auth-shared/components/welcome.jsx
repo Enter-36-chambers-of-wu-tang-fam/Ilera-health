@@ -2,11 +2,11 @@ import React, { Component } from 'react';
 import FlatButton from 'material-ui/FlatButton';
 
 const buttonStyles = {
-  hoverColor: "rgba(255,255,255,1)",
-  backgroundColor:"rgba(255,255,255,.6)",
-  labelStyle: {color:"#fff"},
-  rippleColor: '#333',
-  styles: { height: '50px', borderRadius:'1em'}
+  hoverColor: "rgba(242,108,44, 0.7)",
+  backgroundColor:"rgba(242,108,44,1)",
+  labelStyle: {color:"white"},
+  rippleColor: '#white',
+  styles: { height: '50px', borderRadius:'5px'}
 }
 
 const Welcome = () => {
@@ -27,7 +27,8 @@ const Welcome = () => {
                          <li>Choose which providers you share your information with</li>
                          <li>Manage all of your medical billing in one place</li>
                          </ul>
-                         <FlatButton label="Learn More" hoverColor={buttonStyles.hoverColor} style={buttonStyles.styles} backgroundColor={buttonStyles.backgroundColor} />
+                         <FlatButton label="For Patients" hoverColor={buttonStyles.hoverColor} style={buttonStyles.styles} backgroundColor={buttonStyles.backgroundColor} labelStyle={buttonStyles.labelStyle} />
+                         <FlatButton label="For Providers" hoverColor={buttonStyles.hoverColor} style={buttonStyles.styles} backgroundColor={buttonStyles.backgroundColor} labelStyle={buttonStyles.labelStyle} />
                      </div>
                 </div>
                 
@@ -77,25 +78,39 @@ const Welcome = () => {
                 </div>
             </section>
                     
-            <section>
+            <section className="teamSec">
+                <div className="introPhotos introTeam">
+                    <h2>Your Team</h2>
+                </div>
                 <div className="wrapper">
-                    <ul>
+                    <ul className="team">
                         <li>
-                            Neekon
+                            <img src="../../styles/background_images/neekon.png" alt=""/>
+                            <h4>Neekon Etemad</h4>
+                            <h5>Software Engineer</h5>
+                            <p>Lorem ipsum desc goes here. Forthecoming ipsum dipsum.</p>
                         </li>
                         <li>
-                            Kent
+                            <img src="../../styles/background_images/kent.png" alt=""/>
+                            <h4>Kent Moreland</h4>
+                            <h5>Software Engineer</h5>
+                            <p>Lorem ipsum desc goes here. Forthecoming ipsum dipsum.</p>
                         </li>
                         <li>
-                            Yara
+                            <img src="../../styles/background_images/yara.png" alt=""/>
+                            <h4>Yara Tercero-Parker</h4>
+                            <h5>Software Engineer</h5>
+                            <p>Lorem ipsum desc goes here. Forthecoming ipsum dipsum.</p>
                         </li>
                         <li>
-                            Mike
+                            <img src="../../styles/background_images/MichaelO.png" alt=""/>
+                            <h4>Michael Olorunnisola</h4>
+                            <h5>Software Engineer</h5>
+                            <p>Lorem ipsum desc goes here. Forthecoming ipsum dipsum.</p>
                         </li>
                     </ul>
                  </div>
             </section>
-            
         </main>
     );
 };

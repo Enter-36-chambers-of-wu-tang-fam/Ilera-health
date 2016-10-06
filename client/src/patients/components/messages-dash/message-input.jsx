@@ -13,7 +13,6 @@ export default class MessageInput extends Component {
   handleSubmit(event) {
     const { user, socket, activeChannel} = this.props;
     const text = event.target.value.trim();
-    console.log("llllll", text)
     if (event.which === 13) {
       event.preventDefault();
       var newMessage = {
@@ -41,13 +40,9 @@ export default class MessageInput extends Component {
   }
   render() {
     return (
-      <div style={{
-        width: '100%',
-      }}>
+      <div className="chatInput" style={{width: '100%'}}>
         <textarea
-          style={{
-            height: '100px',
-          }}
+          style={{height: '100px'}}
           id='messageInput'
           type="textarea"
           name="message"

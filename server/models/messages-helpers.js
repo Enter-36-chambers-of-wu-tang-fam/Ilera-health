@@ -11,14 +11,8 @@ module.exports = {
     // Get Request → /api/messages/:physid/:patid  [limit 5]
     console.log(params.userid, params.senderType, params.rid, params.receiverType);
     let data = [params.userid, params.senderType, params.rid, params.receiverType];
-    const queryString = 'SELECT p.id, p.first, p.last, p.email, \
-      p.primary_phone_number, p.photo_path, py.id, py.first, \
-      py.last, py.email, py.phone_number, py.photo_path, m.id, \
-      m.direct_message, m.date, m.sender_id, m.receiver_id, \
-      m.sender_type \
-      FROM messages m \
-      JOIN patient p ON p.id = m.sender_id \
-      JOIN physician py ON py.id = m.receiver_id \
+    const queryString = 'SELECT m.id, m.direct_message, m.date, m.sender_id, m.receiver_id, \
+      m.sender_type FROM messages m \
       WHERE (sender_id="'+params.userid+'" AND receiver_id="'+params.rid+'" AND sender_type="'+params.senderType+'" \
       AND receiver_type="'+params.receiverType+'") OR \
       (sender_id="'+params.rid+'" AND receiver_id="'+params.userid+'" AND sender_type="'+params.receiverType+'" \
@@ -70,6 +64,7 @@ module.exports = {
   // added
   post_message: (params, cb) => {
     console.log("PARAMS", params)
+
     let data = [params.sender_type, params.receiver_type,
       params.direct_message, params.sender_id, params.receiver_id];
     const queryString = 'INSERT INTO messages(sender_type, receiver_type, \

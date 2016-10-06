@@ -21,7 +21,7 @@ export default class Messages extends Component {
     })
      socket.on('new bc message', function(msg) {
       console.log("NEW MESSAGE INCOMING", msg, user, chosenid);
-      that.handleSave(msg);
+      that.handleSave(msg)
     })
     socket.on('new channel', function(channel) {
       console.log("NEW CHANNEL");
@@ -39,45 +39,72 @@ export default class Messages extends Component {
   }
 
   render(){
-    const { messages, socket, chosen, dispatch, user, contact } = this.props;
+    const { messages, socket, chosen, dispatch, user, contact, height } = this.props;
     console.log("$$$message$$", messages)
     if(messages && messages.length > 0 && chosen === true){
       return (
         <div>
-          <div id="chatBoard">
-            {messages.map( message => {
-              console.log("$$MESSAGES", message);
-              if( Array.isArray(message) ){
-                return message.map( item => {
-                  console.log("$$ITEM", item.direct_message);
-                    return <div>
-                      <h5> { item.first } { item.last }: </h5>
-                      <p> { item.direct_message } </p>
-                    </div>
-                })
-              }else{
-                if(message.sender_id == user && message.senderType == localStorage.getItem('userType')){
-                  return <div>{ message.first } { message.last }: { message.direct_message }</div>
+          <div id="chatBoard" style={ {minHeight: height} }>
+            <div>
+              <h4>{contact.first} {contact.last}</h4>
+            </div>
+            <div>
+              {messages.map( message => {
+                console.log("$$MESSAGES", message, user);
+                if( Array.isArray(message) ){
+                  return message.map( item => {
+                    if(item.sender_id == user || item.user == user){
+                      return <div className="messagesUser">
+                                <div>
+                                  <img src="../../styles/background_images/tailBlue.png" alt=""/>
+                                 <p> { item.direct_message } </p>
+                                </div>
+                              </div>
+                    }else{
+                      return <div className="messagesIncoming">
+                                <div>
+                                  <img src="../../styles/background_images/tail.png" alt=""/>
+                                  <p> { item.direct_message } </p>
+                                </div>
+                              </div>
+                    }
+                      
+                  })
                 }else{
-                  return <div>
-                    <h5> { contact.first } { contact.last }: </h5>
-                    <p> { message.direct_message } </p>
-                  </div>
+                  if(message.user == user){
+                    return <div className="messagesUser">
+                              <div>
+                                <img src="../../styles/background_images/tailBlue.png" alt=""/>
+                                <p> { message.direct_message } </p>
+                              </div>
+                          </div>
+                  }else{
+                    return <div className="messagesIncoming">
+                            <div>
+                              <img src="../../styles/background_images/tail.png" alt=""/>
+                              <p> { message.direct_message } </p>
+                            </div>
+                          </div>
+                  }
                 }
-              }
-              
-            })}
+                
+              })}
+            </div>
+            <MessageInput socket={socket} user={user} handleSave={this.handleSave.bind(this)} />
           </div>
-             <MessageInput socket={socket} user={user} handleSave={this.handleSave.bind(this)} />
+             
         </div>
       );
       } else{
         return (
           <div>
-            <div id="chatBoard">
-              <h3>Select from the left column...</h3>
+            <div id="chatBoard" style={ {minHeight: height} }>
+              <div></div>
+              <div>
+                <h3>Select from the left column...</h3>
+              </div>
+              <MessageInput socket={socket} user={user} contact={contact} />
             </div>
-            <MessageInput socket={socket} user={user} contact={contact} />
         </div>
       );
     }
