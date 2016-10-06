@@ -54,7 +54,7 @@ module.exports = {
   },
 
   get_one_patientPlan: (params, cb) => {
-    let data = [params.id_patient, params.id_Insurance_company];
+    let data = [params.userid, params.id_Insurance_company];
     console.log("get_one_patientPlan", data);
     const queryString = 'SELECT * FROM insurance_plan WHERE id_patient=?';
     db.query(queryString, data, (error, results) => cb(error, results) );

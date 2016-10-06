@@ -18,7 +18,7 @@ module.exports = {
   },
 
   getOne_patientPlan: (req, res) => {
-    InsurancePlan.get_one_patientPlan(req.body, (err,data)=>{
+    InsurancePlan.get_one_patientPlan(req.params, (err,data)=>{
       if(err) console.log(err);
       res.json(data);
     });

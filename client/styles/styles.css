@@ -155,6 +155,11 @@ input[type='radio']{
     padding: 20px;
 }
 
+.dashboardRows a:hover, .dashboardRows a:hover h3, .dashboardRows a:hover p, .dashboardRows a:hover i {
+    background: rgb(242, 108, 44);
+    color: white;
+}
+
 .dashboardRows h3, .profileDash h3{
     font-size: 32px;
     text-transform: uppercase;
@@ -165,8 +170,16 @@ input[type='radio']{
 
 .dashboardRows:first-of-type h3{
     color: white;
+    text-align: left;
 }
 
+.dashboardRows:first-of-type h3:nth-of-type(2){
+    text-align: center;
+}
+.dashRemindersList{
+    height: 180px;
+    overflow: auto;
+}
 .dashboardRows i {
     font-size: 106px;
     display: block;
@@ -274,19 +287,19 @@ main{
     color: #333;
 }
 
-.reminders > div, .reminders > h6{
+.reminders > div{
     float: left;
     padding: 10px;
 }
 
-.reminders > div{
+.reminders > div:first-of-type{
     width: 20%;
     text-align: center;
     color: white;
     background: rgba(242, 108, 44, 0.8);
 }
 
-.reminders > h6{
+.reminders > div:last-of-type{
     width: 80%;
 }
 

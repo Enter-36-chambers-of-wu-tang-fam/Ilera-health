@@ -84,6 +84,7 @@ class ContactInfoForm extends Component {
   }
 
   submitMe(prop) {
+    
     // see patient-signup-forms.jsx
     this.props.handleNext();
     // decrypt user id
@@ -91,13 +92,23 @@ class ContactInfoForm extends Component {
 		let code  = CryptoJS.AES.decrypt(id.toString(), 'key'); //need to change key
 		prop.uid = code.toString(CryptoJS.enc.Utf8);
     // store form data
-    axios.post('/api/patient/contact', prop)
-      .then( found => {
-        // this.context.router.push('/patient/form/insurance/');
-      })
-      .catch( err => {
-          console.log("ERROR ENTERING INFORMATION");
-      })      
+    if ( (localStorage.getItem('contactSubmitted')) === "true" ){
+      axios.put('/api/patient/contacts/update', prop)
+        .then( found => {
+          // this.context.router.push('/patient/form/insurance/');
+        })
+        .catch( err => {
+            console.log("ERROR ENTERING INFORMATION");
+        }) 
+    } else {
+      axios.post('/api/patient/contact', prop)
+        .then( found => {
+          localStorage.setItem('contactSubmitted', true)
+        })
+        .catch( err => {
+            console.log("ERROR ENTERING INFORMATION");
+        })    
+    }  
   }
 
   getStepContent(){
