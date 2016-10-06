@@ -72,6 +72,7 @@ export function authenticateUser(userType,data,reqType){
     return (dispatch) =>{
       dispatch(requestAuth(null));
       axios.post(`/api/${userType}/logout/`).then(loggedout => {
+          localStorage.clear();
           dispatch(verifiedAuth(null,null,false));
       })
       .catch(error => dispatch(failedAuth(error)));

@@ -73,13 +73,25 @@ class InsuranceForm extends Component {
     prop.insurance_type1 = this.state.insurerType;
     prop.insurance_network1 = this.state.network;
     prop.betterDoctorUID = this.state.docSelectedInfo.betterDoctorUID;
-    axios.post('/api/patient/insurance', prop)
-      .then( found => {
-        this.context.router.push('/patient/dashboard');
-      })
-      .catch( err => {
-          console.log("ERROR ENTERING INFORMATION", err);
-      })    
+
+    if( (localStorage.getItem('providerSubmitted')) === "true" ){
+      axios.put('/api/patient/insurance', prop)
+        .then( found => {
+          this.context.router.push('/patient/dashboard');
+        })
+        .catch( err => {
+            console.log("ERROR ENTERING INFORMATION", err);
+        })  
+    } else {
+      axios.post('/api/patient/insurance', prop)
+        .then( found => {
+          localStorage.setItem('providerSubmitted', true)
+          this.context.router.push('/patient/dashboard');
+        })
+        .catch( err => {
+            console.log("ERROR ENTERING INFORMATION", err);
+        })   
+    } 
   }
 
   getStepContent(){
