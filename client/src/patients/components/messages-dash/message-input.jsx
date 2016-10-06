@@ -41,13 +41,9 @@ export default class MessageInput extends Component {
   }
   render() {
     return (
-      <div style={{
-        width: '100%',
-      }}>
+      <div className="chatInput" style={{width: '100%'}}>
         <textarea
-          style={{
-            height: '100px',
-          }}
+          style={{height: '100px'}}
           id='messageInput'
           type="textarea"
           name="message"

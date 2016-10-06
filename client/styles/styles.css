@@ -32,6 +32,9 @@ body {
     font-family: 'Roboto', sans-serif;
     background-color: #FFFFFF;
 }
+input{
+    font-family: 'Roboto', sans-serif;
+}
 ol, ul {
 	list-style: none;
 }
@@ -84,28 +87,14 @@ h4{
     min-height: 10px;
 }
 
-header.scroll{
+header{
     height: 50px;
     background-color: #fcfcfc;
-    box-shadow: 0px 0px 2px 2px #ddd;
+    box-shadow: 0px 0px 1px 1px #ddd;
     position: fixed;
     left: 0;
     right: 0;
-    transition: all 0.4s ease;
-}
-
-header.scroll ul > li > button:hover > div > span {
-    color: white;
-}
-
-header.noScroll {
-    height: 50px;
-    background-color: rgba(255, 255, 255, 0);
-    box-shadow: none;
-    position: fixed;
-    left: 0;
-    right: 0;
-
+    z-index: 999;
 }
 
 header > h1{
@@ -145,7 +134,12 @@ input[type='radio']{
     content: '';
     display: block;
 }
-
+.messageContacts{
+    border-right: 2px solid #ddd;
+}
+.messagesUser{
+    text-align: right;
+}
 .dashboardRows a{
     display: block;
     box-shadow: 1px 3px 6px 2px #eee;
@@ -212,11 +206,10 @@ input[type='radio']{
 }
 
 main{
-    padding: 50px 0;
+    padding: 50px 0 0;
 }
 
 .patientAppMain{
-    padding: 0 0 50px;
 }
 
 /* DASHBOARD */
@@ -335,12 +328,47 @@ main{
 }
 
 /* CHAT */
-#chatBoard{
+#chatBoard > div:nth-of-type(2){
     min-height: 150px;
     padding: 30px;
     margin: 0 auto;
     overflow: auto;
-    max-height: 800px;
+}
+#chatBoard > div:first-of-type, .messageContacts > div:first-of-type{
+    height: 50px;
+    padding: 30px;
+    background-color: rgb(242, 108, 44);
+    color: white;
+}
+#chatBoard {
+    position: relative;
+}
+#chatBoard h3{
+    font-size: 4vw;
+    text-align: center;
+    color: #eee;
+    padding: 10% 0;
+}
+#messageSearch{
+    padding: 10px;
+    width: 90%;
+    display: block;
+    margin: 20px auto;
+    border-radius: 10px;
+    border: 1px solid #ddd;
+    font-size: 16px;
+}
+#messageSearch:placeholder-shown{
+    background: #eee;
+}
+::-webkit-input-placeholder, :-moz-placeholder, ::-moz-placeholder, :-ms-input-placeholder {  
+   font-weight: lighter
+}
+.chatInput{
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
 }
 .chat > div{
     float: left;
@@ -350,16 +378,19 @@ main{
 
 .chat > div:first-of-type{
     width: 30%;
-    border-right: 1px solid black;
 }
 
 .contactItem{
-    margin: 20px 10px;
-    background: rgba(248, 248, 248, 0.9);
-    padding: 10px;
+    background: rgba(255, 255, 255, 1);
+    padding: 20px;
     border-radius: 3px;
+    border-top: 1px solid #ddd;
+    border-bottom: 1px solid #ddd;
 }
-
+.contactItem:hover{
+    background: rgb(242, 108, 44);
+    color: white;
+}
 .contactItem > a > div{
     float: left;
     width: 20%;
@@ -369,7 +400,8 @@ main{
     font-size: 22px;
     text-transform: uppercase;
     font-weight: lighter;
-    padding-top: 10px;
+    padding-top: 12px;
+    margin: 0;
 }
 
 .contactItem img{
@@ -390,11 +422,13 @@ main{
     font-size: 20px;
 }
 #messageInput{
-    width: 100%;
+     width: 100%;
     padding: 10px;
     font-size: 16px;
-    border-radius: 5px;
     min-height: 100px;
+    border: none;
+    background: #eee;
+
 }
 
 /* WELCOME */
