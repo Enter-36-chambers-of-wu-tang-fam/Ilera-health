@@ -10,6 +10,27 @@ const io = require('socket.io')(server);
 const socketEvents = require('./sockets/socket-events')(io);
 const getAll = require('./controller/allPatient.js');
 
+//Mike's additions --> please don't move yet..need to finish setting up paths
+
+const multer = require('multer');
+const crypto = require('crypto');
+const mime = require('mime');
+var storage = multer.diskStorage({
+  
+  destination: function (req, file, cb) {
+    cb(null, '../client/src/uploads')
+  },
+  filename: function (req, file, cb) {
+    crypto.pseudoRandomBytes(16, function (err, raw) {
+      cb(null, raw.toString('hex') + Date.now() + '.' + mime.extension(file.mimetype));
+    });
+  }
+});
+var upload = multer({ storage: storage});
+
+//END MIKE ADDITIONS
+
+
 app.use(express.static(`${__dirname}/../client`));
 app.use(bodyParser.json());
 
@@ -31,11 +52,16 @@ app.get('/api/messages/getOne', Message.getOneMessage);
 app.put('/api/messages/edit', Message.editOneMessage);
 app.delete('/api/messages/delete', Message.deleteOneMessage);
 
-//Record for the photo upload
-app.post('/upload/medRecord', (req,res) =>{
-console.log(req.body);
-  res.status(200).send();
+//Record for the photo upload --> Mike Addition
+
+app.post('/upload/medRecord', upload.single('upload'), function(req,res, next){
+  
+  console.log(__dirname + req.filefilename);
+
+  res.json(req.file);
 })
+
+//Record for the photo upload --> Mike Addition
 
 
 app.get('/api/allPatient/:userid', getAll.get_patient);
