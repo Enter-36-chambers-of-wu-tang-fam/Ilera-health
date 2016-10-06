@@ -2,7 +2,7 @@
 
 const db = require('../db/dbConnect/connection.js');
 
- 
+
 module.exports = {
 
   // added
@@ -31,8 +31,8 @@ module.exports = {
 
   add_health_log: (params, cb) => {
     //  post to health_log
-    let data = [params.physician_date, params.physician_notes, params.physician_photo_path,
-      params.id_physician, params.id_patient];
+    let data = [params.physician_date, params.physician_notes,
+      params.physician_photo_path, params.id_physician, params.id_patient];
     const queryString = 'INSERT INTO health_log(physician_date, physician_notes, \
       physician_photo_path, id_physician, id_patient) value (?, ?, ?, ?, ?)';
     db.query(queryString, data, (error, results) => cb(error, results) );
@@ -40,9 +40,11 @@ module.exports = {
 
   // added
   patient_update_health_log: (params, cb) => {
-    let data = [params.patient_date, params.patient_note, params.patient_photo_path];
-    const queryString = 'UPDATE health_log SET patient_date=?, patient_note=?, \
-      patient_photo_path=? WHERE id ="'+params.id+'" LIMIT 1';
+    let data = [params.patient_date, params.patient_note,
+      params.patient_photo_path];
+    const queryString = 'UPDATE health_log SET patient_date=?, \
+    patient_note=?, patient_photo_path=? \
+    WHERE id ="'+params.id+'" LIMIT 1';
     db.query(queryString, data, (error, results) => cb(error, results) );
   },
 
@@ -51,7 +53,8 @@ module.exports = {
     let data = [params.physician_date, params.physician_notes,
       params.physician_photo_path];
     const queryString = 'UPDATE health_log SET physician_date=?, \
-      physician_notes=?, physician_photo_path=? WHERE id ="'+params.id+'" LIMIT 1';
+      physician_notes=?, physician_photo_path=? \
+      WHERE id ="'+params.id+'" LIMIT 1';
     db.query(queryString, data, (error, results) => cb(error, results) );
   },
 
