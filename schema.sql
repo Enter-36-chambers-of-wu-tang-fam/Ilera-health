@@ -476,12 +476,12 @@ INSERT INTO `patient` (`first`,`last`,`email`,`password`,`pin`,`address`,`city`,
 
 -- INSERT INTO `patient_physician` (`id`,`id_physician`,`id_patient`) VALUES
 -- ('','','');
-INSERT INTO `patient_physician` (`id_physician`,`id_patient`) VALUES ('1','1');
-INSERT INTO `patient_physician` (`id_physician`,`id_patient`) VALUES ('1','2');
-INSERT INTO `patient_physician` (`id_physician`,`id_patient`) VALUES ('2','2');
-INSERT INTO `patient_physician` (`id_physician`,`id_patient`) VALUES ('2','1');
-INSERT INTO `patient_physician` (`id_physician`,`id_patient`) VALUES ('2','7');
-INSERT INTO `patient_physician` (`id_physician`,`id_patient`) VALUES ('1','7');
+-- INSERT INTO `patient_physician` (`id_physician`,`id_patient`) VALUES ('1','1');
+-- INSERT INTO `patient_physician` (`id_physician`,`id_patient`) VALUES ('1','2');
+-- INSERT INTO `patient_physician` (`id_physician`,`id_patient`) VALUES ('2','2');
+-- INSERT INTO `patient_physician` (`id_physician`,`id_patient`) VALUES ('2','1');
+-- INSERT INTO `patient_physician` (`id_physician`,`id_patient`) VALUES ('2','7');
+-- INSERT INTO `patient_physician` (`id_physician`,`id_patient`) VALUES ('1','7');
 
 -- INSERT INTO `institution` (`id`,`inst_name`,`type`,`description`,`rating`,`phone_number`,`address`,`city`,`state`,`zip`,`email`) VALUES
 -- ('','','','','','','','','','','');
@@ -517,16 +517,16 @@ INSERT INTO `emergency_contact` (`e_1_contact_first`,`e_1_contact_last`,`e_1_con
 
 
 
-INSERT INTO `appointment` (`date`,`time`,`notes`,`id_physician`,`id_patient`,`id_institution`) VALUES ('2016-10-20','230','needs to protect his kneck','1','1','1');
+-- INSERT INTO `appointment` (`date`,`time`,`notes`,`id_physician`,`id_patient`,`id_institution`) VALUES ('2016-10-20','230','needs to protect his kneck','1','1','1');
 
-INSERT INTO `appointment_document` (`document`,`id_appointment`) VALUES ('yolo','1');
+-- INSERT INTO `appointment_document` (`document`,`id_appointment`) VALUES ('yolo','1');
 
-INSERT INTO `Insurance_company` (`company_name`,`phone_number_for_patients`,`phone_number_for_institutions`) VALUES
-('jojo','1423','1423');
+-- INSERT INTO `Insurance_company` (`company_name`,`phone_number_for_patients`,`phone_number_for_institutions`) VALUES
+-- ('jojo','1423','1423');
 
-INSERT INTO `insurance_plan` (`primary_name`, `primary_phone`, `id_patient`, `id_insurance_company`) VALUES ('yolo', '4325', '1', '1');
+-- INSERT INTO `insurance_plan` (`primary_name`, `primary_phone`, `id_patient`, `id_insurance_company`) VALUES ('yolo', '4325', '1', '1');
 
-INSERT INTO `payment` (`copay`,`bill`,`bill_statement`,`id_physician`,`id_patient`) VALUES ('342','1423','142','1','1');
+-- INSERT INTO `payment` (`copay`,`bill`,`bill_statement`,`id_physician`,`id_patient`) VALUES ('342','1423','142','1','1');
 
 -- INSERT INTO `administration` (`id`,`login`,`password`) VALUES
 -- ('','','');

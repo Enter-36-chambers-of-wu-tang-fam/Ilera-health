@@ -20,11 +20,16 @@ class ViewProfile extends Component {
       gender: null,
       bio: null,
       specialties: [],
-      ratings: [],
-      languages: [],
+      language: null,
       practices: [],
-      insurances: []
-
+      practice_street: null,
+      practice_city: null,
+      practice_state:null,
+      practice_zip:null,
+      insurance_one: null,
+      insurance_two: null,
+      rating:null,
+      myPhysicians: []
     }
   }
 
@@ -43,19 +48,23 @@ class ViewProfile extends Component {
           axios.get(query)
             .then(doctor => {
               that.setState({
-                doc: doctor.data,
-                title: doctor.data.data.profile.title,
-                name: doctor.data.data.profile.first_name + ' ' + doctor.data.data.profile.last_name,
-                first: doctor.data.data.profile.first_name,
-                last: doctor.data.data.profile.last_name,
-                image: doctor.data.data.profile.image_url,
-                gender: doctor.data.data.profile.gender,
-                bio: doctor.data.data.profile.bio,
-                specialties: doctor.data.data.specialties,
-                ratings: doctor.data.data.ratings,
-                languages: doctor.data.data.profile.languages,
+                doc: doctor.data || null,
+                title: doctor.data.data.profile.title || null,
+                name: doctor.data.data.profile.first_name + ' ' + doctor.data.data.profile.last_name || null,
+                first: doctor.data.data.profile.first_name || null,
+                last: doctor.data.data.profile.last_name || null,
+                image: doctor.data.data.profile.image_url || null,
+                gender: doctor.data.data.profile.gender || null,
+                bio: doctor.data.data.profile.bio ? doctor.data.data.profile.bio : null,
+                specialties: doctor.data.data.specialties ? doctor.data.data.specialties : null,
+                language: doctor.data.data.profile.languages[0].name ? doctor.data.data.profile.languages[0].name : null,
                 practices: doctor.data.data.practices,
-                insurances: doctor.data.data.insurances
+                practice_street: doctor.data.data.practices[0].visit_address.street ? doctor.data.data.practices[0].visit_address.street : null,
+                practice_city:doctor.data.data.practices[0].visit_address.city ? doctor.data.data.practices[0].visit_address.city : null,
+                practice_state:doctor.data.data.practices[0].visit_address.state ? doctor.data.data.practices[0].visit_address.state : null,
+                practice_zip:doctor.data.data.practices[0].visit_address.zip ? doctor.data.data.practices[0].visit_address.zip : null,
+                insurance_one: doctor.data.data.insurances[0].insurance_provider.name ? doctor.data.data.insurances[0].insurance_provider.name : null,
+                insurance_two: doctor.data.data.insurances[6].insurance_provider.name ? doctor.data.data.insurances[6].insurance_provider.name : null,
               });
             })
             .catch(err => { console.log("ERROR FETCHING DOCTOR INFO", err) })
@@ -69,12 +78,13 @@ class ViewProfile extends Component {
     }
 
     //PHYSICIAN VIEW OF ALL PATIENTS
-
-    if(this.props.userType === 'physician'){
-
-
-    }
   }
+
+   componentWillReceiveProps(nextProps) {
+    this.setState({
+      myPhysicians: this.props.getMyPhys.contacts.data
+    })
+   }
 
   createRelation() {
     let id = localStorage.getItem('uid');
@@ -91,6 +101,7 @@ class ViewProfile extends Component {
     };
     this.props.addPhysician(createRelationship);
     this.props.getMyPhysicians(uid);
+    this.forceUpdate();
   }
 
   removeRelation() {
@@ -103,6 +114,7 @@ class ViewProfile extends Component {
       id_patient: uid 
     };
     this.props.removePhysician(deleteRelationship);
+    this.forceUpdate();
     //this.props.getMyPhysicians(uid);
   }
 
@@ -112,11 +124,21 @@ class ViewProfile extends Component {
 
           <div>
             <div className="searchProfile">
+            <div className="searchProfileHeader">
               <img src={this.state.image} />
-              <p className="searchProfileTitle">{this.state.name}, {this.state.title}</p>
-              <p className="SearchProfileText">{this.state.bio}</p>
-              <button onClick={this.createRelation.bind(this)}>Add Physician</button>
-              <button onClick={this.removeRelation.bind(this)}>Remove Physician</button>
+              <p className="physicianProfileTitle">{this.state.name}, {this.state.title}</p>
+              <br/>
+              {this.state.myPhysicians.map((e) => { return e.betterDoctorUID; }).indexOf(this.props.params.provider) > -1 ? 
+              <button className="removePhysicianButton" onClick={this.removeRelation.bind(this)}>Remove Physician</button> :  <button className="addPhysicianButton" onClick={this.createRelation.bind(this)}>Add Physician</button>}
+            </div>
+              <p className="physicianProfileBio">{this.state.bio}</p>
+              <p className="physicianProfileLanguage"> Language: {this.state.language}</p>
+              <br />
+              <p className="physicianProfileStreet">{this.state.practice_street}</p>
+              <p className="physicianProfileCity">{this.state.practice_city}</p>
+              <p className="physicianProfileState">{this.state.practice_state ? this.state.practice_state : null}, {this.state.practice_zip ? this.state.practice_zip : null}</p>
+              <p className="physicianProfileInsuranceOne">Insurance : {this.state.insurance_one ? this.state.insurance_one : null}</p>
+              <p className="physicianProfileInsuranceTwo">Insurance : {this.state.insurance_two ? this.state.insurance_two : null}</p>
               <div className="appointment">
               {this.props.children}
               </div>
@@ -129,7 +151,7 @@ const mapStateToProps = (state) => {
   return {
     uid: state.authentication.authenticated,
     userType: state.authentication.userType,
-    getMyPhysicians: state.contacts
+    getMyPhys: state.contacts
   }
 }
 

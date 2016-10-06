@@ -647,3 +647,290 @@ h5.extraTopMargin{
     font-size: 24px;
     margin-bottom: 15px;
 }
+
+/* ALL PHYSICIANS VIEW */
+
+.allPhysicians {
+  box-sizing:border-box;
+}
+
+.myPhysicianList{
+  text-align:center;
+  width:100%;
+  float:left;
+  background:rgba(0,0,0,.9);
+  padding:2em;
+  color:#FFF;
+}
+
+.myPhysicianList h2{
+  margin: 0em 0em 1.5em 0em;
+}
+
+.myPhysicianList a{
+  color:#FFF;
+  padding:.5em;
+}
+
+.myPhysicianList .physicianInfo{
+  color:#FFF;
+  padding:.5em;
+  margin-top:.3em;
+}
+
+.myPhysicianList .physicianSpecialty{
+  margin-top:-.5em;
+}
+
+.myPhysicianList a:hover{
+  background:rgba(0,102,102,.9);
+  box-shadow:1em 1em 1em #000;
+  color:#FFF;
+  transition: background .25s;
+  height:100%;
+  width:100%;
+  padding:.5em;
+  border-radius:1em;
+  float:left;
+}
+.myPhysicianList li{
+display:inline-block;
+text-align:center;
+}
+.myPhysicianList li img{
+  padding:0em 3em;
+}
+.allPhysicians .physicianImage{
+  border-radius:50%;
+}
+
+.searchForm{
+  clear:both;
+  text-align:center;
+  padding:1em 0em;
+  margin: 0 auto;
+  background:rgba(0,0,0,.1);
+  min-width:100% !important;
+}
+
+.searchForm button{
+  background:rgba(0,0,0,0);
+  color:#667;
+  border: .01em solid #CCC;
+  box-shadow:.05em .05em .01em #999;
+  border-radius:.2em;
+  font-size:1.25em;
+  outline:none;
+}
+
+.searchForm button:hover{
+  cursor:pointer;
+  background:#099;
+  box-shadow:.05em .05em .2em #999;
+  color:#fff;
+  border:#0CC;
+}
+
+.allPhysicians .searchForm div{
+  clear:both;
+  display:inline;
+  padding:1em 0em;
+  margin: 0 auto;
+  min-width:100% !important;
+}
+
+.allPhysicians .searchForm h3{
+  text-align:center;
+  padding: 1.5em;
+}
+
+.allPhysicians .searchForm input, select{
+  border: thin solid #CCC;
+  color: #333;
+  height: 3em;
+  width: 25%;
+  border-radius:.25em;
+  padding:0em .5em;
+  margin: 1em;
+  outline:none;  
+}
+.allPhysicians .searchForm .smallForm{
+  width:10%;
+}
+
+.allPhysicians a{
+  color:#FFF;
+  padding:.5em;
+}
+
+.allPhysicians .physicianInfo{
+  padding:.5em;
+  margin-top:.3em;
+}
+
+.allPhysicians .physicianSpecialty{
+  margin-top:-.5em;
+}
+
+.allPhysicianList li{
+  display:inline-block;
+  text-align:center;
+  margin: 5%;
+}
+
+.allPhysicianList a{
+  color:#333;
+  padding:.5em;
+}
+.allPhysicianList a:hover{
+  color:#099;
+}
+
+.allPhysicianList .physicianSpecialty{
+  margin-top:-.5em;
+}
+
+/* Physician private profile */
+
+.searchProfile{
+  box-sizing:border-box;
+  padding: 0em;
+}
+
+.searchProfile img{
+  float: left;
+  clear:both;
+  width:200px;
+}
+
+.physicianProfileTitle{
+  float:left;
+  margin-left:2em;
+  line-height:200px;
+  font-size:3em;
+}
+
+.searchProfileHeader{
+  background:rgba(0,0,0,.9) !important;
+  color:#fff;
+  text-shadow: .01em .01em .01em #fff;
+  float:left;
+  padding:1em;
+  width:100%;
+}
+.physicianProfileBio{
+  clear:both;
+  padding:1em;
+  width:75%;
+  font-size:1.5em;
+  color:#333;
+  margin: 0 auto;
+  text-align:left;
+}
+
+.addPhysicianButton{
+  font-family: 'Lato', sans-serif;
+  position:relative;
+  float:right;
+  font-weight:300;
+  left:0;
+  border: none;
+  background: rgba(0,102,102,1);
+  font-size:1.2em;
+  border-radius:.2em;
+  color:#fff;
+  box-shadow: .01em .01em .01em #333;
+  padding:.4em;
+  outline:none;
+}
+
+.addPhysicianButton:hover{
+  font-family: 'Lato', sans-serif;
+  cursor:pointer;
+  position:relative;
+  background: rgba(0,153,153,1);
+  font-size:1.2em;
+  border-radius:.2em;
+  color:#fff;
+  box-shadow: .01em .01em .01em #333;
+  padding:.4em;
+}
+
+
+.removePhysicianButton{
+  font-family: 'Lato', sans-serif;
+  position:relative;
+  float:right;
+  font-weight:300;
+  left:0;
+  border: none;
+  background: rgba(255,0,0,.5);
+  font-size:1.2em;
+  border-radius:.2em;
+  color:#fff;
+  box-shadow: .01em .01em .01em #333;
+  padding:.4em;
+}
+
+.removePhysicianButton:hover{
+  font-family: 'Lato', sans-serif;
+  cursor:pointer;
+  position:relative;
+  background: #df2424;
+  font-size:1.2em;
+  border-radius:.2em;
+  color:#fff;
+  box-shadow: .01em .01em .01em #333;
+  padding:.4em;
+}
+
+
+
+.physicianProfileLanguage{
+  width:71%;
+  font-size:1.5em;
+  color:#333;
+  margin: 0 auto;
+  text-align:left;
+  
+}
+
+.physicianProfileStreet{
+  width:71%;
+  font-size:1.5em;
+  color:#333;
+  margin: 0 auto;
+  text-align:left;
+}
+
+.physicianProfileCity{
+  width:71%;
+  font-size:1.5em;
+  color:#333;
+  margin: 0 auto;
+  text-align:left;
+}
+
+.physicianProfileState{
+  width:71%;
+  font-size:1.5em;
+  color:#333;
+  margin: 0 auto;
+  text-align:left;
+}
+
+.physicianProfileInsuranceOne{
+  width:71%;
+  font-size:1.5em;
+  color:#333;
+  margin: 1em auto 0em auto;
+  text-align:left;
+}
+
+.physicianProfileInsuranceTwo{
+  width:71%;
+  font-size:1.5em;
+  color:#333;
+  margin: 0 auto;
+  text-align:left;  
+}
