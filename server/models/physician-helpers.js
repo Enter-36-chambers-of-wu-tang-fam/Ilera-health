@@ -61,8 +61,8 @@ module.exports = {
   },
 
   addBetterDocId: (params, cb) =>  {
-    let data = [params.betterDocId];
-    const queryString = "INSERT INTO physician (betterDoctorUID) VALUE (?)";
+    let data = [params.betterDocId, params.first, params.last, params.phone, params.image, params.specialty];
+    const queryString = "INSERT INTO physician (betterDoctorUID, first, last, phone_number, photo_path, specialty) VALUE (?,?,?,?,?,?)";
     db.query(queryString, data, (error, results) => cb(error, results) );
   }
 

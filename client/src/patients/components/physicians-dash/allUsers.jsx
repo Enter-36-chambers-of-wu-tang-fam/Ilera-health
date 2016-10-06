@@ -35,7 +35,8 @@ class AllUsers extends Component {
       doc_city:null,
       lat: undefined,
       lon: undefined,
-
+      
+      currentDocs: [],
 
       pats: [],
       pat_first: null,
@@ -92,7 +93,6 @@ class AllUsers extends Component {
     }
   }
 
-
   searchSubmit(search) {
     let that = this;
     let qName = this.state.doc_name ? `name=${this.state.doc_name}`:'';
@@ -135,6 +135,10 @@ class AllUsers extends Component {
       doc_state: nextProps.searchVals.docState ? nextProps.searchVals.docState.toLowerCase() : null,
       doc_city: nextProps.searchVals.docCity ? nextProps.searchVals.docCity.toLowerCase() : null
     })
+    
+    this.setState({
+      currentDocs: this.props.myPhysicians.contacts.data
+    })
   }
 
 
@@ -143,6 +147,7 @@ class AllUsers extends Component {
   render() {
     const { handleSubmit} = this.props;
     console.log("PROPPA",this.props);
+
       return (
 
           <div>
@@ -301,6 +306,20 @@ class AllUsers extends Component {
               </div>
                 <button type="submit">Submit</button>
             </form>
+
+          <ul>
+          <h1> Current Physicians </h1>
+          {this.state.currentDocs.map((doc,index) => {
+            return (
+              <li key={index}><Link to={"/patient/physicians/"+doc.betterDoctorUID}>
+              <img src={doc.photo_path} />
+              {doc.first} {doc.last}
+              <br/>
+              {doc.specialty}
+              </Link></li>
+            )
+          })}
+          </ul>
 
 
           <ul>

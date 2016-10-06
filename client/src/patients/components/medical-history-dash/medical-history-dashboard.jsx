@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import Dropzone from 'react-dropzone';
-import ajax from 'superagent'; //usually aliased as request, this is not actually jQuery ajax
+import request from 'superagent'; //usually aliased as request, this is not actually jQuery ajax
 import axios from 'axios';
 
 
@@ -12,25 +12,29 @@ export default class DropzoneDemo extends Component{
       uploadFiles: []
     }
   }
-  onDrop(files) {
+  onDrop(file) {
     this.setState({
-      uploadFiles: files
+      uploadFiles: file
+    });
+    var upload = new FormData();
+    upload.append('upload',file[0]);
+
+    request.post('/upload/medRecord')
+    .send(upload)
+    .end(function(err, resp){
+      if (err) { console.error(err) }
+      console.log(resp);
+      return resp;
     });
     
-    var fileData = {
-      name: files[0].name,
-      path: files[0].preview,
-      type: files[0].type,
-      size: files[0].size
-    }
 
-    axios.post('/upload/medRecord', fileData)
-    .then(function (result) {
-      console.log(result);
-    })
-    .catch(function (err) {
-      console.log(err);
-    });
+    // axios.post('/upload/medRecord', fileData)
+    // .then(function (result) {
+    //   console.log(result);
+    // })
+    // .catch(function (err) {
+    //   console.log(err);
+    // });
 
     // ajax.post('/upload/medRecord')
     // .set('Access-Control-Allow-Origin', '*')
@@ -51,13 +55,13 @@ export default class DropzoneDemo extends Component{
 
       //   });
 
-    console.log('Received files: ', files)
+    console.log('Received files: ', file)
   }
 
   render () {
     return (
         <div>
-          <Dropzone onDrop={this.onDrop.bind(this)}>
+          <Dropzone onDrop={this.onDrop.bind(this)} multiple={false}>
             <div>Try dropping some files here, or click to select files to upload.</div>
           </Dropzone>
           {this.state.uploadFiles.length > 0 ? <div>

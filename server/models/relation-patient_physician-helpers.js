@@ -49,10 +49,8 @@ module.exports = {
 
   test_get_all_physicians_of_patient: (params, cb) => {
     let data = [params.userid];
-    console.log("PATIENT ID PARAMETER****************", data);
-    const queryString = "SELECT pr.id_physician, py.id, py.first, \
-      py.last, py.email,py.betterDoctorUID, py.phone_number, \
-      py.photo_path, py.specialty \
+    const queryString = "SELECT pr.id_physician, py.id, py.first, py.last, \
+      py.email,py.betterDoctorUID, py.phone_number, py.photo_path, py.specialty \
       FROM patient_physician pr \
       JOIN physician py ON py.id = pr.id_physician AND pr.id_patient=? \
       ORDER BY py.last DESC";

@@ -64,7 +64,7 @@ export function fetchMyPatients(userid) {
         console.log("RESPONSE", response)
         dispatch(fetchPhysicianPatients(response));	  
 	  })
-      .catch(error => {
+    .catch(error => {
 		  dispatch(fetchPhysicianPatientsFailure(error));
 	  });
   }
@@ -104,7 +104,7 @@ export const makeMyPhysician = (relationship) => {
   console.log("MAKE MY PHYSICIAN");
   return dispatch => {
     dispatch(makeMyPhysicianRequest(relationship));
-      return axios.post('/api/physician/addbetterDoc', { betterDocId: relationship.betterDocId})
+      return axios.post('/api/physician/addbetterDoc', relationship)
         .then(docId => {
           relationship.id_physician = docId.data;
           axios.post(`/api/relation/create`, relationship)

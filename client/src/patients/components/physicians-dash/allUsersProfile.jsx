@@ -13,6 +13,8 @@ class ViewProfile extends Component {
       allDocs: [],
       doc: {},
       title: null,
+      first: null,
+      last: null,
       name: null,
       image: null,
       gender: null,
@@ -44,6 +46,8 @@ class ViewProfile extends Component {
                 doc: doctor.data,
                 title: doctor.data.data.profile.title,
                 name: doctor.data.data.profile.first_name + ' ' + doctor.data.data.profile.last_name,
+                first: doctor.data.data.profile.first_name,
+                last: doctor.data.data.profile.last_name,
                 image: doctor.data.data.profile.image_url,
                 gender: doctor.data.data.profile.gender,
                 bio: doctor.data.data.profile.bio,
@@ -78,6 +82,11 @@ class ViewProfile extends Component {
     let uid = code.toString(CryptoJS.enc.Utf8);
     let createRelationship = {
       betterDocId: this.props.params.provider,
+      first: this.state.first,
+      last: this.state.last,
+      image: this.state.image,
+      specialty: this.state.specialties[0].actor,
+      phone: this.state.practices[0].phones[0].number,
       id_patient: uid
     };
     this.props.addPhysician(createRelationship);
