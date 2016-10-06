@@ -31,6 +31,14 @@ module.exports = {
     });
   },
 
+  put_InsurancePlan: (req, res) => {
+    InsurancePlan.put_Insurance_plan(req.body, (err,data)=>{
+      if(err) console.log(err);
+      res.json(data);
+    });
+  },
+  
+  // no loner in use because the schema was updated
   update_insurancePlan: (req, res) => {
     InsurancePlan.update_insurance_plan(req.body, (err,data)=>{
       if(err) console.log(err);

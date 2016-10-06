@@ -4,4 +4,6 @@ module.exports = app => {
 
   app.post('/api/patient/insurance', InsurancePlan.post_initInsurance_plan);
 
+  app.put('/api/patient/insurance', InsurancePlan.put_InsurancePlan);
+
 }
