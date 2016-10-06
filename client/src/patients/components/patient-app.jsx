@@ -20,7 +20,7 @@ class PatientApp extends Component {
     return (
       <div>
         <Header />
-        <main>
+        <main className="patientAppMain">
           { this.props.children }
         </main>
       </div>
