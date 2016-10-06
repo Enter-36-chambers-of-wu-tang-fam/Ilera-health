@@ -7,7 +7,8 @@ import CryptoJS from 'crypto-js';
 import axios from 'axios';
 
 
-
+{this.state.myPhysicians.map((e) => { return e.betterDoctorUID; }).indexOf(this.props.params.provider) > -1 ? 
+              <button className="removePhysicianButton" onClick={this.removeRelation.bind(this)}>Remove Physician</button> :  <button className="addPhysicianButton" onClick={this.createRelation.bind(this)}>Add Physician</button>}
 class ViewProfile extends Component {
   constructor(props){
     super(props);
@@ -62,7 +63,7 @@ class ViewProfile extends Component {
                 practice_state:doctor.data.data.practices[0].visit_address.state ? doctor.data.data.practices[0].visit_address.state : null,
                 practice_zip:doctor.data.data.practices[0].visit_address.zip ? doctor.data.data.practices[0].visit_address.zip : null,
                 insurance_one: doctor.data.data.insurances[0].insurance_provider.name ? doctor.data.data.insurances[0].insurance_provider.name : null,
-                insurance_two: doctor.data.data.insurances[6].insurance_provider.name ? doctor.data.data.insurances[6].insurance_provider.name : null,
+                insurance_two: doctor.data.data.insurances[1].insurance_provider.name ? doctor.data.data.insurances[1].insurance_provider.name : null,
               });
             })
             .catch(err => { console.log("ERROR FETCHING DOCTOR INFO", err) })
@@ -117,8 +118,8 @@ class ViewProfile extends Component {
               <img src={this.state.image} />
               <p className="physicianProfileTitle">{this.state.name}, {this.state.title}</p>
             
-              {this.state.myPhysicians.map((e) => { return e.betterDoctorUID; }).indexOf(this.props.params.provider) > -1 ? 
-              <button className="removePhysicianButton" onClick={this.removeRelation.bind(this)}>Remove Physician</button> :  <button className="addPhysicianButton" onClick={this.createRelation.bind(this)}>Add Physician</button>}
+             <button className="addPhysicianButton" onClick={this.createRelation.bind(this)}>Add Physician</button>
+             <button className="removePhysicianButton" onClick={this.removeRelation.bind(this)}>Remove Physician</button>
               
               {this.state.myPhysicians.map((e) => { return e.betterDoctorUID; }).indexOf(this.props.params.provider) > -1 ? 
               <Link to={"/patient/physicians/"+this.props.params.provider+"/calendar"}><button className="appointmentButton"><i className="fa fa-calendar" aria-hidden="true"></i>Appointments</button></Link> : ''}
