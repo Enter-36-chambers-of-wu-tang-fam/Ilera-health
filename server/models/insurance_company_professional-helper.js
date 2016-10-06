@@ -31,8 +31,8 @@ module.exports = {
   initform_professional: (params, cb) => {
     let data = [params.username, params.email, params.phone_number,
       params.photo_path, params.id_Insurance_company];
-    const queryString ='UPDATE insurance_company_professional SET username=?, email=?, \
-      phone_number=?, photo_path=?, id_Insurance_company=? \
+    const queryString ='UPDATE insurance_company_professional SET username=?, \
+      email=?, phone_number=?, photo_path=?, id_Insurance_company=? \
       WHERE id='+ params.uid;
     db.query(queryString, data, (error, results) => cb(error, results) );
   },

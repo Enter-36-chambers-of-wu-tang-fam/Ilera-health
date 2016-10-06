@@ -11,9 +11,10 @@ module.exports = {
     // Get Request → /api/messages/:physid/:patid  [limit 5]
     console.log(params.userid, params.senderType, params.rid, params.receiverType);
     let data = [params.userid, params.senderType, params.rid, params.receiverType];
-    const queryString = 'SELECT p.id, p.first, p.last, p.email, p.primary_phone_number, \
-      p.photo_path, py.id, py.first, py.last, py.email, py.phone_number, \
-      py.photo_path, m.id, m.direct_message, m.date, m.sender_id, m.receiver_id, \
+    const queryString = 'SELECT p.id, p.first, p.last, p.email, \
+      p.primary_phone_number, p.photo_path, py.id, py.first, \
+      py.last, py.email, py.phone_number, py.photo_path, m.id, \
+      m.direct_message, m.date, m.sender_id, m.receiver_id, \
       m.sender_type \
       FROM messages m \
       JOIN patient p ON p.id = m.sender_id \

@@ -4,8 +4,7 @@ module.exports = app => {
 
   // Patient
   app.post('/api/patient/signin', Patient.signIn);
-  // Patient major join
-  // app.get('/api/patient/something', Mj.getAll);
+  
   //not for now but this will get all of the patient info eventually we are still in stage 1
   // app.get('/api/patient/dashboard', Patient.get_patient_info);
   app.get('/api/patient/:userid', Patient.get_patient_info);
@@ -19,6 +18,7 @@ module.exports = app => {
   app.put('/api/patient/password/update', Patient.put_password);
   // Post request to: /api/patient/emergency_contacts => { Emergency Table }
   app.post('/api/patient/contact', Patient.post_emer_contact);
+  app.put('/api/patient/profile/update', Patient.put_emer_contact);
 
 
   app.post('/api/patient/logout', Patient.logout);
