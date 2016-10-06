@@ -1,17 +1,6 @@
 const db = require('.././db/dbConnect/connection.js');
-// const Appointment = require('.././controller/appointment.js');
-// const HealthLog = require('.././controller/health_log.js');
-const Institution = require('.././controller/institution.js');
-// const Insurance = require('.././controller/insurance.js');
-// const InsurancePlan = require('.././controller/insurance_plan.js');
-// const InsuranceProfesional = require('.././controller/insurance_professional.js');
-// const Medication = require('.././controller/medication.js');
-// const Message = require('.././controller/messages.js');
 const Mj = require('.././controller/major-joins.js');
-// const Patient = require('.././controller/patient.js');
-// const Physician = require('.././controller/physician.js');
-// const Relation_PatPhy = require('.././controller/relation-patient_physician.js');
-// const Staff = require('.././controller/staff.js');
+
 const Appointment = require('./subRoutes/appointment.js');
 const Patient = require('./subRoutes/patient.js');
 const HealthLog = require('./subRoutes/healthlog.js')
@@ -31,6 +20,7 @@ module.exports = app => {
   Insurance(app);
   InsurancePlan(app);
   InsuranceProfesional(app);
+  // Institution(app);
   PatientMedications(app);
   // Medication(app);
   // Message(app);
@@ -39,8 +29,19 @@ module.exports = app => {
   Relation_PatPhy(app);
   Staff(app);
 
-
-
+};
+  // const Appointment = require('.././controller/appointment.js');
+  // const HealthLog = require('.././controller/health_log.js');
+  // const Insurance = require('.././controller/insurance.js');
+  // const InsurancePlan = require('.././controller/insurance_plan.js');
+  // const InsuranceProfesional = require('.././controller/insurance_professional.js');
+  // const Institution = require('.././controller/institution.js');
+  // const Medication = require('.././controller/medication.js');
+  // const Message = require('.././controller/messages.js');
+  // const Patient = require('.././controller/patient.js');
+  // const Physician = require('.././controller/physician.js');
+  // const Relation_PatPhy = require('.././controller/relation-patient_physician.js');
+  // const Staff = require('.././controller/staff.js');
 
   // // Appointment
   // app.get('/api/physician/getappointment', Appointment.getOne_AppointmentByPat_id);
@@ -122,4 +123,3 @@ module.exports = app => {
   // app.put('/api/staff/background', Staff.put_staffInfo);
   // // app.put('/api/staff/password/update', Staff.put_password);
   // app.post('/api/staff', Staff.logout);
-};
