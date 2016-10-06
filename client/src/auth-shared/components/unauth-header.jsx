@@ -6,7 +6,7 @@ import SignUp from './signup-component.js';
 import SignIn from './signin-component.js';
 
 const buttonStyles = {
-  hoverColor: "#007874",
+  hoverColor: "#203248",
   backgroundColor:null,
   labelStyle: {color:"#999"},
   rippleColor: '#333',
@@ -56,6 +56,26 @@ export default class UnauthHeader extends Component {
             <h1><a href="/"><img src="../styles/logos/myilera_large_white.png" /></a></h1>
             <ul>
               <li>
+                <FlatButton label="For Patients" 
+                  backgroundColor={buttonStyles.backgroundColor}
+                  hoverColor={buttonStyles.hoverColor} 
+                  style={buttonStyles.styles}
+                  labelStyle={buttonStyles.labelStyle}
+                  rippleColor={buttonStyles.rippleColor}
+
+                />
+              </li>
+               <li>
+                <FlatButton label="For Providers" 
+                  backgroundColor={buttonStyles.backgroundColor}
+                  hoverColor={buttonStyles.hoverColor} 
+                  style={buttonStyles.styles}
+                  labelStyle={buttonStyles.labelStyle}
+                  rippleColor={buttonStyles.rippleColor}
+
+                />
+              </li>
+               <li>
                 <FlatButton label="About" 
                   backgroundColor={buttonStyles.backgroundColor}
                   hoverColor={buttonStyles.hoverColor} 

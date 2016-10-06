@@ -86,21 +86,21 @@ class ProviderInfoFormInitialized extends Component {
   }
 
   onInsurerClick(key){
-     axios.get(`/api/insurance/insurer/${this.state.insurers[key].insurer}`)
-      .then( found => {
-        var type = [];
-        var network = [];
-        found.data.map( insurer =>{
-          if(type.indexOf(insurer.type) === -1){
-            type.push(insurer.type);
-          }
-          network.push(insurer.network);
-        })
-        this.setState({insurerSelected: true, insurerer: this.state.insurers[key].insurer, types: type, networks: network});
-      })
-      .catch( err => {
-          console.log("ERROR GETTING INFORMATION", err);
-      })   
+    //  axios.get(`/api/insurance/insurer/${this.state.insurers[key].insurer}`)
+    //   .then( found => {
+    //     var type = [];
+    //     var network = [];
+    //     found.data.map( insurer =>{
+    //       if(type.indexOf(insurer.type) === -1){
+    //         type.push(insurer.type);
+    //       }
+    //       network.push(insurer.network);
+    //     })
+    //     this.setState({insurerSelected: true, insurerer: this.state.insurers[key].insurer, types: type, networks: network});
+    //   })
+    //   .catch( err => {
+    //       console.log("ERROR GETTING INFORMATION", err);
+    //   })   
     
   }
 

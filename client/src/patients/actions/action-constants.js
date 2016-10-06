@@ -1,5 +1,9 @@
 import { reduxForm } from 'redux-form';
 
+export const GET_USER_INFO_REQUEST = 'GET_USER_INFO_REQUEST';
+export const GET_USER_INFO_SUCCESS = 'GET_USER_INFO_SUCCESS';
+export const GET_USER_INFO_FAILURE = 'GET_USER_INFO_FAILURE';
+
 //=============================APPOINTMENTS=============================
 
 export const SET_APPOINTMENT_REQUEST = 'SET_APPOINTMENT_REQUEST';
@@ -60,7 +64,8 @@ export const FORM_SUBMIT_FAILURE = 'FORM_SUBMIT_FAILURE';
 
 //================================== PROFILE ==============================
 
-export const INITIALIZE = 'redux-form/INITIALIZE'
+export const INITIALIZE = 'redux-form/INITIALIZE';
+export const INITIALIZE_BASIC = 'INITIALIZE_BASIC';
 
 //================================== MEDICATION ==============================
 

@@ -29,6 +29,7 @@ module.exports = app => {
   Appointment(app);
   HealthLog(app);
   Insurance(app);
+  InsurancePlan(app);
   InsuranceProfesional(app);
   PatientMedications(app);
   // Medication(app);

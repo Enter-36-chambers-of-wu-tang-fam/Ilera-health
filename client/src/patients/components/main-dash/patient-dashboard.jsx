@@ -1,5 +1,10 @@
 import React, { Component } from 'react';
 import { Router, Route, Link, browserHistory } from 'react-router';
+import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
+import { getUserInfo } from '../../actions/user.js';
+import CryptoJS from 'crypto-js';
+// Components
 import DashboardMessages from './dashboard-messages.jsx';
 import DashboardRecords from './dashboard-records.jsx';
 import DashboardPhysicians from './dashboard-physicians.jsx';
@@ -8,10 +13,20 @@ import DashboardProfile from './dashboard-profile.jsx';
 import DashboardHealthLog from './dashboard-healthLog.jsx';
 import DashboardMeds from './dashboard-meds.jsx';
 
-export default class PatientDashboard extends Component {
+class PatientDashboard extends Component {
 
     constructor (props){
       super(props)
+      console.log(props);
+    }
+
+    componentDidMount(){
+      const { dispatch, getUserInfo } = this.props;
+      let id = localStorage.getItem('uid');
+      let code  = CryptoJS.AES.decrypt(id.toString(), 'key'); //need to change key
+      const uid = code.toString(CryptoJS.enc.Utf8);
+      console.log("HERE")
+      getUserInfo(uid);
     }
 
     render() {
@@ -48,4 +63,10 @@ export default class PatientDashboard extends Component {
           </div>
       );
     }
+};
+
+const mapDispatchToProps = (dispatch) => {
+  return bindActionCreators({ getUserInfo }, dispatch);
 }
+
+export default connect(null, mapDispatchToProps)(PatientDashboard);

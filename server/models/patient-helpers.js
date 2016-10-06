@@ -33,10 +33,9 @@ module.exports = {
       params.gender, params.weight, params.height, params.blood_type,
       params.conditions, params.procedures, params.medications, params.allergies];
     const queryString ='UPDATE patient SET first=?, last=?, middle=?, \
-      maiden=?, date_of_birth=?, birth_city=?, \
-      birth_country=?, marital_status=?, primary_language=?, \
-      secondary_language=? \
-      WHERE id='+ params.uid;
+      maiden=?, date_of_birth=?, birth_city=?, birth_country=?, marital_status=?, primary_language=?, \
+      secondary_language=?, gender=?, weight=?, height=?, blood_type=?, \
+      conditions=?, procedures=?, medications=?, allergies=? WHERE id='+ params.uid;
     db.query(queryString, data, (error, results) => cb(error, results) );
   },
 
