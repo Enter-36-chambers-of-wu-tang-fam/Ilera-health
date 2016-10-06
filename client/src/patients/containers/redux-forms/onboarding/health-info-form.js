@@ -76,7 +76,7 @@ class HealthInfo extends Component {
 
 		axios.put('/api/patient/health', prop)
 			.then( found => {
-					// this.context.router.push('/patient/form/emergencyContact/');
+				console.log("HEALTH INFO SUBMITTED");
 			})
 			.catch( err => {
 					console.log("ERROR ENTERING INFORMATION", err);

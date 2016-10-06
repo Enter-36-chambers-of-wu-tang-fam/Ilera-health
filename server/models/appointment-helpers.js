@@ -29,6 +29,13 @@ module.exports = {
     db.query(queryString, data, (error, results) => cb(error, results) );
   },
 
+  get_all_appointment_by_pat_id: (params, cb) => {
+    let data = [params.id_patient];
+    const queryString = 'SELECT * FROM appointment \
+      WHERE id_patient = '+params.id_patient;
+    db.query(queryString, data, (error, results) => cb(error, results) );
+  },
+
   // added
   update_appointment: (params, cb) => {
     let data = [ (params.date || null), (params.time || null),

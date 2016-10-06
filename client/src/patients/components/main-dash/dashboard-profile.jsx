@@ -7,7 +7,7 @@ const DashboardProfile = () => {
             <h3>Profile</h3>
             <i className="fa fa-user" aria-hidden="true"></i>
             <p className="sneakPeak">
-                Something here
+                Update your records
             </p>
         </div>
     );

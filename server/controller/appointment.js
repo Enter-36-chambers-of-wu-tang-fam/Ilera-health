@@ -25,6 +25,13 @@ module.exports = {
     });
   },
 
+  getAll_appointmentByPat_id:(req, res) => {
+    Appointment.get_all_appointment_by_pat_id(req.params, (err,data)=>{
+      if(err) console.log(err);
+      res.json(data);
+    });
+  },
+
   updateAppointment:(req, res) => {
     Appointment.update_appointment(req.body, (err,data)=>{
       if(err) console.log(err);

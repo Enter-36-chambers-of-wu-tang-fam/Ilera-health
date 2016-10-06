@@ -84,14 +84,30 @@ h4{
     min-height: 10px;
 }
 
-header{
+header.scroll{
     height: 50px;
     background-color: #fcfcfc;
     box-shadow: 0px 0px 2px 2px #ddd;
     position: fixed;
     left: 0;
     right: 0;
+    transition: all 0.4s ease;
 }
+
+header.scroll ul > li > button:hover > div > span {
+    color: white;
+}
+
+header.noScroll {
+    height: 50px;
+    background-color: rgba(255, 255, 255, 0);
+    box-shadow: none;
+    position: fixed;
+    left: 0;
+    right: 0;
+
+}
+
 header > h1{
     float:left;
     padding-left:2.618em;
@@ -132,12 +148,16 @@ input[type='radio']{
 
 .dashboardRows a{
     display: block;
-    box-shadow: 3px 3px 6px 2px #ccc;
+    box-shadow: 1px 3px 6px 2px #eee;
     min-height: 250px;
-    background-color: rgb(24, 74, 93);
     color: white;
     border-radius: 4px;
     padding: 20px;
+}
+
+.dashboardRows a:hover, .dashboardRows a:hover h3, .dashboardRows a:hover p, .dashboardRows a:hover i {
+    background: rgb(242, 108, 44);
+    color: white;
 }
 
 .dashboardRows h3, .profileDash h3{
@@ -145,18 +165,41 @@ input[type='radio']{
     text-transform: uppercase;
     text-align: center;
     margin: 15px 0;
+    color: #203248;
 }
 
+.dashboardRows:first-of-type h3{
+    color: white;
+    text-align: left;
+}
+
+.dashboardRows:first-of-type h3:nth-of-type(2){
+    text-align: center;
+}
+.dashRemindersList{
+    height: 180px;
+    overflow: auto;
+}
 .dashboardRows i {
     font-size: 106px;
     display: block;
     width: 96px;
     margin: 0 auto;
+    color: rgb(242, 108, 44);
 }
 
 .dashboardRows h5{
     font-size: 72px;
     text-align: center;
+}
+
+.mainDashWelcome img{
+    width: 150px;
+    height: 150px;
+    border-radius: 50%;
+    display: block;
+    border: 1px solid white;
+    margin: 20px auto ;
 }
 
 .btn{
@@ -172,9 +215,19 @@ main{
     padding: 50px 0;
 }
 
+.patientAppMain{
+    padding: 0 0 50px;
+}
+
 /* DASHBOARD */
 .bottomRow > div, .bottomRow > a, .dashboardMain > div {
     float: left;
+    width: 24%;
+    display: block;
+    margin: 2% 4.5%;
+}
+
+.dashboardMain > div {
     width: 30%;
     display: block;
     margin: 2% 1.5%;
@@ -184,6 +237,9 @@ main{
     font-size: 14px;
     text-transform: uppercase;
     text-align: left;
+    color: #aaa;
+    margin-bottom: 5px;
+
 }
 
 .dashboardInsurance p{
@@ -196,6 +252,7 @@ main{
     font-size: 24px;
     margin: 15px 0;
     font-weight: lighter;
+    color: #203248;
 }
 
 .dashboardRows:first-of-type, .profileForms > div:first-of-type{
@@ -213,7 +270,11 @@ main{
 .dashboardMain > div{
     float: left;
     width: 30%;
-    padding: 20px;
+    padding: 20px 4%;
+    border-top: 1px solid white;
+    border-bottom: 1px solid white;
+    height: 295px;
+    margin-top: 60px;
 }
 
 .dashboardMain > div::last-of-type{
@@ -226,19 +287,19 @@ main{
     color: #333;
 }
 
-.reminders > div, .reminders > h6{
+.reminders > div{
     float: left;
     padding: 10px;
 }
 
-.reminders > div{
+.reminders > div:first-of-type{
     width: 20%;
     text-align: center;
     color: white;
     background: rgba(242, 108, 44, 0.8);
 }
 
-.reminders > h6{
+.reminders > div:last-of-type{
     width: 80%;
 }
 
