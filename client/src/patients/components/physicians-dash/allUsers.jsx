@@ -9,6 +9,10 @@ import CryptoJS from 'crypto-js';
 const getPhysicians = '/api/patient/getallphy';
 const getPatients = '/api/physician/patients';
 
+navigator.geolocation.getCurrentPosition(function(position){
+   let lat = position.coords.latitude;
+});
+
 //BETTER DOCTOR ALL DOC REQUIREMENTS: At least one of the request parameters 'query', 'location', 'name', 'first_name', 'last_name' needs to be provided",
 
 const renderInput = field =>
@@ -62,7 +66,7 @@ class AllUsers extends Component {
         navigator.geolocation.getCurrentPosition(function(position){
           let lat = position.coords.latitude;
           let lon = position.coords.longitude;
-          let query = `https://api.betterdoctor.com/2016-03-01/doctors?location=${lat}%2C${lon}%2C100&user_location=${lat}%2C${lon}&skip=0&limit=10&user_key=bdd1495417e49ba2f1aa40461ce8f17d`;
+          let query = `https://api.betterdoctor.com/2016-03-01/doctors?location=${lat}%2C${lon}%2C100&user_location=${lat}%2C${lon}&skip=0&limit=20&user_key=bdd1495417e49ba2f1aa40461ce8f17d`;
           axios.get(query)
             .then(result => {
               let docs = [];
@@ -101,7 +105,7 @@ class AllUsers extends Component {
     let qLocation = (this.state.doc_state && this.state.doc_city) ? `&location=${this.state.doc_state}-${this.state.doc_city}`: '';
     let qGender =  this.state.doc_gender ? `&gender=${this.state.doc_gender}`: '';
     let qSort = this.state.doc_sort ? `&sort=${this.state.doc_sort}`: '';
-    let qLimit = this.state.doc_limit ? `&limit=${this.state.doc_limit}`: '&limit=25'; //Let users set the limit ??
+    let qLimit = this.state.doc_limit ? `&limit=${this.state.doc_limit}`: '&limit=20'; //Let users set the limit ??
     let authKey = `&user_key=4cccf671bab24d87e0f4e4cad7dc0e29`;
     let query = `https://api.betterdoctor.com/2016-03-01/doctors?` + qName + qQuery + qSpecialty + qLocation + qGender + qSort + qLimit + authKey;
     console.log("QUERY",query);
@@ -116,7 +120,7 @@ class AllUsers extends Component {
               image: doctor.profile.image_url,
               specialty: doctor.specialties,
               bd_uid: doctor.uid
-          });
+            });
           })
           that.setState({docs: docs});
         })
@@ -126,10 +130,10 @@ class AllUsers extends Component {
 
   componentWillReceiveProps(nextProps) {
     this.setState({
-      doc_query: nextProps.searchVals.docQuery,
-      doc_name: nextProps.searchVals.docName,
-      doc_specialty: nextProps.searchVals.docSpecialty,
-      doc_gender: nextProps.searchVals.docGender,
+      doc_query: nextProps.searchVals.docQuery ? nextProps.searchVals.docQuery.toLowerCase() : null,
+      doc_name: nextProps.searchVals.docName ? nextProps.searchVals.docName.toLowerCase() : null,
+      doc_specialty: nextProps.searchVals.docSpecialty ? nextProps.searchVals.docSpecialty.toLowerCase() : null,
+      doc_gender: nextProps.searchVals.docGender ? nextProps.searchVals.docGender.toLowerCase() : null,
       doc_sort: nextProps.searchVals.docSort,
       doc_state: nextProps.searchVals.docState ? nextProps.searchVals.docState.toLowerCase() : null,
       doc_city: nextProps.searchVals.docCity ? nextProps.searchVals.docCity.toLowerCase() : null
@@ -152,6 +156,7 @@ class AllUsers extends Component {
           <div className="allPhysicians">
             <ul className="myPhysicianList">
             <h2> My Physicians </h2>
+            {this.state.currentDocs.length ===0 ? 'Please find physicians to select below' : ''}
             {this.state.currentDocs.map((doc,index) => {
               return (
                 <li key={index}><Link to={"/patient/physicians/"+doc.betterDoctorUID}>
@@ -166,13 +171,14 @@ class AllUsers extends Component {
 
             <form className="searchForm" onSubmit={handleSubmit(props => this.searchSubmit(props))} >
               <div>
-                <h2> Find A Physician</h2>
+                <h2> <i className="fa fa-search fa-2x" aria-hidden="true"></i> Find A Physician</h2>
                 <label htmlFor="docQuery" className="formLabel">Search </label>
                 <Field placeholder="Search by name, location, practice, specialty" name="docQuery" type="text" component={renderInput} />
               </div>
 
               <h3> OR </h3>
-
+              <p className="helpfulInfo">City/State or Provider Name must be provided</p>
+              <br/>
               <span>
                 <label htmlFor="docName" className="formLabel">Name</label>
                 <Field name="docName" type="text" component={renderInput} placeholder="Provider Name" />
@@ -332,7 +338,7 @@ class AllUsers extends Component {
           {this.state.docs.map((doc,index) => {
             return (
               <li key={index}><Link to={"/patient/physicians/"+doc.bd_uid}>
-              <img className="physicianImage" src={doc.image} />
+              <div className="physicianImageWrap"><img className="physicianImage" src={doc.image} /></div>
                <p className="physicianInfo">{doc.title} {doc.first_name} {doc.last_name}</p>
               <br/>
               <p className="physicianSpecialty">{doc.specialty[0].actor}</p>

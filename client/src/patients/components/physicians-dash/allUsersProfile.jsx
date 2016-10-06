@@ -6,6 +6,8 @@ import { fetchMyPhysicians, makeMyPhysician, removeRelationship } from '../../ac
 import CryptoJS from 'crypto-js';
 import axios from 'axios';
 
+
+
 class ViewProfile extends Component {
   constructor(props){
     super(props);
@@ -28,7 +30,6 @@ class ViewProfile extends Component {
       practice_zip:null,
       insurance_one: null,
       insurance_two: null,
-      rating:null,
       myPhysicians: []
     }
   }
@@ -39,12 +40,9 @@ class ViewProfile extends Component {
     let code  = CryptoJS.AES.decrypt(id.toString(), 'key'); //need to change key
     let uid = code.toString(CryptoJS.enc.Utf8);
 
-    this.props.getMyPhysicians(uid);
-
     let that = this;
     if(this.props.userType === 'patient'){
           let query = `https://api.betterdoctor.com/2016-03-01/doctors/${this.props.params.provider}?user_key=bdd1495417e49ba2f1aa40461ce8f17d`;
-          console.log(query);
           axios.get(query)
             .then(doctor => {
               that.setState({
@@ -69,10 +67,6 @@ class ViewProfile extends Component {
             })
             .catch(err => { console.log("ERROR FETCHING DOCTOR INFO", err) })
 
-          if(this.props.relationship){
-
-          }
-
     } else {
         this.setState({doc: {}});
     }
@@ -80,7 +74,7 @@ class ViewProfile extends Component {
     //PHYSICIAN VIEW OF ALL PATIENTS
   }
 
-   componentWillReceiveProps(nextProps) {
+   componentWillUpdate(nextProps) {
     this.setState({
       myPhysicians: this.props.getMyPhys.contacts.data
     })
@@ -100,7 +94,6 @@ class ViewProfile extends Component {
       id_patient: uid
     };
     this.props.addPhysician(createRelationship);
-    Router.refresh();
   }
 
   removeRelation() {
@@ -113,11 +106,9 @@ class ViewProfile extends Component {
       id_patient: uid 
     };
     this.props.removePhysician(deleteRelationship);
-    Router.refresh();
   }
 
   render() {
-    console.log("STATA", this.state)
       return (
 
           <div>
@@ -125,27 +116,39 @@ class ViewProfile extends Component {
             <div className="searchProfileHeader">
               <img src={this.state.image} />
               <p className="physicianProfileTitle">{this.state.name}, {this.state.title}</p>
-              <br/>
+            
               {this.state.myPhysicians.map((e) => { return e.betterDoctorUID; }).indexOf(this.props.params.provider) > -1 ? 
               <button className="removePhysicianButton" onClick={this.removeRelation.bind(this)}>Remove Physician</button> :  <button className="addPhysicianButton" onClick={this.createRelation.bind(this)}>Add Physician</button>}
               
               {this.state.myPhysicians.map((e) => { return e.betterDoctorUID; }).indexOf(this.props.params.provider) > -1 ? 
-              <Link to={"/patient/physicians/"+this.props.params.provider+"/calendar"}><button className="appointmentButton">Appointments</button></Link> : ''}
+              <Link to={"/patient/physicians/"+this.props.params.provider+"/calendar"}><button className="appointmentButton"><i className="fa fa-calendar" aria-hidden="true"></i>Appointments</button></Link> : ''}
                             
             </div>
-
-              <p className="physicianProfileBio"><b>Bio:</b> 
-                <br/>
+              
+              <span className="headers"><i className="fa fa-user fa-2x" aria-hidden="true"></i>About</span>
+              <hr />
+              
+              <p className="physicianProfileBio">
+              <br/>
                 {this.state.bio}
               </p>
               <p className="physicianProfileLanguage"><b>Language:</b> {this.state.language}</p>
               <br />
-              <i class="fa fa-building-o" aria-hidden="true"></i>
+              <span className="headers"><i className="fa fa-building-o fa-2x" aria-hidden="true"></i>Practice</span>
+              <hr />
+
+              <br />
               <p className="physicianProfileStreet">{this.state.practice_street}</p>
               <p className="physicianProfileCity">{this.state.practice_city}</p>
               <p className="physicianProfileState">{this.state.practice_state ? this.state.practice_state : null}, {this.state.practice_zip ? this.state.practice_zip : null}</p>
+              <br />
+              <span className="headers"><i className="fa fa-umbrella fa-2x" aria-hidden="true"></i>Insurance</span>
+              <hr />
+              <br />
               <p className="physicianProfileInsuranceOne"><b>Insurance:</b> {this.state.insurance_one ? this.state.insurance_one : null}</p>
               <p className="physicianProfileInsuranceTwo"><b>Insurance:</b> {this.state.insurance_two ? this.state.insurance_two : null}</p>
+
+
               <div className="appointment">
                 {this.props.children}
               </div>
