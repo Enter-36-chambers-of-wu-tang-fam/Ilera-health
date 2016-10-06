@@ -25,9 +25,11 @@ class ChatContainer extends Component {
 			uid: uid,
 			messages: [],
 			chosen: false,
-			chosenid: ''
+			chosenid: '',
+			windowHeight: ''
 		}
 	}
+
 	componentWillMount() {
 		const { dispatch, userType } = this.props;
 		if(userType === 'patient'){
@@ -35,6 +37,8 @@ class ChatContainer extends Component {
 		}else{
 			dispatch(contacts.fetchMyPatients(this.state.uid))
 		}
+
+		this.setState({windowHeight: `${window.innerHeight - 50 }px`});
 	}
 
 	userSelected (userid, chosenid, receiverType, senderType, contact){
@@ -44,11 +48,13 @@ class ChatContainer extends Component {
 	}
 
 	render() {
+		const { windowHeight } = this.state;
 		return (
 			<div className="chat">
 				<MessageContacts {...this.props} 
 					userSelected={this.userSelected.bind(this)} 
 					contacts={this.props.contacts.data || []} 
+					height={windowHeight}
 					user={this.state.uid} />
 				<Messages {...this.props} 
 					chosen={this.state.chosen} 
@@ -58,6 +64,7 @@ class ChatContainer extends Component {
 					contact={ this.state.chosenContact }
 					senderType={this.state.senderType}
 					receiverType={this.state.receiverType}
+					height={windowHeight}
 					socket={ window.socket } />
 			</div>
 
