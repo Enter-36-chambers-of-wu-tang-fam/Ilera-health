@@ -58,6 +58,7 @@ class Header extends Component {
               <li>
                 <FlatButton label="Home" 
                   backgroundColor={buttonStyles.backgroundColor}
+                  href="/"
                   hoverColor={buttonStyles.hoverColor} 
                   style={buttonStyles.styles}
                   labelStyle={this.state.scroll ? scrollButtonStyles.labelStyle : buttonStyles.labelStyle}
@@ -68,6 +69,7 @@ class Header extends Component {
                <li>
                 <FlatButton label="Messages" 
                   backgroundColor={buttonStyles.backgroundColor}
+                  href="/patient/messages"
                   hoverColor={buttonStyles.hoverColor} 
                   style={buttonStyles.styles}
                   labelStyle={this.state.scroll ? scrollButtonStyles.labelStyle : buttonStyles.labelStyle}
@@ -79,6 +81,7 @@ class Header extends Component {
                 <FlatButton label="My Physicians" 
                   backgroundColor={buttonStyles.backgroundColor}
                   hoverColor={buttonStyles.hoverColor} 
+                  href="/patient/physicians"
                   style={buttonStyles.styles}
                   labelStyle={this.state.scroll ? scrollButtonStyles.labelStyle : buttonStyles.labelStyle}
                   rippleColor={buttonStyles.rippleColor}
@@ -88,6 +91,7 @@ class Header extends Component {
               <li>
                 <FlatButton label="Profile" 
                   backgroundColor={buttonStyles.backgroundColor}
+                  href="/patient/profile"
                   hoverColor={buttonStyles.hoverColor} 
                   style={buttonStyles.styles}
                   labelStyle={this.state.scroll ? scrollButtonStyles.labelStyle : buttonStyles.labelStyle}

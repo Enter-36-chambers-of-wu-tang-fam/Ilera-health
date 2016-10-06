@@ -101,7 +101,7 @@ class AllUsers extends Component {
     let qLocation = (this.state.doc_state && this.state.doc_city) ? `&location=${this.state.doc_state}-${this.state.doc_city}`: '';
     let qGender =  this.state.doc_gender ? `&gender=${this.state.doc_gender}`: '';
     let qSort = this.state.doc_sort ? `&sort=${this.state.doc_sort}`: '';
-    let qLimit = this.state.doc_limit ? `&limit=${this.state.doc_limit}`: '&limit=50'; //Let users set the limit ??
+    let qLimit = this.state.doc_limit ? `&limit=${this.state.doc_limit}`: '&limit=25'; //Let users set the limit ??
     let authKey = `&user_key=4cccf671bab24d87e0f4e4cad7dc0e29`;
     let query = `https://api.betterdoctor.com/2016-03-01/doctors?` + qName + qQuery + qSpecialty + qLocation + qGender + qSort + qLimit + authKey;
     console.log("QUERY",query);
@@ -166,7 +166,8 @@ class AllUsers extends Component {
 
             <form className="searchForm" onSubmit={handleSubmit(props => this.searchSubmit(props))} >
               <div>
-                <label htmlFor="docQuery" className="formLabel">Search All Physicians</label>
+                <h2> Find A Physician</h2>
+                <label htmlFor="docQuery" className="formLabel">Search </label>
                 <Field placeholder="Search by name, location, practice, specialty" name="docQuery" type="text" component={renderInput} />
               </div>
 
@@ -302,7 +303,6 @@ class AllUsers extends Component {
                 <label htmlFor="docCity" className="formLabel">City</label>
                 <Field name="docCity" component={renderInput} placeholder="City" type="text"/>
               </span>
-              <br />
               <span>
                 <label htmlFor="docSort" className="formLabel">Sort By</label>
                   <Field name="docSort" component="select" className="smallForm">
@@ -322,6 +322,7 @@ class AllUsers extends Component {
                     <option value="rating-desc">Rating Descending</option>
                   </Field>
               </span>
+              <br />
                 <button type="submit" className="submitButton">Submit</button>
             </form>
 

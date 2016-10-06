@@ -100,8 +100,7 @@ class ViewProfile extends Component {
       id_patient: uid
     };
     this.props.addPhysician(createRelationship);
-    this.props.getMyPhysicians(uid);
-    this.forceUpdate();
+    Router.refresh();
   }
 
   removeRelation() {
@@ -114,8 +113,7 @@ class ViewProfile extends Component {
       id_patient: uid 
     };
     this.props.removePhysician(deleteRelationship);
-    this.forceUpdate();
-    //this.props.getMyPhysicians(uid);
+    Router.refresh();
   }
 
   render() {
@@ -130,17 +128,26 @@ class ViewProfile extends Component {
               <br/>
               {this.state.myPhysicians.map((e) => { return e.betterDoctorUID; }).indexOf(this.props.params.provider) > -1 ? 
               <button className="removePhysicianButton" onClick={this.removeRelation.bind(this)}>Remove Physician</button> :  <button className="addPhysicianButton" onClick={this.createRelation.bind(this)}>Add Physician</button>}
+              
+              {this.state.myPhysicians.map((e) => { return e.betterDoctorUID; }).indexOf(this.props.params.provider) > -1 ? 
+              <Link to={"/patient/physicians/"+this.props.params.provider+"/calendar"}><button className="appointmentButton">Appointments</button></Link> : ''}
+                            
             </div>
-              <p className="physicianProfileBio">{this.state.bio}</p>
-              <p className="physicianProfileLanguage"> Language: {this.state.language}</p>
+
+              <p className="physicianProfileBio"><b>Bio:</b> 
+                <br/>
+                {this.state.bio}
+              </p>
+              <p className="physicianProfileLanguage"><b>Language:</b> {this.state.language}</p>
               <br />
+              <i class="fa fa-building-o" aria-hidden="true"></i>
               <p className="physicianProfileStreet">{this.state.practice_street}</p>
               <p className="physicianProfileCity">{this.state.practice_city}</p>
               <p className="physicianProfileState">{this.state.practice_state ? this.state.practice_state : null}, {this.state.practice_zip ? this.state.practice_zip : null}</p>
-              <p className="physicianProfileInsuranceOne">Insurance : {this.state.insurance_one ? this.state.insurance_one : null}</p>
-              <p className="physicianProfileInsuranceTwo">Insurance : {this.state.insurance_two ? this.state.insurance_two : null}</p>
+              <p className="physicianProfileInsuranceOne"><b>Insurance:</b> {this.state.insurance_one ? this.state.insurance_one : null}</p>
+              <p className="physicianProfileInsuranceTwo"><b>Insurance:</b> {this.state.insurance_two ? this.state.insurance_two : null}</p>
               <div className="appointment">
-              {this.props.children}
+                {this.props.children}
               </div>
             </div>
           </div>
