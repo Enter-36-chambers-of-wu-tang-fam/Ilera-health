@@ -224,6 +224,9 @@ main{
     font-size: 14px;
     text-transform: uppercase;
     text-align: left;
+    color: #aaa;
+    margin-bottom: 5px;
+
 }
 
 .dashboardInsurance p{
@@ -254,7 +257,7 @@ main{
 .dashboardMain > div{
     float: left;
     width: 30%;
-    padding: 20px;
+    padding: 20px 4%;
     border-top: 1px solid white;
     border-bottom: 1px solid white;
     height: 295px;
