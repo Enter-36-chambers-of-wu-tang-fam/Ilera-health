@@ -5,7 +5,7 @@ import React, { Component, PropTypes } from 'react';
 import { Field, reduxForm } from 'redux-form';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
-import * as types from '../../../actions/action-constants.js';
+import { loadBasic } from '../../../actions/profile.js';
 // ../../../actions/action-constants.js
 
 // CryptoJS
@@ -85,6 +85,18 @@ class BackgroundInfoFormInitialized extends Component {
   static contextTypes = {
     router: React.PropTypes.object
   }
+
+//   componentWillMount(){
+// 		console.log("CHECK CHECK")
+// 	  const { dispatch, initialize, load, info, initialValues } = this.props;
+// 	  dispatch(load());
+// 		dispatch(initialize(initialValues));
+//   }
+
+	// componentDidMount(){
+	// 	const { initialize, info } = this.props;
+	// 	initialize(info);
+	// }
 
 	submitMe(prop){
 		//get encoded id from local storage
@@ -409,12 +421,12 @@ class BackgroundInfoFormInitialized extends Component {
 
 					{error && <strong>{error}</strong>}
 
-                    <RaisedButton
-                        label='Save'
-                        primary={true}
-                        type='submit'
-                        className='btn'
-                    />
+					<RaisedButton
+							label='Save'
+							primary={true}
+							type='submit'
+							className='btn'
+					/>
 				</form>
 			</div>
 		);
@@ -424,13 +436,17 @@ class BackgroundInfoFormInitialized extends Component {
 BackgroundInfoFormInitialized = reduxForm({
   form: 'BackgroundInfoFormInitialized',
   destroyOnUnmount: false,
+  enableReinitialize: true,
+  initialValues: JSON.parse((localStorage.getItem('patient'))),
   validate
 })(BackgroundInfoFormInitialized);
 
-BackgroundInfoFormInitialized = connect(
-  state => ({
-    initialValues: state.userBasic
-  })
-)(BackgroundInfoFormInitialized)
+// BackgroundInfoFormInitialized = connect(
+//   state => ({
+// 	info: state.profile.patient,
+//     initialValues: state.profile.patient
+//   }),
+//   { load: loadBasic }
+// )(BackgroundInfoFormInitialized)
 
 export default BackgroundInfoFormInitialized;

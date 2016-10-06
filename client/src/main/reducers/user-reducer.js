@@ -5,6 +5,12 @@ import {
 const initialState = {
   isFetching: false,
   loaded: false,
+  appointment: [],
+  healthLog: [],
+  insurance: [],
+  medication: [],
+  patient: [],
+  provider: []
 };
 
 export default function userInfoReducer(state = initialState, action) {
@@ -16,15 +22,17 @@ export default function userInfoReducer(state = initialState, action) {
 				loaded: false 
 			}
     case GET_USER_INFO_SUCCESS:
-    console.log("YOLO", action.payload, action.payload.userBasic)
+    console.log("YOLO", action.payload)
       return { 
         ...state, 
         isFetching: false, 
-        loaded: true, 
-        userBasic: action.payload.userBasic,
-        userHealth: action.payload.userHealth,
-        userEContacts: action.payload.userEContacts,
-        userInsurance: action.payload.userInsurance 
+        loaded: true,
+        appointment: action.payload.appointment,
+        healthLog: action.payload.healthLog,
+        insurance: action.payload.insurance,
+        medication: action.payload.medication,
+        patient: action.payload.patient,
+        provider: action.payload.provider
       }
     case GET_USER_INFO_FAILURE:
       return { 

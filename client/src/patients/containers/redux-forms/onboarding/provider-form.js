@@ -33,11 +33,12 @@ class InsuranceForm extends Component {
     this.state = {
       value: '',
       insurer: '',
-      insuererType: '',
+      insurerType: '',
       network: '',
       docSelectedName: '',
       insurerSelected: false,
       insurerTypeSelected: false,
+      networkSelected: false,
       docSelected: false,
       insurers: [],
       types: [],
@@ -62,13 +63,14 @@ class InsuranceForm extends Component {
   }
 
   submitMe(prop) {
+    console.log(this.state)
     //get encoded id from local storage
 		let id = localStorage.getItem('uid');
 		//code to decode user id stored in local storage
 		let code  = CryptoJS.AES.decrypt(id.toString(), 'key'); //need to change key
 		prop.uid = code.toString(CryptoJS.enc.Utf8);
     prop.insurer1 = this.state.insurer;
-    prop.insurance_type1 = this.state.insuererType;
+    prop.insurance_type1 = this.state.insurerType;
     prop.insurance_network1 = this.state.network;
     prop.betterDoctorUID = this.state.docSelectedInfo.betterDoctorUID;
     axios.post('/api/patient/insurance', prop)
@@ -93,12 +95,24 @@ class InsuranceForm extends Component {
     this.props.handleNext();
 	}
 
-  onClick(key){
+  onClick(type, key){
     console.log("CONFIRMED", this.state.docs[key]);
-    this.setState({docSelected: true, docSelectedInfo: this.state.docs[key], docSelectedName: `${this.state.docs[key].last_name},${this.state.docs[key].first_name}`, insurerTypeSelected: true});
+    if(type === "primary"){
+      this.setState({docSelected: true, docSelectedInfo: this.state.docs[key], docSelectedName: `${this.state.docs[key].last_name},${this.state.docs[key].first_name}`, insurerTypeSelected: true});
+    }
+
+    if(type === "insurerType"){
+      this.setState({insurerType: this.state.types[key], insurerTypeSelected: true});
+    }
+
+    if(type === "network"){
+      this.setState({network: this.state.networks[key], networkSelected: true});
+    }
+    
   }
 
   onInsurerClick(key){
+    console.log(this.state.insurers[key].insurer)
      axios.get(`/api/insurance/insurer/${this.state.insurers[key].insurer}`)
       .then( found => {
         var type = [];
@@ -109,7 +123,7 @@ class InsuranceForm extends Component {
           }
           network.push(insurer.network);
         })
-        this.setState({insurerSelected: true, insurerer: this.state.insurers[key].insurer, types: type, networks: network});
+        this.setState({insurerSelected: true, insurer: this.state.insurers[key].insurer, types: type, networks: network});
       })
       .catch( err => {
           console.log("ERROR GETTING INFORMATION", err);
@@ -118,7 +132,7 @@ class InsuranceForm extends Component {
   }
 
   handleChange (event, index, value) {
-    this.setState({value});
+    this.setState({value: value});
   } 
 
   handleInputChange(e){
@@ -198,7 +212,7 @@ class InsuranceForm extends Component {
                 />
                 <ul className={this.state.docs.length && !this.state.docSelected ? 'docSearchResult' : 'docSearchResultHide'}>
                   {this.state.docs.map( (doc, key) => {
-                    return <li onClick={this.onClick.bind(this, key)}>{doc.last_name}, {doc.first_name} {doc.title}</li>
+                    return <li onClick={this.onClick.bind(this, "primary", key)}>{doc.last_name}, {doc.first_name} {doc.title}</li>
                   })}
                 </ul>
                 <h5 className="extraTopMargin">Can't find your primary doctor?</h5> 
@@ -265,23 +279,23 @@ class InsuranceForm extends Component {
                 <Field name="primary_zip" type="text" component={this.renderTextField} label="Zip Code"/>
                 <h4>INSURANCE</h4>
                   <div>
-                    <Field name="insurer1" value={this.state.value} onChange={this.handleChange} component={this.renderSelectField} label="Insurance Company">
+                    <Field name="insurer1" component={this.renderSelectField} label="Insurance Company">
                       {this.state.insurers.map( (insurer, key) => {
-                        return <MenuItem key={key} onClick={this.onInsurerClick.bind(this, key)} value={'insurer.insurer'} primaryText={insurer.insurer}/>
+                        return <MenuItem key={key} onClick={this.onInsurerClick.bind(this, key)} value={insurer.insurer} primaryText={insurer.insurer} />
                       })}
                     </Field>
                   </div>
                   <div>
                       <Field name="insurance_type1" component={this.renderSelectField} label="Insurance Type">
-                      {this.state.types.map( type => {
-                        return <MenuItem value={'type'} primaryText={type}/>
+                      {this.state.types.map( (type, key) => {
+                        return <MenuItem value={type} primaryText={type} onClick={this.onClick.bind(this, "insurerType", key)} key={key}/>
                       })}
                     </Field>
                   </div>
                   <div>
                       <Field name="insurance_network1" component={this.renderSelectField} label="Insurance Network">
-                      {this.state.networks.map( network => {
-                        return <MenuItem value={'network'} primaryText={network}/>
+                      {this.state.networks.map( (network, key) => {
+                        return <MenuItem value={network} primaryText={network} onClick={this.onClick.bind(this, "network", key)} key={key}/>
                       })}
                     </Field>
                   </div>

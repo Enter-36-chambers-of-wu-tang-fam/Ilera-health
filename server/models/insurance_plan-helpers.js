@@ -5,7 +5,7 @@ const db = require('../db/dbConnect/connection.js');
 
 module.exports = {
 
-  init_insurance_plan: (params, cb) => {
+  post_initInsurance_plan: (params, cb) => {
     console.log("INSURANCE", params)
     // Post Request To: api/user/insurance => { insurance }
     let data = [params.uid, params.id_insurance_company, params.betterDoctorUID, params.primary_name, params.primary_phone, params.primary_address, params.primary_city, params.primary_state, params.primary_zip, params.insurer1, params.insurance_type1, params.insurance_network1, params.policy_number1, params.insurer2, params.insurance_type2, params.insurance_network2, params.policy_number2, params.member_id, params.payer_id];

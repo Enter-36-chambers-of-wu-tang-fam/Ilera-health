@@ -64,7 +64,8 @@ export const FORM_SUBMIT_FAILURE = 'FORM_SUBMIT_FAILURE';
 
 //================================== PROFILE ==============================
 
-export const INITIALIZE = 'redux-form/INITIALIZE'
+export const INITIALIZE = 'redux-form/INITIALIZE';
+export const INITIALIZE_BASIC = 'INITIALIZE_BASIC';
 
 //================================== MEDICATION ==============================
 
