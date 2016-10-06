@@ -200,22 +200,17 @@ class PhysicianCalendar extends Component{
   render(){
         const actions = [
           <FlatButton
-            label="View Appointments"
-            primary={true}
-            href="#"
-            onTouchTap={this.handleClose.bind(this)}
-          />,
-          <FlatButton
-            label="Change Appointment"
-            primary={true}
-            href="#"
-            onTouchTap={this.handleClose.bind(this)}
-          />,
-          <FlatButton
             label="Dashboard"
             primary={true}
+            href="/patient/dashboard"
+            onTouchTap={this.handleClose.bind(this)}
+          />,
+
+          <FlatButton
+            label="Close"
+            primary={true}
             keyboardFocused={true}
-            href="/patients/dashboard"
+            href="#"
             onTouchTap={this.handleClose.bind(this)}
           />,
         ];
@@ -234,7 +229,7 @@ class PhysicianCalendar extends Component{
             defaultDate={this.state.minDate}
           />
 
-          <p>Appointment Time: {this.state.appointmentTime ? this.state.appointmentTime + ' ' : ''}
+          <p className="appointmentTime">Appointment Time: {this.state.appointmentTime ? this.state.appointmentTime + ' ' : ''}
             {this.state.morning[this.state.appointmentTime] ||
             this.state.afternoon[this.state.appointmentTime] ||
             this.state.evening[this.state.appointmentTime]}
@@ -260,7 +255,7 @@ class PhysicianCalendar extends Component{
             })}
           </div>
 
-          <RaisedButton label="Request Appointment" primary={true} style={style} onTouchTap={this.handleOpen.bind(this)} disabled={!this.state.appointmentDate || !this.state.appointmentTime } onClick={this.handleSubmit.bind(this)}/>
+          <RaisedButton className="appointmentRequestButton" label="Request Appointment" primary={true} style={style} onTouchTap={this.handleOpen.bind(this)} disabled={!this.state.appointmentDate || !this.state.appointmentTime } onClick={this.handleSubmit.bind(this)}/>
 
 
           <Dialog
