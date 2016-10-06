@@ -27,24 +27,15 @@ module.exports = {
 
   initform_patient: (params, cb) => {
     // Post Request to: api/user/initform  =>   { Patient Table}
-<<<<<<< a0d0cc22e98056977fc30ac2e99cb29bdbce98c4
     let data = [ params.first, params.last, params.middle, params.maiden,
       params.date_of_birth, params.birth_city, params.birth_country,
       params.marital_status, params.primary_language, params.secondary_language,
       params.gender, params.weight, params.height, params.blood_type,
       params.conditions, params.procedures, params.medications, params.allergies];
     const queryString ='UPDATE patient SET first=?, last=?, middle=?, \
-      maiden=?, date_of_birth=?, birth_city=?, \
-      birth_country=?, marital_status=?, primary_language=?, \
-      secondary_language=? \
-      WHERE id='+ params.uid;
-=======
-    console.log("GAAAAHHH", params)
-    let data = [ params.first, params.last, params.middle, params.maiden, params.date_of_birth, params.birth_city,
-      params.birth_country, params.marital_status, params.primary_language, params.secondary_language, params.gender, params.weight, params.height, params.blood_type, params.conditions, params.procedures, params.medications, params.allergies];
-    const queryString ='UPDATE patient SET first=?, last=?, middle=?, maiden=?, date_of_birth=?, birth_city=?, \
-      birth_country=?, marital_status=?, primary_language=?, secondary_language=? WHERE id='+ params.uid;
->>>>>>> reworked styling and basic message functionality
+      maiden=?, date_of_birth=?, birth_city=?, birth_country=?, marital_status=?, primary_language=?, \
+      secondary_language=?, gender=?, weight=?, height=?, blood_type=?, \
+      conditions=?, procedures=?, medications=?, allergies=? WHERE id='+ params.uid;
     db.query(queryString, data, (error, results) => cb(error, results) );
   },
 
