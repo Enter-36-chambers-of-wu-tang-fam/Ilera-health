@@ -14,8 +14,8 @@ module.exports = {
   signUp: (params, cb) => {
     // Post Request To: /api/physician/signup i think this is a guess
     let data = [params.first, params.last, params.email, params.password];
-    const queryString = "INSERT INTO physician (first, last, email, \
-      password) VALUE (?,?,?,?)";
+    const queryString = "INSERT INTO physician (title, first, last, email, \
+      password) VALUE (?,?,?,?,?)";
     db.query(queryString, data, (error, results) => cb(error, results) );
   },
 
@@ -27,10 +27,10 @@ module.exports = {
   },
 
   update_physician_info: (params, cb) => {
-    let data = [params.first, params.last, params.email,
+    let data = [params.title, params.first, params.last, params.email,
       params.phone_number, params.password,
       params.photo_path, params.specialty];
-    const queryString = 'UPDATE physician SET first=?, last=?, \
+    const queryString = 'UPDATE physician SET title=?, first=?, last=?, \
       email=?, phone_number=?, photo_path=?, specialty=? \
       WHERE id='+ params.uid;
   },
@@ -61,8 +61,8 @@ module.exports = {
   },
 
   addBetterDocId: (params, cb) =>  {
-    let data = [params.betterDocId, params.first, params.last, params.phone, params.image, params.specialty];
-    const queryString = "INSERT INTO physician (betterDoctorUID, first, last, phone_number, photo_path, specialty) VALUE (?,?,?,?,?,?)";
+    let data = [params.betterDocId, params.title, params.first, params.last, params.phone, params.image, params.specialty];
+    const queryString = "INSERT INTO physician (betterDoctorUID, title, first, last, phone_number, photo_path, specialty) VALUE (?,?,?,?,?,?,?)";
     db.query(queryString, data, (error, results) => cb(error, results) );
   }
 

@@ -31,8 +31,10 @@ module.exports = {
 
   get_all_appointment_by_pat_id: (params, cb) => {
     let data = [params.id_patient];
-    const queryString = 'SELECT * FROM appointment \
-      WHERE id_patient = '+params.id_patient;
+    const queryString = 'SELECT a.id, a.date, a.time, a.notes, a.id_physician, a.id_patient, a.id_institution, \
+    py.title, py.first, py.last, py.email FROM appointment a \
+    JOIN physician py ON py.id = a.id_physician \
+    WHERE id_patient = ' + params.id_patient + ' ORDER by date';
     db.query(queryString, data, (error, results) => cb(error, results) );
   },
 

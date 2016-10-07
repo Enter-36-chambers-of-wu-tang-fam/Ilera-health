@@ -26,34 +26,6 @@ export default class DropzoneDemo extends Component{
       console.log(resp);
       return resp;
     });
-    
-
-    // axios.post('/upload/medRecord', fileData)
-    // .then(function (result) {
-    //   console.log(result);
-    // })
-    // .catch(function (err) {
-    //   console.log(err);
-    // });
-
-    // ajax.post('/upload/medRecord')
-    // .set('Access-Control-Allow-Origin', '*')
-    // .withCredentials()
-    // .send(files[0])
-    // .end((err,res) =>{
-    //   if(err) console.log(err);
-    //   if(res) console.log(res);
-    // });
-
-      // var req = ajax.post('/upload/medRecord');
-      //   files.forEach((file)=> {
-      //       req.attach(file.name, file);
-      //   });
-      //   req.end((err,res) => {
-      //     if(err) console.log(err);
-      //     console.log(res);
-
-      //   });
 
     console.log('Received files: ', file)
   }
@@ -61,6 +33,7 @@ export default class DropzoneDemo extends Component{
   render () {
     return (
         <div>
+        <img src="/src/uploads/b82d69ab48161c0cb240406fe1cd2efb1475851266407.jpeg" />
           <Dropzone onDrop={this.onDrop.bind(this)} multiple={false}>
             <div>Try dropping some files here, or click to select files to upload.</div>
           </Dropzone>

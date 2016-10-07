@@ -334,7 +334,8 @@ main{
 }
 
 .appointmentRequestButton{
-  padding-left:2.5em;
+  /*padding-left:2.5em;*/
+  margin: 0;
 }
 
 /* CHAT */

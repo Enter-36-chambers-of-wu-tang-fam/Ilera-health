@@ -39,7 +39,9 @@ class AllUsers extends Component {
       doc_city:null,
       lat: undefined,
       lon: undefined,
-      
+      practice_city: null,
+      practice_state: null,
+
       currentDocs: [],
 
       pats: [],
@@ -70,14 +72,16 @@ class AllUsers extends Component {
           axios.get(query)
             .then(result => {
               let docs = [];
-              result.data.data.map(doctor => {
+              result.data.data.map((doctor,index) => {
                 docs.push({
                   title: doctor.profile.title,
                   first_name: doctor.profile.first_name,
                   last_name: doctor.profile.last_name,
                   image: doctor.profile.image_url,
                   specialty: doctor.specialties,
-                  bd_uid: doctor.uid
+                  bd_uid: doctor.uid,
+                  practice_city: doctor.practices[0].visit_address.city ? doctor.practices[0].visit_address.city : null,
+                  practice_state: doctor.practices[0].visit_address.state ? doctor.practices[0].visit_address.state : null
                 });
               })
               that.setState({docs: docs});
@@ -119,7 +123,9 @@ class AllUsers extends Component {
               last_name: doctor.profile.last_name,
               image: doctor.profile.image_url,
               specialty: doctor.specialties,
-              bd_uid: doctor.uid
+              bd_uid: doctor.uid,
+              practice_city: doctor.practices[0].visit_address.city ? doctor.practices[0].visit_address.city : null,
+              practice_state: doctor.practices[0].visit_address.state ? doctor.practices[0].visit_address.state : null
             });
           })
           that.setState({docs: docs});
@@ -342,6 +348,8 @@ class AllUsers extends Component {
                <p className="physicianInfo">{doc.title} {doc.first_name} {doc.last_name}</p>
               <br/>
               <p className="physicianSpecialty">{doc.specialty[0].actor}</p>
+              <br/>
+              <p className="physicianSpecialty">{doc.practice_city}, {doc.practice_state}</p>
               </Link></li>
             )
           })}

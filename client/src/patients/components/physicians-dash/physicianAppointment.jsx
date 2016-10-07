@@ -78,60 +78,60 @@ class PhysicianCalendar extends Component{
       open: false, //Dialog
 
       morning: {
-        '08:00': 'AM',
-        // '8:15': 'AM',
-        '08:30': 'AM',
-        // '8:45': 'AM',
-        '09:00': 'AM',
-        // '9:15': 'AM',
-        '09:30': 'AM',
-        // '9:45': 'AM',
-        '10:00': 'AM',
-        // '10:15': 'AM',
-        '10:30': 'AM',
-        // '10:45': 'AM',
-        '11:00': 'AM',
-        // '11:15': 'AM',
-        '11:30': 'AM',
-        // '11:45': 'AM'
+        '08:00':true,
+        '8:15':true,
+        '08:30':true,
+        '8:45':true,
+        '09:00':true,
+        '9:15':true,
+        '09:30':true,
+        '9:45':true,
+        '10:00':true,
+        '10:15':true,
+        '10:30':true,
+        '10:45':true,
+        '11:00':true,
+        '11:15':true,
+        '11:30':true,
+        '11:45':true
       },
 
       afternoon: {
-        '12:00': 'PM',
-        // '12:15': 'PM',
-        '12:30': 'PM',
-        // '12:45': 'PM',
-        '01:00': 'PM',
-        // '1:15': 'PM',
-        '01:30': 'PM',
-        // '1:45': 'PM',
-        '02:00': 'PM',
-        // '2:15': 'PM',
-        '02:30': 'PM',
-        // '2:45': 'PM',
-        '03:00': 'PM',
-        // '3:15': 'PM',
-        '03:30': 'PM',
-        // '3:45': 'PM',
-        '04:00': 'PM',
-        // '4:15': 'PM',
-        '04:30': 'PM',
-        // '4:45': 'PM'
+        '12:00':true,
+        '12:15':true,
+        '12:30':true,
+        '12:45':true,
+        '01:00':true,
+        '1:15':true,
+        '01:30':true,
+        '1:45':true,
+        '02:00':true,
+        '2:15':true,
+        '02:30':true,
+        '2:45':true,
+        '03:00':true,
+        '3:15':true,
+        '03:30':true,
+        '3:45':true,
+        '04:00':true,
+        '4:15':true,
+        '04:30':true,
+        '4:45':true
       },
 
       evening: {
-        '05:00': 'PM',
-        // '5:15': 'PM',
-        '05:30': 'PM',
-        // '5:45': 'PM',
-        '06:00': 'PM',
-        // '6:15': 'PM',
-        '06:30': 'PM',
-        // '6:45': 'PM',
-        '07:00': 'PM',
-        // '7:15': 'PM',
-        '07:30': 'PM',
-        // '7:45': 'PM'
+        '05:00':true,
+        '5:15':true,
+        '05:30':true,
+        '5:45':true,
+        '06:00':true,
+        '6:15':true,
+        '06:30':true,
+        '6:45':true,
+        '07:00':true,
+        '7:15':true,
+        '07:30':true,
+        '7:45':true
       }
     };
   }
@@ -154,8 +154,6 @@ class PhysicianCalendar extends Component{
   componentWillReceiveProps(nextProps) {
     this.setState({
       unavailableDates: nextProps.unavailableDates
-      // appointmentDate: null,
-      // appointmentTime: false
     })
   }
 
@@ -282,11 +280,7 @@ class PhysicianCalendar extends Component{
   }
 }
 
-// function mapStateToProps(state){
-//   return {
-//     currentPhysicianBookings: state.currentPhysicianBookings
-//   }
-// }
+
 function mapStateToProps (state) {
   return {
     unavailableDates: state.allPhysicianAppointments.setAppointments,

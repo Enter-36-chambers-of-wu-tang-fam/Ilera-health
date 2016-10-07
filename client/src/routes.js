@@ -67,7 +67,7 @@ export default (
             <Route path="messages" component={ Chat } />
             <Route path="profile" component={ Profile } />
             <Route path="medications" component={ Medication } />
-            <Route path="medicalhistory" component={ MedicalHistory } />
+            <Route path="records" component={ MedicalHistory } />
         </Route>
     </Router>
 );

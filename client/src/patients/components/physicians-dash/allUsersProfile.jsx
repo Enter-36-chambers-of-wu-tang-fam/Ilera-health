@@ -92,6 +92,7 @@ class ViewProfile extends Component {
     let uid = code.toString(CryptoJS.enc.Utf8);
     let createRelationship = {
       betterDocId: this.props.params.provider,
+      title: this.state.title,
       first: this.state.first,
       last: this.state.last,
       image: this.state.image,

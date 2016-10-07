@@ -41,12 +41,8 @@ class DashboardReminders extends Component {
 											var month = date.getMonth();
 											month = months[month];
 											var day = date.getDate();
-											if(reminder.time[3] === "0"){
-												var time = reminder.time.slice(4);
-											}else{
-												var time = reminder.time.slice(2);
-											}
-											
+                      console.log(reminder.time);
+											var time = reminder.time.slice(0,6);
 											return (
 												<li className="reminders" key={reminder.id}>
 													<div>
@@ -54,8 +50,8 @@ class DashboardReminders extends Component {
 														<p>{day}</p>
 													</div>
 													<div>
-														<p>{time}</p>
-														<h6>Dr. Yang - Yearly checkup.</h6>
+														<p>{time[0] === '0' ? time.slice(1) : time} {time.slice(0,2) > 7 ? " AM" : " PM"} </p>
+														<h6>{reminder.first} {reminder.last}, {reminder.title}</h6>
 													</div>
 												</li>
 											)
