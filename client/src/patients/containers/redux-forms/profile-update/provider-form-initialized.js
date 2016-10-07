@@ -280,7 +280,12 @@ class ProviderInfoFormInitialized extends Component {
                   <Field name="insurance_network2" component={this.renderTextField} label="Insurance Network" />
                   <Field name="policy_number2" type="number" component={this.renderTextField} label="Policy Number"/>
                   {error && <strong>{error}</strong>}
-                  
+                  <RaisedButton
+                      label='Save'
+                      primary={true}
+                      type='submit'
+                      className='btn'
+                  />
               </form>
           </div>
       );

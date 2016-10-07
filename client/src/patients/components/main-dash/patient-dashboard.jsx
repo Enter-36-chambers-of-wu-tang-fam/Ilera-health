@@ -45,8 +45,6 @@ class PatientDashboard extends Component {
               <Link to='/patient/physicians'>
                 <DashboardPhysicians />
               </Link>
-            </div>
-            <div className="dashboardRows bottomRow clearfix">
               <Link to='/patient/medications'>
                 <DashboardMeds />
               </Link>

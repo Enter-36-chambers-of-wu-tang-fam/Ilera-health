@@ -10,17 +10,20 @@ export default class Profile extends Component {
     constructor (props){
       super(props);
       this.state={
-        height: height
+        windowHeight: ''
       };
-      console.log("height", this.state.height);
+    }
+
+    componentWillMount(){
+      this.setState({windowHeight: window.innerHeight - 50 });
     }
 
     render() {
+      const { windowHeight } = this.state;
+
       return (
           <div className='profilePage'>
-            <ProfileSum style={{
-              height: height
-            }}/>
+            <ProfileSum height={windowHeight}/>
             <ProfileMain />
           </div>
       );

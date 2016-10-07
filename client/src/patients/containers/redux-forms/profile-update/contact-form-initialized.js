@@ -231,6 +231,12 @@ class ContactInfoFormInitialized extends Component {
 							</Field>
 						</div>
           {error && <strong>{error}</strong>}
+          <RaisedButton
+							label='Save'
+							primary={true}
+							type='submit'
+							className='btn'
+					/>
         </form>
       </div>
     );

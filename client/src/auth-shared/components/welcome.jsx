@@ -15,7 +15,7 @@ const Welcome = () => {
             <section className="welcomeHeader">
                 <div>
                     <p className="splitLogo welcomeMy">my</p>
-                     
+                    <p className="splitLogo welcomeMy2">my ilera</p> 
                 </div>
                 <div>
                     <p className="splitLogo welcomeIlera">ilera</p>
@@ -34,45 +34,52 @@ const Welcome = () => {
                 
             </section>
 
-            <section>
+            <section className="homeFors">
                 <div className="introPhotos">
                     <h2>For Patients</h2>
                 </div>
                 <div className="wrapper">
-                    
+                    <h3>At Ilera, we put the power back in your hands. You securely control who you share your records with.</h3>
                     <ul>
                         <li>
-                            <h4>Your records, wherever you go.</h4>
                             <i className="material-icons">flight_takeoff</i>
-                            <p>Something clever, here</p>
+                            <h4>Accessible</h4>
+                            <p>Traveling? Moving? No worries, your records are always with you.</p>
                         </li>
                         <li>
-                            <h4>Your health, in your hands.</h4>
                             <i className="material-icons">enhanced_encryption</i>
-                            <p>Your health, in your hands.</p>
+                            <h4>Secure</h4>
+                            <p>You decide who has access to your records with a single click.</p>
                         </li>
                         <li>
-                            <h4>No more waiting on hold.</h4>
                             <i className="material-icons">sms</i>
-                            <p>No more waiting on hold.</p>
+                            <h4>Convenient</h4>
+                            <p>Questions? Need an appointment? Send your physician a quick message!</p>
                         </li>
                     </ul>
                 </div>
             </section>
-            <section>
+            <section className="homeFors">
                 <div className="introPhotos introProviders">
                     <h2>For Providers</h2>
                 </div>
                 <div className="wrapper">
+                    <h3>At Ilera, we put the power back in your hands. You securely control who you share your records with.</h3>
                     <ul>
                         <li>
                             <i className="material-icons">people</i>
+                            <h4>Accessible</h4>
+                            <p>Traveling? Moving? No worries, your records are always with you.</p>
                         </li>
                         <li>
                             <i className="material-icons">rate_review</i>
+                            <h4>Accessible</h4>
+                            <p>Traveling? Moving? No worries, your records are always with you.</p>
                         </li>
                         <li>
                             <i className="material-icons">call_merge</i>
+                            <h4>Accessible</h4>
+                            <p>Traveling? Moving? No worries, your records are always with you.</p>
                         </li>
                     </ul>
                 </div>
@@ -83,30 +90,39 @@ const Welcome = () => {
                     <h2>Your Team</h2>
                 </div>
                 <div className="wrapper">
+                    <h3>Ilera means 'health'in Yoruba. And your health, privacy, and something are our priority.</h3>
                     <ul className="team">
                         <li>
                             <img src="../../styles/background_images/neekon.png" alt=""/>
-                            <h4>Neekon Etemad</h4>
-                            <h5>Software Engineer</h5>
-                            <p>Lorem ipsum desc goes here. Forthecoming ipsum dipsum.</p>
+                            <div className="teamProfile">
+                                <h4>Neekon Etemad</h4>
+                                <h5>Software Engineer</h5>
+                                <p>Lorem ipsum desc goes here. Forthecoming ipsum dipsum.</p>
+                            </div>
                         </li>
                         <li>
                             <img src="../../styles/background_images/kent.png" alt=""/>
-                            <h4>Kent Moreland</h4>
-                            <h5>Software Engineer</h5>
-                            <p>Lorem ipsum desc goes here. Forthecoming ipsum dipsum.</p>
+                            <div className="teamProfile">
+                                <h4>Kent Moreland</h4>
+                                <h5>Software Engineer</h5>
+                                <p>Lorem ipsum desc goes here. Forthecoming ipsum dipsum.</p>
+                            </div>
                         </li>
                         <li>
                             <img src="../../styles/background_images/yara.png" alt=""/>
-                            <h4>Yara Tercero-Parker</h4>
-                            <h5>Software Engineer</h5>
-                            <p>Lorem ipsum desc goes here. Forthecoming ipsum dipsum.</p>
+                            <div className="teamProfile">
+                                <h4>Yara Tercero-Parker</h4>
+                                <h5>Software Engineer</h5>
+                                <p>Lorem ipsum desc goes here. Forthecoming ipsum dipsum.</p>
+                            </div>
                         </li>
                         <li>
                             <img src="../../styles/background_images/MichaelO.png" alt=""/>
-                            <h4>Michael Olorunnisola</h4>
-                            <h5>Software Engineer</h5>
-                            <p>Lorem ipsum desc goes here. Forthecoming ipsum dipsum.</p>
+                            <div className="teamProfile">
+                                <h4>Michael Olorunnisola</h4>
+                                <h5>Software Engineer</h5>
+                                <p>Lorem ipsum desc goes here. Forthecoming ipsum dipsum.</p>
+                            </div>
                         </li>
                     </ul>
                  </div>
@@ -116,18 +132,3 @@ const Welcome = () => {
 };
 
 export default Welcome;
-
-
-// <div className="wrapper">
-//                     <img src="../styles/logos/myilera_large_white.png" />
-//                     <div className="welcomeMessage">
-//                         <h1>Your Health in Your Hands</h1>
-//                         <ul>
-//                         <li>Manage your entire health portfolio in one place</li>
-//                         <li>Manage and conenct with healthcare providers across disciplines</li>
-//                         <li>Choose which providers you share your information with</li>
-//                         <li>Manage all of your medical billing in one place</li>
-//                         </ul>
-//                         <FlatButton label="Learn More" hoverColor={buttonStyles.hoverColor} style={buttonStyles.styles} backgroundColor={buttonStyles.backgroundColor} />
-//                     </div>
-//                 </div>
