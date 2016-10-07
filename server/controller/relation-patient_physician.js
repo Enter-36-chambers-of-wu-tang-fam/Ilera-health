@@ -5,7 +5,7 @@ const Relation = require('../models/relation-patient_physician-helpers.js');
 module.exports = {
 
   getPatientPhysicianRelation: (req, res) => {
-    Relation.patient_physician_relation(req.body, (err,data)=>{
+    Relation.get_patient_physician_relation(req.body, (err,data)=>{
       if(err) console.log(err);
       res.json(data);
     });

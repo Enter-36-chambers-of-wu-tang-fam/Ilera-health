@@ -2,13 +2,12 @@ import React, { Component } from 'react';
 import { Field, reduxForm, formValueSelector } from 'redux-form';
 import { Router, Route, Link } from 'react-router'
 import { connect } from 'react-redux';
-import { fetchMyPhysicians, makeMyPhysician, removeRelationship } from '../../actions/contacts.js'
+import { fetchMyPhysicians, makeMyPhysician, checkMyRelationship, removeRelationship } from '../../actions/contacts.js'
 import CryptoJS from 'crypto-js';
 import axios from 'axios';
 
 
-{this.state.myPhysicians.map((e) => { return e.betterDoctorUID; }).indexOf(this.props.params.provider) > -1 ? 
-              <button className="removePhysicianButton" onClick={this.removeRelation.bind(this)}>Remove Physician</button> :  <button className="addPhysicianButton" onClick={this.createRelation.bind(this)}>Add Physician</button>}
+
 class ViewProfile extends Component {
   constructor(props){
     super(props);
@@ -31,7 +30,7 @@ class ViewProfile extends Component {
       practice_zip:null,
       insurance_one: null,
       insurance_two: null,
-      myPhysicians: []
+      relationship: false
     }
   }
 
@@ -73,14 +72,20 @@ class ViewProfile extends Component {
     }
 
     //PHYSICIAN VIEW OF ALL PATIENTS
+    let relation = {id_patient: uid, betterDocId: this.props.params.provider};
+    
+    this.props.getMyRelation(relation);
+
+
   }
 
-   componentWillUpdate(nextProps) {
+  componentWillReceiveProps(nextProps) {
     this.setState({
-      myPhysicians: this.props.getMyPhys.contacts.data
+      relationship: nextProps.relation
     })
-   }
+  }
 
+  
   createRelation() {
     let id = localStorage.getItem('uid');
     let code  = CryptoJS.AES.decrypt(id.toString(), 'key'); //need to change key
@@ -95,6 +100,8 @@ class ViewProfile extends Component {
       id_patient: uid
     };
     this.props.addPhysician(createRelationship);
+    this.props.getMyRelation({id_patient: uid, betterDocId: this.props.params.provider});
+    this.setState(this.state)
   }
 
   removeRelation() {
@@ -106,10 +113,14 @@ class ViewProfile extends Component {
       betterDocId: this.props.params.provider,
       id_patient: uid 
     };
+    
     this.props.removePhysician(deleteRelationship);
+    this.props.getMyRelation(deleteRelationship);
   }
 
   render() {
+    {console.log("STATESTATESTATE", this.state)}
+    {console.log("PROPSPROPSPROPS", this.props)}
       return (
 
           <div>
@@ -118,11 +129,8 @@ class ViewProfile extends Component {
               <img src={this.state.image} />
               <p className="physicianProfileTitle">{this.state.name}, {this.state.title}</p>
             
-             <button className="addPhysicianButton" onClick={this.createRelation.bind(this)}>Add Physician</button>
-             <button className="removePhysicianButton" onClick={this.removeRelation.bind(this)}>Remove Physician</button>
-              
-              {this.state.myPhysicians.map((e) => { return e.betterDoctorUID; }).indexOf(this.props.params.provider) > -1 ? 
-              <Link to={"/patient/physicians/"+this.props.params.provider+"/calendar"}><button className="appointmentButton"><i className="fa fa-calendar" aria-hidden="true"></i>Appointments</button></Link> : ''}
+              { this.state.relationship ? <button className="removePhysicianButton" onClick={this.removeRelation.bind(this)}>Remove Physician</button> :  <button className="addPhysicianButton" onClick={this.createRelation.bind(this)}>Add Physician</button>}
+              { this.state.relationship ? <Link to={"/patient/physicians/"+this.props.params.provider+"/calendar"}><button className="appointmentButton"><i className="fa fa-calendar" aria-hidden="true"></i>Appointments</button></Link> : ''}
                             
             </div>
               
@@ -162,13 +170,14 @@ const mapStateToProps = (state) => {
   return {
     uid: state.authentication.authenticated,
     userType: state.authentication.userType,
-    getMyPhys: state.contacts
+    relation: state.contacts.relation
   }
 }
 
 const mapDispatchToProps = (dispatch) => {
   return {
     getMyPhysicians: (patient) => dispatch(fetchMyPhysicians(patient)),
+    getMyRelation: (relationship) => dispatch(checkMyRelationship(relationship)),
     addPhysician: (makeRelationship) => dispatch(makeMyPhysician(makeRelationship)),
     removePhysician: (endRelationship) => dispatch(removeRelationship(endRelationship))
   }

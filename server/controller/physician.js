@@ -103,6 +103,13 @@ module.exports = {
     res.status(200).send("Logout complete");
   },
 
+  checkBetterDoc: (req,res) => {
+    Physician.checkBetterDoc(req.body, (err,exists) => {
+      if(err) console.log(err);
+      res.json(exists);
+    })
+  },  
+
   addBetterDoc: (req,res) => {
     Physician.checkBetterDoc(req.body, (err,exists) => {
       if(exists.length === 0){

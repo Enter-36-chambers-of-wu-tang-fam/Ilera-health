@@ -12,6 +12,7 @@ module.exports = app => {
   app.put('/api/physician/password/update', Physician.put_password);
 
   app.post('/api/physician/addbetterDoc', Physician.addBetterDoc);
+  app.post('/api/physician/checkbetterDoc', Physician.checkBetterDoc);
   
   app.post('/api/physician/logout', Physician.logout);
   
