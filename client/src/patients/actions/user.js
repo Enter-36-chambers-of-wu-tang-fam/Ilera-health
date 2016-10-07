@@ -31,28 +31,15 @@ const getUserInfoFailed = (err) => {
 //Action call below for sign up --> uncomment export default
 
 export function getUserInfo(uid) {
+  console.log("****UID***", uid)
   return (dispatch) => {
     dispatch(getUserInfoRequest());
 
-    axios.get(`/api/allPatient/${uid}`)
+    axios.get(`/api/patient/${uid}`)
     .then( user => {
-      var patient = {};
-      for(var item in user.data.patient[0]){
-        if(item === 'id' || item === 'password' || item === 'email'){
-          continue;
-        }
-        if(user.data.patient[0][item]){
-          patient[item] = user.data.patient[0][item];
-        }
-      }
+      console.log("USER", user)
 
-      localStorage.setItem('appointment',JSON.stringify(user.data.appointment));
-      localStorage.setItem('healthLog',JSON.stringify(user.data.healthLog));
-      localStorage.setItem('insurance',JSON.stringify(user.data.insurance));
-      localStorage.setItem('medication',JSON.stringify(user.data.medication));
-      localStorage.setItem('patient',JSON.stringify(patient));
-      localStorage.setItem('provider',JSON.stringify(user.data.provider));
-      dispatch(getUserInfoSuccess(user.data))
+      dispatch(getUserInfoSuccess(user.data[0]))
     })
     .catch(err => {
       dispatch(getUserInfoFailed(err));

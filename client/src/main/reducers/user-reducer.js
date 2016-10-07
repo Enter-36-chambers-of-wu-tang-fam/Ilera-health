@@ -27,12 +27,7 @@ export default function userInfoReducer(state = initialState, action) {
         ...state, 
         isFetching: false, 
         loaded: true,
-        appointment: action.payload.appointment,
-        healthLog: action.payload.healthLog,
-        insurance: action.payload.insurance,
-        medication: action.payload.medication,
-        patient: action.payload.patient,
-        provider: action.payload.provider
+        user: action.payload
       }
     case GET_USER_INFO_FAILURE:
       return { 
