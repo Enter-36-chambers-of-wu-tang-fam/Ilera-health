@@ -2,6 +2,7 @@ import {
   PATIENT_FETCH_PHYSICIANS, PATIENT_FETCH_PHYSICIANS_FAILURE,
   PHYSICIAN_FETCH_PATIENTS, PHYSICIAN_FETCH_PATIENTS_FAILURE,
   MAKE_MY_PHYSICIAN_REQUEST, MAKE_MY_PHYSICIAN_SUCCESS, MAKE_MY_PHYSICIAN_FAILURE,
+  CHECK_MY_RELATIONSHIP_REQUEST, CHECK_MY_RELATIONSHIP_SUCCESS, CHECK_MY_RELATIONSHIP_FAILURE,
   REMOVE_RELATIONSHIP_REQUEST, REMOVE_RELATIONSHIP_SUCCESS, REMOVE_RELATIONSHIP_FAILURE
 } from '../../patients/actions/action-constants.js';
 
@@ -12,6 +13,7 @@ const initialState = {
   contacts: [],
   fetchHistory: [],
   relationMade: false,
+  relation: false,
   relationRemoved: false
 };
 
@@ -40,6 +42,16 @@ export default function contactsReducer(state = initialState, action) {
     case MAKE_MY_PHYSICIAN_FAILURE:
         console.log("MAKE_MY_PHYSICIAN_FAILURE");
         return { ...state, relationMade: action.relation }
+
+    case CHECK_MY_RELATIONSHIP_REQUEST:
+        console.log("CHECK_MY_RELATIONSHIP_REQUEST");
+        return { ...state, relation: action.relation }
+    case CHECK_MY_RELATIONSHIP_SUCCESS:
+        console.log("CHECK_MY_RELATIONSHIP_SUCCESS");
+        return { ...state, relation: action.relation }
+    case CHECK_MY_RELATIONSHIP_FAILURE:
+        console.log("CHECK_MY_RELATIONSHIP_FAILURE");
+        return { ...state, relation: action.relation }
     
     case REMOVE_RELATIONSHIP_REQUEST:
         console.log("REMOVE_RELATIONSHIP_REQUEST");

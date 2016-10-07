@@ -6,9 +6,9 @@ module.exports = {
 
   get_patient_physician_relation: (params, cb) => {
     // Get Request → /api/patient_physician/:physicianid  [limit 5] =>  { patient_physician }
-    let data = [params.id_patient, params.id_physician];
+    let data = [params.id_patient, params.betterDocId];
     const queryString = 'SELECT * FROM patient_physician WHERE id_patient=? \
-    AND id_physician=?';
+    AND betterDoctorUID=?';
     db.query(queryString, data, (error, results) => cb(error, results) );
   },
 

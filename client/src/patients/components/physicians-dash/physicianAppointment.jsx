@@ -1,3 +1,5 @@
+`use strict`
+
 import React, { Component } from 'react';
 import DatePicker from 'material-ui/DatePicker';
 import RaisedButton from 'material-ui/RaisedButton';
@@ -9,6 +11,7 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import CryptoJS from 'crypto-js';
 import moment from 'moment';
+import axios from 'axios';
 
 const style = {
   margin: 12,
@@ -61,6 +64,7 @@ class PhysicianCalendar extends Component{
   constructor(props) {
     super(props);
     this.state = {
+      physician: [],
       appointmentDate: null,
       appointmentTime: false,
 
@@ -134,11 +138,17 @@ class PhysicianCalendar extends Component{
 
   componentWillMount() {
 
-    let id = this.props.params.provider; 
-
-   let physid = 1;
-    console.log("I AM CALLED CALLED CALLED");
-    this.props.getAppointments(physid);
+    let data = {betterDocId: this.props.params.provider};
+    let that = this;
+    axios.post('/api/physician/checkbetterDoc', data)
+      .then(physid => {
+      that.setState({
+        physician: physid.data[0]
+      })
+    this.props.getAppointments(physid.data[0].id);
+    })
+    .catch(err => console.log(err));
+   
   }
 
   componentWillReceiveProps(nextProps) {
@@ -157,13 +167,12 @@ class PhysicianCalendar extends Component{
 
     let data = {
       id_patient: uid,
-      id_physician: 1 || this.state.physId,
+      id_physician: this.state.physician.id,
       date: this.state.appointmentDate,
       time: this.state.appointmentTime
     }
-    console.log("SUBMIT IS BEING CALLED PROPERLY");
     this.props.requestAppointment(data);
-    this.props.getAppointments(1);
+    this.props.getAppointments(this.state.physician.id);
   }
 
   handleDate(event, date){
@@ -214,6 +223,7 @@ class PhysicianCalendar extends Component{
             onTouchTap={this.handleClose.bind(this)}
           />,
         ];
+        
       return (
         <div className="scheduling">
           <DatePicker

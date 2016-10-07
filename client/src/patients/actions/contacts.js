@@ -3,6 +3,7 @@ import {
   PATIENT_FETCH_PHYSICIANS, PATIENT_FETCH_PHYSICIANS_FAILURE,
   PHYSICIAN_FETCH_PATIENTS, PHYSICIAN_FETCH_PATIENTS_FAILURE,
   MAKE_MY_PHYSICIAN_REQUEST, MAKE_MY_PHYSICIAN_SUCCESS, MAKE_MY_PHYSICIAN_FAILURE,
+  CHECK_MY_RELATIONSHIP_REQUEST, CHECK_MY_RELATIONSHIP_SUCCESS, CHECK_MY_RELATIONSHIP_FAILURE,
   REMOVE_RELATIONSHIP_REQUEST, REMOVE_RELATIONSHIP_SUCCESS, REMOVE_RELATIONSHIP_FAILURE
 } from './action-constants';
 
@@ -80,7 +81,6 @@ const makeMyPhysicianRequest = (relationship) => {
 	return {
 		type: MAKE_MY_PHYSICIAN_REQUEST,
 		relation: false,
-		payload: relationship
 	}
 }
 
@@ -88,7 +88,6 @@ const makeMyPhysicianSuccess = (response) => {
 	return {
 		type: MAKE_MY_PHYSICIAN_SUCCESS,
 		relation: true,
-		payload: response
 	}
 }
 
@@ -101,7 +100,6 @@ const makeMyPhysicianFailure = (err) => {
 }
 
 export const makeMyPhysician = (relationship) => {
-  console.log("MAKE MY PHYSICIAN");
   return dispatch => {
     dispatch(makeMyPhysicianRequest(relationship));
       return axios.post('/api/physician/addbetterDoc', relationship)
@@ -109,16 +107,51 @@ export const makeMyPhysician = (relationship) => {
           relationship.id_physician = docId.data;
           axios.post(`/api/relation/create`, relationship)
             .then(response =>{
-              console.log("BEEN MADE MY DOCTOR", response)
               dispatch(makeMyPhysicianSuccess(response));	  
             })
           })
           .catch(error => {
-          console.log("SHOULDN'T BE SURPRISED THIS DIDN'T WORK", error);
             dispatch(makeMyPhysicianFailure(error))
           })
   }
 }
+
+
+//CHECK IF A RELATIONSHIP EXISTS
+
+const checkMyRelationshipRequest = (relationship) => {
+	return {
+		type: CHECK_MY_RELATIONSHIP_REQUEST,
+		relation: false,
+	}
+}
+
+const checkMyRelationshipSuccess = (response) => {
+	return {
+		type: CHECK_MY_RELATIONSHIP_SUCCESS,
+		relation: response,
+	}
+}
+
+const checkMyRelationshipFailure = (err) => {
+	return {
+		type: CHECK_MY_RELATIONSHIP_FAILURE,
+		relation: false,
+		payload: err
+	}
+}
+
+export const checkMyRelationship = (relationship) => {
+  return dispatch => {
+    dispatch(checkMyRelationshipRequest(relationship));
+    return axios.post('/api/relation', relationship)
+      .then(response => {
+        response.data.length > 0 ? dispatch(checkMyRelationshipSuccess(true)) : dispatch(checkMyRelationshipSuccess(false))    
+      })
+      .catch(error => checkMyRelationshipFailure(error));
+  }
+}
+
 
 //REMOVE RELATIONSHIP (PHYSICIAN AND PATIENT BOTH CAN)
 
@@ -144,12 +177,10 @@ const removeRelationshipFailure = () => {
 }
 
 export const removeRelationship = (relationship) => {
-  console.log("RELATION", relationship);
   return dispatch => {
     dispatch(removeRelationshipRequest());
     return axios.post(`/api/relation/delete`, relationship)
       .then(response =>{
-        console.log("NO MORE RELATIONSHIP", response)
         dispatch(removeRelationshipSuccess());	  
 	  })
       .catch(error => dispatch(removeRelationshipFailure(error)) )

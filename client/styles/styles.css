@@ -725,7 +725,8 @@ h5.extraTopMargin{
 }
 
 .myPhysicianList li{
-  display: inline-block;;
+  display: inline-block;
+  margin:0 2em;
 }
 
 
