@@ -8,11 +8,9 @@ var sess;
 module.exports = {
 
   signIn: (req, res) => {
-    console.log("REQUEST BODY REQUEST BODY", req.body);
     Physician.signIn(req.body, (error, data) => {
       if(data.length > 0){
         bcrypt.compare(req.body.password, data[0].password, (error, result) => {
-          console.log("RESULT RESULT RESULT", result);
           if(result){
             sess = req.session;
             sess.email = data[0].email;
@@ -118,7 +116,6 @@ module.exports = {
           res.json(data.insertId);
         });
       }else{
-        console.log(exists);
         res.json(exists[0].id);
       }
     })

@@ -119,8 +119,6 @@ class ViewProfile extends Component {
   }
 
   render() {
-    {console.log("STATESTATESTATE", this.state)}
-    {console.log("PROPSPROPSPROPS", this.props)}
       return (
 
           <div>

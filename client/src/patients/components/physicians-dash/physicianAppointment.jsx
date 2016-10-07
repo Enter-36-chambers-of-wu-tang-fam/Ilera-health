@@ -223,8 +223,7 @@ class PhysicianCalendar extends Component{
             onTouchTap={this.handleClose.bind(this)}
           />,
         ];
-
-        {console.log("STATE IN RENDER", this.state)}
+        
       return (
         <div className="scheduling">
           <DatePicker

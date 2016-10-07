@@ -177,12 +177,10 @@ const removeRelationshipFailure = () => {
 }
 
 export const removeRelationship = (relationship) => {
-  console.log("RELATION", relationship);
   return dispatch => {
     dispatch(removeRelationshipRequest());
     return axios.post(`/api/relation/delete`, relationship)
       .then(response =>{
-        console.log("NO MORE RELATIONSHIP", response)
         dispatch(removeRelationshipSuccess());	  
 	  })
       .catch(error => dispatch(removeRelationshipFailure(error)) )

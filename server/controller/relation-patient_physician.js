@@ -18,7 +18,6 @@ module.exports = {
         console.log(error);
       }
       if(data.length > 0){
-        console.log(data);
         res.status(409).send("This Relation already exists try rtfd Son!");
       } else {
         Relation.create_patient_physician_relation(req.body, (err,data)=>{
@@ -57,7 +56,6 @@ module.exports = {
   },
 
   deletePatientPhysicianRelation:(req, res) => {
-    console.log(req);
     Relation.delete_PatientPhysicianRelation(req.body, (err,data)=>{
       if(err) console.log(err);
       res.json(data);
