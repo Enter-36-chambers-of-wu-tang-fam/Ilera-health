@@ -162,7 +162,12 @@ class HealthInfoFormInitialized extends Component {
 						<Field name="allergies" type="text" component={this.renderMultiLineTextField} label="Allergies (Ex: allergy-reaction;)"/>
 
 						{error && <strong>{error}</strong>}
-
+						<RaisedButton
+								label='Save'
+								primary={true}
+								type='submit'
+								className='btn'
+						/>
 					</form>
 			</div>
 			);
