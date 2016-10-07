@@ -5,7 +5,7 @@ import React, { Component, PropTypes } from 'react';
 import { Field, reduxForm } from 'redux-form';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
-import { loadBasic } from '../../../actions/profile.js';
+import { getUserInfo } from '../../../actions/user.js';
 // ../../../actions/action-constants.js
 
 // CryptoJS
@@ -19,46 +19,15 @@ import MenuItem from 'material-ui/MenuItem';
 // Actions
 // import { emergencyContact } from '../../actions/actions.js';
 // import { getFieldInfo as loadData } from '../../actions/profile.js';
-import * as actions from '../../../actions/profile.js';
+// import * as actions from '../../../actions/profile.js';
 
-
-
-// const getData = () => {
-// 	let id = localStorage.getItem('uid');
-// 		//code to decode user id stored in local storage
-// 		console.log("yolo");
-// 		let code  = CryptoJS.AES.decrypt(id.toString(), 'key'); //need to change key
-// 		let uid = code.toString(CryptoJS.enc.Utf8);
-// 	return axios.get(`/api/patient/${uid}`)
-// 			.then( data => {
-//         // dates.data.forEach(data => {
-//         console.log("****data****",data.data[0]);
-// 				// data = myData;
-// 				return data.data[0];
-//         // this.setState({info: data[0]})
-//         //   let date = item.date.slice(0,10);
-//         //   if(currAppts[date]) currAppts[date][item.time] = true;
-//         //   else {
-//         //     currAppts[date] = {};
-//         //     currAppts[date][item.time] = true;
-//         //   }
-//         // })
-//     });
-// }
-
-// const data = getData();
 
 const validate = values => {
   const errors = {}
-  // if (!values.first || /\d/.test(values.first)) {
-  //   errors.first = 'Please enter a valid first name'
-  // }
 	if (values.middle && /\d/.test(values.middle)) {
     errors.middle = 'Please enter a valid middle name'
   }
-  // if (!values.last || /\d/.test(values.last)) {
-  //   errors.last = 'Please enter a valid last name'
-  // }
+
 	if (values.maiden && /\d/.test(values.maiden)) {
     errors.maiden = 'Please enter a valid maiden name'
   }
@@ -86,17 +55,20 @@ class BackgroundInfoFormInitialized extends Component {
     router: React.PropTypes.object
   }
 
-//   componentWillMount(){
-// 		console.log("CHECK CHECK")
-// 	  const { dispatch, initialize, load, info, initialValues } = this.props;
-// 	  dispatch(load());
-// 		dispatch(initialize(initialValues));
-//   }
+  componentWillMount(){
+		console.log("CHECK CHECK")
+	  const { dispatch, initialize, load, info, initialValues } = this.props;
+	  let id = localStorage.getItem('uid');
+		let code  = CryptoJS.AES.decrypt(id.toString(), 'key'); //need to change key
+		let uid = code.toString(CryptoJS.enc.Utf8);
+	  dispatch(load(uid));
+		// dispatch(initialize(initialValues));
+  }
 
-	// componentDidMount(){
-	// 	const { initialize, info } = this.props;
-	// 	initialize(info);
-	// }
+	componentDidMount(){
+		const { initialize, info } = this.props;
+		// initialize(info);
+	}
 
 	submitMe(prop){
 		//get encoded id from local storage
@@ -437,16 +409,14 @@ BackgroundInfoFormInitialized = reduxForm({
   form: 'BackgroundInfoFormInitialized',
   destroyOnUnmount: false,
   enableReinitialize: true,
-  initialValues: JSON.parse((localStorage.getItem('patient'))),
   validate
 })(BackgroundInfoFormInitialized);
 
-// BackgroundInfoFormInitialized = connect(
-//   state => ({
-// 	info: state.profile.patient,
-//     initialValues: state.profile.patient
-//   }),
-//   { load: loadBasic }
-// )(BackgroundInfoFormInitialized)
+BackgroundInfoFormInitialized = connect(
+  state => ({
+    initialValues: state.user.user
+  }),
+  { load: getUserInfo }
+)(BackgroundInfoFormInitialized)
 
 export default BackgroundInfoFormInitialized;
