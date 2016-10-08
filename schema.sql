@@ -311,6 +311,8 @@ CREATE TABLE `patient_medication` (
   `id_patient` INTEGER DEFAULT NULL,
   `start_date` DATE NULL,
   `end_date` DATE NULL,
+  `type` VARCHAR(40) NULL,
+  `details` VARCHAR(1000) NULL DEFAULT NULL,
   PRIMARY KEY (`id`)
 );
 

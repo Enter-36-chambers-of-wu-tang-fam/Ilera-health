@@ -1,5 +1,6 @@
 import React, { Component, PropTypes } from 'react';
 import { connect } from 'react-redux';
+import { Router, Route, Link, browserHistory } from 'react-router';
 import Medication from '../../components/medication-dash/meds-page/medication-class.jsx';
 
 
@@ -8,7 +9,6 @@ class MedicationDetail extends Component {
     super(props);
 
   }
-
   render(){
     return (
       <ul>
@@ -28,11 +28,14 @@ class MedicationDetail extends Component {
             "We Cannot provide you with any information at this time" }
         </li>
 
+        <Link to={`/patient/physicians/${this.props.chosenMed.betterDoctorUID}`}>
         <li>
           { this.props.chosenMed ?
             this.props.chosenMed.first :
             "We Cannot provide you with any information at this time" }
+
         </li>
+        </Link>
         <li>
           { this.props.chosenMed ?
             this.props.chosenMed.last :
@@ -54,6 +57,7 @@ class MedicationDetail extends Component {
             this.props.chosenMed.email :
             "We Cannot provide you with any information at this time" }
         </li>
+
         <li><img src={ this.props.chosenMed ?
           this.props.chosenMed.photo_path :
           "We Cannot provide you with any information at this time" } />
