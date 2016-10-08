@@ -296,6 +296,23 @@ CREATE TABLE `emergency_contact` (
 );
 
 -- ---
+-- Table 'med_records'
+--
+-- ---
+
+DROP TABLE IF EXISTS `med_records`;
+
+CREATE TABLE `med_records` (
+  `id` INTEGER NOT NULL AUTO_INCREMENT,
+  `date` DATE NULL,
+  `type` VARCHAR(400) NULL,
+  `document_path` VARCHAR(500) NULL,
+  `description` VARCHAR(1000) NULL,
+  `id_patient` INTEGER NOT NULL,
+  PRIMARY KEY (`id`)
+);
+
+-- ---
 -- Table 'patient_medication'
 -- the mediacation inforrmation of each patient is stored
 -- ---
@@ -460,7 +477,7 @@ ALTER TABLE `company_insurance_plan_types` ADD FOREIGN KEY (id_Insurance_company
 ALTER TABLE `insurance_plan` ADD FOREIGN KEY (id_Insurance_company) REFERENCES `Insurance_company` (`id`);
 
 ALTER TABLE `company_insurance_plan_types` ADD FOREIGN KEY (id_insurance) REFERENCES `insurance_plan` (`id`);
-
+ALTER TABLE `med_records` ADD FOREIGN KEY (id_patient) REFERENCES `patient` (`id`);
 
 -- ---
 -- Data For Testing Purposes
@@ -559,6 +576,10 @@ INSERT INTO `emergency_contact` (`e_1_contact_first`,`e_1_contact_last`,`e_1_con
 -- ('','','');
 -- INSERT INTO `staff` (`id`,`first`,`last`,`email`,`phone_number`,`password`,`photo_path`) VALUES
 -- ('','','','','','','');
+
+-- INSERT INTO `med_records` (`id`,`date`,`type`,`document_path`,`description`,`id_patient`) VALUES
+-- ('','','','','','');
+
 
 -- --
 
