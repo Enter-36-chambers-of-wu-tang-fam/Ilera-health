@@ -188,7 +188,6 @@ input[type='radio']{
     font-size: 72px;
     text-align: center;
 }
-
 .mainDashWelcome img, #mainDashWelcomeMobile img, .providerDashRight img{
     width: 150px;
     height: 150px;
@@ -1165,6 +1164,7 @@ main >section .team li:hover .teamProfile {
 .hidePReset{
     display: none;
 }
+
 
 /* PROVIDER DASH*/
 .providerDashParent{
