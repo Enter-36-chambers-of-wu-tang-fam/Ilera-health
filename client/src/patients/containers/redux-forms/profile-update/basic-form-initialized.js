@@ -5,7 +5,12 @@ import React, { Component, PropTypes } from 'react';
 import { Field, reduxForm } from 'redux-form';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
+<<<<<<< 3fcded911bed5a23199afb1ecc9fbf3c172b25de
 import { getUserInfo } from '../../../actions/user.js';
+=======
+import { getUserInfo, didInit } from '../../../actions/user.js';
+// ../../../actions/action-constants.js
+>>>>>>> all forms in profile now updatable, having minor issues with provider form
 
 // CryptoJS
 import CryptoJS from 'crypto-js';
@@ -73,17 +78,6 @@ class BackgroundInfoFormInitialized extends Component {
 	this.props.initialize(data);
 	nextProps.didInit();
   }
-  
-
-  componentDidMount(){
-	  console.log("BASIC COMPONENT LOADED", this.props)
-	//   const { dispatch, initialize, load, info, initialValues } = this.props;
-	//   let id = localStorage.getItem('uid');
-	// 	let code  = CryptoJS.AES.decrypt(id.toString(), 'key'); //need to change key
-	// 	let uid = code.toString(CryptoJS.enc.Utf8);
-	//   load(uid);
-	 
-  }
 
   componentWillReceiveProps(nextProps){
 	  console.log(nextProps)
@@ -92,19 +86,14 @@ class BackgroundInfoFormInitialized extends Component {
 	  }
   }
   componentWillMount(){
-		console.log("CHECK CHECK")
 	  const { dispatch, initialize, load, info, initialValues } = this.props;
 	  let id = localStorage.getItem('uid');
 		let code  = CryptoJS.AES.decrypt(id.toString(), 'key'); //need to change key
 		let uid = code.toString(CryptoJS.enc.Utf8);
 	  dispatch(load(uid));
 		// dispatch(initialize(initialValues));
-  }
 
-	componentDidMount(){
-		const { initialize, info } = this.props;
-		// initialize(info);
-	}
+  }
 
 	submitMe(prop){
 		//get encoded id from local storage
