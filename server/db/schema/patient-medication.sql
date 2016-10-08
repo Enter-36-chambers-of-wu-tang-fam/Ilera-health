@@ -14,5 +14,6 @@ CREATE TABLE `patient_medication` (
   `id_patient` INTEGER DEFAULT NULL,
   `start_date` DATE NULL,
   `end_date` DATE NULL,
+  `type` VARCHAR(40) NULL,
   PRIMARY KEY (`id`)
 );

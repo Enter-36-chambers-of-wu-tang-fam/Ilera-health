@@ -24,8 +24,8 @@ module.exports = {
   getAll_patient_medicationAndPhysician_info: (params, cb) => {
     let data = [params.userid];
     const queryString = 'SELECT m.id, m.drug_name, m.dosage, m.id_medication, \
-      m.id_physician, m.id_patient, m.start_date, m.end_date, py.id, \
-      py.betterDoctorUID, py.first, py.last, py.email, py.phone_number, \
+      m.id_physician, m.id_patient, m.start_date, m.end_date, m.type, m.details, \
+      py.id, py.betterDoctorUID, py.first, py.last, py.email, py.phone_number, \
       py.photo_path, py.specialty \
       FROM patient_medication m \
       JOIN physician py ON py.id = m.id_physician \
@@ -41,6 +41,8 @@ module.exports = {
   // }
 
 };
+// medication
+// med.id, med.drug_name, med.details
 // physician
 // py.id, py.betterDoctorUID, py.first, py.last, py.email, py.phone_number, py.photo_path, py.specialty
 // patient_medication
