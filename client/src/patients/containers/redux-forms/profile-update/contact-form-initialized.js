@@ -4,7 +4,8 @@ import axios from 'axios';
 import React, { Component, PropTypes } from 'react';
 import { Field, reduxForm } from 'redux-form';
 import { Router, Route, Link, browserHistory } from 'react-router';
-
+import { connect } from 'react-redux';
+import { getUserContacts, didInit } from '../../../actions/user.js';
 // CryptoJS
 import CryptoJS from 'crypto-js';
 // Material-UI, Redux-Form-UI
@@ -12,9 +13,7 @@ import RaisedButton from 'material-ui/RaisedButton';
 import FlatButton from 'material-ui/FlatButton';
 import SelectField from 'material-ui/SelectField'
 import MenuItem from 'material-ui/MenuItem';
-import {
-  TextField
-} from 'redux-form-material-ui';
+import { TextField } from 'redux-form-material-ui';
 
 // FORM VALIDATION
 const validate = values => {
@@ -84,13 +83,36 @@ class ContactInfoFormInitialized extends Component {
     router: React.PropTypes.object
   }
 
+  handleInitialize(nextProps){
+    const data = {
+      "e_1_contact_first": nextProps.contacts.e_1_contact_first,
+      "e_1_contact_last": nextProps.contacts.e_1_contact_last,
+      "e_1_contact_email": nextProps.contacts.e_1_contact_email,
+      "e_1_contact_phone": nextProps.contacts.e_1_contact_phone,
+      "e_1_contact_relationship": nextProps.contacts.e_1_contact_relationship,
+      "e_2_contact_first": nextProps.contacts.e_2_contact_first,
+      "e_2_contact_last": nextProps.contacts.e_2_contact_last,
+      "e_2_contact_email": nextProps.contacts.e_2_contact_email,
+      "e_2_contact_phone": nextProps.contacts.e_2_contact_phone,
+      "e_2_contact_relationship": nextProps.contacts.e_2_contact_relationship
+    }
+    this.props.initialize(data);
+    nextProps.didInit();
+  }
+
+  componentWillReceiveProps(nextProps){
+	  if(!nextProps.init){
+		  this.handleInitialize(nextProps);
+	  }
+  }
+
   submitMe(prop) {
     // decrypt user id
 		let id = localStorage.getItem('uid');
 		let code  = CryptoJS.AES.decrypt(id.toString(), 'key'); //need to change key
 		prop.uid = code.toString(CryptoJS.enc.Utf8);
     // store form data
-    axios.post('/api/patient/contact', prop)
+    axios.put('/api/patient/contacts/update', prop)
       .then( found => {
         // this.context.router.push('/patient/form/insurance/');
       })
@@ -130,66 +152,6 @@ class ContactInfoFormInitialized extends Component {
       <div>
         <h2>Contact Info</h2>
         <form onSubmit={handleSubmit(props => this.submitMe(props))}>
-          	<Field name="primary_phone_number" type="text" component={this.renderTextField} label="Primary Phone Number"/>
-            <Field name="secondary_phone_number" type="text" component={this.renderTextField} label="Secondary Phone Number"/>
-						<Field name="address" type="text" component={this.renderTextField} label="Street Address"/>
-						<Field name="city" type="text" component={this.renderTextField} label="City"/>
-						<div>
-							<Field name="state" component={this.renderSelectField} label="State">
-								<MenuItem value="AL" primaryTex ="Alabama" />
-								<MenuItem value="AK" primaryText="Alaska" />
-								<MenuItem value="AZ" primaryText="Arizona" />
-								<MenuItem value="AR" primaryText="Arkansas" />
-								<MenuItem value="CA" primaryText="California" />
-								<MenuItem value="CO" primaryText="Colorado" />
-								<MenuItem value="CT" primaryText="Connecticut" />
-								<MenuItem value="DE" primaryText="Delaware" />
-								<MenuItem value="DC" primaryText="District Of Columbia" />
-								<MenuItem value="FL" primaryText="Florida" />
-								<MenuItem value="GA" primaryText="Georgia" />
-								<MenuItem value="HI" primaryText="Hawaii" />
-								<MenuItem value="ID" primaryText="Idaho" />
-								<MenuItem value="IL" primaryText="Illinois" />
-								<MenuItem value="IN" primaryText="Indiana" />
-								<MenuItem value="IA" primaryText="Iowa" />
-								<MenuItem value="KS" primaryText="Kansas" />
-								<MenuItem value="KY" primaryText="Kentucky" />
-								<MenuItem value="LA" primaryText="Louisiana" />
-								<MenuItem value="ME" primaryText="Maine" />
-								<MenuItem value="MD" primaryText="Maryland" />
-								<MenuItem value="MA" primaryText="Massachusetts" />
-								<MenuItem value="MI" primaryText="Michigan" />
-								<MenuItem value="MN" primaryText="Minnesota" />
-								<MenuItem value="MS" primaryText="Mississippi" />
-								<MenuItem value="MO" primaryText="Missouri" />
-								<MenuItem value="MT" primaryText="Montana" />
-								<MenuItem value="NE" primaryText="Nebraska" />
-								<MenuItem value="NV" primaryText="Nevada" />
-								<MenuItem value="NH" primaryText="New Hampshire" />
-								<MenuItem value="NJ" primaryText="New Jersey" />
-								<MenuItem value="NM" primaryText="New Mexico" />
-								<MenuItem value="NY" primaryText="New York" />
-								<MenuItem value="NC" primaryText="North Carolina" />
-								<MenuItem value="ND" primaryText="North Dakota" />
-								<MenuItem value="OH" primaryText="Ohio" />
-								<MenuItem value="OK" primaryText="Oklahoma" />
-								<MenuItem value="OR" primaryText="Oregon" />
-								<MenuItem value="PA" primaryText="Pennsylvania" />
-								<MenuItem value="RI" primaryText="Rhode Island" />
-								<MenuItem value="SC" primaryText="South Carolina" />
-								<MenuItem value="SD" primaryText="South Dakota" />
-								<MenuItem value="TN" primaryText="Tennessee" />
-								<MenuItem value="TX" primaryText="Texas" />
-								<MenuItem value="UT" primaryText="Utah" />
-								<MenuItem value="VT" primaryText="Vermont" />
-								<MenuItem value="VA" primaryText="Virginia" />
-								<MenuItem value="WA" primaryText="Washington" />
-								<MenuItem value="WV" primaryText="West Virginia" />
-								<MenuItem value="WI" primaryText="Wisconsin" />
-								<MenuItem value="WY" primaryText="Wyoming" />
-							</Field>
-						</div>
-						<Field name="zip" type="text" component={this.renderTextField} label="Zip Code"/>
           <h4>EMERCENGY CONTACT (1)</h4>
           <Field name="e_1_contact_first" type="text" component={this.renderTextField} label="First Name"/>
           <Field name="e_1_contact_last" type="text" component={this.renderTextField} label="Last Name"/>
@@ -243,8 +205,10 @@ class ContactInfoFormInitialized extends Component {
   }   
 };
 
-export default reduxForm({
+ContactInfoFormInitialized = reduxForm({
   form: 'ContactInfoFormInitialized',
   destroyOnUnmount: false,
   validate
 })(ContactInfoFormInitialized);
+
+export default ContactInfoFormInitialized;

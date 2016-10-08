@@ -9,7 +9,7 @@ const db = require('../db/dbConnect/connection.js');
 module.exports = {
 
   get_emergency_contact:(params, cb) => {
-    let data = [params.uid];
+    let data = [params.userid];
     const queryString = 'SELECT * FROM emergency_contact \
       WHERE id_patient=?';
     db.query(queryString, data, (error, results)=> cb(error, results));
@@ -42,7 +42,7 @@ module.exports = {
     const queryString = 'UPDATE emergency_contact SET e_1_contact_first=?, \
       e_1_contact_last=?, e_1_contact_phone=?, e_1_contact_email=?, \
       e_1_contact_relationship=?, e_2_contact_first=?, e_2_contact_last=?, \
-      e_2_contact_phone=?, e_2_contact_email=?, e_2_contact_relationship=?, \
+      e_2_contact_phone=?, e_2_contact_email=?, e_2_contact_relationship=? \
       WHERE id_patient=?';
     db.query(queryString, data, (error, results) => cb(error, results) );
   }

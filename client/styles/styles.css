@@ -662,6 +662,7 @@ h5.extraTopMargin{
     text-align: center;
     margin: 15px 0;
     text-transform: uppercase;
+    color: #333;
 }
 .profileSummary i{
     color: rgb(44, 210, 205);
@@ -1149,6 +1150,14 @@ main >section .team li{
 main >section .team li:hover .teamProfile {
     display: block;
     color: #203248;
+}
+
+.showPReset{
+    display: block;
+}
+
+.hidePReset{
+    display: none;
 }
 
 /*----------- MEDIA QUERIES ---------*/
