@@ -5,12 +5,7 @@ import React, { Component, PropTypes } from 'react';
 import { Field, reduxForm } from 'redux-form';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
-<<<<<<< 3fcded911bed5a23199afb1ecc9fbf3c172b25de
 import { getUserInfo } from '../../../actions/user.js';
-=======
-import { getUserInfo, didInit } from '../../../actions/user.js';
-// ../../../actions/action-constants.js
->>>>>>> all forms in profile now updatable, having minor issues with provider form
 
 // CryptoJS
 import CryptoJS from 'crypto-js';
@@ -90,9 +85,6 @@ class BackgroundInfoFormInitialized extends Component {
 	  let id = localStorage.getItem('uid');
 		let code  = CryptoJS.AES.decrypt(id.toString(), 'key'); //need to change key
 		let uid = code.toString(CryptoJS.enc.Utf8);
-	  dispatch(load(uid));
-		// dispatch(initialize(initialValues));
-
   }
 
 	submitMe(prop){
