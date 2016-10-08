@@ -60,6 +60,7 @@ DROP TABLE IF EXISTS `physician`;
 CREATE TABLE `physician` (
   `id` INTEGER NOT NULL AUTO_INCREMENT,
   `betterDoctorUID` VARCHAR(100) NULL,
+  `title` VARCHAR(10) NULL,
   `first` VARCHAR(30) NULL,
   `last` VARCHAR(30) NULL,
   `email` VARCHAR(30) NULL,

@@ -1,10 +1,9 @@
 import React, { Component } from 'react';
 import Dropzone from 'react-dropzone';
 import request from 'superagent'; //usually aliased as request, this is not actually jQuery ajax
-import axios from 'axios';
 
 
-export default class DropzoneDemo extends Component{
+export default class UploadFile extends Component{
   
   constructor(props){
     super(props)
@@ -12,10 +11,12 @@ export default class DropzoneDemo extends Component{
       uploadFiles: []
     }
   }
+  
   onDrop(file) {
     this.setState({
       uploadFiles: file
     });
+
     var upload = new FormData();
     upload.append('upload',file[0]);
 
@@ -25,36 +26,7 @@ export default class DropzoneDemo extends Component{
       if (err) { console.error(err) }
       console.log(resp);
       return resp;
-    });
-    
-
-    // axios.post('/upload/medRecord', fileData)
-    // .then(function (result) {
-    //   console.log(result);
-    // })
-    // .catch(function (err) {
-    //   console.log(err);
-    // });
-
-    // ajax.post('/upload/medRecord')
-    // .set('Access-Control-Allow-Origin', '*')
-    // .withCredentials()
-    // .send(files[0])
-    // .end((err,res) =>{
-    //   if(err) console.log(err);
-    //   if(res) console.log(res);
-    // });
-
-      // var req = ajax.post('/upload/medRecord');
-      //   files.forEach((file)=> {
-      //       req.attach(file.name, file);
-      //   });
-      //   req.end((err,res) => {
-      //     if(err) console.log(err);
-      //     console.log(res);
-
-      //   });
-
+    });  
     console.log('Received files: ', file)
   }
 
@@ -62,7 +34,7 @@ export default class DropzoneDemo extends Component{
     return (
         <div>
           <Dropzone onDrop={this.onDrop.bind(this)} multiple={false}>
-            <div>Try dropping some files here, or click to select files to upload.</div>
+            <div>Upload old medical records here!</div>
           </Dropzone>
           {this.state.uploadFiles.length > 0 ? <div>
           <h2>Uploading {this.state.uploadFiles.length} files...</h2>

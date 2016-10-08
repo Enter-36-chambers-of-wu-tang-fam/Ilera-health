@@ -38,7 +38,7 @@ class Header extends Component {
               <li>
                 <FlatButton label="Home" 
                   backgroundColor={buttonStyles.backgroundColor}
-                  href="/"
+                  href={`/${localStorage.getItem('userType')}/dashboard`}
                   hoverColor={buttonStyles.hoverColor} 
                   style={buttonStyles.styles}
                   labelStyle={buttonStyles.labelStyle}

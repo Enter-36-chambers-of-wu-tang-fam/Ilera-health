@@ -103,6 +103,13 @@ module.exports = {
     }
   },
 
+put_photo: (req,res) => {
+  Patient.update_photo(req.body, (error,data) =>{
+    if(error) console.log(error);
+    res.json(data);
+  })
+},
+
   post_insurance_info: (req, res) => {
     Patient.init_insurance(req.body, (err,data)=>{
       if(err) console.log(err);

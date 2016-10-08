@@ -7,12 +7,12 @@ const DashboardMain = () => {
     return (
         <div className="dashboardMain">
            <div id="mainDashWelcomeMobile">
-                <img src="../../../styles/background_images/wu.jpg" alt=""/>
+                <img src={localStorage.getItem("photo")} alt=""/>
                 <h3>{`Welcome, ${localStorage.getItem('first')}!`}</h3>
             </div>
             <DashboardInsurance />
             <div className="mainDashWelcome">
-                <img src="../../../styles/background_images/wu.jpg" alt=""/>
+                <img src={localStorage.getItem("photo")} alt=""/>
                 <h3>{`Welcome, ${localStorage.getItem('first')}!`}</h3>
             </div>
             <DashboardReminders />
