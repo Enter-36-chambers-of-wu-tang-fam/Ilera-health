@@ -9,6 +9,7 @@ const Message = require('./controller/messages.js');
 const io = require('socket.io')(server);
 const socketEvents = require('./sockets/socket-events')(io);
 const getAll = require('./controller/allPatient.js');
+const Patient = require("./models/patient-helpers");
 
 //Mike's additions --> please don't move yet..need to finish setting up paths
 
@@ -17,7 +18,7 @@ const crypto = require('crypto');
 const mime = require('mime');
 var storage = multer.diskStorage({
   destination: function (req, file, cb) {
-    cb(null, '../client/src/uploads')
+    cb(null, '../client/src/uploads/profile')
   },
   filename: function (req, file, cb) {
     crypto.pseudoRandomBytes(16, function (err, raw) {
@@ -55,17 +56,17 @@ app.delete('/api/messages/delete', Message.deleteOneMessage);
 
 //Record for the photo upload --> Mike Addition
 
-app.post('/upload/medRecord', upload.single('upload'), function(req,res, next){
-  
-  console.log(__dirname + req.filefilename);
-
-  res.json(req.file);
+app.post('/upload/profile_picture/:uid', upload.single('upload'), function(req,res, next){
+  let data = {photo_path: `/src/uploads/profile/${req.file.filename}`, uid: req.params.uid};
+  Patient.update_photo(data,(err,data)=>{
+      res.json(data);
+  })
 })
 
 //Record for the photo upload --> Mike Addition
 
 
-app.get('/api/allPatient/:userid', getAll.get_patient);
+app.get('/api/allPatient/:userid', getAll.get_patient); //Call to the massive join
 
 app.get('*', function (req, res) {
   res.sendFile(path.join(`${__dirname}/../client/index.html`));

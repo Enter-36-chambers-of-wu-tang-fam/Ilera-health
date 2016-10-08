@@ -65,6 +65,12 @@ module.exports = {
     db.query(queryString, data, (error, results) => cb(error, results) );
   },
 
+  update_photo: (params, cb) => {
+    let data = [params.photo_path];
+    const queryString ='UPDATE patient SET photo_path=? WHERE id='+ params.uid;
+    db.query(queryString, data, (error, results) => cb(error, results) );
+  },
+
   get_patient: (params, cb) => {
     console.log("**", params.userid)
     let data = [params.userid];

@@ -17,8 +17,10 @@ import App from './main/app.js';
 import Welcome from './auth-shared/components/welcome.jsx';
 import Signin from './auth-shared/components/signin-component.js';
 import Signup from './auth-shared/components/signup-component.js';
-import AllUsers from './patients/components/physicians-dash/allUsers.jsx';
-import AllUsersProfile from './patients/components/physicians-dash/allUsersProfile.jsx'
+// ./components/auth/signup-component.js
+import AllPhysicians from './patients/components/physicians-dash/allPhysicians.jsx';
+// ./components/shared/allPhysicians.jsx
+import AllPhysicianProfile from './patients/components/physicians-dash/allPhysicianProfile.jsx'
 
 import Profile from './patients/components/profile-dash/patient-profile.jsx';
 import Chat from './patients/containers/messages/chat-container.js';
@@ -28,7 +30,10 @@ import PhysicianApp from './physicians/physician-app/physician-app.jsx';
 import PhysicianDashboard from './physicians/Components/main-dash/provider-dash.jsx';
 import Notes from './physicians/physician-app/notes.jsx';
 import Calendar from './physicians/physician-app/calendar.jsx';
+
 import ProvPatProfile from './physicians/components/patient-ind-profile-dash/profile-main.jsx';
+// ./components/physician-app/calendar.jsx
+import AllUsers from './physicians/components/patients-dash/allUsers.jsx'
 
 // Patient Components
 import PatientApp from './patients/components/patient-app.jsx';
@@ -60,8 +65,8 @@ export default (
             </Route>
             <Route path="dashboard" component={ PatientDashboard } />
             <Route path="healthlog" component={ HealthLog } />
-            <Route path="physicians" component={ AllUsers } />
-              <Route path='physicians/:provider' component={ AllUsersProfile } >
+            <Route path="physicians" component={ AllPhysicians } />
+              <Route path='physicians/:provider' component={ AllPhysicianProfile } >
                 <Route path='calendar' component={ PhysicianCalendar } />
               </Route>
             <Route path="messages" component={ Chat } />

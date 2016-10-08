@@ -1,10 +1,9 @@
 import React, { Component } from 'react';
 import Dropzone from 'react-dropzone';
 import request from 'superagent'; //usually aliased as request, this is not actually jQuery ajax
-import axios from 'axios';
 
 
-export default class DropzoneDemo extends Component{
+export default class UploadFile extends Component{
   
   constructor(props){
     super(props)
@@ -12,10 +11,12 @@ export default class DropzoneDemo extends Component{
       uploadFiles: []
     }
   }
+  
   onDrop(file) {
     this.setState({
       uploadFiles: file
     });
+
     var upload = new FormData();
     upload.append('upload',file[0]);
 
@@ -25,17 +26,15 @@ export default class DropzoneDemo extends Component{
       if (err) { console.error(err) }
       console.log(resp);
       return resp;
-    });
-
+    });  
     console.log('Received files: ', file)
   }
 
   render () {
     return (
         <div>
-        <img src="/src/uploads/b82d69ab48161c0cb240406fe1cd2efb1475851266407.jpeg" />
           <Dropzone onDrop={this.onDrop.bind(this)} multiple={false}>
-            <div>Try dropping some files here, or click to select files to upload.</div>
+            <div>Upload old medical records here!</div>
           </Dropzone>
           {this.state.uploadFiles.length > 0 ? <div>
           <h2>Uploading {this.state.uploadFiles.length} files...</h2>
