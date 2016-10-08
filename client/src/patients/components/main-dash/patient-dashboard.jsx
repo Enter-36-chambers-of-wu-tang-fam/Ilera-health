@@ -4,6 +4,7 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { getUserInfo } from '../../actions/user.js';
 import CryptoJS from 'crypto-js';
+
 // Components
 import DashboardMessages from './dashboard-messages.jsx';
 import DashboardRecords from './dashboard-records.jsx';

@@ -1,8 +1,8 @@
-
 import _ from 'lodash';
 import axios from 'axios';
 import React, { Component, PropTypes } from 'react';
 import { Field, reduxForm } from 'redux-form';
+import { connect } from 'react-redux';
 import CryptoJS from 'crypto-js';
 import RaisedButton from 'material-ui/RaisedButton';
 import FlatButton from 'material-ui/FlatButton';
@@ -11,9 +11,8 @@ import MenuItem from 'material-ui/MenuItem';
 import Checkbox from 'material-ui/Checkbox';
 import {Table, TableBody, TableFooter, TableHeader, TableHeaderColumn, TableRow, TableRowColumn}
   from 'material-ui/Table';
-import {
-  TextField
-} from 'redux-form-material-ui'
+import { TextField } from 'redux-form-material-ui'
+import { getUserInfo, didInit } from '../../../actions/user.js';
 
 // Actions
 import { emergencyContact } from '../../../../auth-shared/actions/actions.js';
@@ -50,15 +49,7 @@ class HealthInfoFormInitialized extends Component {
       enableSelectAll: true,
       showCheckboxes: true,
       height: '300px',
-			allergies: [
-				'Food',
-				'Skin',
-				'Dust',
-				'Insects',
-				'Sinus',
-				'Medicines',
-				'Pets'
-			]
+			allergies: []
 		};
   }
 
@@ -66,9 +57,28 @@ class HealthInfoFormInitialized extends Component {
     router: React.PropTypes.object
   }
 
-	submitMe(prop){
-		this.props.handleNext();
+  handleInitialize(nextProps){
+    const data = {
+      "gender": nextProps.health.gender,
+      "weight": nextProps.health.weight,
+      "height": nextProps.health.height,
+      "blood_type": nextProps.health.blood_type,
+      "procedures": nextProps.health.procedures,
+      "conditions": nextProps.health.conditions,
+      "medications": nextProps.health.medications,
+      "allergies": nextProps.health.allergies
+    }
+    this.props.initialize(data);
+    nextProps.didInit();
+  }
 
+  componentWillReceiveProps(nextProps){
+		if(!nextProps.init){
+		  this.handleInitialize(nextProps);
+	  }
+  }
+
+	submitMe(prop){
 		//get encoded id from local storage
 		let id = localStorage.getItem('uid');
 		//code to decode user id stored in local storage
@@ -132,12 +142,12 @@ class HealthInfoFormInitialized extends Component {
 					<form onSubmit={handleSubmit(props => this.submitMe(props))}>
 						<div>
 							<Field name="gender" component={this.renderSelectField} label="Gender">
-									<MenuItem value={'Male'} primaryText="Man"/>
-									<MenuItem value={'Female'} primaryText="Woman"/>
+									<MenuItem value={'Male'} primaryText="Male"/>
+									<MenuItem value={'Female'} primaryText="Female"/>
 									<MenuItem value={'Transgender'} primaryText="Transgender"/>
 									<MenuItem value={'Transsexual'} primaryText="Transsexual"/>
-									<MenuItem value={'Trans Woman'} primaryText="Trans Woman"/>
-									<MenuItem value={'Trans Man'} primaryText="Trans Man"/>
+									<MenuItem value={'Trans Woman'} primaryText="Trans Female"/>
+									<MenuItem value={'Trans Man'} primaryText="Trans Male"/>
 									<MenuItem value={'Genderfluid'} primaryText="Genderfluid"/>
 									<MenuItem value={'Agender'} primaryText="Agender"/>
 							</Field>
@@ -174,8 +184,10 @@ class HealthInfoFormInitialized extends Component {
 	}
 };
 
-export default reduxForm({
-	form: 'HealthInfoFormInitialized',
-	destroyOnUnmount: false,
-	validate
+HealthInfoFormInitialized = reduxForm({
+  form: 'HealthInfoFormInitialized',
+  destroyOnUnmount: false,
+  validate
 })(HealthInfoFormInitialized);
+
+export default HealthInfoFormInitialized;
