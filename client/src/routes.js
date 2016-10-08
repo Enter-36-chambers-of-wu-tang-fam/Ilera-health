@@ -15,44 +15,28 @@ import GeneralAuth from './auth-shared/higher-order-components/general_auth.js';
 //Shared Components
 import App from './main/app.js';
 import Welcome from './auth-shared/components/welcome.jsx';
-// ./components/shared/welcome.jsx
 import Signin from './auth-shared/components/signin-component.js';
-// ./components/auth/signin-component.js
 import Signup from './auth-shared/components/signup-component.js';
-// ./components/auth/signup-component.js
 import AllUsers from './patients/components/physicians-dash/allUsers.jsx';
-// ./components/shared/allUsers.jsx
 import AllUsersProfile from './patients/components/physicians-dash/allUsersProfile.jsx'
 
 import Profile from './patients/components/profile-dash/patient-profile.jsx';
-// ./components/patient-app/profile/patient-profile.jsx
 import Chat from './patients/containers/messages/chat-container.js';
-// ./containers/chat-container.js
 
 // Physician Components
 import PhysicianApp from './physicians/physician-app/physician-app.jsx';
-// ./components/physician-app/physician-app.jsx
-import PhysicianDashboard from './physicians/physician-app/physician-dashboard.jsx';
-// ./components/physician-app/physician-dashboard.jsx
+import PhysicianDashboard from './physicians/Components/main-dash/provider-dash.jsx';
 import Notes from './physicians/physician-app/notes.jsx';
-// ./components/physician-app/notes.jsx
 import Calendar from './physicians/physician-app/calendar.jsx';
-// ./components/physician-app/calendar.jsx
+import ProvPatProfile from './physicians/components/patient-ind-profile-dash/profile-main.jsx';
 
 // Patient Components
 import PatientApp from './patients/components/patient-app.jsx';
-// ./components/patient-app/patient-app.jsx
 import PatientDashboard from './patients/components/main-dash/patient-dashboard.jsx';
-// ./components/patient-app/patient-dashboard.jsx
 import HealthLog from './patients/components/health-log-dash/health-log.jsx';
-// ./components/patient-app/health-log.jsx
 import Medication from './patients/containers/medication/medication-container.js';
-// ./components/patient-app/medication-dash/medication-class.jsx
 import PhysicianCalendar from './patients/components/physicians-dash/physicianAppointment.jsx';
-// ./components/patient-app/physician-profile-calendar.jsx
 import PatientAppFormContainer from './patients/components/onboarding/patient-signup-forms.jsx';
-// ./components/patient-app/patient-signup-forms.jsx
-// ./components/patient-app/all-physicians.jsx
 import MedicalHistory from './patients/components/medical-history-dash/medical-history-dashboard.jsx';
 
 export default (
@@ -63,7 +47,7 @@ export default (
         <Route path='provider' component={ PhysicianAuth(PhysicianApp) } >
             <Route path="dashboard" component={ PhysicianDashboard } />
             <Route path="patients" component={ AllUsers } >
-              <Route path=':patientId' component={ Profile } />
+              <Route path=':patientId' component={ ProvPatProfile } />
             </Route>
             <Route path="notes" component={ Notes } />
             <Route path="messages" component={ Chat } />

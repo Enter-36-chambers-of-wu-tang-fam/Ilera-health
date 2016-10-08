@@ -129,7 +129,7 @@ input[type='radio']{
 .dashboardRows{
     min-height: 10px;
 }
-.dashboardRows:after, .wrapper:after, .reminders:after, .profileDash:after, .chat:after, .messageContacts > ul:after, .contactItem:after, header:after, header ul:after, main > section > ul:after, .welcomeHeader:after, section:after, .messagesUser:after, .messagesIncoming:after, .team:after, #mainDashWelcomeMobile:after{
+.dashboardRows:after, .wrapper:after, .reminders:after, .profileDash:after, .chat:after, .messageContacts > ul:after, .contactItem:after, header:after, header ul:after, main > section > ul:after, .welcomeHeader:after, section:after, .messagesUser:after, .messagesIncoming:after, .team:after, #mainDashWelcomeMobile:after, .providerDashParent:after{
     clear: both;
     content: '';
     display: block;
@@ -156,7 +156,7 @@ input[type='radio']{
     color: white;
 }
 
-.dashboardRows h3, .profileDash h3{
+.dashboardRows h3, .profileDash h3, .providerDashRight > a h3{
     font-size: 32px;
     text-transform: uppercase;
     text-align: center;
@@ -176,7 +176,7 @@ input[type='radio']{
     height: 180px;
     overflow: auto;
 }
-.dashboardRows i {
+.dashboardRows i, .providerDashRight > a i {
     font-size: 106px;
     display: block;
     width: 96px;
@@ -189,12 +189,18 @@ input[type='radio']{
     text-align: center;
 }
 
-.mainDashWelcome img, #mainDashWelcomeMobile img{
+.mainDashWelcome img, #mainDashWelcomeMobile img, .providerDashRight img{
     width: 150px;
     height: 150px;
     border-radius: 50%;
     display: block;
     margin: 20px auto ;
+}
+.providerDashRight img{
+    width: 100px;
+    height: 100px;
+    margin: 5% auto 1%;
+    border: 1px solid #eee;
 }
 .dashboardRows:first-of-type #mainDashWelcomeMobile h3, .dashboardRows:first-of-type .mainDashWelcome h3{
     text-align: center;
@@ -217,14 +223,14 @@ main{
 }
 
 /* DASHBOARD */
-.bottomRow > div, .bottomRow > a, .dashboardMain > div {
+.patientDash .bottomRow > div, .bottomRow > a, .patientDash .dashboardMain > div {
     float: left;
     width: 31%;
     display: block;
     margin: 2% 1%;
 }
 
-.dashboardMain > div {
+.patientDash .dashboardMain > div {
     width: 30%;
     display: block;
     margin: 2% 1.5%;
@@ -264,7 +270,7 @@ main{
     padding: 30px 0;
 }
 
-.dashboardMain > div{
+.patientDash .dashboardMain > div{
     float: left;
     width: 30%;
     padding: 20px 4%;
@@ -744,9 +750,9 @@ h5.extraTopMargin{
 .myPhysicianList a:hover{
   color:#0CC !important;
 }
-display:inline-block;
+/*display:inline-block;
 text-align:center;
-}
+}*/
 .myPhysicianList li img{
   padding:0em 3em;
 }
@@ -1158,6 +1164,103 @@ main >section .team li:hover .teamProfile {
 
 .hidePReset{
     display: none;
+}
+
+/* PROVIDER DASH*/
+.providerDashParent{
+
+}
+.providerDashParent > div{
+    float: left;
+    width: 30%;
+}
+.providerDashParent > div:first-of-type{
+    width: 70%;
+}
+.providerDashMain{
+    background: #eee;
+}
+.dashboardMain > div{
+    padding-top: 82px;
+}
+.providerDashMain > h3{
+    font-size: 3vw;
+    color: white;
+    text-align: center;
+    padding: 20% 0;
+}
+.providerDashRight{
+    position: fixed;
+    margin-left: 70%;
+    top: 50px;
+}
+.providerDashRight > a, .providerDashRight > div{
+    height: 250px;
+    display: block;
+    border-bottom: 2px solid #eee;
+}
+.providerDashRight > a h3{
+    padding: 10% 0 0;
+}
+.providerDashRight > div h3{
+    text-align: center;
+    font-size: 32px;
+    margin: 2% 0;
+}
+.dashboardTodayApts{
+    height: 200px;
+    border-left: 1px solid black;
+    position: relative;
+    width: 85%;
+    margin: 0 auto;
+}
+.dashboardTodayApts img{
+    width: 75px;
+    height: 75px;
+    position: absolute;
+    border-radius: 50%;
+    left: -38px;
+    top: 30%;
+    z-index: 10;
+}
+.dashboardTodayApts > div{
+    background: rgba(255, 255, 255, 0.8);
+    position: relative;
+    top: 10%;
+    left: 3%;
+    border-radius: 5px;
+}
+.dashboardTodayApts > div > div{
+    padding: 1% 4%;
+}
+.dashboardTodayApts > div h3{
+    text-align: left;
+    font-size: 20px;
+    text-transform: uppercase;
+    margin: 10px 0;
+}
+.dashboardTodayApts > div h4{
+    color: white;
+    background-color: rgb(242, 108, 44);
+    margin: 0;
+    padding: 5px;
+    border-top-left-radius: 5px;
+    border-top-right-radius: 5px;
+}
+.dashboardTodayApts > div p {
+    font-size: 16px;
+    line-height: 150%;
+}
+.providerDashParent h2{
+    padding: 20px 0;
+    font-weight: lighter;
+    color: white;
+    margin: 0;
+    background: #203248;
+    position: fixed;
+    left: 0;
+    right: 30%;
+    z-index: 15;
 }
 
 /*----------- MEDIA QUERIES ---------*/
