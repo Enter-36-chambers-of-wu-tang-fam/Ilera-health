@@ -1,0 +1,39 @@
+-- ---
+-- Table 'patient'
+--
+-- ---
+
+-- DROP TABLE IF EXISTS `patient`;
+
+CREATE TABLE `patient` (
+  `id` INTEGER NOT NULL AUTO_INCREMENT,
+  `first` VARCHAR(30) NULL DEFAULT NULL,
+  `last` VARCHAR(30) NULL DEFAULT NULL,
+  `middle` VARCHAR(30) NULL DEFAULT NULL,
+  `maiden` VARCHAR(30) NULL DEFAULT NULL,
+  `email` VARCHAR(30) NOT NULL,
+  `password` VARCHAR(300) NULL DEFAULT NULL,
+  `pin` INTEGER(4) NULL DEFAULT NULL,
+  `date_of_birth` VARCHAR(100) NULL DEFAULT NULL,
+  `birth_city` VARCHAR(60) NULL DEFAULT NULL,
+  `birth_country` VARCHAR(60) NULL DEFAULT NULL,
+  `marital_status` VARCHAR(60) NULL DEFAULT NULL,
+  `address` VARCHAR(60) NULL DEFAULT NULL,
+  `city` VARCHAR(60) NULL DEFAULT NULL,
+  `state` VARCHAR(20) NULL DEFAULT NULL,
+  `zip` VARCHAR(10) NULL DEFAULT NULL,
+  `primary_phone_number` VARCHAR(20) NULL DEFAULT NULL,
+  `secondary_phone_number` VARCHAR(20) NULL DEFAULT NULL,
+  `gender` VARCHAR(20) NULL DEFAULT NULL,
+  `weight` INTEGER NULL DEFAULT NULL,
+  `height` INTEGER NULL DEFAULT NULL,
+  `blood_type` VARCHAR(3) NULL DEFAULT NULL,
+  `conditions` VARCHAR(500) NULL DEFAULT NULL,
+  `procedures` VARCHAR(500) NULL DEFAULT NULL,
+  `medications` VARCHAR(500) NULL DEFAULT NULL,
+  `allergies` VARCHAR(500) NULL DEFAULT NULL,
+  `primary_language` VARCHAR(30) NULL DEFAULT NULL,
+  `secondary_language` VARCHAR(30) NULL DEFAULT NULL,
+  `photo_path` VARCHAR(200) NULL DEFAULT NULL,
+  PRIMARY KEY (`id`)
+);
