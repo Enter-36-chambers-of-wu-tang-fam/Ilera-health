@@ -31,7 +31,7 @@ class PatientDashboard extends Component {
 
     render() {
       return (
-          <div className="clearfix">
+          <div className="patientDash clearfix">
             <div className="dashboardRows clearfix">
               <DashboardMain />
             </div>
