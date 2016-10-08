@@ -187,7 +187,7 @@
 <part>id</part>
 </key>
 </table>
-<table x="962" y="36" name="Patient_Form">
+<table x="977" y="20" name="Patient_Form">
 <row name="id" null="0" autoincrement="1">
 <datatype>INTEGER</datatype>
 </row>
@@ -443,7 +443,7 @@
 <part>id</part>
 </key>
 </table>
-<table x="181" y="680" name="emergency_contact">
+<table x="161" y="674" name="emergency_contact">
 <row name="id" null="0" autoincrement="1">
 <datatype>INTEGER</datatype>
 </row>
@@ -513,6 +513,12 @@
 <row name="end_date" null="1" autoincrement="0">
 <datatype>DATE</datatype>
 <default>NULL</default></row>
+<row name="type" null="1" autoincrement="0">
+<datatype>VARCHAR(40)</datatype>
+</row>
+<row name="details" null="1" autoincrement="0">
+<datatype>VARCHAR(400)</datatype>
+</row>
 <key type="PRIMARY" name="">
 <part>id</part>
 </key>
@@ -669,6 +675,30 @@
 <row name="uid" null="1" autoincrement="0">
 <datatype>VARCHAR(255)</datatype>
 <default>NULL</default></row>
+<key type="PRIMARY" name="">
+<part>id</part>
+</key>
+</table>
+<table x="866" y="939" name="med_records">
+<row name="id" null="1" autoincrement="1">
+<datatype>INTEGER</datatype>
+<default>NULL</default></row>
+<row name="date" null="1" autoincrement="0">
+<datatype>DATE</datatype>
+</row>
+<row name="type" null="1" autoincrement="0">
+<datatype>VARCHAR(400)</datatype>
+</row>
+<row name="document_path" null="1" autoincrement="0">
+<datatype>VARCHAR(500)</datatype>
+</row>
+<row name="description" null="1" autoincrement="0">
+<datatype>VARCHAR(1000)</datatype>
+</row>
+<row name="id_patient" null="0" autoincrement="0">
+<datatype>INTEGER</datatype>
+<relation table="patient" row="id" />
+</row>
 <key type="PRIMARY" name="">
 <part>id</part>
 </key>
