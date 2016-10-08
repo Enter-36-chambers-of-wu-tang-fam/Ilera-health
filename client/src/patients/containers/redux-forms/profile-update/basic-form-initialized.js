@@ -5,8 +5,7 @@ import React, { Component, PropTypes } from 'react';
 import { Field, reduxForm } from 'redux-form';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
-import { getUserInfo, didInit } from '../../../actions/user.js';
-// ../../../actions/action-constants.js
+import { getUserInfo } from '../../../actions/user.js';
 
 // CryptoJS
 import CryptoJS from 'crypto-js';
@@ -16,10 +15,6 @@ import FlatButton from 'material-ui/FlatButton';
 import SelectField from 'material-ui/SelectField'
 import TextField from 'material-ui/TextField';
 import MenuItem from 'material-ui/MenuItem';
-// Actions
-// import { emergencyContact } from '../../actions/actions.js';
-// import { getFieldInfo as loadData } from '../../actions/profile.js';
-// import * as actions from '../../../actions/profile.js';
 
 
 const validate = values => {
@@ -96,6 +91,20 @@ class BackgroundInfoFormInitialized extends Component {
 		  this.handleInitialize(nextProps);
 	  }
   }
+  componentWillMount(){
+		console.log("CHECK CHECK")
+	  const { dispatch, initialize, load, info, initialValues } = this.props;
+	  let id = localStorage.getItem('uid');
+		let code  = CryptoJS.AES.decrypt(id.toString(), 'key'); //need to change key
+		let uid = code.toString(CryptoJS.enc.Utf8);
+	  dispatch(load(uid));
+		// dispatch(initialize(initialValues));
+  }
+
+	componentDidMount(){
+		const { initialize, info } = this.props;
+		// initialize(info);
+	}
 
 	submitMe(prop){
 		//get encoded id from local storage
