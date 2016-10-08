@@ -75,7 +75,7 @@ class InsuranceForm extends Component {
     prop.betterDoctorUID = this.state.docSelectedInfo.betterDoctorUID;
 
     if( (localStorage.getItem('providerSubmitted')) === "true" ){
-      axios.put('/api/patient/insurance', prop)
+      axios.put('/api/patient/insurance/update', prop)
         .then( found => {
           this.context.router.push('/patient/dashboard');
         })
@@ -108,7 +108,6 @@ class InsuranceForm extends Component {
 	}
 
   onClick(type, key){
-    console.log("CONFIRMED", this.state.docs[key]);
     if(type === "primary"){
       this.setState({docSelected: true, docSelectedInfo: this.state.docs[key], docSelectedName: `${this.state.docs[key].last_name},${this.state.docs[key].first_name}`, insurerTypeSelected: true});
     }

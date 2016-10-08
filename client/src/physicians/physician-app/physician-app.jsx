@@ -1,5 +1,6 @@
 // React
 import React, { Component, PropTypes } from 'react';
+import Header from '../../auth-shared/components/header.jsx';
 
 
 export default class PhysicianApp extends Component {
@@ -11,8 +12,10 @@ export default class PhysicianApp extends Component {
     render(){
         return (
             <div>
-                { this.props.children }
-                
+                <Header />
+                <main className="patientAppMain">
+                    { this.props.children }
+                </main>
             </div>
         );
     }

@@ -129,7 +129,7 @@ input[type='radio']{
 .dashboardRows{
     min-height: 10px;
 }
-.dashboardRows:after, .reminders:after, .profileDash:after, .chat:after, .messageContacts > ul:after, .contactItem:after, header:after, header ul:after, main > section > ul:after, .welcomeHeader:after, section:after, .messagesUser:after, .messagesIncoming:after, .team:after{
+.dashboardRows:after, .wrapper:after, .reminders:after, .profileDash:after, .chat:after, .messageContacts > ul:after, .contactItem:after, header:after, header ul:after, main > section > ul:after, .welcomeHeader:after, section:after, .messagesUser:after, .messagesIncoming:after, .team:after, #mainDashWelcomeMobile:after, .providerDashParent:after{
     clear: both;
     content: '';
     display: block;
@@ -143,18 +143,20 @@ input[type='radio']{
 .dashboardRows a{
     display: block;
     box-shadow: 1px 3px 6px 2px #eee;
-    min-height: 250px;
+    min-height: 290px;
     color: white;
     border-radius: 4px;
     padding: 20px;
 }
-
+#mainDashWelcomeMobile{
+    display: none;
+}
 .dashboardRows a:hover, .dashboardRows a:hover h3, .dashboardRows a:hover p, .dashboardRows a:hover i {
     background: rgb(242, 108, 44);
     color: white;
 }
 
-.dashboardRows h3, .profileDash h3{
+.dashboardRows h3, .profileDash h3, .providerDashRight > a h3{
     font-size: 32px;
     text-transform: uppercase;
     text-align: center;
@@ -174,7 +176,7 @@ input[type='radio']{
     height: 180px;
     overflow: auto;
 }
-.dashboardRows i {
+.dashboardRows i, .providerDashRight > a i {
     font-size: 106px;
     display: block;
     width: 96px;
@@ -187,12 +189,21 @@ input[type='radio']{
     text-align: center;
 }
 
-.mainDashWelcome img{
+.mainDashWelcome img, #mainDashWelcomeMobile img, .providerDashRight img{
     width: 150px;
     height: 150px;
     border-radius: 50%;
     display: block;
     margin: 20px auto ;
+}
+.providerDashRight img{
+    width: 100px;
+    height: 100px;
+    margin: 5% auto 1%;
+    border: 1px solid #eee;
+}
+.dashboardRows:first-of-type #mainDashWelcomeMobile h3, .dashboardRows:first-of-type .mainDashWelcome h3{
+    text-align: center;
 }
 
 .btn{
@@ -205,21 +216,21 @@ input[type='radio']{
 }
 
 main{
-    padding: 50px 0 0;
+    padding: 30px 0 0;
 }
 
 .patientAppMain{
 }
 
 /* DASHBOARD */
-.bottomRow > div, .bottomRow > a, .dashboardMain > div {
+.patientDash .bottomRow > div, .bottomRow > a, .patientDash .dashboardMain > div {
     float: left;
-    width: 24%;
+    width: 31%;
     display: block;
-    margin: 2% 4.5%;
+    margin: 2% 1%;
 }
 
-.dashboardMain > div {
+.patientDash .dashboardMain > div {
     width: 30%;
     display: block;
     margin: 2% 1.5%;
@@ -259,7 +270,7 @@ main{
     padding: 30px 0;
 }
 
-.dashboardMain > div{
+.patientDash .dashboardMain > div{
     float: left;
     width: 30%;
     padding: 20px 4%;
@@ -461,24 +472,20 @@ main > section:nth-of-type(odd){
 .welcomeHeader > div{
     float: left;
     width: 50%;
-    min-height: 550px;
+    min-height: 600px;
 }
-
 .welcomeHeader > div:nth-of-type(2){
     color: #333;
     padding-right: 3%;
     background-color: white;
 }
-
 .welcomeHeader > div:first-of-type {
   background-image:  url('./background_images/mockup.png');
-  background-position: center 160px;
+  background-position: center 190px;
   background-repeat: no-repeat;
   background-size: 90%;
-  background-color: #203248;
-  
+  background-color: #203248; 
 }
-
 .introPhotos {
   background-image:  url('./background_images/patients.jpeg');
   background-position: center;
@@ -494,7 +501,6 @@ main > section:nth-of-type(odd){
   background-image:  url('./background_images/providers.jpg');
   background-position: center -190px;
 }
-
 .introPhotos h2 {
     text-transform: uppercase;
     text-align: center;
@@ -505,34 +511,31 @@ main > section:nth-of-type(odd){
     padding: 10px 0;
     margin: 0;
 }
-
 .welcomeHeader > img {
   width:20%
 }
-
 .splitLogo{
     font-size: 8vw;
     margin: 25px 0;
     font-weight: 300;
 }
-
 .welcomeMy{
     color: white;
     text-align: right;
     padding-right: 10px;
 }
-
+.welcomeMy2{
+    display: none;
+}
 .welcomeIlera{
     color: #203248;
     text-align: left;
     padding-left: 10px;
 }
-
 main .welcomeMessage {
-  margin: 5% 0% 5% 5%;
+  margin: 10% 0% 5% 5%;
   font-weight:300;
 }
-
 main .welcomeMessage > h1{
   font-size: 3.2vw;
   text-align:left;
@@ -540,42 +543,34 @@ main .welcomeMessage > h1{
   font-weight: 500;
 }
 main .welcomeMessage li{
-  font-size: 1.21em;
-  margin:.75em 0em;
-  list-style-type:circle;
-  margin-left:2em;
+    font-size: 1.4vw;
+    margin: 1% 0;
+    list-style-type: circle;
+    margin-left: 4%;
+    line-height: 125%;
 }
-
 main .welcomeMessage > button {
   float:left;
-  margin-left:2em !important;
-  margin-top:1em !important;
+  margin: 2% 5% 0 0!important;
 }
-
-
-
 main > section:not(.welcomeHeader) li{
     float: left;
     width: 26%;
-    border-top: 1px solid #ccc;
-    border-bottom: 1px solid #ccc;
     margin: 15px 3%;
     padding: 30px 0;
 }
-
 main > section .material-icons{
-    font-size: 110px;
+    font-size: 50px;
     text-align: center;
-    padding: 10% 30% 2%;
+    margin: 0 auto;
+    color: rgb(44, 210, 205);
+    display: block;
 }
-
 main > section h4{
     font-size: 28px;
     font-weight: lighter;
     text-align: center;
 }
-
-
 main > section p{
     font-size: 20px;
     font-weight: lighter;
@@ -657,27 +652,35 @@ h5.extraTopMargin{
     border: 1px solid white;
 }
 .profileSummary{
-    padding: 30px 20px;
-    background-color: #0D2233;
+    padding: 30px 3%;
     color: white;
+    border-right: 2px solid #ddd;
+    position: fixed;
 }
-
+.profileRight{
+    margin-left: 30%;
+}
+.profileSummary li{
+    margin-bottom: 15px;
+}
 .profileSummary h3{
     font-size: 34px;
     text-align: center;
     margin: 15px 0;
     text-transform: uppercase;
+    color: #333;
 }
-
+.profileSummary i{
+    color: rgb(44, 210, 205);
+}
 .profilePage .btn{
-    margin: 0 auto;
+    margin: 25px 30%;
     text-transform: uppercase;
     text-align: center;
     background-color: rgb(242, 108, 44);
     color: white;
     width: 175px;
-    padding: 10px;
-    float: none;
+    float: right;
 }
 
 .profileDash > div{
@@ -747,9 +750,9 @@ h5.extraTopMargin{
 .myPhysicianList a:hover{
   color:#0CC !important;
 }
-display:inline-block;
+/*display:inline-block;
 text-align:center;
-}
+}*/
 .myPhysicianList li img{
   padding:0em 3em;
 }
@@ -1067,7 +1070,8 @@ main >section .team li{
     width: 25%;
     border: none;
     margin: 0;
-    padding: 0;
+    padding: 30px 0;
+    position: relative;
 }
 
 .team img{
@@ -1078,13 +1082,43 @@ main >section .team li{
     border: 3px solid white;
    
 }
+.homeFors h4{
+    font-size: 2.7vw;
+    font-weight: 300;
+    text-align: center;
+    margin: 10px 0;
+    color: rgb(114, 114, 114);
+}
+.homeFors h3, .teamSec h3{
+    font-size: 3vw;
+    text-align: center;
+    padding: 0 10% 4%;
+    color: rgb(114, 114, 114);
+    line-height: 125%;
+}
+.homeFors p{
+    color: rgb(114, 114, 114);
+    padding: 0 18%;
+    font-size: 17px;
+    line-height: 125%;
+}
+.homeFors .wrapper, .teamSec .wrapper{
+    width: 90%;
+    margin: 0 auto;
+    padding: 6% 0;
+}
+.teamSec .wrapper{
+    padding: 2% 0;
+}
 .teamSec{
     background-color: #203248;
     padding: 0px 0 40px;
     color: white;
-     text-align: center;
+    text-align: center;
 }
-
+.teamSec h3{
+    color: white;
+}
 .teamSec h2{
     color: #333;
 }
@@ -1104,4 +1138,287 @@ main >section .team li{
     text-align: center;
     line-height: 140%;
     margin: 10px 0;
+}
+.teamProfile{
+    display: none;
+    position: absolute;
+    background-color: rgba(255, 255, 255, 0.95);
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    padding: 30px 10px;
+    border-radius: 5px;
+}
+/*main >section .team li:hover {
+    background-color: rgba(255, 255, 255, 0.8);
+}*/
+main >section .team li:hover .teamProfile {
+    display: block;
+    color: #203248;
+}
+
+.showPReset{
+    display: block;
+}
+
+.hidePReset{
+    display: none;
+}
+
+
+/* PROVIDER DASH*/
+.providerDashParent{
+
+}
+.providerDashParent > div{
+    float: left;
+    width: 30%;
+}
+.providerDashParent > div:first-of-type{
+    width: 70%;
+}
+.providerDashMain{
+    background: #eee;
+}
+.dashboardMain > div{
+    padding-top: 82px;
+}
+.providerDashMain > h3{
+    font-size: 3vw;
+    color: white;
+    text-align: center;
+    padding: 20% 0;
+}
+.providerDashRight{
+    position: fixed;
+    margin-left: 70%;
+    top: 50px;
+}
+.providerDashRight > a, .providerDashRight > div{
+    height: 250px;
+    display: block;
+    border-bottom: 2px solid #eee;
+}
+.providerDashRight > a h3{
+    padding: 10% 0 0;
+}
+.providerDashRight > div h3{
+    text-align: center;
+    font-size: 32px;
+    margin: 2% 0;
+}
+.dashboardTodayApts{
+    height: 200px;
+    border-left: 1px solid black;
+    position: relative;
+    width: 85%;
+    margin: 0 auto;
+}
+.dashboardTodayApts img{
+    width: 75px;
+    height: 75px;
+    position: absolute;
+    border-radius: 50%;
+    left: -38px;
+    top: 30%;
+    z-index: 10;
+}
+.dashboardTodayApts > div{
+    background: rgba(255, 255, 255, 0.8);
+    position: relative;
+    top: 10%;
+    left: 3%;
+    border-radius: 5px;
+}
+.dashboardTodayApts > div > div{
+    padding: 1% 4%;
+}
+.dashboardTodayApts > div h3{
+    text-align: left;
+    font-size: 20px;
+    text-transform: uppercase;
+    margin: 10px 0;
+}
+.dashboardTodayApts > div h4{
+    color: white;
+    background-color: rgb(242, 108, 44);
+    margin: 0;
+    padding: 5px;
+    border-top-left-radius: 5px;
+    border-top-right-radius: 5px;
+}
+.dashboardTodayApts > div p {
+    font-size: 16px;
+    line-height: 150%;
+}
+.providerDashParent h2{
+    padding: 20px 0;
+    font-weight: lighter;
+    color: white;
+    margin: 0;
+    background: #203248;
+    position: fixed;
+    left: 0;
+    right: 30%;
+    z-index: 15;
+}
+
+/*----------- MEDIA QUERIES ---------*/
+@media screen and (max-width: 960px) {
+    /*------- DISPLAY NONE --------*/
+    .welcomeMy, .welcomeIlera, main .mainDashWelcome {
+        display: none;
+    }
+    /*------- HOME --------*/
+    main >section .team li{
+        width: 50%;
+    }
+    .homeFors h3, .teamSec h3 {
+        font-size: 3.8vw;
+    }
+    .homeFors .wrapper, .teamSec .wrapper {
+        width: 95%;
+    }
+    .homeFors h4 {
+        font-size: 5.5vw;
+    }
+    .homeFors p {
+        padding: 0;
+        font-size: 17px;
+    }
+    main > section .material-icons {
+        font-size: 8vw;
+    }
+    .welcomeHeader > div {
+        float: none;
+        width: 100%;
+        min-height: 400px;
+    }
+    .welcomeHeader > div:nth-of-type(2) {
+        height: 285px;
+    }
+    .welcomeHeader > div:first-of-type {
+        background-position: center 138px;
+        background-size: 50%;
+    }
+    .welcomeMy2 {
+        text-align: center;
+        padding: 10px 0 0 0;
+        display: block;
+        color: white;
+    }
+    .welcomeHeader {
+        box-shadow: none; 
+    }
+    /*---- PATIENT DASHBOARD ------*/
+    .bottomRow > div, .bottomRow > a, .dashboardMain > div {
+        width: 45%;
+        margin: 2% 2.5%;
+    }
+    .dashboardRows a {
+        padding: 20px;
+        min-height: 290px;
+    }
+    .dashboardMain > div {
+        float: left;
+        width: 45%;
+        padding: 20px 0%;
+    }
+    #mainDashWelcomeMobile{
+        display: block;
+        width: 90%;
+        float: none;
+    }
+    
+
+}
+
+@media screen and (max-width: 580px) {
+    main .welcomeMessage li {
+        font-size: 1.9vw;
+    }
+    .welcomeHeader > div {
+        min-height: 560px;
+    }
+}
+
+@media screen and (max-width: 535px) {
+    .welcomeHeader > div {
+        min-height: 520px;
+    }
+}
+
+@media screen and (max-width: 520px) {
+    /*-------- DISPLAY NONE --------*/
+    body main .mainDashWelcome{
+        display: none;
+    }
+    /*------- HOME --------*/
+    main >section .team li{
+        width: 100%;
+    }
+    .welcomeHeader > div {
+        min-height: 285px;
+    }
+    .homeFors h3, .teamSec h3 {
+        font-size: 5.9vw;
+        padding: 0;
+    }
+    main > section:not(.welcomeHeader) li {
+        width: 100%;
+        margin: 1% 0;
+        padding: 20px 0;
+    }
+    .homeFors h4 {
+        font-size: 6.7vw;
+    }
+    .introPhotos {
+        background-position: center -20px;
+        height: 140px;
+    }
+    .homeFors p {
+        padding: 0 18%;
+    }
+    main > section .material-icons {
+        font-size: 10vw;
+    }
+    main > section .introTeam{
+        height: 90px;
+    }
+    .welcomeHeader > div:first-of-type {
+        background-position: center 76px;
+        background-size: 70%;
+    }
+    .welcomeHeader > div:nth-of-type(2) {
+        min-height: 330px;
+    }
+    .welcomeMy2 {
+        font-size: 10vw;
+    }
+    main .welcomeMessage > h1 {
+        font-size: 5.2vw;
+    }
+    main .welcomeMessage li {
+        font-size: 2.5vw;
+        margin-left: 2%;
+    }
+    main .welcomeMessage {
+        margin: 5% 0% 2% 5%;
+    }
+    /*---- DASHBOARD ------*/
+    .bottomRow > div, .bottomRow > a, .dashboardMain > div {
+        float: none;
+        width: 90%;
+        display: block;
+        margin: 10% auto;
+    }
+    .dashboardRows:first-of-type h3 {
+        text-align: center; 
+    }
+    .dashboardRows:first-of-type, .profileForms > div:first-of-type {
+        padding: 1px 0;
+    }
+    
+    
 }

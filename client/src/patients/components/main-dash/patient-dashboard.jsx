@@ -4,6 +4,7 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { getUserInfo } from '../../actions/user.js';
 import CryptoJS from 'crypto-js';
+
 // Components
 import DashboardMessages from './dashboard-messages.jsx';
 import DashboardRecords from './dashboard-records.jsx';
@@ -30,7 +31,7 @@ class PatientDashboard extends Component {
 
     render() {
       return (
-          <div className="clearfix">
+          <div className="patientDash clearfix">
             <div className="dashboardRows clearfix">
               <DashboardMain />
             </div>
@@ -45,8 +46,6 @@ class PatientDashboard extends Component {
               <Link to='/patient/physicians'>
                 <DashboardPhysicians />
               </Link>
-            </div>
-            <div className="dashboardRows bottomRow clearfix">
               <Link to='/patient/medications'>
                 <DashboardMeds />
               </Link>

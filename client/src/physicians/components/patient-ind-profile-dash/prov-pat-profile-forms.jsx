@@ -1,15 +1,14 @@
 import React, { Component } from 'react';
 import {Tabs, Tab} from 'material-ui/Tabs';
 import { connect } from 'react-redux';
-import { getUserInfo, getUserContacts, getUserInsurance, didInit } from '../../actions/user.js';
+import { getUserInfo, getUserContacts, getUserInsurance, didInit } from '../../../patients/actions/user.js';
 // CryptoJS
 import CryptoJS from 'crypto-js';
 // Components
-import BackgroundInfoFormInitialized from '../../containers/redux-forms/profile-update/basic-form-initialized.js';
-import ContactInfoFormInitialized from '../../containers/redux-forms/profile-update/contact-form-initialized.js';
-import HealthInfoFormInitialized from '../../containers/redux-forms/profile-update/health-form-initialized.js';
-import ProviderInfoFormInitialized from '../../containers/redux-forms/profile-update/provider-form-initialized.js';
-import ProfileDash from './profile-board.js';
+import BackgroundInfoFormInitialized from '../../../patients/containers/redux-forms/profile-update/basic-form-initialized.js';
+import ContactInfoFormInitialized from '../../../patients/containers/redux-forms/profile-update/contact-form-initialized.js';
+import HealthInfoFormInitialized from '../../../patients/containers/redux-forms/profile-update/health-form-initialized.js';
+import ProviderInfoFormInitialized from '../../../patients/containers/redux-forms/profile-update/provider-form-initialized.js';
 
 const styles = {
   tab: {
@@ -17,7 +16,7 @@ const styles = {
   },
 };
 
-class ProfileForms extends Component {
+class PatientProfileTabs extends Component {
 
     constructor(props) {
     super(props);
@@ -45,7 +44,6 @@ class ProfileForms extends Component {
   render() {
     return (
 			<div className="profileForms">
-				<ProfileDash />
 				<Tabs
 					value={this.state.value}
 
@@ -88,4 +86,4 @@ export default connect(
 		loadContacts: getUserContacts,
 	  didInit: didInit
   }
-)(ProfileForms)
+)(PatientProfileTabs)

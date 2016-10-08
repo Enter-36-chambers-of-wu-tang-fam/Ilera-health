@@ -12,12 +12,11 @@ const getUserInfoRequest = () => {
 };
 
 
-const getUserInfoSuccess = (user) =>{
+const getUserInfoSuccess = (user, contacts) =>{
   return {
       type: types.GET_USER_INFO_SUCCESS,
-      isFetching: false,
-      loaded: true,
-      payload: user
+      user: user,
+      contacts: contacts
     }
 };
 
@@ -31,31 +30,18 @@ const getUserInfoFailed = (err) => {
 //Action call below for sign up --> uncomment export default
 
 export function getUserInfo(uid) {
+  console.log("****UID***", uid)
   return (dispatch) => {
     dispatch(getUserInfoRequest());
 
-    axios.get(`/api/allPatient/${uid}`)
+    axios.get(`/api/patient/${uid}`)
     .then( user => {
-      var patient = {};
-      for(var item in user.data.patient[0]){
-        if(item === 'id' || item === 'password' || item === 'email'){
-          continue;
-        }
-        if(user.data.patient[0][item]){
-          patient[item] = user.data.patient[0][item];
-        }
-      }
+      console.log("USER", user)
 
-      localStorage.setItem('appointment',JSON.stringify(user.data.appointment));
-      localStorage.setItem('healthLog',JSON.stringify(user.data.healthLog));
-      localStorage.setItem('insurance',JSON.stringify(user.data.insurance));
-      localStorage.setItem('medication',JSON.stringify(user.data.medication));
-      localStorage.setItem('patient',JSON.stringify(patient));
-      localStorage.setItem('provider',JSON.stringify(user.data.provider));
-      dispatch(getUserInfoSuccess(user.data))
+      dispatch(getUserInfoSuccess(user.data[0]))
     })
     .catch(err => {
-      dispatch(getUserInfoFailed(err));
+      // dispatch(getUserInfoFailed(err));
     });
   }
 };
@@ -143,3 +129,82 @@ export function getUserReminders(uid) {
     });
   }
 }
+
+///////////////// USER CONTACTS ///////////////
+const getUserContactsRequest = () => {
+  return {
+    type: types.GET_USER_CONTACTS_REQUEST,
+    isFetching: true,
+    loaded: false
+  }
+};
+
+
+const getUserContactsSuccess = (contacts) =>{
+  return {
+      type: types.GET_USER_CONTACTS_SUCCESS,
+      isFetching: false,
+      loaded: true,
+      payload: contacts
+    }
+};
+
+const getUserContactsFailed = (err) => {
+  return {
+    type: types.GET_USER_CONTACTS_FAILURE,
+    payload: err
+  }
+};
+
+export function getUserContacts(uid) {
+  return (dispatch) => {
+    dispatch(getUserContactsRequest());
+
+    axios.get(`/api/patient/contacts/${uid}`)
+    .then( user => {
+      console.log("CONTACTS", user.data)
+    
+      dispatch(getUserContactsSuccess(user.data))
+    })
+    .catch(err => {
+      dispatch(getUserContactsFailed(err));
+    });
+  }
+}
+
+///////////// FORM INIT //////////////////
+
+const didInitSuccess = () => {
+  return {
+    type: types.DID_INIT,
+    payload: true
+  }
+};
+
+export function didInit() {
+  return (dispatch) => {
+    dispatch(didInitSuccess());
+  }
+}
+
+/////////// GET ALL ////////////
+export function getAllUserInfo(uid) {
+  console.log("****UID***", uid)
+  return (dispatch) => {
+    dispatch(getUserInfoRequest());
+
+    axios.get(`/api/patient/${uid}`)
+    .then( user => {
+      axios.get(`/api/patient/contacts/${uid}`)
+      .then( contacts => {
+        console.log("LAKJDFLKJASDF", user.data, contacts)
+        dispatch(getUserInfoSuccess(user.data[0], contacts))
+      })
+
+      
+    })
+    .catch(err => {
+      // dispatch(getUserInfoFailed(err));
+    });
+  }
+};
