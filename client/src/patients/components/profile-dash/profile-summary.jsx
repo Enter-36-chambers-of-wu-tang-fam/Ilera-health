@@ -2,6 +2,11 @@ import React, { Component } from 'react';
 import RaisedButton from 'material-ui/RaisedButton';
 import { Field, reduxForm } from 'redux-form';
 import { TextField } from 'redux-form-material-ui';
+import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
+import { getUserInfo } from '../../actions/user.js';
+import Dropzone from 'react-dropzone';
+import request from 'superagent';
 
 // CryptoJS
 import CryptoJS from 'crypto-js';
@@ -12,6 +17,19 @@ const styles = {
     margin: '10px auto 15px',
     width: '200px'
   },
+ dropzone: {
+    width:'',
+    height:'',
+    border:'none',
+    borderRadius:'',
+    maxWidth:'205px',
+    margin:"0 auto"
+  },
+  dropHover: {
+    boxShadow:'0em 0em .5em .4em rgba(242,108,44,.8)',
+    background:'rgba(0,0,0,.7)',
+    transition:'border .3s, box-shadow .3s'
+  }
 };
 
 const validate = values => {
@@ -37,8 +55,18 @@ class ProfileSum extends Component {
     constructor (props){
       super(props);
       this.state = {
-        clicked: false
+        clicked: false,
+        uploadFiles: []
       }
+    }
+
+    componentWillMount(){
+      const { load } = this.props;
+	    let id = localStorage.getItem('uid');
+		  let code  = CryptoJS.AES.decrypt(id.toString(), 'key'); //need to change key
+		  let uid = code.toString(CryptoJS.enc.Utf8);
+
+      load(uid);
     }
 
     submitMe(prop) {
@@ -55,6 +83,29 @@ class ProfileSum extends Component {
             console.log("ERROR ENTERING INFORMATION");
         })      
     }
+
+    //picture upload
+
+     onDrop(file) {
+	    const { load } = this.props;
+	    let id = localStorage.getItem('uid');
+		  let code  = CryptoJS.AES.decrypt(id.toString(), 'key'); //need to change key
+		  let uid = code.toString(CryptoJS.enc.Utf8);
+
+      var upload = new FormData();
+      upload.append('upload',file[0]);
+      request.post(`/upload/profile_picture/${uid}`)
+      .send(upload)
+      .end(function(err, resp){
+        if (err) { console.error(err) }
+    });
+
+    this.setState({
+      uploadFiles: file[0]
+    });
+    
+    load(uid);
+  }
 
     onResetClick(){
       this.setState({clicked: !this.state.clicked})
@@ -74,11 +125,20 @@ class ProfileSum extends Component {
 
     render() {
       const { height, error, handleSubmit, pristine, reset, submitting } = this.props;
+      const profilePicture = {
+        backgroundImage:'url('+this.props.user.photo_path+')',
+        backgroundSize:'cover'
+    };
       return (
           <div className="profileSummary" style={{
             minHeight: height
           }}>
-            <img className="profilePic" src="http://kurld.com/images/wallpapers/profile-pictures/profile-pictures-15.jpg" alt=""/>
+            <Dropzone onDrop={this.onDrop.bind(this)} multiple={false} style={styles.dropzone} activeStyle={styles.dropHover}>
+              <div className="profilePic" style={profilePicture}>
+                <div className="profilePic_overlay"><i className="fa fa-camera fa-2x" aria-hidden="true"></i> Drag & Drop!</div>
+              </div>
+            </Dropzone>
+
             <h3>{`${localStorage.getItem('first')} ${localStorage.getItem('last')}`}</h3>
             <RaisedButton label="Reset Credentials" onClick={this.onResetClick.bind(this)} labelColor="white" backgroundColor='rgba(242, 108, 44, 1)' style={styles.btn}/>
             <form onSubmit={handleSubmit(props => this.submitMe(props))} className={this.state.clicked ? 'showPReset' : 'hidePReset'}>
@@ -106,4 +166,13 @@ ProfileSum = reduxForm({
   validate
 })(ProfileSum);
 
-export default ProfileSum;
+export default connect( 
+ state => ({
+    user: state.user.user || {},
+  }),
+  { 
+    load: getUserInfo,
+  })(ProfileSum);
+
+//---------
+
