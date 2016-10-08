@@ -80,12 +80,6 @@ class BackgroundInfoFormInitialized extends Component {
 		  this.handleInitialize(nextProps);
 	  }
   }
-  componentWillMount(){
-	  const { dispatch, initialize, load, info, initialValues } = this.props;
-	  let id = localStorage.getItem('uid');
-		let code  = CryptoJS.AES.decrypt(id.toString(), 'key'); //need to change key
-		let uid = code.toString(CryptoJS.enc.Utf8);
-  }
 
 	submitMe(prop){
 		//get encoded id from local storage
