@@ -7,9 +7,7 @@ import FlatButton from 'material-ui/FlatButton';
 import CryptoJS from 'crypto-js';
 import SelectField from 'material-ui/SelectField'
 import MenuItem from 'material-ui/MenuItem';
-import {
-  TextField
-} from 'redux-form-material-ui';
+import { TextField } from 'redux-form-material-ui';
 
 const validate = values => {
   const errors = {}
@@ -51,6 +49,33 @@ class ProviderInfoFormInitialized extends Component {
     router: React.PropTypes.object
   }
 
+  handleInitialize(nextProps){
+    const data = {
+      "betterDoctorUID": nextProps.provider.betterDoctorUID,
+      "primary_name": nextProps.provider.primary_name,
+      "primary_phone": nextProps.provider.primary_phone,
+      "primary_address": nextProps.provider.primary_address,
+      "primary_state": nextProps.provider.primary_state,
+      "primary_zip": nextProps.provider.primary_zip,
+      "insurer1": nextProps.provider.insurer1,
+      "insurance_type1": nextProps.provider.insurance_type1,
+      "insurance_network1": nextProps.provider.insurance_network1,
+      "policy_number1": nextProps.provider.policy_number1,
+      "insurer2": nextProps.provider.insurer2,
+      "insurance_type2": nextProps.provider.insurance_type2,
+      "insurance_network2": nextProps.provider.insurance_network2,
+      "policy_number2": nextProps.provider.policy_number2
+    }
+    this.props.initialize(data);
+    nextProps.didInit();
+  }
+
+  componentWillReceiveProps(nextProps){
+		if(!nextProps.init){
+		  this.handleInitialize(nextProps);
+	  }
+  }
+
   componentDidMount(){
     axios.get('/api/insurance/insurer')
       .then( found => {
@@ -71,9 +96,8 @@ class ProviderInfoFormInitialized extends Component {
     prop.insurance_type1 = this.state.insuererType;
     prop.insurance_network1 = this.state.network;
     prop.betterDoctorUID = this.state.docSelectedInfo.betterDoctorUID;
-    axios.post('/api/patient/insurance', prop)
+    axios.put('/api/patient/insurance/update', prop)
       .then( found => {
-        this.context.router.push('/patient/dashboard');
       })
       .catch( err => {
           console.log("ERROR ENTERING INFORMATION", err);
@@ -81,31 +105,31 @@ class ProviderInfoFormInitialized extends Component {
   }
 
   onClick(key){
-    console.log("CONFIRMED", this.state.docs[key]);
     this.setState({docSelected: true, docSelectedInfo: this.state.docs[key], docSelectedName: `${this.state.docs[key].last_name},${this.state.docs[key].first_name}`, insurerTypeSelected: true});
   }
 
-  onInsurerClick(key){
-    //  axios.get(`/api/insurance/insurer/${this.state.insurers[key].insurer}`)
-    //   .then( found => {
-    //     var type = [];
-    //     var network = [];
-    //     found.data.map( insurer =>{
-    //       if(type.indexOf(insurer.type) === -1){
-    //         type.push(insurer.type);
-    //       }
-    //       network.push(insurer.network);
-    //     })
-    //     this.setState({insurerSelected: true, insurerer: this.state.insurers[key].insurer, types: type, networks: network});
-    //   })
-    //   .catch( err => {
-    //       console.log("ERROR GETTING INFORMATION", err);
-    //   })   
+onInsurerClick(key){
+    console.log(this.state.insurers[key].insurer)
+     axios.get(`/api/insurance/insurer/${this.state.insurers[key].insurer}`)
+      .then( found => {
+        var type = [];
+        var network = [];
+        found.data.map( insurer =>{
+          if(type.indexOf(insurer.type) === -1){
+            type.push(insurer.type);
+          }
+          network.push(insurer.network);
+        })
+        this.setState({insurerSelected: true, insurer: this.state.insurers[key].insurer, types: type, networks: network});
+      })
+      .catch( err => {
+          console.log("ERROR GETTING INFORMATION", err);
+      })   
     
   }
 
   handleChange (event, index, value) {
-    this.setState({value});
+    this.setState({value: value});
   } 
 
   handleInputChange(e){
@@ -119,7 +143,6 @@ class ProviderInfoFormInitialized extends Component {
         result.data.data.map( doctor => {
           docs.push({first_name: doctor.profile.first_name, last_name: doctor.profile.last_name, title: doctor.profile.title, npi: doctor.npi, betterDoctorUID: doctor.uid});
         })
-        console.log("DOCSSSS", docs)
         this.setState({docs: docs});
       })
       .catch( err => {
@@ -185,7 +208,7 @@ class ProviderInfoFormInitialized extends Component {
                 />
                 <ul className={this.state.docs.length && !this.state.docSelected ? 'docSearchResult' : 'docSearchResultHide'}>
                   {this.state.docs.map( (doc, key) => {
-                    return <li onClick={this.onClick.bind(this, key)}>{doc.last_name}, {doc.first_name} {doc.title}</li>
+                    return <li onClick={this.onClick.bind(this, "primary", key)}>{doc.last_name}, {doc.first_name} {doc.title}</li>
                   })}
                 </ul>
                 <h5 className="extraTopMargin">Can't find your primary doctor?</h5> 
@@ -252,23 +275,23 @@ class ProviderInfoFormInitialized extends Component {
                 <Field name="primary_zip" type="text" component={this.renderTextField} label="Zip Code"/>
                 <h4>INSURANCE</h4>
                   <div>
-                    <Field name="insurer1" value={this.state.value} onChange={this.handleChange} component={this.renderSelectField} label="Insurance Company">
+                    <Field name="insurer1" component={this.renderSelectField} label="Insurance Company">
                       {this.state.insurers.map( (insurer, key) => {
-                        return <MenuItem key={key} onClick={this.onInsurerClick.bind(this, key)} value={'insurer.insurer'} primaryText={insurer.insurer}/>
+                        return <MenuItem key={key} onClick={this.onInsurerClick.bind(this, key)} value={insurer.insurer} primaryText={insurer.insurer} />
                       })}
                     </Field>
                   </div>
                   <div>
                       <Field name="insurance_type1" component={this.renderSelectField} label="Insurance Type">
-                      {this.state.types.map( type => {
-                        return <MenuItem value={'type'} primaryText={type}/>
+                      {this.state.types.map( (type, key) => {
+                        return <MenuItem value={type} primaryText={type} onClick={this.onClick.bind(this, "insurerType", key)} key={key}/>
                       })}
                     </Field>
                   </div>
                   <div>
                       <Field name="insurance_network1" component={this.renderSelectField} label="Insurance Network">
-                      {this.state.networks.map( network => {
-                        return <MenuItem value={'network'} primaryText={network}/>
+                      {this.state.networks.map( (network, key) => {
+                        return <MenuItem value={network} primaryText={network} onClick={this.onClick.bind(this, "network", key)} key={key}/>
                       })}
                     </Field>
                   </div>

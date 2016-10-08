@@ -12,12 +12,11 @@ const getUserInfoRequest = () => {
 };
 
 
-const getUserInfoSuccess = (user) =>{
+const getUserInfoSuccess = (user, contacts) =>{
   return {
       type: types.GET_USER_INFO_SUCCESS,
-      isFetching: false,
-      loaded: true,
-      payload: user
+      user: user,
+      contacts: contacts
     }
 };
 
@@ -42,7 +41,7 @@ export function getUserInfo(uid) {
       dispatch(getUserInfoSuccess(user.data[0]))
     })
     .catch(err => {
-      dispatch(getUserInfoFailed(err));
+      // dispatch(getUserInfoFailed(err));
     });
   }
 };
@@ -130,3 +129,82 @@ export function getUserReminders(uid) {
     });
   }
 }
+
+///////////////// USER CONTACTS ///////////////
+const getUserContactsRequest = () => {
+  return {
+    type: types.GET_USER_CONTACTS_REQUEST,
+    isFetching: true,
+    loaded: false
+  }
+};
+
+
+const getUserContactsSuccess = (contacts) =>{
+  return {
+      type: types.GET_USER_CONTACTS_SUCCESS,
+      isFetching: false,
+      loaded: true,
+      payload: contacts
+    }
+};
+
+const getUserContactsFailed = (err) => {
+  return {
+    type: types.GET_USER_CONTACTS_FAILURE,
+    payload: err
+  }
+};
+
+export function getUserContacts(uid) {
+  return (dispatch) => {
+    dispatch(getUserContactsRequest());
+
+    axios.get(`/api/patient/contacts/${uid}`)
+    .then( user => {
+      console.log("CONTACTS", user.data)
+    
+      dispatch(getUserContactsSuccess(user.data))
+    })
+    .catch(err => {
+      dispatch(getUserContactsFailed(err));
+    });
+  }
+}
+
+///////////// FORM INIT //////////////////
+
+const didInitSuccess = () => {
+  return {
+    type: types.DID_INIT,
+    payload: true
+  }
+};
+
+export function didInit() {
+  return (dispatch) => {
+    dispatch(didInitSuccess());
+  }
+}
+
+/////////// GET ALL ////////////
+export function getAllUserInfo(uid) {
+  console.log("****UID***", uid)
+  return (dispatch) => {
+    dispatch(getUserInfoRequest());
+
+    axios.get(`/api/patient/${uid}`)
+    .then( user => {
+      axios.get(`/api/patient/contacts/${uid}`)
+      .then( contacts => {
+        console.log("LAKJDFLKJASDF", user.data, contacts)
+        dispatch(getUserInfoSuccess(user.data[0], contacts))
+      })
+
+      
+    })
+    .catch(err => {
+      // dispatch(getUserInfoFailed(err));
+    });
+  }
+};
