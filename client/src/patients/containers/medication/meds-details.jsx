@@ -54,10 +54,10 @@ class MedicationDetail extends Component {
             this.props.chosenMed.email :
             "We Cannot provide you with any information at this time" }
         </li>
-        <li>
-          { this.props.chosenMed ?
-            this.props.chosenMed.photo_path :
-            "We Cannot provide you with any information at this time" }
+        <li><img src={ this.props.chosenMed ?
+          this.props.chosenMed.photo_path :
+          "We Cannot provide you with any information at this time" } />
+
         </li>
       </ul>
     );
