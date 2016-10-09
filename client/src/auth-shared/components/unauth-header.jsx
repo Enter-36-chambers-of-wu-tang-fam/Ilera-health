@@ -56,9 +56,9 @@ export default class UnauthHeader extends Component {
             <h1><a href="/"><img src="../styles/logos/myilera_large_white.png" /></a></h1>
             <ul>
               <li>
-                <FlatButton label="For Patients" 
+                <FlatButton label="For Patients"
                   backgroundColor={buttonStyles.backgroundColor}
-                  hoverColor={buttonStyles.hoverColor} 
+                  hoverColor={buttonStyles.hoverColor}
                   style={buttonStyles.styles}
                   labelStyle={buttonStyles.labelStyle}
                   rippleColor={buttonStyles.rippleColor}
@@ -66,19 +66,9 @@ export default class UnauthHeader extends Component {
                 />
               </li>
                <li>
-                <FlatButton label="For Providers" 
+                <FlatButton label="For Providers"
                   backgroundColor={buttonStyles.backgroundColor}
-                  hoverColor={buttonStyles.hoverColor} 
-                  style={buttonStyles.styles}
-                  labelStyle={buttonStyles.labelStyle}
-                  rippleColor={buttonStyles.rippleColor}
-
-                />
-              </li>
-               <li>
-                <FlatButton label="About" 
-                  backgroundColor={buttonStyles.backgroundColor}
-                  hoverColor={buttonStyles.hoverColor} 
+                  hoverColor={buttonStyles.hoverColor}
                   style={buttonStyles.styles}
                   labelStyle={buttonStyles.labelStyle}
                   rippleColor={buttonStyles.rippleColor}
@@ -86,9 +76,29 @@ export default class UnauthHeader extends Component {
                 />
               </li>
               <li>
-                <FlatButton label="Sign up" 
+               <FlatButton label="For Staff"
+                 backgroundColor={buttonStyles.backgroundColor}
+                 hoverColor={buttonStyles.hoverColor}
+                 style={buttonStyles.styles}
+                 labelStyle={buttonStyles.labelStyle}
+                 rippleColor={buttonStyles.rippleColor}
+
+               />
+             </li>
+               <li>
+                <FlatButton label="About"
                   backgroundColor={buttonStyles.backgroundColor}
-                  hoverColor={buttonStyles.hoverColor} 
+                  hoverColor={buttonStyles.hoverColor}
+                  style={buttonStyles.styles}
+                  labelStyle={buttonStyles.labelStyle}
+                  rippleColor={buttonStyles.rippleColor}
+
+                />
+              </li>
+              <li>
+                <FlatButton label="Sign up"
+                  backgroundColor={buttonStyles.backgroundColor}
+                  hoverColor={buttonStyles.hoverColor}
                   style={buttonStyles.styles}
                   labelStyle={buttonStyles.labelStyle}
                   rippleColor={buttonStyles.rippleColor}
@@ -96,9 +106,9 @@ export default class UnauthHeader extends Component {
                 />
               </li>
               <li>
-                <FlatButton label="Sign in" 
+                <FlatButton label="Sign in"
                   backgroundColor={buttonStyles.backgroundColor}
-                  hoverColor={buttonStyles.hoverColor} 
+                  hoverColor={buttonStyles.hoverColor}
                   style={buttonStyles.styles}
                   labelStyle={buttonStyles.labelStyle}
                   rippleColor={buttonStyles.rippleColor}
@@ -118,8 +128,11 @@ export default class UnauthHeader extends Component {
                 <Tab label="Physician" onActive={this.handleActive.bind(this)}>
                   <SignUp userType={'physician'} title={'Physician'} />
                 </Tab>
+                <Tab label="Staff" onActive={this.handleActive.bind(this)}>
+                  <SignUp userType={'staff'} title={'Staff'} />
+                </Tab>
               </Tabs>
-              
+
             </Dialog>
             <Dialog
               modal={false}
@@ -132,6 +145,9 @@ export default class UnauthHeader extends Component {
                 </Tab>
                 <Tab label="Physician" onActive={this.handleActive.bind(this)}>
                   <SignIn userType={'physician'} title={'Physician'} />
+                </Tab>
+                <Tab label="Staff" onActive={this.handleActive.bind(this)}>
+                  <SignIn userType={'staff'} title={'Staff'}/>
                 </Tab>
               </Tabs>
             </Dialog>
