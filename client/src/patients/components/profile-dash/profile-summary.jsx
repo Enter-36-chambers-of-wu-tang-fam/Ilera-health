@@ -107,6 +107,14 @@ class ProfileSum extends Component {
     load(uid);
   }
 
+  componentWillUpdate(){
+     const { load } = this.props;
+	    let id = localStorage.getItem('uid');
+		  let code  = CryptoJS.AES.decrypt(id.toString(), 'key'); //need to change key
+		  let uid = code.toString(CryptoJS.enc.Utf8);
+    load(uid);
+  }
+
     onResetClick(){
       this.setState({clicked: !this.state.clicked})
     }
