@@ -41,7 +41,6 @@ class DashboardReminders extends Component {
 											var month = date.getMonth();
 											month = months[month];
 											var day = date.getDate();
-                      console.log(reminder.time);
 											var time = reminder.time.slice(0,6);
 											return (
 												<li className="reminders" key={reminder.id}>

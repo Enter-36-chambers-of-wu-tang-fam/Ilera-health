@@ -80,7 +80,7 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    getMyPatients: (physician) => dispatch(fetchMyPhysicians(physician))
+    getMyPatients: (physician) => dispatch(fetchMyPatients(physician))
   }
 }
 
