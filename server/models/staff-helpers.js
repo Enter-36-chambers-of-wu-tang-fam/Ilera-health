@@ -31,10 +31,10 @@ module.exports = {
   },
 
   init_staff_info: (params, cb) => {
-    let data = [params.first, params.last, params.email, params.phone_number,
-      params.address, params.city, params.state, params.zip];
+    let data = [params.first, params.last, params.email, params.primary_phone_number,
+      params.address, params.city, params.state, params.zip, , ];
     const queryString = 'UPDATE staff SET first=?, last=?, email=?, \
-      phone_number=?, address=?, city=?, state=?, zip=? \
+      primary_phone_number=?, address=?, city=?, state=?, zip=?, birth_country=? \
       WHERE id ="'+params.uid+'" LIMIT 1';
     db.query(queryString, data, (error, results) => cb(error, results) );
   }
