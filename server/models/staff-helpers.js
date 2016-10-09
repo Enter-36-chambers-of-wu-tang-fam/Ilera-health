@@ -6,12 +6,14 @@ const db = require('../db/dbConnect/connection.js');
 module.exports = {
 
   signIn: (params, cb) => {
+    console.log(params);
     let data = [params.email];
     const queryString = 'SELECT * FROM staff WHERE email =? LIMIT 1';
     db.query(queryString, data, (error, results) => cb(error, results) );
   },
 
   signUp: (params, cb) => {
+    console.log(params);
     let data = [params.first, params.last, params.email, params.password];
     const queryString = "INSERT INTO staff (first, last, email, password) \
       VALUES (?,?,?,?)";
@@ -31,10 +33,11 @@ module.exports = {
   },
 
   init_staff_info: (params, cb) => {
-    let data = [params.first, params.last, params.email, params.primary_phone_number,
-      params.address, params.city, params.state, params.zip, , ];
-    const queryString = 'UPDATE staff SET first=?, last=?, email=?, \
-      primary_phone_number=?, address=?, city=?, state=?, zip=?, birth_country=? \
+    console.log(params);
+    let data = [params.first, params.last, params.primary_phone_number,
+      params.address, params.city, params.state, params.zip, params.birth_country];
+    const queryString = 'UPDATE staff SET first=?, last=?, \
+      phone_number=?, address=?, city=?, state=?, zip=?, birth_country=? \
       WHERE id ="'+params.uid+'" LIMIT 1';
     db.query(queryString, data, (error, results) => cb(error, results) );
   }
