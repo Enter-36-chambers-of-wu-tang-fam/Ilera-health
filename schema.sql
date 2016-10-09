@@ -344,6 +344,7 @@ CREATE TABLE `physician_institution` (
   `id` INTEGER NOT NULL AUTO_INCREMENT,
   `id_institution` INTEGER DEFAULT NULL,
   `id_physician` INTEGER DEFAULT NULL,
+  `betterDoctorUID` VARCHAR(1000) NULL,
   PRIMARY KEY (`id`)
 );
 
@@ -490,9 +491,9 @@ ALTER TABLE `med_records` ADD FOREIGN KEY (id_patient) REFERENCES `patient` (`id
 
 -- INSERT INTO `physician` (`id`,`first`,`last`,`email`,`phone_number`,`password`,`photo_path`,`specialty`) VALUES
 -- ('','','','','','','','');
-INSERT INTO `physician` (`first`,`last`,`email`,`phone_number`,`password`,`photo_path`,`specialty`) VALUES ('neekon','nee','nee','34214321','nee','nee','nee');
+INSERT INTO `physician` (`betterDoctorUID`,`first`,`last`,`email`,`phone_number`,`password`,`photo_path`,`specialty`) VALUES ('a674d2db5a5b8349ea5ade900b18792b','neekon','nee','nee','34214321','nee','nee','nee');
 
-INSERT INTO `physician` (`first`,`last`,`email`,`phone_number`,`password`,`photo_path`,`specialty`) VALUES ('yolo','bee','bee','34321235','bee','bee','bee');
+INSERT INTO `physician` (`betterDoctorUID`,`first`,`last`,`email`,`phone_number`,`password`,`photo_path`,`specialty`) VALUES ('5ba35169e6bc6d86d8c2ffbd182aa621','yolo','bee','bee','34321235','bee','bee','bee');
 -- INSERT INTO `patient` (`id`,`first`,`last`,`email`,`password`,`pin`,`date_of_birth`,`address`,`city`,`state`,`zip`,`phone_number`,`weight`,`height`,`blood_type`,`photo_path`) VALUES
 -- ('','','','','','','','','','','','','','','','');
 INSERT INTO `patient` (`first`,`last`,`email`,`password`,`pin`,`address`,`city`,`state`,`zip`,`primary_phone_number`,`weight`,`height`,`blood_type`,`photo_path`) VALUES ('bal','bon','afsjon','2345rew','14','mya','at','ca','43522','2435','1231','123','4','a');
@@ -515,8 +516,10 @@ INSERT INTO `institution` (`inst_name`,`type`,`description`,`rating`,`phone_numb
 
 -- INSERT INTO `physician_institution` (`id`,`id_institution`,`id_physician`) VALUES
 -- ('','','');
-INSERT INTO `physician_institution` (`id_institution`,`id_physician`) VALUES ('1','1');
-INSERT INTO `physician_institution` (`id_institution`,`id_physician`) VALUES ('1','2');
+INSERT INTO `physician_institution` (`id_institution`,`id_physician`, `betterDoctorUID`) VALUES ('1','1', 'a674d2db5a5b8349ea5ade900b18792b');
+INSERT INTO `physician_institution` (`id_institution`,`id_physician`, `betterDoctorUID`) VALUES ('1','2', '5ba35169e6bc6d86d8c2ffbd182aa621');
+-- a674d2db5a5b8349ea5ade900b18792b
+-- 5ba35169e6bc6d86d8c2ffbd182aa621
 
 
 -- INSERT INTO `health_log` (`id`,`physician_date`,`physician_notes`,`physician_photo_path`,`patient_date`,`patient_note`,`patient_photo_path`,`id_physician`,`id_patient`) VALUES
@@ -538,6 +541,7 @@ INSERT INTO `emergency_contact` (`e_1_contact_first`,`e_1_contact_last`,`e_1_con
 
 -- INSERT INTO `medication` (`id`,`drug_name`,`details`) VALUES
 -- ('','','');
+
 
 
 

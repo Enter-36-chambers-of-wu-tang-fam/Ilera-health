@@ -515,15 +515,15 @@
 <default>NULL</default></row>
 <row name="type" null="1" autoincrement="0">
 <datatype>VARCHAR(40)</datatype>
-</row>
+<default>NULL</default></row>
 <row name="details" null="1" autoincrement="0">
 <datatype>VARCHAR(400)</datatype>
-</row>
+<default>NULL</default></row>
 <key type="PRIMARY" name="">
 <part>id</part>
 </key>
 </table>
-<table x="254" y="383" name="physician_institution">
+<table x="275" y="360" name="physician_institution">
 <row name="id" null="0" autoincrement="1">
 <datatype>INTEGER</datatype>
 </row>
@@ -534,6 +534,9 @@
 <row name="id_physician" null="0" autoincrement="0">
 <datatype>INTEGER</datatype>
 <default>NOT NULL</default><relation table="physician" row="id" />
+</row>
+<row name="betterDoctorUID" null="1" autoincrement="0">
+<datatype>VARCHAR(1000)</datatype>
 </row>
 <key type="PRIMARY" name="">
 <part>id</part>
@@ -617,7 +620,7 @@
 <part>id</part>
 </key>
 </table>
-<table x="47" y="125" name="staff">
+<table x="47" y="116" name="staff">
 <row name="id" null="1" autoincrement="1">
 <datatype>INTEGER</datatype>
 <default>NULL</default></row>
@@ -641,21 +644,24 @@
 <default>NULL</default></row>
 <row name="address" null="1" autoincrement="0">
 <datatype>VARCHAR(1000)</datatype>
-</row>
+<default>NULL</default></row>
 <row name="city" null="1" autoincrement="0">
 <datatype>VARCHAR(1000)</datatype>
-</row>
+<default>NULL</default></row>
 <row name="state" null="1" autoincrement="0">
 <datatype>VARCHAR(10)</datatype>
-</row>
+<default>NULL</default></row>
 <row name="zip" null="1" autoincrement="0">
 <datatype>VARCHAR(10)</datatype>
+<default>NULL</default></row>
+<row name="birth_country" null="1" autoincrement="0">
+<datatype>VARCHAR(100)</datatype>
 </row>
 <key type="PRIMARY" name="">
 <part>id</part>
 </key>
 </table>
-<table x="19" y="421" name="institution_staff">
+<table x="19" y="429" name="institution_staff">
 <row name="id" null="1" autoincrement="1">
 <datatype>INTEGER</datatype>
 <default>NULL</default></row>
@@ -697,16 +703,16 @@
 <default>NULL</default></row>
 <row name="date" null="1" autoincrement="0">
 <datatype>DATE</datatype>
-</row>
+<default>NULL</default></row>
 <row name="type" null="1" autoincrement="0">
 <datatype>VARCHAR(400)</datatype>
-</row>
+<default>NULL</default></row>
 <row name="document_path" null="1" autoincrement="0">
 <datatype>VARCHAR(500)</datatype>
-</row>
+<default>NULL</default></row>
 <row name="description" null="1" autoincrement="0">
 <datatype>VARCHAR(1000)</datatype>
-</row>
+<default>NULL</default></row>
 <row name="id_patient" null="0" autoincrement="0">
 <datatype>INTEGER</datatype>
 <relation table="patient" row="id" />
