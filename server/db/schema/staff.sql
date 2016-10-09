@@ -18,6 +18,5 @@ CREATE TABLE `staff` (
   `state` VARCHAR(10) NULL,
   `zip` VARCHAR(10) NULL,
   `birth_country` VARCHAR(100) NULL,
-  `primary_phone_number` VARCHAR(100) NULL,
   PRIMARY KEY (`id`)
 );
