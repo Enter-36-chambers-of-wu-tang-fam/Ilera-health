@@ -188,8 +188,14 @@ input[type='radio']{
     font-size: 72px;
     text-align: center;
 }
-
-.mainDashWelcome img, #mainDashWelcomeMobile img, .providerDashRight img{
+.profileDash{
+    padding: 30px 0;
+}
+.profileDash .provViewPatDash{
+    width: 30%;
+    float: left;
+}
+.mainDashWelcome img, #mainDashWelcomeMobile img, .providerDashRight img, .profileDash img{
     width: 150px;
     height: 150px;
     border-radius: 50%;
@@ -236,13 +242,16 @@ main{
     margin: 2% 1.5%;
 }
 
-.dashboardInsurance h5{
+.dashboardInsurance h5, .profileDash .provViewPatDash h6{
     font-size: 14px;
     text-transform: uppercase;
     text-align: left;
     color: #aaa;
     margin-bottom: 5px;
 
+}
+.profileDash .provViewPatDash h5{
+    margin-bottom: 10px;
 }
 
 .dashboardInsurance p{
@@ -258,7 +267,7 @@ main{
     color: #203248;
 }
 
-.dashboardRows:first-of-type, .profileForms > div:first-of-type{
+.dashboardRows:first-of-type, .patientAppMain .profileForms > div:first-of-type{
     background-image: url('./background_images/dashboard_main.jpg');
     background-repeat: no-repeat;
     background-position: center;
