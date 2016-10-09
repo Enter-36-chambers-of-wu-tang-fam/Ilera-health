@@ -10,6 +10,8 @@ import PhysicianAuth from './auth-shared/higher-order-components/physician_auth.
 
 import PatientAuth from './auth-shared/higher-order-components/patient_auth.js';
 
+import StaffAuth from './auth-shared/higher-order-components/staff_auth.js';
+
 import GeneralAuth from './auth-shared/higher-order-components/general_auth.js';
 
 //Shared Components
@@ -44,6 +46,11 @@ import PhysicianCalendar from './patients/components/physicians-dash/physicianAp
 import PatientAppFormContainer from './patients/components/onboarding/patient-signup-forms.jsx';
 import MedicalHistory from './patients/components/medical-history-dash/medical-history-dashboard.jsx';
 
+// Staff Components
+import StaffApp from './staff/components/staff-app.jsx';
+import StaffAppFormContainer from './staff/components/onboarding/staff-signup-forms.jsx';
+import StaffDashboard from './staff/components/main-dash/staff-dashboard.jsx';
+
 export default (
     <Router path='/' component= { App } >
         <IndexRoute component={ GeneralAuth(Welcome) }/>
@@ -73,6 +80,13 @@ export default (
             <Route path="profile" component={ Profile } />
             <Route path="medications" component={ Medication } />
             <Route path="records" component={ MedicalHistory } />
+        </Route>
+        <Route path='staff' component={ StaffAuth(StaffApp) } >
+          <Route path="form" >
+              <IndexRoute component={ StaffAppFormContainer } />
+          </Route>
+          <Route path="dashboard" component={ StaffDashboard } />
+          
         </Route>
     </Router>
 );

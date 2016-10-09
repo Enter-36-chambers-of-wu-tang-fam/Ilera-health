@@ -43,6 +43,8 @@ export function authenticateUser(userType,data,reqType){
         .then( found => {
           if(userType === 'patient'){
             var encodedId = CryptoJS.AES.encrypt(String(found.data.id), 'key'); //need to change key
+          } else if(userType === 'physician') {
+            var encodedId = CryptoJS.AES.encrypt(String(found.data), 'key'); //need to change key
           } else {
             var encodedId = CryptoJS.AES.encrypt(String(found.data), 'key'); //need to change key
           }

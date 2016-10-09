@@ -13,5 +13,9 @@ CREATE TABLE `staff` (
   `phone_number` VARCHAR(25) NULL,
   `password` VARCHAR(200) NULL,
   `photo_path` VARCHAR(300) NULL,
+  `address` VARCHAR(1000) NULL,
+  `city` VARCHAR(1000) NULL,
+  `state` VARCHAR(10) NULL,
+  `zip` VARCHAR(10) NULL,
   PRIMARY KEY (`id`)
 );
