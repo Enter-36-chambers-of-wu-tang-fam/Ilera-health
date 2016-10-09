@@ -107,6 +107,14 @@ class ProfileSum extends Component {
     load(uid);
   }
 
+  componentWillUpdate(){
+      const { load } = this.props;
+	    let id = localStorage.getItem('uid');
+		  let code  = CryptoJS.AES.decrypt(id.toString(), 'key'); //need to change key
+		  let uid = code.toString(CryptoJS.enc.Utf8);
+    load(uid);
+  }
+
     onResetClick(){
       this.setState({clicked: !this.state.clicked})
     }
@@ -126,7 +134,7 @@ class ProfileSum extends Component {
     render() {
       const { height, error, handleSubmit, pristine, reset, submitting } = this.props;
       const profilePicture = {
-        backgroundImage:'url('+this.props.user.photo_path+')',
+        backgroundImage: `url(${this.state.uploadFiles.length > 0 ? this.state.uploadFiles.preview : this.props.user.photo_path})`,
         backgroundSize:'cover'
     };
       return (
