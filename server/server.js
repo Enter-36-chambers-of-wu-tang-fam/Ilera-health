@@ -12,6 +12,7 @@ const io = require('socket.io')(server);
 const socketEvents = require('./sockets/socket-events')(io);
 const getAll = require('./controller/allPatient.js');
 const Patient = require("./models/patient-helpers");
+const MedRecord = require("./models/med_record-helpers.js");
 
 //Mike's additions --> please don't move yet..need to finish setting up paths
 
@@ -54,18 +55,24 @@ app.post('/upload/profile_picture/:uid', uploadProfile.single('upload'), functio
   let data = {photo_path: `/src/uploads/profile/${req.file.filename}`, uid: req.params.uid};
   Patient.delete_photo(data, (error, result) => {
     if(error) console.log(error);
-      Patient.update_photo(data,(err,data)=>{
+      Patient.update_photo(data,(err,update)=>{
         if(err) console.log("UPDATE PHOTO ERROR", err);
-        res.json(data);
+        res.json(update);
       })
   });
 });
 
 app.post('/upload/old_records/:uid', uploadRecords.single('upload'), function(req,res, next){
-  let data = {photo_path: `/src/uploads/old_records/${req.file.filename}`, uid: req.params.uid};
-  Patient.update_records(data,(err,data)=>{
-      res.json(data);
+   req.body.document_path = `/src/uploads/old_records/${req.file.filename}`;
+   req.body.uid = req.params.uid;
+  MedRecord.upload_document(req.body, (error, result) => {
+    if(error) console.log(error);
+    res.json(result);
   })
+  // let data = {photo_path: `/src/uploads/old_records/${req.file.filename}`, uid: req.params.uid};
+  // Patient.update_records(data,(err,data)=>{
+  //     res.json(data);
+  // })
 });
 
 app.post('/upload/appointment_documents/:uid', uploadAppointment.single('upload'), function(req,res, next){

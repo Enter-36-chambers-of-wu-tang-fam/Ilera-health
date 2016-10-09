@@ -1,9 +1,27 @@
 import React, { Component, PropTypes, } from 'react';
 import { reduxForm, Field } from 'redux-form';
-
 import Dropzone from 'react-dropzone';
+import CryptoJS from 'crypto-js';
+import request from 'superagent';
+import axios from 'axios';
 
 const FILE_FIELD_NAME = 'files';
+
+const styles = {
+ dropzone: {
+    width:'',
+    height:'',
+    border:'none',
+    borderRadius:'',
+    maxWidth:'205px',
+    margin:"0 auto"
+  },
+  dropHover: {
+    boxShadow:'0em 0em .5em .4em rgba(242,108,44,.8)',
+    background:'rgba(0,0,0,.7)',
+    transition:'border .3s, box-shadow .3s'
+  }
+};
 
 const renderDropzoneInput = (field) => {
   const files = field.input.value;
@@ -35,27 +53,25 @@ class App extends Component {
   };
 
   onSubmit(data) {
+    let id = localStorage.getItem('uid');
+    let code  = CryptoJS.AES.decrypt(id.toString(), 'key'); //need to change key
+    let uid = code.toString(CryptoJS.enc.Utf8);
+    console.log("I AM CALLED I AM CALLED I AM CALLED")
     var body = new FormData();
-    Object.keys(data).forEach(( key ) => {
-      body.append(key, data[ key ]);
-    });
+    body.append('upload',data.files[0]);
+    body.append('date',data.date);
+    body.append('description', data.description);
+    body.append('type', data.type);
 
-    console.info('POST', body, data);
-    console.info('This is expected to fail:');
-    fetch(`http://example.com/send/`, {
-      method: 'POST',
-      body: body,
+    axios.post(`/upload/old_records/${uid}`, body)
+      .then(resp => {
+        console.log("RESPONSE", resp);
     })
-    .then(res => res.json())
-    .then(res => console.log(res))
-    .catch(err => console.error(err));
+    .catch(error => console.log(error))
   }
 
   render() {
-    const {
-      handleSubmit,
-      reset,
-    } = this.props;
+    const { handleSubmit, reset} = this.props;
     return (
       <form onSubmit={handleSubmit(this.onSubmit.bind(this))}>
         <div>
@@ -65,6 +81,21 @@ class App extends Component {
             component={renderDropzoneInput}
           />
         </div>
+          <label htmlFor="date">Date</label>
+          <Field
+            name="date"
+            component="input"
+          />
+          <label htmlFor="type">Type</label>
+          <Field
+            name="type"
+            component="input"
+          />
+          <label htmlFor="description">Description</label>
+          <Field
+            name="description"
+            component="input"
+          />
         <div>
           <button type="submit">
             Submit
