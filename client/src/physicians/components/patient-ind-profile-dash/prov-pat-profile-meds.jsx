@@ -1,13 +1,12 @@
 import React, { Component } from 'react';
-import DashboardReminders from './prov-pat-profile-reminders.jsx';
 
-const ProfileDash = ({user}) => {
+const ProfileMeds = ({user, medications}) => {
 
     return (
         <div className="profileDash">
             <div className="provViewPatDash">
                 <img src={`${user.photo_path}`} alt=""/>
-                <h3>{user.first} {user.last}</h3>
+                <h3>{medications[0]} {user.last}</h3>
             </div>
             <div className="provViewPatDash">
                 <h3>Important</h3>
@@ -21,11 +20,10 @@ const ProfileDash = ({user}) => {
                 <h5>{user.allergies ? user.allergies : "No data"}</h5>
             </div>
             <div className="provViewPatDash">
-                <DashboardReminders />
             </div>
         </div>
     );
 
 };
 
-export default ProfileDash;
+export default ProfileMeds;
