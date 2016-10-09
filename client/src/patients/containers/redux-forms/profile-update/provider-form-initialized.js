@@ -9,6 +9,14 @@ import SelectField from 'material-ui/SelectField'
 import MenuItem from 'material-ui/MenuItem';
 import { TextField } from 'redux-form-material-ui';
 
+const patientStyle = {
+	display: {display: 'block'}
+}
+
+const providerStyle = {
+	display: {display: 'none'}
+}
+
 const validate = values => {
   const errors = {}
   if ( values.primary_name && /\d/.test(values.primary_name)) {
@@ -28,6 +36,7 @@ class ProviderInfoFormInitialized extends Component {
 
   constructor(props){
     super(props);
+    const status = (localStorage.getItem('userType')) === 'patient' ? false : true;
     this.state = {
       value: '',
       insurer: '',
@@ -41,7 +50,8 @@ class ProviderInfoFormInitialized extends Component {
       types: [],
       networks: [],
       docs: [],
-      docSelectedInfo: {}
+      docSelectedInfo: {},
+      patient: status
     };
   }
 
@@ -153,25 +163,29 @@ onInsurerClick(key){
     }
   }
 
-  renderTextField (props) {
-    return(
-      <TextField 
-          hintText={props.label}
-          floatingLabelText={props.label}
-          fullWidth={true}
-          errorText={props.touched && props.error}
-          {...props}
-      />
-    )
-  }
+	renderTextField ({ input, label, disabled, meta: { touched, error } } ) {
 
-  renderSpecialTextField ({ input, label, meta: { touched, error }, ...custom }) {
+		return(
+			<TextField
+				hintText={label}
+				floatingLabelText={label}
+				fullWidth={true}
+				onChange={(event, index, value) => input.onChange(value)}
+				disabled={disabled}
+				errorText={touched && error}
+				{...input}
+			/>
+		)
+	}
+
+  renderSpecialTextField ({ input, label, disabled, meta: { touched, error }, ...custom }) {
     return(
       <TextField 
           hintText={label}
           floatingLabelText={label}
           fullWidth={true}
           onChange={this.handleInputChange(value)}
+          disabled={disabled}
           errorText={touched && error}
           {...input}
           {...custom}
@@ -179,12 +193,13 @@ onInsurerClick(key){
     )
   }
 
-  renderSelectField ({ input, label, meta: { touched, error }, children }) {
+  renderSelectField ({ input, label, disabled, meta: { touched, error }, children }) {
 		return (
 			<SelectField
 				floatingLabelText={label}
 				errorText={touched && error}
 				fullWidth={true}
+        disabled={disabled}
 				{...input}
 				onChange={(event, index, value) => input.onChange(value)}
 				children={children}/>
@@ -193,7 +208,7 @@ onInsurerClick(key){
 
   render() {
       const { error, handleSubmit, pristine, reset, submitting } = this.props;
-
+      const { patient } = this.state;
       return (
           <div  className="forms">
               <h2>Provider Info</h2>
@@ -205,6 +220,7 @@ onInsurerClick(key){
                     fullWidth={true}
                     value={this.state.docSelectedName.length ? this.state.docSelectedName : this.state.value}
                     onChange={this.handleInputChange.bind(this)}
+                    disabled={patient}
                 />
                 <ul className={this.state.docs.length && !this.state.docSelected ? 'docSearchResult' : 'docSearchResultHide'}>
                   {this.state.docs.map( (doc, key) => {
@@ -213,12 +229,12 @@ onInsurerClick(key){
                 </ul>
                 <h5 className="extraTopMargin">Can't find your primary doctor?</h5> 
                 <h5>Add yours below.</h5>
-                <Field name="primary_name" type="text" component={this.renderTextField} label="Full Name"/>
-                <Field name="primary_phone" type="text" component={this.renderTextField} label="Phone Number"/>
-                <Field name="primary_address" type="text" component={this.renderTextField} label="Address"/>
-                <Field name="primary_city" type="text" component={this.renderTextField} label="City"/>
+                <Field name="primary_name" type="text" component={this.renderTextField} label="Full Name" disabled={patient}/>
+                <Field name="primary_phone" type="text" component={this.renderTextField} label="Phone Number" disabled={patient}/>
+                <Field name="primary_address" type="text" component={this.renderTextField} label="Address" disabled={patient}/>
+                <Field name="primary_city" type="text" component={this.renderTextField} label="City" disabled={patient}/>
                 <div>
-                  <Field name="primary_state" component={this.renderSelectField} label="State">
+                  <Field name="primary_state" component={this.renderSelectField} label="State" disabled={patient}>
                     <MenuItem value="AL" primaryTex ="Alabama" />
                     <MenuItem value="AK" primaryText="Alaska" />
                     <MenuItem value="AZ" primaryText="Arizona" />
@@ -272,42 +288,42 @@ onInsurerClick(key){
                     <MenuItem value="WY" primaryText="Wyoming" />
                   </Field>
                 </div>
-                <Field name="primary_zip" type="text" component={this.renderTextField} label="Zip Code"/>
+                <Field name="primary_zip" type="text" component={this.renderTextField} label="Zip Code" disabled={patient}/>
                 <h4>INSURANCE</h4>
                   <div>
-                    <Field name="insurer1" component={this.renderSelectField} label="Insurance Company">
+                    <Field name="insurer1" component={this.renderSelectField} label="Insurance Company" disabled={patient}>
                       {this.state.insurers.map( (insurer, key) => {
                         return <MenuItem key={key} onClick={this.onInsurerClick.bind(this, key)} value={insurer.insurer} primaryText={insurer.insurer} />
                       })}
                     </Field>
                   </div>
                   <div>
-                      <Field name="insurance_type1" component={this.renderSelectField} label="Insurance Type">
+                      <Field name="insurance_type1" component={this.renderSelectField} label="Insurance Type" disabled={patient}>
                       {this.state.types.map( (type, key) => {
                         return <MenuItem value={type} primaryText={type} onClick={this.onClick.bind(this, "insurerType", key)} key={key}/>
                       })}
                     </Field>
                   </div>
                   <div>
-                      <Field name="insurance_network1" component={this.renderSelectField} label="Insurance Network">
+                      <Field name="insurance_network1" component={this.renderSelectField} label="Insurance Network" disabled={patient}>
                       {this.state.networks.map( (network, key) => {
                         return <MenuItem value={network} primaryText={network} onClick={this.onClick.bind(this, "network", key)} key={key}/>
                       })}
                     </Field>
                   </div>
-                  <Field name="policy_number1" type="number" component={this.renderTextField} label="Policy Number"/>
+                  <Field name="policy_number1" type="number" component={this.renderTextField} label="Policy Number" disabled={patient}/>
                   <h5 className="extraTopMargin">Can't find your insurer?</h5> 
                   <h5>Add yours below.</h5>
-                  <Field name="insurer2" type="text" component={this.renderTextField} label="Insurance Company"/>
-                  <Field name="insurance_type2" type="text" component={this.renderTextField} label="Insurance Type"/>
-                  <Field name="insurance_network2" component={this.renderTextField} label="Insurance Network" />
-                  <Field name="policy_number2" type="number" component={this.renderTextField} label="Policy Number"/>
+                  <Field name="insurer2" type="text" component={this.renderTextField} label="Insurance Company" disabled={patient}/>
+                  <Field name="insurance_type2" type="text" component={this.renderTextField} label="Insurance Type" disabled={patient}/>
+                  <Field name="insurance_network2" component={this.renderTextField} label="Insurance Network" disabled={patient} />
+                  <Field name="policy_number2" type="number" component={this.renderTextField} label="Policy Number" disabled={patient}/>
                   {error && <strong>{error}</strong>}
                   <RaisedButton
                       label='Save'
                       primary={true}
                       type='submit'
-                      className='btn'
+                      style={patient ? providerStyle.display : patientStyle.display}
                   />
               </form>
           </div>

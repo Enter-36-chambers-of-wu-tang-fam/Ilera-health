@@ -1290,6 +1290,7 @@ main >section .team li:hover .teamProfile {
     z-index: 15;
 }
 
+
 /*----------- MEDIA QUERIES ---------*/
 @media screen and (max-width: 960px) {
     /*------- DISPLAY NONE --------*/

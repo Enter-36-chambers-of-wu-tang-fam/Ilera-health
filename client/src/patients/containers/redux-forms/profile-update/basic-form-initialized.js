@@ -17,6 +17,14 @@ import TextField from 'material-ui/TextField';
 import MenuItem from 'material-ui/MenuItem';
 
 
+const patientStyle = {
+	display: {display: 'block'}
+}
+
+const providerStyle = {
+	display: {display: 'none'}
+}
+
 const validate = values => {
   const errors = {}
 	if (values.middle && /\d/.test(values.middle)) {
@@ -43,11 +51,11 @@ class BackgroundInfoFormInitialized extends Component {
 
   constructor(props){
     super(props);
-		this.state = {};
-  }
-
-  static contextTypes = {
-    router: React.PropTypes.object
+	const status = (localStorage.getItem('userType')) === 'patient' ? false : true;
+	console.log("STATUS", status)
+	this.state = {
+		patient: status
+	}
   }
 
   handleInitialize(nextProps){
@@ -90,15 +98,16 @@ class BackgroundInfoFormInitialized extends Component {
 
 		axios.put('/api/patient/background', prop)
 			.then( found => {
-					// this.context.router.push('/patient/form/emergencyContact/');
+				// this.context.router.push('/patient/form/emergencyContact/');
 			})
 			.catch( err => {
-					console.log("ERROR ENTERING INFORMATION", err);
+				console.log("ERROR ENTERING INFORMATION", err);
 			})
 	}
 
 
-	renderTextField ({ input, label, meta: { touched, error } }) {
+	renderTextField ({ input, label, disabled, meta: { touched, error } } ) {
+
 		return(
 			<TextField
 				hintText={label}
@@ -106,17 +115,19 @@ class BackgroundInfoFormInitialized extends Component {
 				fullWidth={true}
 				onChange={(event, index, value) => input.onChange(value)}
 				errorText={touched && error}
+				disabled={disabled}
 				{...input}
 			/>
 		)
 	}
 
-	renderSelectField ({ input, label, meta: { touched, error }, children }) {
+	renderSelectField ({ input, label, disabled, meta: { touched, error }, children }) {
 		return (
 			<SelectField
 				floatingLabelText={label}
 				errorText={touched && error}
 				fullWidth={true}
+				disabled={disabled}
 				{...input}
 				onChange={(event, index, value) => input.onChange(value)}
 				children={children}/>
@@ -125,22 +136,22 @@ class BackgroundInfoFormInitialized extends Component {
 
 	render() {
 		const { error, handleSubmit, pristine, reset, submitting } = this.props;
-
+		const { patient } = this.state;
 		return (
 			<div  className="forms">
 				<h2>Basic User Info</h2>
 				<h6>* Required field</h6>
 					<form onSubmit={handleSubmit(props => this.submitMe(props))}>
-						<Field name="first" type="text" component={this.renderTextField} label="First Name*"/>
-						<Field name="middle" type="text" component={this.renderTextField} label="Middle Name"/>
-						<Field name="last" type="text" component={this.renderTextField} label="Last Name*"/>
-						<Field name="maiden" type="text" component={this.renderTextField} label="Maiden Name"/>
-						<Field name="primary_phone_number" type="text" component={this.renderTextField} label="Primary Phone Number"/>
-           		 		<Field name="secondary_phone_number" type="text" component={this.renderTextField} label="Secondary Phone Number"/>
-						<Field name="address" type="text" component={this.renderTextField} label="Street Address"/>
-						<Field name="city" type="text" component={this.renderTextField} label="City"/>
+						<Field name="first" type="text" component={this.renderTextField} label="First Name*" disabled={patient} />
+						<Field name="middle" type="text" component={this.renderTextField} label="Middle Name" disabled={patient}/>
+						<Field name="last" type="text" component={this.renderTextField} label="Last Name*" disabled={patient}/>
+						<Field name="maiden" type="text" component={this.renderTextField} label="Maiden Name" disabled={patient}/>
+						<Field name="primary_phone_number" type="text" component={this.renderTextField} label="Primary Phone Number" disabled={patient}/>
+           		 		<Field name="secondary_phone_number" type="text" component={this.renderTextField} label="Secondary Phone Number" disabled={patient}/>
+						<Field name="address" type="text" component={this.renderTextField} label="Street Address" disabled={patient}/>
+						<Field name="city" type="text" component={this.renderTextField} label="City" disabled={patient}/>
 						<div>
-							<Field name="state" component={this.renderSelectField} label="State">
+							<Field name="state" component={this.renderSelectField} label="State" disabled={patient}>
 								<MenuItem value="AL" primaryTex ="Alabama" />
 								<MenuItem value="AK" primaryText="Alaska" />
 								<MenuItem value="AZ" primaryText="Arizona" />
@@ -194,10 +205,10 @@ class BackgroundInfoFormInitialized extends Component {
 								<MenuItem value="WY" primaryText="Wyoming" />
 							</Field>
 						</div>
-						<Field name="zip" type="text" component={this.renderTextField} label="Zip Code"/>
-						<Field name="date_of_birth" label="Date of Birth" component={this.renderTextField}/>
+						<Field name="zip" type="text" component={this.renderTextField} label="Zip Code" disabled={patient}/>
+						<Field name="date_of_birth" label="Date of Birth" component={this.renderTextField} disabled={patient}/>
 						<div>
-							<Field name="birth_country" component={this.renderSelectField} label="Country of Birth">
+							<Field name="birth_country" component={this.renderSelectField} label="Country of Birth" disabled={patient}>
 								<MenuItem value="Afghanistan" primaryText="Afghanistan" />
 								<MenuItem value="Åland Islands" primaryText="Åland Islands" />
 								<MenuItem value="Albania" primaryText="Albania" />
@@ -449,9 +460,9 @@ class BackgroundInfoFormInitialized extends Component {
 								<MenuItem value="Zimbabwe" primaryText="Zimbabwe" />
 						</Field>
 					</div>
-					<Field name="birth_city" type="text" component={this.renderTextField} label="City of Birth"/>
+					<Field name="birth_city" type="text" component={this.renderTextField} label="City of Birth" disabled={patient}/>
 					<div>
-						<Field name="marital_status" component={this.renderSelectField} label="Marital Status">
+						<Field name="marital_status" component={this.renderSelectField} label="Marital Status" disabled={patient}>
 							<MenuItem value={'Married'} primaryText="Married"/>
 							<MenuItem value={'Single'} primaryText="Single"/>
 							<MenuItem value={'Widow'} primaryText="Widow"/>
@@ -459,8 +470,8 @@ class BackgroundInfoFormInitialized extends Component {
 							<MenuItem value={'Separated'} primaryText="Separated"/>
 						</Field>
 					</div>
-					<Field name="primary_language" type="text" component={this.renderTextField} label="Primary Language"/>
-					<Field name="secondary_language" type="text" component={this.renderTextField} label="Secondary Language"/>
+					<Field name="primary_language" type="text" component={this.renderTextField} label="Primary Language" disabled={patient}/>
+					<Field name="secondary_language" type="text" component={this.renderTextField} label="Secondary Language" disabled={patient}/>
 
 					{error && <strong>{error}</strong>}
 
@@ -468,7 +479,7 @@ class BackgroundInfoFormInitialized extends Component {
 							label='Save'
 							primary={true}
 							type='submit'
-							className='btn'
+							style={patient ? providerStyle.display : patientStyle.display}
 					/>
 				</form>
 			</div>

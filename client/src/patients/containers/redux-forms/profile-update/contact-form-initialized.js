@@ -15,6 +15,16 @@ import SelectField from 'material-ui/SelectField'
 import MenuItem from 'material-ui/MenuItem';
 import { TextField } from 'redux-form-material-ui';
 
+
+const patientStyle = {
+	display: {display: 'block'}
+}
+
+const providerStyle = {
+	display: {display: 'none'}
+}
+
+
 // FORM VALIDATION
 const validate = values => {
   const errors = {}
@@ -77,6 +87,10 @@ class ContactInfoFormInitialized extends Component {
 
   constructor(props){
     super(props);
+    const status = (localStorage.getItem('userType')) === 'patient' ? false : true;
+    this.state = {
+      patient: status
+    }
   }
 
   static contextTypes = {
@@ -121,24 +135,28 @@ class ContactInfoFormInitialized extends Component {
       })      
   }
 
-  renderTextField (props) {
-    return(
-      <TextField 
-          hintText={props.label}
-          floatingLabelText={props.label}
-          fullWidth={true}
-          errorText={props.touched && props.error}
-          {...props}
-      />
-    )
-  }
+	renderTextField ({ input, label, disabled, meta: { touched, error } } ) {
 
-  renderSelectField ({ input, label, meta: { touched, error }, children }) {
+		return(
+			<TextField
+				hintText={label}
+				floatingLabelText={label}
+				fullWidth={true}
+				onChange={(event, index, value) => input.onChange(value)}
+				errorText={touched && error}
+				disabled={disabled}
+				{...input}
+			/>
+		)
+	}
+
+  renderSelectField ({ input, label, disabled, meta: { touched, error }, children }) {
 		return (
 			<SelectField
 				floatingLabelText={label}
 				errorText={touched && error}
 				fullWidth={true}
+        disabled={disabled}
 				{...input}
 				onChange={(event, index, value) => input.onChange(value)}
 				children={children}/>
@@ -147,18 +165,18 @@ class ContactInfoFormInitialized extends Component {
 
   render() {
     const { error, handleSubmit, pristine, reset, submitting } = this.props;
-
+    const { patient } = this.state;
     return (
       <div>
         <h2>Contact Info</h2>
         <form onSubmit={handleSubmit(props => this.submitMe(props))}>
           <h4>EMERCENGY CONTACT (1)</h4>
-          <Field name="e_1_contact_first" type="text" component={this.renderTextField} label="First Name"/>
-          <Field name="e_1_contact_last" type="text" component={this.renderTextField} label="Last Name"/>
-          <Field name="e_1_contact_phone" type="text" component={this.renderTextField} label="Phone Number"/>
-          <Field name="e_1_contact_email" type="email" component={this.renderTextField} label="Email"/>
+          <Field name="e_1_contact_first" type="text" component={this.renderTextField} label="First Name" disabled={patient}/>
+          <Field name="e_1_contact_last" type="text" component={this.renderTextField} label="Last Name" disabled={patient}/>
+          <Field name="e_1_contact_phone" type="text" component={this.renderTextField} label="Phone Number" disabled={patient}/>
+          <Field name="e_1_contact_email" type="email" component={this.renderTextField} label="Email" disabled={patient}/>
           <div>
-							<Field name="e_1_contact_relationship" component={this.renderSelectField} label="Relationship">
+							<Field name="e_1_contact_relationship" component={this.renderSelectField} label="Relationship" disabled={patient}>
 								<MenuItem value={'Father'} primaryText="Father"/>
 								<MenuItem value={'Mother'} primaryText="Mother"/>
 								<MenuItem value={'Step-Father'} primaryText="Step-Father"/>
@@ -173,12 +191,12 @@ class ContactInfoFormInitialized extends Component {
 							</Field>
 						</div>
           <h4>EMERCENGY CONTACT (2)</h4>
-          <Field name="e_2_contact_first" type="text" component={this.renderTextField} label="First Name"/>
-          <Field name="e_2_contact_last" type="text" component={this.renderTextField} label="Last Name"/>
-          <Field name="e_2_contact_phone" type="text" component={this.renderTextField} label="Phone Number"/>
-          <Field name="e_2_contact_email" type="email" component={this.renderTextField} label="Email"/>
+          <Field name="e_2_contact_first" type="text" component={this.renderTextField} label="First Name" disabled={patient}/>
+          <Field name="e_2_contact_last" type="text" component={this.renderTextField} label="Last Name" disabled={patient}/>
+          <Field name="e_2_contact_phone" type="text" component={this.renderTextField} label="Phone Number" disabled={patient}/>
+          <Field name="e_2_contact_email" type="email" component={this.renderTextField} label="Email" disabled={patient}/>
           <div>
-							<Field name="e_2_contact_relationship" component={this.renderSelectField} label="Relationship">
+							<Field name="e_2_contact_relationship" component={this.renderSelectField} label="Relationship" disabled={patient}>
 								<MenuItem value={'Father'} primaryText="Father"/>
 								<MenuItem value={'Mother'} primaryText="Mother"/>
 								<MenuItem value={'Step-Father'} primaryText="Step-Father"/>
@@ -197,7 +215,7 @@ class ContactInfoFormInitialized extends Component {
 							label='Save'
 							primary={true}
 							type='submit'
-							className='btn'
+							style={patient ? providerStyle.display : patientStyle.display}
 					/>
         </form>
       </div>
