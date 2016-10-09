@@ -26,13 +26,9 @@ class PatientProfileTabs extends Component {
   }
 
 	componentWillMount(){
-    console.log("MAIN COMPONENT LOADED")
 	  const { dispatch, initialize, load, loadContacts, info } = this.props;
-	  let id = localStorage.getItem('uid');
-		let code  = CryptoJS.AES.decrypt(id.toString(), 'key'); //need to change key
-		let uid = code.toString(CryptoJS.enc.Utf8);
-	  load(uid);
-		loadContacts(uid);
+	  load(21);
+		loadContacts(21);
   }
 
   handleChange(value) {
@@ -66,6 +62,16 @@ class PatientProfileTabs extends Component {
 					<Tab onClick={this.handleChange.bind(this, 'd')} label="Provider Info" style={styles.tab} value="d">
 						<div>
 							<ProviderInfoFormInitialized provider={this.props.provider} init={this.props.init} didInit={this.props.didInit} />
+						</div>
+					</Tab>
+					<Tab onClick={this.handleChange.bind(this, 'e')} label="Records" style={styles.tab} value="e">
+						<div>
+							<h2></h2>
+						</div>
+					</Tab>
+					<Tab onClick={this.handleChange.bind(this, 'f')} label="Notes" style={styles.tab} value="f">
+						<div>
+							<h2></h2>
 						</div>
 					</Tab>
 				</Tabs>
