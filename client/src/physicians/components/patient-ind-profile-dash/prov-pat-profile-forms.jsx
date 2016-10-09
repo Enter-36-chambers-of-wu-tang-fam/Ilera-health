@@ -9,6 +9,9 @@ import BackgroundInfoFormInitialized from '../../../patients/containers/redux-fo
 import ContactInfoFormInitialized from '../../../patients/containers/redux-forms/profile-update/contact-form-initialized.js';
 import HealthInfoFormInitialized from '../../../patients/containers/redux-forms/profile-update/health-form-initialized.js';
 import ProviderInfoFormInitialized from '../../../patients/containers/redux-forms/profile-update/provider-form-initialized.js';
+import ProfileMeds from './prov-pat-profile-meds.jsx';
+import { getAllPatientMedication } from '../../../physicians/actions/medication.js';
+
 
 const styles = {
   tab: {
@@ -26,9 +29,10 @@ class PatientProfileTabs extends Component {
   }
 
 	componentWillMount(){
-	  const { dispatch, initialize, load, loadContacts, info } = this.props;
+	  const { dispatch, initialize, load, loadContacts, loadMeds, info } = this.props;
 	  load(21);
 		loadContacts(21);
+		loadMeds(21);
   }
 
   handleChange(value) {
@@ -38,6 +42,7 @@ class PatientProfileTabs extends Component {
   };
 
   render() {
+		const { user, medications } = this.props;
     return (
 			<div className="profileForms">
 				<Tabs
@@ -74,6 +79,12 @@ class PatientProfileTabs extends Component {
 							<h2></h2>
 						</div>
 					</Tab>
+					<Tab onClick={this.handleChange.bind(this, 'g')} label="Meds" style={styles.tab} value="g">
+						<div>
+							<ProfileMeds user={user} medications={medications}/>
+						</div>
+					</Tab>
+					
 				</Tabs>
 			</div>
     );
@@ -85,11 +96,13 @@ export default connect(
     user: state.user.user || {},
 		init: state.user.init,
 		contacts: state.user.e_contacts[0] || state.user.e_contacts,
-		provider: state.user.provider[0] || state.user.provider
+		provider: state.user.provider[0] || state.user.provider,
+		medications: state.meds.medication
   }),
   { 
 	  load: getUserInfo,
 		loadContacts: getUserContacts,
+		loadMeds: getAllPatientMedication,
 	  didInit: didInit
   }
 )(PatientProfileTabs)

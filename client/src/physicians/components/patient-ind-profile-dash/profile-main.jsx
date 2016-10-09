@@ -5,6 +5,7 @@ import ProfileDash from './prov-pat-profile-board.jsx';
 import { connect } from 'react-redux';
 import { getUserInfo, getUserInsurance } from '../../../patients/actions/user.js';
 import { getAllPhysicianAppts } from '../../../physicians/actions/appointment.js';
+import { getAllPatientMedication } from '../../../physicians/actions/medication.js';
 
 class ProfileMain extends Component {
 
@@ -27,10 +28,12 @@ class ProfileMain extends Component {
 export default connect(
   state => ({
     user: state.user.user || {},
-    appointments: state.allPhysicianAppointments
+    appointments: state.allPhysicianAppointments,
+    medications: state.meds.medication
   }),
   { 
 	  load: getUserInfo,
-    loadAppointments: getAllPhysicianAppts
+    loadAppointments: getAllPhysicianAppts,
+    loadMeds: getAllPatientMedication
   }
 )(ProfileMain);
