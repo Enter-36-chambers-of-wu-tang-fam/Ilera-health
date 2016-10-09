@@ -1,48 +1,58 @@
 import React, { Component } from 'react';
 import { Router, Route, Link, browserHistory } from 'react-router';
 import { connect } from 'react-redux';
-import { bindActionCreators } from 'redux';
-// import { getUserInfo } from '../../actions/user.js';
-import CryptoJS from 'crypto-js';
 
 // Components
-// import DashboardMessages from './dashboard-messages.jsx';
-// import DashboardRecords from './dashboard-records.jsx';
-// import DashboardPhysicians from './dashboard-physicians.jsx';
-// import DashboardMain from './dashboard-main.jsx';
-// import DashboardProfile from './dashboard-profile.jsx';
-// import DashboardHealthLog from './dashboard-healthLog.jsx';
-// import DashboardMeds from './dashboard-meds.jsx';
+import DashboardMessages from './staff-dash-messages.jsx';
+import DashboardPatients from './staff-dash-patients.jsx';
+import DashboardMain from './staff-dash-main.jsx';
+import DashboardProfile from './staff-dash-profile.jsx';
+import DashboardWelcome from './staff-dash-welcome.jsx';
+
 
 class StaffDashboard extends Component {
 
     constructor (props){
-      super(props)
+      super(props);
+      this.state = {
+          windowHeight: ''
+      }
     }
 
-    // componentDidMount(){
-    //   const { dispatch, getUserInfo } = this.props;
-    //   let id = localStorage.getItem('uid');
-    //   let code  = CryptoJS.AES.decrypt(id.toString(), 'key'); //need to change key
-    //   const uid = code.toString(CryptoJS.enc.Utf8);
-    //   console.log("HERE")
-    //   getUserInfo(uid);
-    // }
+    componentWillMount() {
+		this.setState({windowHeight: window.innerHeight });
+	}
 
     render() {
+      const { windowHeight } = this.state;
       return (
-          <div className="patientDash clearfix">
-            <div className="patientDash clearfix">
-              <p>hello staff dash</p>
+          <div className="providerDashParent clearfix">
+            <div className="providerDashMain clearfix" style={{ minHeight: windowHeight}}>
+              <DashboardMain />
+            </div>
+
+            <div className="providerDashRight" style={{ minHeight: windowHeight}}>
+              <DashboardWelcome />
+              <Link to='/staff/patients'>
+                <DashboardPatients />
+              </Link>
+              <Link to='/staff/messages'>
+                <DashboardMessages />
+              </Link>
+              <Link to='/staff/profile'>
+                <DashboardProfile />
+              </Link>
+
             </div>
           </div>
       );
     }
 };
 
-// const mapDispatchToProps = (dispatch) => {
-//   return bindActionCreators({ getUserInfo }, dispatch);
-// }
+const mapDispatchToProps = (dispatch) => {
+    return {
 
-// export default connect(null, mapDispatchToProps)(StaffDashboard);
-export default connect(null)(StaffDashboard);
+    }
+}
+
+export default connect(null, mapDispatchToProps)(StaffDashboard);
