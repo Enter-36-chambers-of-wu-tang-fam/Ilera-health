@@ -15,7 +15,6 @@ class ProfileMain extends Component {
 
     render() {
       const { user, appointments } = this.props;
-      console.log("PROPS", user)
       return (
           <div>
             <ProfileDash user={user} appointments={appointments}/>
