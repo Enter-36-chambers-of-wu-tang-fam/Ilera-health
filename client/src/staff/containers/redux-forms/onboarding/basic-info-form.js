@@ -11,7 +11,6 @@ import FlatButton from 'material-ui/FlatButton';
 import SelectField from 'material-ui/SelectField'
 import MenuItem from 'material-ui/MenuItem';
 import {
-	DatePicker,
   TextField
 } from 'redux-form-material-ui'
 // Actions
@@ -20,27 +19,28 @@ import {
 
 const validate = values => {
   const errors = {}
+	console.log(values);
   // if (!values.first || /\d/.test(values.first)) {
   //   errors.first = 'Please enter a valid first name'
   // }
-	if (values.middle && /\d/.test(values.middle)) {
-    errors.middle = 'Please enter a valid middle name'
-  }
+	// if (values.middle && /\d/.test(values.middle)) {
+  //   errors.middle = 'Please enter a valid middle name'
+  // }
   // if (!values.last || /\d/.test(values.last)) {
   //   errors.last = 'Please enter a valid last name'
   // }
-	if (values.maiden && /\d/.test(values.maiden)) {
-    errors.maiden = 'Please enter a valid maiden name'
-  }
-	if (values.birth_city && /\d/.test(values.birth_city)) {
-    errors.birth_city = 'Please enter a valid city of birth'
-  }
-	if (values.primary_language && /\d/.test(values.primary_language)) {
-    errors.primary_language = 'Please enter a valid primary language'
-  }
-	if (values.secondary_language && /\d/.test(values.secondary_language)) {
-    errors.secondary_language = 'Please enter a valid secondary language'
-  }
+	// if (values.maiden && /\d/.test(values.maiden)) {
+  //   errors.maiden = 'Please enter a valid maiden name'
+  // }
+	// if (values.birth_city && /\d/.test(values.birth_city)) {
+  //   errors.birth_city = 'Please enter a valid city of birth'
+  // }
+	// if (values.primary_language && /\d/.test(values.primary_language)) {
+  //   errors.primary_language = 'Please enter a valid primary language'
+  // }
+	// if (values.secondary_language && /\d/.test(values.secondary_language)) {
+  //   errors.secondary_language = 'Please enter a valid secondary language'
+  // }
 
   return errors
 }
@@ -69,10 +69,9 @@ class BackgroundInfoForm extends Component {
 		//code to decode user id stored in local storage
 		let code  = CryptoJS.AES.decrypt(id.toString(), 'key'); //need to change key
 		prop.uid = code.toString(CryptoJS.enc.Utf8);
-
 		axios.put('/api/staff/background', prop)
 			.then( found => {
-					// this.context.router.push('/patient/form/emergencyContact/');
+					this.context.router.push('/staff/dashboard');
 			})
 			.catch( err => {
 					console.log("ERROR ENTERING INFORMATION", err);
@@ -131,14 +130,6 @@ class BackgroundInfoForm extends Component {
 		)
 	}
 
-	renderDatePicker (props) {
-		return(
-			<DatePicker
-				errorText={props.touched && props.error}
-				{...props}
-			/>
-		)
-	}
 
 	renderSelectField ({ input, label, meta: { touched, error }, children }) {
 		return (
@@ -161,11 +152,8 @@ class BackgroundInfoForm extends Component {
 				<h6>* Required field</h6>
 					<form onSubmit={handleSubmit(props => this.submitMe(props))}>
 						<Field name="first" type="text" component={this.renderTextFieldFirst} label="First Name*"/>
-						<Field name="middle" type="text" component={this.renderTextField} label="Middle Name"/>
 						<Field name="last" type="text" component={this.renderTextFieldLast} label="Last Name*"/>
-						<Field name="maiden" type="text" component={this.renderTextField} label="Maiden Name"/>
 						<Field name="primary_phone_number" type="text" component={this.renderTextField} label="Primary Phone Number"/>
-            <Field name="secondary_phone_number" type="text" component={this.renderTextField} label="Secondary Phone Number"/>
 						<Field name="address" type="text" component={this.renderTextField} label="Street Address"/>
 						<Field name="city" type="text" component={this.renderTextField} label="City"/>
 						<div>
@@ -224,7 +212,6 @@ class BackgroundInfoForm extends Component {
 							</Field>
 						</div>
 						<Field name="zip" type="text" component={this.renderTextField} label="Zip Code"/>
-						<Field name="date_of_birth"  minDate={this.state.minDate} maxDate={this.state.maxDate} type="date" fullWidth={true} floatingLabelText="Date of Birth" floatingLabelFixed={true} component={this.renderDatePicker}/>
 						<div>
 							<Field name="birth_country" component={this.renderSelectField} label="Country of Birth">
 								<MenuItem value="Afghanistan" primaryText="Afghanistan" />
@@ -478,18 +465,7 @@ class BackgroundInfoForm extends Component {
 								<MenuItem value="Zimbabwe" primaryText="Zimbabwe" />
 						</Field>
 					</div>
-					<Field name="birth_city" type="text" component={this.renderTextField} label="City of Birth"/>
-					<div>
-						<Field name="marital_status" component={this.renderSelectField} label="Marital Status">
-							<MenuItem value={'Married'} primaryText="Married"/>
-							<MenuItem value={'Single'} primaryText="Single"/>
-							<MenuItem value={'Widow'} primaryText="Widow"/>
-							<MenuItem value={'Divorced'} primaryText="Divorced"/>
-							<MenuItem value={'Separated'} primaryText="Separated"/>
-						</Field>
-					</div>
-					<Field name="primary_language" type="text" component={this.renderTextField} label="Primary Language"/>
-					<Field name="secondary_language" type="text" component={this.renderTextField} label="Secondary Language"/>
+
 
 					{error && <strong>{error}</strong>}
 
@@ -504,15 +480,14 @@ class BackgroundInfoForm extends Component {
 								className='btn btn-back'
 							/>
 							<RaisedButton
-								label={this.props.stepIndex === 3 ? 'Finish' : 'Next'}
-								primary={true}
-								type='submit'
-								className='btn btn-back'
-								style={{
-									'float': 'right',
-									'backgroundColor': '#fff'
-								}}
-							/>
+	                        label={this.props.stepIndex === 2 ? 'Finish' : 'Next'}
+	                        primary={true}
+	                        type='submit'
+	                        className='btn btn-back'
+	                        style={{
+	                          float: 'right'
+	                        }}
+	                      />
 						</div>
 					</div>
 				</form>

@@ -13,10 +13,10 @@ import CryptoJS from 'crypto-js';
 
 
 // Components
-// import BackgroundInfoForm from '../../containers/redux-forms/onboarding/basic-info-form.js';
+import BackgroundInfoForm from '../../containers/redux-forms/onboarding/basic-info-form.js';
 // import ContactInfoForm from '../../containers/redux-forms/onboarding/contact-info-form.js';
 // import InsuranceForm from '../../containers/redux-forms/onboarding/provider-form.js';
-// import FormIntro from '../../containers/redux-forms/onboarding/form-intro.js';
+import FormIntro from '../../containers/redux-forms/onboarding/form-intro.js';
 // import HealthInfo from '../../containers/redux-forms/onboarding/health-info-form.js';
 
 class StaffAppFormsContainer extends Component {
@@ -49,22 +49,16 @@ class StaffAppFormsContainer extends Component {
     }
   };
 
-  // getStepContent(stepIndex) {
-  //   switch (stepIndex) {
-  //     case 0:
-  //       return <FormIntro stepIndex={this.state.stepIndex} getStepContent={this.getStepContent.bind(this)} handleNext={this.handleNext.bind(this)} handlePrev={this.handlePrev.bind(this)}/>
-  //     case 1:
-  //       return <BackgroundInfoForm stepIndex={this.state.stepIndex} getStepContent={this.getStepContent.bind(this)} handleNext={this.handleNext.bind(this)} handlePrev={this.handlePrev.bind(this)}/>;
-  //     case 2:
-  //       return <ContactInfoForm stepIndex={this.state.stepIndex} getStepContent={this.getStepContent.bind(this)} handleNext={this.handleNext.bind(this)} handlePrev={this.handlePrev.bind(this)}/>;
-  //     case 3:
-  //       return <HealthInfo stepIndex={this.state.stepIndex} getStepContent={this.getStepContent.bind(this)} handleNext={this.handleNext.bind(this)} handlePrev={this.handlePrev.bind(this)}/>;
-  //     case 4:
-  //       return <InsuranceForm stepIndex={this.state.stepIndex} getStepContent={this.getStepContent.bind(this)} handleNext={this.handleNext.bind(this)} handlePrev={this.handlePrev.bind(this)}/>;
-  //     default:
-  //       return <FormIntro />;
-  //   }
-  // }
+  getStepContent(stepIndex) {
+    switch (stepIndex) {
+      case 0:
+        return <FormIntro stepIndex={this.state.stepIndex} getStepContent={this.getStepContent.bind(this)} handleNext={this.handleNext.bind(this)} handlePrev={this.handlePrev.bind(this)}/>
+      case 1:
+        return <BackgroundInfoForm stepIndex={this.state.stepIndex} getStepContent={this.getStepContent.bind(this)} handleNext={this.handleNext.bind(this)} handlePrev={this.handlePrev.bind(this)}/>;
+      default:
+        return <FormIntro />;
+    }
+  }
 
   render() {
 		const {finished, stepIndex} = this.state;
@@ -78,17 +72,8 @@ class StaffAppFormsContainer extends Component {
 						<Step>
 							<StepLabel>Basic Info</StepLabel>
 						</Step>
-						<Step>
-							<StepLabel>Contact Info</StepLabel>
-						</Step>
-            <Step>
-							<StepLabel>Health Info</StepLabel>
-						</Step>
-						<Step>
-							<StepLabel>Provider Info</StepLabel>
-						</Step>
 					</Stepper>
-					// <div>{this.getStepContent(stepIndex)}</div>
+					<div>{this.getStepContent(stepIndex)}</div>
 				</div>
 		);
 	}

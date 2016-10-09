@@ -6,6 +6,6 @@ module.exports = app => {
   app.get('/api/staff/signin', Staff.signIn);
   app.put('/api/staff/background', Staff.put_staffInfo);
   // app.put('/api/staff/password/update', Staff.put_password);
-  app.post('/api/staff', Staff.logout);
-  
+  app.post('/api/staff/logout', Staff.logout);
+  // app.post('/api/patient/logout', Patient.logout);
 }
