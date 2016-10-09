@@ -220,7 +220,7 @@
 <part>id</part>
 </key>
 </table>
-<table x="15" y="503" name="institution">
+<table x="16" y="576" name="institution">
 <row name="id" null="0" autoincrement="1">
 <datatype>INTEGER</datatype>
 <default>NOT NULL</default></row>
@@ -362,7 +362,7 @@
 <part>id</part>
 </key>
 </table>
-<table x="856" y="446" name="insurance_plan">
+<table x="856" y="431" name="insurance_plan">
 <row name="id" null="0" autoincrement="1">
 <datatype>INTEGER</datatype>
 </row>
@@ -617,7 +617,7 @@
 <part>id</part>
 </key>
 </table>
-<table x="48" y="126" name="staff">
+<table x="47" y="125" name="staff">
 <row name="id" null="1" autoincrement="1">
 <datatype>INTEGER</datatype>
 <default>NULL</default></row>
@@ -639,11 +639,23 @@
 <row name="photo_path" null="1" autoincrement="0">
 <datatype>VARCHAR(300)</datatype>
 <default>NULL</default></row>
+<row name="address" null="1" autoincrement="0">
+<datatype>VARCHAR(1000)</datatype>
+</row>
+<row name="city" null="1" autoincrement="0">
+<datatype>VARCHAR(1000)</datatype>
+</row>
+<row name="state" null="1" autoincrement="0">
+<datatype>VARCHAR(10)</datatype>
+</row>
+<row name="zip" null="1" autoincrement="0">
+<datatype>VARCHAR(10)</datatype>
+</row>
 <key type="PRIMARY" name="">
 <part>id</part>
 </key>
 </table>
-<table x="15" y="331" name="institution_staff">
+<table x="19" y="421" name="institution_staff">
 <row name="id" null="1" autoincrement="1">
 <datatype>INTEGER</datatype>
 <default>NULL</default></row>
@@ -679,7 +691,7 @@
 <part>id</part>
 </key>
 </table>
-<table x="866" y="939" name="med_records">
+<table x="860" y="924" name="med_records">
 <row name="id" null="1" autoincrement="1">
 <datatype>INTEGER</datatype>
 <default>NULL</default></row>

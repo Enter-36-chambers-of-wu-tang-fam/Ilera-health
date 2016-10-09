@@ -424,6 +424,10 @@ CREATE TABLE `staff` (
   `phone_number` VARCHAR(25) NULL,
   `password` VARCHAR(200) NULL,
   `photo_path` VARCHAR(300) NULL,
+  `address` VARCHAR(1000) NULL,
+  `city` VARCHAR(1000) NULL,
+  `state` VARCHAR(10) NULL,
+  `zip` VARCHAR(10) NULL,
   PRIMARY KEY (`id`)
 );
 
@@ -574,8 +578,8 @@ INSERT INTO `emergency_contact` (`e_1_contact_first`,`e_1_contact_last`,`e_1_con
 
 -- INSERT INTO `institution_staff` (`id`,`id_staff`,`id_institution`) VALUES
 -- ('','','');
--- INSERT INTO `staff` (`id`,`first`,`last`,`email`,`phone_number`,`password`,`photo_path`) VALUES
--- ('','','','','','','');
+-- INSERT INTO `staff` (`id`,`first`,`last`,`email`,`phone_number`,`password`,`photo_path`,`address`,`city`,`state`,`zip`) VALUES
+-- ('','','','','','','','','','','');
 
 -- INSERT INTO `med_records` (`id`,`date`,`type`,`document_path`,`description`,`id_patient`) VALUES
 -- ('','','','','','');
