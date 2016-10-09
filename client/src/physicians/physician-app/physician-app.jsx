@@ -13,7 +13,7 @@ export default class PhysicianApp extends Component {
         return (
             <div>
                 <Header />
-                <main className="patientAppMain">
+                <main className="physicianAppMain">
                     { this.props.children }
                 </main>
             </div>
