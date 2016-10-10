@@ -129,7 +129,7 @@ input[type='radio']{
 .dashboardRows{
     min-height: 10px;
 }
-.dashboardRows:after, .wrapper:after, .reminders:after, .profileDash:after, .chat:after, .messageContacts > ul:after, .contactItem:after, header:after, header ul:after, main > section > ul:after, .welcomeHeader:after, section:after, .messagesUser:after, .messagesIncoming:after, .team:after, #mainDashWelcomeMobile:after, .providerDashParent:after{
+.dashboardRows:after, .wrapper:after, .reminders:after, .profileDash:after, .chat:after, .messageContacts > ul:after, .contactItem:after, header:after, header ul:after, main > section > ul:after, .welcomeHeader:after, section:after, .messagesUser:after, .messagesIncoming:after, .team:after, #mainDashWelcomeMobile:after, .providerDashParent:after, .medsTableLabels > ul:after, .medsList > div > ul:after, .provPatMeds > div:first-of-type:after {
     clear: both;
     content: '';
     display: block;
@@ -1388,6 +1388,24 @@ main >section .team li:hover .teamProfile {
     left: 0;
     right: 30%;
     z-index: 15;
+}
+.medsTableLabels > ul > li, .medsList > div > ul > li {
+    float: left;
+    width: 20%;
+    padding: 15px 10px 15px 25px;
+}
+.medsTableLabels > ul{
+    border-bottom: 1px solid #aaa;
+}
+.medsTableLabels > ul > li{
+    text-transform: uppercase;
+    font-family: 'Lato', sans-serif;
+    color: #aaa;
+}
+.medsList i{
+    vertical-align: middle;
+    padding-right: 10px;
+    color: #E82C0C;
 }
 
 

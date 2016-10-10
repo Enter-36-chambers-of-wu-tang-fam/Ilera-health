@@ -31,7 +31,7 @@ class PatientAppFormsContainer extends Component {
 			stepIndex: 0,
 			uid: null
 		};
-	}
+	} 
 
 
   handleNext() {

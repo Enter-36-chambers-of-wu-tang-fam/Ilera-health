@@ -7,9 +7,9 @@ module.exports = {
   //added params here and miodified queryString
   new_medication: (params, cb) => {
     let data = [params.drug_name, params.dosage, params.id_medication,
-      params.id_physician, params.id_patient];
-    const queryString = 'INSERT INTO patient_medication(drug_name, dosage, \
-      id_medication, id_physician, id_patient) value (?,?,?,?,?)';
+      params.id_physician, params.id_patient, params.start_date, params.end_date];
+    const queryString = 'INSERT INTO patient_medication (drug_name, dosage, \
+      id_medication, id_physician, id_patient, start_date, end_date) value (?,?,?,?,?,?,?)';
     db.query(queryString, data, (error, results) => cb(error, results) );
   },
 
@@ -24,7 +24,7 @@ module.exports = {
   getAll_patient_medicationAndPhysician_info: (params, cb) => {
     let data = [params.userid];
     const queryString = 'SELECT m.id, m.drug_name, m.dosage, m.id_medication, \
-      m.id_physician, m.id_patient, m.start_date, m.end_date, m.type, m.details, \
+      m.id_physician, m.id_patient, m.start_date, m.end_date, \
       py.id, py.betterDoctorUID, py.first, py.last, py.email, py.phone_number, \
       py.photo_path, py.specialty \
       FROM patient_medication m \
