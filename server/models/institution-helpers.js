@@ -19,6 +19,11 @@ module.exports = {
   //   PRIMARY KEY (`id`)
   // );
 
+  get_all_institutions: (params, cb) => {
+    const queryString = 'SELECT * FROM Institution';
+    db.query(queryString, (error, results) => cb(error, results) );
+  },
+
   get_all_physician_institutions: (params, cb) => {
     let data = [params.id, params.id_physician];
     const queryString = 'SELECT * FROM Institution WHERE id=? AND \
