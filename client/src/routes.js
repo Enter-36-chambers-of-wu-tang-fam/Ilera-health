@@ -29,7 +29,7 @@ import Chat from './patients/containers/messages/chat-container.js';
 
 // Physician Components
 import PhysicianApp from './physicians/physician-app/physician-app.jsx';
-import PhysicianDashboard from './physicians/Components/main-dash/provider-dash.jsx';
+import PhysicianDashboard from './physicians/components/main-dash/provider-dash.jsx';
 import Notes from './physicians/physician-app/notes.jsx';
 import Calendar from './physicians/physician-app/calendar.jsx';
 

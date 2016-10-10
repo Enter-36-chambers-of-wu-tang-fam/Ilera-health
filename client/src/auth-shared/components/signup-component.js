@@ -74,7 +74,7 @@ class SignupForm extends Component {
   }
 
 	render() {
-		const { error, handleSubmit, pristine, reset, submitting } = this.props;
+		const { error, handleSubmit, pristine, reset, submitting, userType } = this.props;
 			return (
 				<div>
 					<h2>{this.props.title} Sign Up</h2>
@@ -87,6 +87,9 @@ class SignupForm extends Component {
               </div>
               <div>
                 <Field name="email" type="text" component={this.renderTextField} label="Email"/>
+              </div>
+              <div className={userType === 'physician' ? 'showPReset' : 'hidePReset'}>
+                <Field name="betterUID" type="text" component={this.renderTextField} label="Better Doctor UID"/>
               </div>
               <div>
                 <Field name="password" type="password" component={this.renderTextField} label="Password"/>
