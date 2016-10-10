@@ -84,7 +84,6 @@ class PatientProfileTabs extends Component {
 							<ProfileMeds user={user} medications={medications}/>
 						</div>
 					</Tab>
-					
 				</Tabs>
 			</div>
     );
