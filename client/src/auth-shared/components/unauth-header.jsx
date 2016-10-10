@@ -53,7 +53,7 @@ export default class UnauthHeader extends Component {
 
       return (
           <header>
-            <h1><a href="/"><img src="../styles/logos/myilera_large_white.png" /></a></h1>
+            <h1><a href="/"><img src="/styles/logos/myilera_large.png" /></a></h1>
             <ul>
               <li>
                 <FlatButton label="For Patients"

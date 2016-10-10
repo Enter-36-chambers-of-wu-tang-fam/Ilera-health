@@ -28,6 +28,18 @@ const styles = {
   dropHover: {
     boxShadow:'0em 0em .5em .4em rgba(242,108,44,.8)',
     transition:'box-shadow .3s'
+  },
+  inputStyle: {
+    color: '#f1f1f1'
+  },
+   hintStyle: {
+    color: "#CCC",
+  },
+  floatingLabelStyle: {
+    color: "CCC",
+  },
+  floatingLabelFocusStyle: {
+    color: "#0CC"
   }
 };
 
@@ -111,7 +123,7 @@ class ProfileSum extends Component {
 	    let id = localStorage.getItem('uid');
 		  let code  = CryptoJS.AES.decrypt(id.toString(), 'key'); //need to change key
 		  let uid = code.toString(CryptoJS.enc.Utf8);
-    load(uid);
+      load(uid);
   }
 
     onResetClick(){
@@ -125,6 +137,10 @@ class ProfileSum extends Component {
               floatingLabelText={props.label}
               fullWidth={true}
               errorText={props.touched && props.error}
+              hintStyle={styles.hintStyle}
+              floatingLabelStyle={styles.floatingLabelStyle}
+              floatingLabelFocusStyle={styles.floatingLabelFocusStyle}
+              inputStyle={styles.inputStyle}
               {...props}
           />
         )
@@ -138,7 +154,9 @@ class ProfileSum extends Component {
     };
       return (
           <div className="profileSummary" style={{
-            minHeight: height
+            minHeight: height,
+            color: '#fff',
+            background: "rgba(13,34,51,.8)"
           }}>
             <Dropzone onDrop={this.onDrop.bind(this)} multiple={false} style={styles.dropzone} activeStyle={styles.dropHover}  accept="image/*">
               <div className="profilePic" style={profilePicture}>

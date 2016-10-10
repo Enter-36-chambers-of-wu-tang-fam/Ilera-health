@@ -62,10 +62,21 @@ class UploadRecordForm extends Component {
     router: React.PropTypes.object
   };
 
+  constructor(props){
+    super(props);
+    this.state={
+      submitted: false,
+      message: null,
+      errorMessage: null
+    }
+  }
   onSubmit(data) {
+    let that = this;
+
     let id = localStorage.getItem('uid');
     let code  = CryptoJS.AES.decrypt(id.toString(), 'key'); //need to change key
     let uid = code.toString(CryptoJS.enc.Utf8);
+    
     var body = new FormData();
     body.append('upload',data.files[0]);
     body.append('date',data.date);
@@ -74,16 +85,26 @@ class UploadRecordForm extends Component {
 
     axios.post(`/upload/old_records/${uid}`, body)
       .then(resp => {
-        return resp;
+        that.setState({submitted: true, message:"Your document was submitted!"})
     })
-    .catch(error => console.log(error))
-    this.context.router.push('/patient/records');
+    .catch(error => {
+      that.setState({submitted: false, errorMessage:"There was an error with your submission, please try again"})
+      console.log(error)
+    })
+  }
+
+  componentWillUpdate(){
+    this.state.submitted ? this.context.router.push('/patient/records') : ''; 
   }
 
   render() {
     const { handleSubmit, reset} = this.props;
     return (
       <div className="uploadRecordPage">  
+        <p className="successmsg">{this.state.message}</p>
+        <p className="errormsg">{this.state.errorMessage}</p>
+      <br/>
+      <br/>
         <form onSubmit={handleSubmit(this.onSubmit.bind(this))}>
           <div>
             <Field
@@ -95,7 +116,7 @@ class UploadRecordForm extends Component {
             <Field 
               name="date" 
               component="input" 
-              placeholder="YYYY-MM-DD (i.e. 2016-01-21)"
+              placeholder="YYYY-MM-DD (2016-01-21)"
               normalize={normalizeDate}
             />
             <br/>
