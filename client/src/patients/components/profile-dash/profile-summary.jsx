@@ -149,7 +149,8 @@ class ProfileSum extends Component {
     render() {
       const { height, error, handleSubmit, pristine, reset, submitting } = this.props;
       const profilePicture = {
-        backgroundImage: `url(${this.state.uploadFiles.length > 0 ? this.state.uploadFiles.preview : this.props.user.photo_path})`,
+        backgroundImage: `url(${this.state.uploadFiles.length > 0 ? this.state.uploadFiles.preview : this.props.user.photo_path === null ?
+          '/styles/defaults/default_photo.png' : this.props.user.photo_path})`,
         backgroundSize:'cover'
     };
       return (

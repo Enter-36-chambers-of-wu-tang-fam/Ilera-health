@@ -72,13 +72,13 @@ class AppointmentHistoryDashboard extends Component{
       <FlatButton
         label="Cancel"
         primary={true}
-        onTouchTap={this.handleClose}
+        onTouchTap={this.handleClose.bind(this)}
       />,
       <FlatButton
         label="Submit"
         primary={true}
         keyboardFocused={true}
-        onTouchTap={this.handleClose}
+        onTouchTap={this.handleClose.bind(this)}
       />,
     ];
     return (
