@@ -116,11 +116,10 @@ module.exports = {
   delete_record: (params, cb) => {
     const queryString = "DELETE FROM med_records WHERE id="+params.body.id+" AND id_patient="+ params.params.uid;
     db.query(queryString, (error, results) => {
-      console.log(params.body.path);
       checkIfFile(`../client/${params.body.path}`, (err,stats) => {
         if(err) console.log(err);
         if(stats){
-          fs.unlink(`../client/${params.body.path}`, (erro) => erro ? console.log(erro) : console.log("Successful Delete"));
+          fs.unlink(`../client/${params.body.path}`, (erro) => erro ? console.log(erro) : '');
         }
         cb(error, results) 
       });

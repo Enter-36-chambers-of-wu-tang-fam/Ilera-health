@@ -64,7 +64,8 @@ class RecordsDashboard extends Component{
     
     return (
         <div className="medRecords">
-                <a href="/patient/records/upload" className="uploadRecord"><button>Upload</button></a>
+          <a href="/patient/records/upload" className="uploadRecord"><button>Upload</button></a>
+          <a href="/patient/records/appointments" className="uploadRecord"><button>Appointment Notes</button></a>
         <Table
           height={this.state.height}
           fixedHeader={this.state.fixedHeader}
@@ -78,9 +79,8 @@ class RecordsDashboard extends Component{
             adjustForCheckbox={this.state.showCheckboxes}
             enableSelectAll={this.state.enableSelectAll}
           >
-            Medical Records Datassss
             <TableRow>
-              <TableHeaderColumn colSpan="5" tooltip="Medical Records Data" style={{textAlign: 'center'}}>
+              <TableHeaderColumn colSpan="5" tooltip="Medical Records Data" style={{textAlign: 'center', fontSize:'24px'}}>
                 Medical Records Data
               </TableHeaderColumn>
             </TableRow>

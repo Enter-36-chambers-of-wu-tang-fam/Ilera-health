@@ -46,6 +46,7 @@ import PhysicianCalendar from './patients/components/physicians-dash/physicianAp
 import PatientAppFormContainer from './patients/components/onboarding/patient-signup-forms.jsx';
 import MedicalHistory from './patients/components/medical-history-dash/medical-history-dashboard.jsx';
 import MedicalHistoryUpload from './patients/components/medical-history-dash/uploadDocuments.jsx';
+import MedicalHistoryAppointment from './patients/components/medical-history-dash/appointment-history-dashboard.jsx';
 
 // Staff Components
 import StaffApp from './staff/components/staff-app.jsx';
@@ -83,6 +84,7 @@ export default (
             <Route path="medications" component={ Medication } />
             <Route path="records" component={ MedicalHistory } />
             <Route path="records/upload" component={ MedicalHistoryUpload } />
+            <Route path="records/appointments" component={ MedicalHistoryAppointment } />
         </Route>
         <Route path='staff' component={ StaffAuth(StaffApp) } >
           <Route path="form" >

@@ -4,7 +4,7 @@ import DashboardReminders from './dashboard-reminders.jsx';
 
 const DashboardMain = () => {
  const profilePicture = {
-        backgroundImage: `url(${localStorage.getItem("photo")})`,
+        backgroundImage: `url(${localStorage.getItem('photo') ? localStorage.getItem('photo') : '/styles/defaults/default_photo.png' })`,
         backgroundSize:'cover',
         width: "150px",
         height: "150px",
@@ -16,13 +16,13 @@ const DashboardMain = () => {
     return (
         <div className="dashboardMain">
            <div id="mainDashWelcomeMobile">
-              <div className=".img" style={profilePicture}>
+              <div className="img" style={profilePicture}>
               </div>        
                 <h3>{`Welcome, ${localStorage.getItem('first')}!`}</h3>
             </div>
             <DashboardInsurance />
             <div className="mainDashWelcome"> 
-              <div className=".img" style={profilePicture}>
+              <div className="img" style={profilePicture}>
               </div>
               <h3>{`Welcome, ${localStorage.getItem('first')}!`}</h3>
             </div>

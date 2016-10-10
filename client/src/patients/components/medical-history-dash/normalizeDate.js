@@ -2,10 +2,11 @@ const normalizeDate = (value, previousValue) => {
   if (!value) {
     return value
   }
-  const onlyNums = value.replace(/[^\d]/g, '')
+  let onlyNums = value.replace(/[^\d]/g, '')
   if (!previousValue || value.length > previousValue.length) {
     // typing forward
     if (onlyNums.length === 4) {
+      if(value > 2016) onlyNums = 2016;
       return onlyNums + '-'
     }
     if (onlyNums.length === 6) {
