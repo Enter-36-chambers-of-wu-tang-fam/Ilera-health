@@ -21,7 +21,7 @@ export default class Messages extends Component {
     })
      socket.on('new bc message', function(msg) {
       console.log("NEW MESSAGE INCOMING", msg, user, chosenid);
-      that.handleSave(msg)
+      // that.handleSave(msg)
     })
     socket.on('new channel', function(channel) {
       console.log("NEW CHANNEL");

@@ -62,6 +62,7 @@ export default (
             <Route path="patients" component={ AllUsers } >
               <Route path=':patientId' component={ ProvPatProfile } />
             </Route>
+            <Route path='test' component={ ProvPatProfile } />
             <Route path="notes" component={ Notes } />
             <Route path="messages" component={ Chat } />
             <Route path="profile" component={ Profile } />

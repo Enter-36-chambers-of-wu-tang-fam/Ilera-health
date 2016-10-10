@@ -129,7 +129,7 @@ input[type='radio']{
 .dashboardRows{
     min-height: 10px;
 }
-.dashboardRows:after, .wrapper:after, .reminders:after, .profileDash:after, .chat:after, .messageContacts > ul:after, .contactItem:after, header:after, header ul:after, main > section > ul:after, .welcomeHeader:after, section:after, .messagesUser:after, .messagesIncoming:after, .team:after, #mainDashWelcomeMobile:after, .providerDashParent:after{
+.dashboardRows:after, .wrapper:after, .reminders:after, .profileDash:after, .chat:after, .messageContacts > ul:after, .contactItem:after, header:after, header ul:after, main > section > ul:after, .welcomeHeader:after, section:after, .messagesUser:after, .messagesIncoming:after, .team:after, #mainDashWelcomeMobile:after, .providerDashParent:after, .medsTableLabels > ul:after, .medsList > div > ul:after, .provPatMeds > div:first-of-type:after {
     clear: both;
     content: '';
     display: block;
@@ -188,8 +188,14 @@ input[type='radio']{
     font-size: 72px;
     text-align: center;
 }
-
-.mainDashWelcome img, #mainDashWelcomeMobile img, .providerDashRight img{
+.profileDash{
+    padding: 30px 0;
+}
+.profileDash .provViewPatDash{
+    width: 30%;
+    float: left;
+}
+.mainDashWelcome img, #mainDashWelcomeMobile img, .providerDashRight img, .profileDash img{
     width: 150px;
     height: 150px;
     border-radius: 50%;
@@ -236,13 +242,16 @@ main{
     margin: 2% 1.5%;
 }
 
-.dashboardInsurance h5{
+.dashboardInsurance h5, .profileDash .provViewPatDash h6{
     font-size: 14px;
     text-transform: uppercase;
     text-align: left;
     color: #aaa;
     margin-bottom: 5px;
 
+}
+.profileDash .provViewPatDash h5{
+    margin-bottom: 10px;
 }
 
 .dashboardInsurance p{
@@ -258,7 +267,7 @@ main{
     color: #203248;
 }
 
-.dashboardRows:first-of-type, .profileForms > div:first-of-type{
+.dashboardRows:first-of-type, .patientAppMain .profileForms > div:first-of-type{
     background-image: url('./background_images/dashboard_main.jpg');
     background-repeat: no-repeat;
     background-position: center;
@@ -1380,6 +1389,25 @@ main >section .team li:hover .teamProfile {
     right: 30%;
     z-index: 15;
 }
+.medsTableLabels > ul > li, .medsList > div > ul > li {
+    float: left;
+    width: 20%;
+    padding: 15px 10px 15px 25px;
+}
+.medsTableLabels > ul{
+    border-bottom: 1px solid #aaa;
+}
+.medsTableLabels > ul > li{
+    text-transform: uppercase;
+    font-family: 'Lato', sans-serif;
+    color: #aaa;
+}
+.medsList i{
+    vertical-align: middle;
+    padding-right: 10px;
+    color: #E82C0C;
+}
+
 
 /*----------- MEDIA QUERIES ---------*/
 @media screen and (max-width: 960px) {

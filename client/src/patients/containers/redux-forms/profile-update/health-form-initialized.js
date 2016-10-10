@@ -17,6 +17,14 @@ import { getUserInfo, didInit } from '../../../actions/user.js';
 // Actions
 import { emergencyContact } from '../../../../auth-shared/actions/actions.js';
 
+const patientStyle = {
+	display: {display: 'block'}
+}
+
+const providerStyle = {
+	display: {display: 'none'}
+}
+
 const validate = values => {
   const errors = {}
 
@@ -36,9 +44,8 @@ class HealthInfoFormInitialized extends Component {
   constructor(props){
     super(props);
 		let maxDate = new Date();
-
 		let minDate = new Date(1900, 1, 1);
-		console.log(maxDate, minDate);
+		const status = (localStorage.getItem('userType')) === 'patient' ? false : true;
 		this.state = {
 			fixedHeader: true,
       fixedFooter: true,
@@ -49,7 +56,8 @@ class HealthInfoFormInitialized extends Component {
       enableSelectAll: true,
       showCheckboxes: true,
       height: '300px',
-			allergies: []
+			allergies: [],
+			patient: status
 		};
   }
 
@@ -95,38 +103,44 @@ class HealthInfoFormInitialized extends Component {
 	}
 
 
-	renderTextField (props) {
+	renderTextField ({ input, label, disabled, meta: { touched, error } } ) {
+
 		return(
 			<TextField
-				hintText={props.label}
-				floatingLabelText={props.label}
+				hintText={label}
+				floatingLabelText={label}
 				fullWidth={true}
-				errorText={props.touched && props.error}
-				{...props}
+				onChange={(event, index, value) => input.onChange(value)}
+				disabled={disabled}
+				errorText={touched && error}
+				{...input}
 			/>
 		)
 	}
 
-	renderMultiLineTextField (props) {
+	renderMultiLineTextField ({ input, label, disabled, meta: { touched, error } } ) {
+
 		return(
 			<TextField
-				hintText={props.label}
-				floatingLabelText={props.label}
+				hintText={label}
+				floatingLabelText={label}
 				fullWidth={true}
 				multiLine={true}
-				rowsMax={4}
-				errorText={props.touched && props.error}
-				{...props}
+				onChange={(event, index, value) => input.onChange(value)}
+				disabled={disabled}
+				errorText={touched && error}
+				{...input}
 			/>
 		)
 	}
 
-	renderSelectField ({ input, label, meta: { touched, error }, children }) {
+	renderSelectField ({ input, label, disabled, meta: { touched, error }, children }) {
 		return (
 			<SelectField
 				floatingLabelText={label}
 				errorText={touched && error}
 				fullWidth={true}
+				disabled={disabled}
 				{...input}
 				onChange={(event, index, value) => input.onChange(value)}
 				children={children}/>
@@ -135,13 +149,14 @@ class HealthInfoFormInitialized extends Component {
 
 	render() {
 		const { error, handleSubmit, pristine, reset, submitting } = this.props;
-
+		const { patient } = this.state;
+		console.log("PATIENT", patient)
 		return (
 			<div  className="forms">
 				<h2>Health Info</h2>
 					<form onSubmit={handleSubmit(props => this.submitMe(props))}>
 						<div>
-							<Field name="gender" component={this.renderSelectField} label="Gender">
+							<Field name="gender" component={this.renderSelectField} label="Gender" disabled={patient}>
 									<MenuItem value={'Male'} primaryText="Male"/>
 									<MenuItem value={'Female'} primaryText="Female"/>
 									<MenuItem value={'Transgender'} primaryText="Transgender"/>
@@ -152,10 +167,10 @@ class HealthInfoFormInitialized extends Component {
 									<MenuItem value={'Agender'} primaryText="Agender"/>
 							</Field>
 						</div>
-						<Field name="weight" type="text" component={this.renderTextField} label="Weight (lbs)"/>
-						<Field name="height" type="text" component={this.renderTextField} label="Height (0.0)"/>
+						<Field name="weight" type="text" component={this.renderTextField} label="Weight (lbs)" disabled={patient}/>
+						<Field name="height" type="text" component={this.renderTextField} label="Height (0.0)" disabled={patient}/>
 						<div>
-							<Field name="blood_type" component={this.renderSelectField} label="Blood Type">
+							<Field name="blood_type" component={this.renderSelectField} label="Blood Type" disabled={patient}>
 								<MenuItem value={'A+'} primaryText="A+"/>
 								<MenuItem value={'A-'} primaryText="A-"/>
 								<MenuItem value={'B+'} primaryText="B+"/>
@@ -166,17 +181,17 @@ class HealthInfoFormInitialized extends Component {
 								<MenuItem value={'O-'} primaryText="O-"/>
 							</Field>
 						</div>
-						<Field name="procedures" type="text" component={this.renderMultiLineTextField} label="Past Procedures (include dates)"/>
-						<Field name="conditions" type="text" component={this.renderMultiLineTextField} label="Conditions"/>
-						<Field name="medications" type="text" component={this.renderMultiLineTextField} label="Medications (include dosage/frequency)"/>
-						<Field name="allergies" type="text" component={this.renderMultiLineTextField} label="Allergies (Ex: allergy-reaction;)"/>
+						<Field name="procedures" type="text" component={this.renderMultiLineTextField} label="Past Procedures (include dates)" disabled={patient}/>
+						<Field name="conditions" type="text" component={this.renderMultiLineTextField} label="Conditions" disabled={patient}/>
+						<Field name="medications" type="text" component={this.renderMultiLineTextField} label="Medications (include dosage/frequency)" disabled={patient}/>
+						<Field name="allergies" type="text" component={this.renderMultiLineTextField} label="Allergies (Ex: allergy-reaction;)" disabled={patient}/>
 
 						{error && <strong>{error}</strong>}
 						<RaisedButton
 								label='Save'
 								primary={true}
 								type='submit'
-								className='btn'
+								style={patient ? providerStyle.display : patientStyle.display }
 						/>
 					</form>
 			</div>

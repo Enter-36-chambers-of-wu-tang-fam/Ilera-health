@@ -8,8 +8,8 @@ import RaisedButton from 'material-ui/RaisedButton';
 class FormIntro extends Component {
 
 	static contextTypes = {
-    router: React.PropTypes.object
-  }
+		router: React.PropTypes.object
+	}
 
 	getStepContent (){
 		let steps=this.props.stepIndex;

@@ -9,6 +9,9 @@ import BackgroundInfoFormInitialized from '../../../patients/containers/redux-fo
 import ContactInfoFormInitialized from '../../../patients/containers/redux-forms/profile-update/contact-form-initialized.js';
 import HealthInfoFormInitialized from '../../../patients/containers/redux-forms/profile-update/health-form-initialized.js';
 import ProviderInfoFormInitialized from '../../../patients/containers/redux-forms/profile-update/provider-form-initialized.js';
+import ProfileMeds from './prov-pat-profile-meds.jsx';
+import { getAllPatientMedication } from '../../../physicians/actions/medication.js';
+
 
 const styles = {
   tab: {
@@ -26,13 +29,10 @@ class PatientProfileTabs extends Component {
   }
 
 	componentWillMount(){
-    console.log("MAIN COMPONENT LOADED")
-	  const { dispatch, initialize, load, loadContacts, info } = this.props;
-	  let id = localStorage.getItem('uid');
-		let code  = CryptoJS.AES.decrypt(id.toString(), 'key'); //need to change key
-		let uid = code.toString(CryptoJS.enc.Utf8);
-	  load(uid);
-		loadContacts(uid);
+	  const { dispatch, initialize, load, loadContacts, loadMeds, info } = this.props;
+	  load(21);
+		loadContacts(21);
+		loadMeds(21);
   }
 
   handleChange(value) {
@@ -42,6 +42,7 @@ class PatientProfileTabs extends Component {
   };
 
   render() {
+		const { user, medications } = this.props;
     return (
 			<div className="profileForms">
 				<Tabs
@@ -68,6 +69,21 @@ class PatientProfileTabs extends Component {
 							<ProviderInfoFormInitialized provider={this.props.provider} init={this.props.init} didInit={this.props.didInit} />
 						</div>
 					</Tab>
+					<Tab onClick={this.handleChange.bind(this, 'e')} label="Records" style={styles.tab} value="e">
+						<div>
+							<h2></h2>
+						</div>
+					</Tab>
+					<Tab onClick={this.handleChange.bind(this, 'f')} label="Notes" style={styles.tab} value="f">
+						<div>
+							<h2></h2>
+						</div>
+					</Tab>
+					<Tab onClick={this.handleChange.bind(this, 'g')} label="Meds" style={styles.tab} value="g">
+						<div>
+							<ProfileMeds user={user} medications={medications}/>
+						</div>
+					</Tab>
 				</Tabs>
 			</div>
     );
@@ -79,11 +95,13 @@ export default connect(
     user: state.user.user || {},
 		init: state.user.init,
 		contacts: state.user.e_contacts[0] || state.user.e_contacts,
-		provider: state.user.provider[0] || state.user.provider
+		provider: state.user.provider[0] || state.user.provider,
+		medications: state.meds.medication
   }),
   { 
 	  load: getUserInfo,
 		loadContacts: getUserContacts,
+		loadMeds: getAllPatientMedication,
 	  didInit: didInit
   }
 )(PatientProfileTabs)
