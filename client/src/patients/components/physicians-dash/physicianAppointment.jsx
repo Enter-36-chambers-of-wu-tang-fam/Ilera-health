@@ -6,6 +6,8 @@ import RaisedButton from 'material-ui/RaisedButton';
 import FlatButton from 'material-ui/FlatButton';
 import {RadioButton, RadioButtonGroup} from 'material-ui/RadioButton';
 import Dialog from 'material-ui/Dialog';
+import DropDownMenu from 'material-ui/DropDownMenu';
+import MenuItem from 'material-ui/MenuItem';
 import {getAllPhysicianAppts, setAppointment} from '../../actions/appointment.js';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
@@ -14,13 +16,13 @@ import moment from 'moment';
 import axios from 'axios';
 
 const style = {
-  margin: 12,
   block: {
-    maxWidth: 250,
-  },
-  radioButton: {
-    marginBottom: 16,
-  },
+    maxWidth: 300,
+  }
+};
+
+const submitStyle = {
+  margin: "2% 0% 0% 5%"
 };
 
 //Set min and Max Dates
@@ -67,6 +69,8 @@ class PhysicianCalendar extends Component{
       physician: [],
       appointmentDate: null,
       appointmentTime: false,
+      dateNotSelected: true,
+      submittedAppointment: false,
 
       unavailableDates: this.props.unavailableDates,
       unavailableTimes: {},
@@ -77,15 +81,16 @@ class PhysicianCalendar extends Component{
       autoOk: true, //Date Picker
       open: false, //Dialog
 
+      morningTime: false,
       morning: {
         '08:00':true,
-        '8:15':true,
+        '08:15':true,
         '08:30':true,
-        '8:45':true,
+        '08:45':true,
         '09:00':true,
-        '9:15':true,
+        '09:15':true,
         '09:30':true,
-        '9:45':true,
+        '09:45':true,
         '10:00':true,
         '10:15':true,
         '10:30':true,
@@ -96,42 +101,44 @@ class PhysicianCalendar extends Component{
         '11:45':true
       },
 
+      afternoonTime: false,
       afternoon: {
         '12:00':true,
         '12:15':true,
         '12:30':true,
         '12:45':true,
         '01:00':true,
-        '1:15':true,
+        '01:15':true,
         '01:30':true,
-        '1:45':true,
+        '01:45':true,
         '02:00':true,
-        '2:15':true,
+        '02:15':true,
         '02:30':true,
-        '2:45':true,
+        '02:45':true,
         '03:00':true,
-        '3:15':true,
+        '03:15':true,
         '03:30':true,
-        '3:45':true,
+        '03:45':true,
         '04:00':true,
-        '4:15':true,
+        '04:15':true,
         '04:30':true,
-        '4:45':true
+        '04:45':true
       },
 
+      eveningTime: false,
       evening: {
         '05:00':true,
-        '5:15':true,
+        '05:15':true,
         '05:30':true,
-        '5:45':true,
+        '05:45':true,
         '06:00':true,
-        '6:15':true,
+        '06:15':true,
         '06:30':true,
-        '6:45':true,
+        '06:45':true,
         '07:00':true,
-        '7:15':true,
+        '07:15':true,
         '07:30':true,
-        '7:45':true
+        '07:45':true
       }
     };
   }
@@ -171,12 +178,14 @@ class PhysicianCalendar extends Component{
     }
     this.props.requestAppointment(data);
     this.props.getAppointments(this.state.physician.id);
+    this.setState({submittedAppointment:true})
   }
 
   handleDate(event, date){
     this.setState({
       appointmentDate: date,
-      unavailableTimes: {}
+      unavailableTimes: {},
+      dateNotSelected:false
     });
     let formattedDate = moment(date,'MM DD YYYY',true).format().slice(0,10);
 
@@ -198,10 +207,33 @@ class PhysicianCalendar extends Component{
 
   handleTime(time){
     this.setState({
-      appointmentTime: time,
+      appointmentTime: time + (this.state.morning[time] ? " AM" : " PM")
     })
+  };
+
+  handleMorning(event,index,time) {
+    this.setState({
+      morningTime:time,
+      afternoonTime:null,
+      eveningTime: null
+    });
   }
 
+  handleAfternoon(event,index,time) {
+    this.setState({
+      morningTime:null,
+      afternoonTime:time,
+      eveningTime: null
+    });
+  }
+
+  handleEvening(event,index,time) {
+    this.setState({
+      morningTime:null,
+      afternoonTime:null,
+      eveningTime: time
+    });
+  }
 
 
   render(){
@@ -224,11 +256,28 @@ class PhysicianCalendar extends Component{
         
       return (
         <div className="scheduling">
+
+
+          <RaisedButton className="appointmentRequestButton" label="Request An Appointment" primary={true} style={style} onTouchTap={this.handleOpen.bind(this)}/>
+
+
+          <Dialog
+          title="Appointment Set"
+          actions={actions}
+          modal={true}
+          open={this.state.open}
+          onRequestClose={this.handleClose}
+          children={`Your appointment has been set for ${moment(this.state.appointmentDate).format("dddd, MMMM Do YYYY")} at ${String(this.state.appointmentTime)} ${this.state.morning[this.state.appointmentTime] ? ' AM' : ' PM'}!`}
+        >
+
+
+
           <DatePicker
             className="datePicker"
             hintText="Enter a date"
             container="inline"
             mode="landscape"
+            open="open"
             autoOk={this.state.autoOk}
             value={this.state.appointmentDate}
             onChange={this.handleDate.bind(this)}
@@ -242,38 +291,32 @@ class PhysicianCalendar extends Component{
             this.state.afternoon[this.state.appointmentTime] ||
             this.state.evening[this.state.appointmentTime]}
           </p>
-          <div className="times morning">
+          <div className="timeOfDay">
           <h3> Morning </h3>
-            { Object.keys(this.state.morning).map(time => {
-              return <RaisedButton key={time} label={time + " AM"} disabled={this.state.unavailableTimes[time+':00'] ? true : false } style={style} onClick={this.handleTime.bind(this,time)}/>
+            <DropDownMenu maxHeight={300} value={this.state.morningTime} disabled={this.state.dateNotSelected} onChange={this.handleMorning.bind(this)}>
+              { Object.keys(this.state.morning).map(time => {
+              return <MenuItem key={time} value={time} primaryText={time + " AM"} disabled={this.state.unavailableTimes[time+':00'] ? true : false } style={style} onClick={this.state.unavailableTimes[time+':00'] ? '' : this.handleTime.bind(this,time)}/>
             })}
-          </div>
-
-          <div className="times afternoon">
+            </DropDownMenu>
           <h3> Afternoon </h3>
-            { Object.keys(this.state.afternoon).map(time => {
-              return <RaisedButton key={time} label={time + " PM"} style={style} disabled={this.state.unavailableTimes[time+':00'] ? true : false} onClick={this.handleTime.bind(this,time)}/>
+            <DropDownMenu maxHeight={300} value={this.state.afternoonTime} disabled={this.state.dateNotSelected}  onChange={this.handleAfternoon.bind(this)}>
+              { Object.keys(this.state.afternoon).map(time => {
+              return <MenuItem key={time} value={time} primaryText={time + " PM"} disabled={this.state.unavailableTimes[time+':00'] ? true : false } style={style} onClick={this.state.unavailableTimes[time+':00'] ? '' : this.handleTime.bind(this,time)}/>
             })}
-          </div>
-
-         <div className="times evening">
+            </DropDownMenu>
          <h3> Evening </h3>
-            { Object.keys(this.state.evening).map(time => {
-              return <RaisedButton key={time} label={time + " PM"} style={style} disabled={this.state.unavailableTimes[time+':00'] ? true : false} onClick={ this.handleTime.bind(this,time) } />
+            <DropDownMenu maxHeight={300} value={this.state.eveningTime} disabled={this.state.dateNotSelected}  onChange={this.handleEvening.bind(this)}>
+              { Object.keys(this.state.evening).map(time => {
+              return <MenuItem key={time} value={time} primaryText={time + " PM"} disabled={this.state.unavailableTimes[time+':00'] ? true : false } style={style} onClick={this.state.unavailableTimes[time+':00'] ? '' : this.handleTime.bind(this,time)}/>
             })}
-          </div>
+            </DropDownMenu>
+        </div>
 
-          <RaisedButton className="appointmentRequestButton" label="Request Appointment" primary={true} style={style} onTouchTap={this.handleOpen.bind(this)} disabled={!this.state.appointmentDate || !this.state.appointmentTime } onClick={this.handleSubmit.bind(this)}/>
+          <RaisedButton className="appointmentRequestButton" label="Submit Appointment Request" primary={true} style={submitStyle} disabled={!this.state.appointmentDate || !this.state.appointmentTime } onClick={this.handleSubmit.bind(this)}/>
+
+          {this.state.submittedAppointment ? <h4 className="appointmentSuccess">Your appointment has been set!</h4> : ''}
 
 
-          <Dialog
-          title="Appointment Set"
-          actions={actions}
-          modal={true}
-          open={this.state.open}
-          onRequestClose={this.handleClose}
-          children={`Your appointment has been set for ${moment(this.state.appointmentDate).format("dddd, MMMM Do YYYY")} at ${String(this.state.appointmentTime)} ${this.state.morning[this.state.appointmentTime] ? ' AM' : ' PM'}!`}
-        >
         </Dialog>
       </div>
     );

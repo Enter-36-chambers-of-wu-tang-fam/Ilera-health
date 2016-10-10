@@ -1,11 +1,13 @@
 import axios from 'axios';
-import * as types from './action-constants';
+import {SET_APPOINTMENT_REQUEST, SET_APPOINTMENT_SUCCESS, SET_APPOINTMENT_FAILURE,
+ALL_PHYSICIAN_APPOINTMENTS_REQUEST, ALL_PHYSICIAN_APPOINTMENTS_SUCCESS, ALL_PHYSICIAN_APPOINTMENTS_FAILURE,
+} from './action-constants';
 
 /* SET APPOINTMENT ACTIONS */
 
 const setAppointmentRequest = (appt) => {
   return {
-    type: types.SET_APPOINTMENT_REQUEST,
+    type: SET_APPOINTMENT_REQUEST,
     payload:appt,
     isPosted: false
   }
@@ -13,7 +15,7 @@ const setAppointmentRequest = (appt) => {
 
 const setAppointmentSuccess = (setAppt) => {
   return {
-    type: types.SET_APPOINTMENT_SUCCESS,
+    type: SET_APPOINTMENT_SUCCESS,
     payload: setAppt,
     isPosted: true
   }
@@ -21,7 +23,7 @@ const setAppointmentSuccess = (setAppt) => {
 
 const setAppointmentFailure = (errorMsg) => {
   return {
-    type: types.SET_APPOINTMENT_FAILURE,
+    type: SET_APPOINTMENT_FAILURE,
     payload: errorMsg,
     isPosted: false
   }
@@ -30,7 +32,7 @@ const setAppointmentFailure = (errorMsg) => {
 
 export const setAppointment = (appt) => {
   return function(dispatch){
-    dispatch(setAppointmentSuccess(appt));
+    dispatch(setAppointmentRequest(appt));
     axios.post('/api/patient/setappointment', appt)
       .then(setDate => {
         dispatch(setAppointmentSuccess(setDate));
@@ -44,7 +46,7 @@ export const setAppointment = (appt) => {
 
 const getAllPhysicianApptsRequest = (physician) => {
   return {
-    type: types.ALL_PHYSICIAN_APPOINTMENTS_REQUEST,
+    type: ALL_PHYSICIAN_APPOINTMENTS_REQUEST,
     payload:physician,
     retrieved: false
   }
@@ -52,7 +54,7 @@ const getAllPhysicianApptsRequest = (physician) => {
 
 const getAllPhysicianApptsSuccess = (dates) => {
   return {
-    type: types.ALL_PHYSICIAN_APPOINTMENTS_SUCCESS,
+    type: ALL_PHYSICIAN_APPOINTMENTS_SUCCESS,
     payload: dates,
     retrieved: true
   }
@@ -60,7 +62,7 @@ const getAllPhysicianApptsSuccess = (dates) => {
 
 const getAllPhysicianApptsFailure = (errorMsg) => {
   return {
-    type: types.ALL_PHYSICIAN_APPOINTMENTS_FAILURE,
+    type: ALL_PHYSICIAN_APPOINTMENTS_FAILURE,
     payload: errorMsg,
     retrieved: false
   }

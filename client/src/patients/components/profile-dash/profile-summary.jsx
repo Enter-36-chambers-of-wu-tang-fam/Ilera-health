@@ -21,14 +21,13 @@ const styles = {
     width:'',
     height:'',
     border:'none',
-    borderRadius:'',
-    maxWidth:'205px',
+    borderRadius:'50%',
+    maxWidth:'200px',
     margin:"0 auto"
   },
   dropHover: {
     boxShadow:'0em 0em .5em .4em rgba(242,108,44,.8)',
-    background:'rgba(0,0,0,.7)',
-    transition:'border .3s, box-shadow .3s'
+    transition:'box-shadow .3s'
   }
 };
 
@@ -141,7 +140,7 @@ class ProfileSum extends Component {
           <div className="profileSummary" style={{
             minHeight: height
           }}>
-            <Dropzone onDrop={this.onDrop.bind(this)} multiple={false} style={styles.dropzone} activeStyle={styles.dropHover}>
+            <Dropzone onDrop={this.onDrop.bind(this)} multiple={false} style={styles.dropzone} activeStyle={styles.dropHover}  accept="image/*">
               <div className="profilePic" style={profilePicture}>
                 <div className="profilePic_overlay"><i className="fa fa-camera fa-2x" aria-hidden="true"></i> Drag & Drop!</div>
               </div>

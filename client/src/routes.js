@@ -75,7 +75,7 @@ export default (
             <Route path="healthlog" component={ HealthLog } />
             <Route path="physicians" component={ AllPhysicians } />
               <Route path='physicians/:provider' component={ AllPhysicianProfile } >
-                <Route path='calendar' component={ PhysicianCalendar } />
+                <Route path='individual' component={ PhysicianCalendar } />
               </Route>
             <Route path="messages" component={ Chat } />
             <Route path="profile" component={ Profile } />
