@@ -30,9 +30,12 @@ INSERT INTO `institution` (`inst_name`,`type`,`description`,`rating`,`phone_numb
 
 -- INSERT INTO `physician_institution` (`id`,`id_institution`,`id_physician`) VALUES
 -- ('','','');
-INSERT INTO `physician_institution` (`id_institution`,`id_physician`) VALUES ('1','1');
-INSERT INTO `physician_institution` (`id_institution`,`id_physician`) VALUES ('1','2');
-
+-- INSERT INTO `physician_institution` (`id_institution`,`id_physician`) VALUES ('1','1');
+-- INSERT INTO `physician_institution` (`id_institution`,`id_physician`) VALUES ('1','2');
+INSERT INTO `physician_institution` (`id_institution`,`id_physician`, `betterDoctorUID`) VALUES ('1','1', 'a674d2db5a5b8349ea5ade900b18792b');
+INSERT INTO `physician_institution` (`id_institution`,`id_physician`, `betterDoctorUID`) VALUES ('1','2', '5ba35169e6bc6d86d8c2ffbd182aa621');
+-- a674d2db5a5b8349ea5ade900b18792b
+-- 5ba35169e6bc6d86d8c2ffbd182aa621
 
 -- INSERT INTO `health_log` (`id`,`physician_date`,`physician_notes`,`physician_photo_path`,`patient_date`,`patient_note`,`patient_photo_path`,`id_physician`,`id_patient`) VALUES
 -- ('','','','','','','','','');
