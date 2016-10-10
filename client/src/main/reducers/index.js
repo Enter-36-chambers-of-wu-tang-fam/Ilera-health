@@ -10,16 +10,18 @@ import appointments from './appointment-reducer.js';
 import profile from './profile-reducer.js';
 import healthLog from './health-log-reducer';
 import userInfo from './user-reducer';
+import records from './records-reducer'
 
 const rootReducer = combineReducers({
     authentication: authenticate.authenticated,
     allPhysicianAppointments: appointments.physAppt,
+    contacts: contacts,
     form: formReducer,
+    healthLogs: healthLog,
     meds: medication,
     messages: messages,
-    contacts: contacts,
     profile: profile,
-    healthLogs: healthLog,
+    records: records,
     user: userInfo
 });
 

@@ -165,7 +165,7 @@ class AllUsers extends Component {
             {this.state.currentDocs.length ===0 ? 'Please find physicians to select below' : ''}
             {this.state.currentDocs.map((doc,index) => {
               return (
-                <li key={index}><Link to={"/patient/physicians/"+doc.betterDoctorUID}>
+                <li key={index}><Link to={"/patient/physicians/"+doc.betterDoctorUID+"/individual"}>
                 <img className="physicianImage" src={doc.photo_path} />
                 <p className="physicianInfo">{doc.first} {doc.last}</p>
                 <br/>
@@ -343,7 +343,7 @@ class AllUsers extends Component {
           <ul className="allPhysicianList">
           {this.state.docs.map((doc,index) => {
             return (
-              <li key={index}><Link to={"/patient/physicians/"+doc.bd_uid}>
+              <li key={index}><Link to={"/patient/physicians/"+doc.bd_uid+"/individual"}>
               <div className="physicianImageWrap"><img className="physicianImage" src={doc.image} /></div>
                <p className="physicianInfo">{doc.title} {doc.first_name} {doc.last_name}</p>
               <br/>

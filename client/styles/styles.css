@@ -329,13 +329,25 @@ main{
 }
 
 .appointmentTime{
-  float:left;
   line-height:48px;
+}
+
+.timeOfDay h3{
+margin: 1em 0em;
+}
+
+.timeOfDay div{
+  margin:0;
+  padding:0;
 }
 
 .appointmentRequestButton{
   /*padding-left:2.5em;*/
   margin: 0;
+}
+
+.appointmentSuccess{
+  color:green;
 }
 
 /* CHAT */
@@ -1059,6 +1071,94 @@ text-align:center;
   margin: 0 auto;
   text-align:left;  
 }
+
+/* Medical Records */
+.medRecords {
+  margin-top:2em;
+}
+.medRecords th{
+  font-size: 16px !important;
+  text-align: center !important;
+}
+
+.medRecords td{
+  font-size: 14px !important;
+  text-align: center !important;
+}
+
+.medRecords div{
+  height: auto !important;
+}
+
+.medRecords .fa-3x {
+    font-size: 3em;
+    padding: .5em 0em .5em 0em;
+}
+.uploadRecord button{
+  padding:1em 2em;
+  margin-left:1em;
+  color:#666;
+  background:#CCC;
+  border:none;
+  border-radius:.2em;
+}
+
+.uploadRecord button:hover {
+  background: #099;
+  cursor:pointer;
+  border:none;
+  color:#fff;
+  transition: background .2s, color .2s;
+  border-radius:.2em;
+}
+
+.uploadRecordPage {
+  margin:4em 0em 0em 0em;
+  text-align:center;
+  font-size:1.2em
+}
+
+.uploadRecordPage form{
+  font-size:1em;
+  max-width:600px;
+}
+
+.uploadRecordPage input, .uploadRecordPage select {
+    margin: 2em 0em 0em 0em;
+    text-align: left;
+    padding: 0em 1em;
+    width: 20em;
+    border: thin solid #CCC;
+    color:#333;
+    border-radius:.2em;
+    min-height: 2.5em;
+    font-size:1.2em;
+}
+
+.uploadRecordPage .formButton {
+  margin:1em 1em 3em 1em;
+  padding:1em 2em;
+  font-size:.8em;
+  margin-left:1em;
+  color:#666;
+  background:#CCC;
+  border:none;
+  border-radius:.2em;
+}
+
+.uploadRecordPage .formButton:hover {
+  background: #099;
+  cursor:pointer;
+  color:#fff;
+  transition: background .2s, color .2s;
+}
+
+.uploadRecordPage .uploadRecord button {
+  width:100%;
+  font-size:1.2em;
+}
+/*End Medical Records */
+
 .messagesIncoming > div, .messagesUser > div{
     background: #ddd;
     width: 30%;

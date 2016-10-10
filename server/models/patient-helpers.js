@@ -102,11 +102,33 @@ module.exports = {
   },
 
   get_patient: (params, cb) => {
-    console.log("**", params.userid)
+    console.log(params.userid)
     let data = [params.userid];
     const queryString = "SELECT * FROM patient WHERE id=? LIMIT 1";
     db.query(queryString, data, (error, results) => cb(error, results) );
   },
+
+  get_records: (params, cb) => {
+    const queryString = "SELECT * FROM med_records WHERE id_patient="+ params.uid;
+    db.query(queryString, (error, results) => cb(error, results) );
+  },
+
+  delete_record: (params, cb) => {
+    const queryString = "DELETE FROM med_records WHERE id="+params.body.id+" AND id_patient="+ params.params.uid;
+    db.query(queryString, (error, results) => {
+      console.log(params.body.path);
+      checkIfFile(`../client/${params.body.path}`, (err,stats) => {
+        if(err) console.log(err);
+        if(stats){
+          fs.unlink(`../client/${params.body.path}`, (erro) => erro ? console.log(erro) : console.log("Successful Delete"));
+        }
+        cb(error, results) 
+      });
+    })
+  },
+
+
+
 
 
   // need to update this

@@ -124,6 +124,20 @@ put_photo: (req,res) => {
     });
   },
 
+  get_records: (req, res) => {
+    Patient.get_records(req.params, (err,data) => {
+      if(err) console.log(err);
+      res.json(data);
+    })
+  },
+
+  delete_record: (req, res) => {
+    Patient.delete_record(req, (err,data) => {
+      if(err) console.log(err);
+      res.json(data);
+    })
+  },
+
   logout: (req, res) => {
     sess = undefined;
     req.session.destroy();

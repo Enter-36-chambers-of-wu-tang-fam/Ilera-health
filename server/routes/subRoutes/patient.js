@@ -18,6 +18,8 @@ module.exports = app => {
   app.put('/api/patient/password/update', Patient.put_password);
   app.put('/api/patient/photo/update', Patient.put_photo);
 
+  app.get('/api/patient/getRecords/:uid', Patient.get_records)
+  app.post('/api/patient/deleteRecords/:uid', Patient.delete_record)
 
   app.post('/api/patient/logout', Patient.logout);
 

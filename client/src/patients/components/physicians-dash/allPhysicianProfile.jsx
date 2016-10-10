@@ -129,7 +129,7 @@ class ViewProfile extends Component {
               <p className="physicianProfileTitle">{this.state.name}, {this.state.title}</p>
             
               { this.state.relationship ? <button className="removePhysicianButton" onClick={this.removeRelation.bind(this)}>Remove Physician</button> :  <button className="addPhysicianButton" onClick={this.createRelation.bind(this)}>Add Physician</button>}
-              { this.state.relationship ? <Link to={"/patient/physicians/"+this.props.params.provider+"/calendar"}><button className="appointmentButton"><i className="fa fa-calendar" aria-hidden="true"></i>Appointments</button></Link> : ''}
+              {this.state.relationship ? <span>{this.props.children}</span> : ''}
                             
             </div>
               
@@ -158,7 +158,7 @@ class ViewProfile extends Component {
 
 
               <div className="appointment">
-                {this.props.children}
+                {this.state.relationship ? this.props.children : ''}
               </div>
             </div>
           </div>

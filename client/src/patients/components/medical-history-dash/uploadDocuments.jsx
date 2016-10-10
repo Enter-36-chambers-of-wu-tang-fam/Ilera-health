@@ -1,5 +1,6 @@
 import React, { Component, PropTypes, } from 'react';
 import { reduxForm, Field } from 'redux-form';
+import normalizeDate from './normalizeDate'
 import Dropzone from 'react-dropzone';
 import CryptoJS from 'crypto-js';
 import request from 'superagent';
@@ -7,32 +8,40 @@ import axios from 'axios';
 
 const FILE_FIELD_NAME = 'files';
 
+
 const styles = {
  dropzone: {
-    width:'',
-    height:'',
-    border:'none',
-    borderRadius:'',
-    maxWidth:'205px',
-    margin:"0 auto"
+    background: "rgb(0, 204, 204)",
+    color: "rgb(255,255,255)",
+    borderRadius: "0.2em",
+    padding: ".5em 0em",
+    width: "10em",
+    margin: "0 auto",
+    border: "none",
+    cursor:"pointer",   
   },
   dropHover: {
-    boxShadow:'0em 0em .5em .4em rgba(242,108,44,.8)',
-    background:'rgba(0,0,0,.7)',
-    transition:'border .3s, box-shadow .3s'
+    cursor: "pointer",
+    background:"#099",
+    transition:'background .2s'
   }
 };
 
 const renderDropzoneInput = (field) => {
   const files = field.input.value;
   return (
+    
     <div>
       <Dropzone
         name={field.name}
         onDrop={( filesToUpload, e ) => field.input.onChange(filesToUpload)}
+        multiple={false} 
+        style={styles.dropzone} 
+        activeStyle={styles.dropHover}
       >
-        <div>Try dropping some files here, or click to select files to upload.</div>
+        <div>Upload Files</div>
       </Dropzone>
+      <br />
       {field.meta.touched &&
         field.meta.error &&
         <span className="error">{field.meta.error}</span>}
@@ -45,18 +54,18 @@ const renderDropzoneInput = (field) => {
   );
 }
 
-class App extends Component {
+class UploadRecordForm extends Component {
 
   static propTypes = {
     handleSubmit: PropTypes.func.isRequired,
     reset: PropTypes.func.isRequired,
+    router: React.PropTypes.object
   };
 
   onSubmit(data) {
     let id = localStorage.getItem('uid');
     let code  = CryptoJS.AES.decrypt(id.toString(), 'key'); //need to change key
     let uid = code.toString(CryptoJS.enc.Utf8);
-    console.log("I AM CALLED I AM CALLED I AM CALLED")
     var body = new FormData();
     body.append('upload',data.files[0]);
     body.append('date',data.date);
@@ -65,50 +74,61 @@ class App extends Component {
 
     axios.post(`/upload/old_records/${uid}`, body)
       .then(resp => {
-        console.log("RESPONSE", resp);
+        return resp;
     })
     .catch(error => console.log(error))
+    this.context.router.push('/patient/records');
   }
 
   render() {
     const { handleSubmit, reset} = this.props;
     return (
-      <form onSubmit={handleSubmit(this.onSubmit.bind(this))}>
-        <div>
-          <label htmlFor={FILE_FIELD_NAME}>Files</label>
-          <Field
-            name={FILE_FIELD_NAME}
-            component={renderDropzoneInput}
-          />
-        </div>
-          <label htmlFor="date">Date</label>
-          <Field
-            name="date"
-            component="input"
-          />
-          <label htmlFor="type">Type</label>
-          <Field
-            name="type"
-            component="input"
-          />
-          <label htmlFor="description">Description</label>
-          <Field
-            name="description"
-            component="input"
-          />
-        <div>
-          <button type="submit">
-            Submit
-          </button>
-          <button onClick={reset}>
-            Clear Values
-          </button>
-        </div>
-      </form>
+      <div className="uploadRecordPage">  
+        <form onSubmit={handleSubmit(this.onSubmit.bind(this))}>
+          <div>
+            <Field
+              name={FILE_FIELD_NAME}
+              component={renderDropzoneInput}
+            />
+          </div>
+            <label htmlFor="date">Date </label>
+            <Field 
+              name="date" 
+              component="input" 
+              placeholder="YYYY-MM-DD (i.e. 2016-01-21)"
+              normalize={normalizeDate}
+            />
+            <br/>
+            <label htmlFor="type">Type </label>
+            <Field name="type" component="select">
+              <option value="Health Record">Health Record</option>
+              <option value="Labs & Tests">Labs & Tests</option>
+              <option value="Radiology">Radiology Images</option>
+              <option value="Other">Other</option>
+            </Field>
+            <br/>
+            <label htmlFor="description">Description </label>
+            <Field
+              name="description"
+              component="input"
+            />
+          <div>
+          <br/>
+            <button className="formButton" type="submit">
+              Submit
+            </button>
+            <button className="formButton" onClick={reset}>
+              Clear Values
+            </button>
+            <br/>
+            <a href="/patient/records" className="uploadRecord">View Records</a>
+          </div>
+        </form>
+      </div>  
     );
   }
 }
 
 export default reduxForm({
-  form: 'simple',
-})(App);
+  form: 'UploadRecordForm',
+})(UploadRecordForm);
