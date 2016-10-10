@@ -4,7 +4,8 @@ const Mj = require('.././controller/major-joins.js');
 const Appointment = require('./subRoutes/appointment.js');
 const EmergencyContact = require('./subRoutes/emergency-contact.js');
 const Patient = require('./subRoutes/patient.js');
-const HealthLog = require('./subRoutes/healthlog.js')
+const HealthLog = require('./subRoutes/healthlog.js');
+const Institution = require('./subRoutes/institution.js');
 const Insurance = require('./subRoutes/insurance.js');
 const InsurancePlan = require('./subRoutes/insurance_plan.js');
 const InsuranceProfesional = require('./subRoutes/insuranceProfesional.js');
@@ -22,7 +23,7 @@ module.exports = app => {
   Insurance(app);
   InsurancePlan(app);
   InsuranceProfesional(app);
-  // Institution(app);
+  Institution(app);
   // Medication(app);
   // Message(app);
   PatientMedications(app);
