@@ -10,7 +10,7 @@ const ProfileDash = ({user}) => {
                 <h3>{user.first} {user.last}</h3>
             </div>
             <div className="provViewPatDash">
-                <h3>Important Info</h3>
+                <h3>Important</h3>
                 <h6>Blood Type</h6>
                 <h5>{user.blood_type ? user.blood_type : "No data"}</h5>
                 <h6>Primary Phone</h6>
