@@ -38,16 +38,37 @@ module.exports = {
     db.query(queryString, data, (error, results) => cb(error, results) );
   },
 
+  getPatientInfoByID: (params, cb) => {
+    let data = [params.uid];
+    const queryString = 'SELECT * FROM patient WHERE id =? LIMIT 1';
+    db.query(queryString, data, (error, results) => cb(error, results) );
+  },
+
+
   initform_patient: (params, cb) => {
     // Post Request to: api/user/initform  =>   { Patient Table}
-    let data = [ params.first, params.last, params.middle, params.maiden, params.address, params.city, params.state, params.zip,
-      params.primary_phone_number, params.secondary_phone_number, params.date_of_birth, params.birth_city, params.birth_country,
-      params.marital_status, params.primary_language, params.secondary_language];
-    const queryString ='UPDATE patient SET first=?, last=?, middle=?, \
-      maiden=?, address=?, city=?, state=?, zip=?, primary_phone_number=?, secondary_phone_number=?, \
-      date_of_birth=?, birth_city=?, birth_country=?, marital_status=?, primary_language=?, \
-      secondary_language=? WHERE id='+ params.uid;
-    db.query(queryString, data, (error, results) => cb(error, results) );
+    console.log(params);
+    module.exports.getPatientInfoByID(params, (err, patientInfo)=> {
+      console.log('all patient info',patientInfo);
+      console.log('first name',patientInfo[0].first);
+      // console.log(RowDataPacket);
+      // RowDataPacket
+      let data = [ (params.first || patientInfo[0].first),
+        (params.last || patientInfo[0].last), params.middle,
+        params.maiden, params.address, params.city, params.state,
+        params.zip, params.primary_phone_number,
+        params.secondary_phone_number, params.date_of_birth,
+        params.birth_city, params.birth_country,
+        params.marital_status, params.primary_language,
+        params.secondary_language];
+        const queryString ='UPDATE patient SET first=?, last=?, middle=?, \
+        maiden=?, address=?, city=?, state=?, zip=?, primary_phone_number=?, \
+        secondary_phone_number=?, date_of_birth=?, birth_city=?, \
+        birth_country=?, marital_status=?, primary_language=?, \
+        secondary_language=? \
+        WHERE id='+ params.uid;
+        db.query(queryString, data, (error, results) => cb(error, results) );
+    })
   },
 
   initform_patient_health: (params, cb) => {
@@ -84,7 +105,7 @@ module.exports = {
       checkIfFile(`../client/${results[0].photo_path}`, (err,stats) => {
         if(err) console.log(err);
         if(stats){
-          fs.unlink(`../client/${results[0].photo_path}`, (erro) => 
+          fs.unlink(`../client/${results[0].photo_path}`, (erro) =>
           erro ? console.log(erro) : console.log("Successful Delete"));
         }
           const nullQuery ='UPDATE patient SET photo_path=NULL WHERE id='+params.uid;
@@ -121,7 +142,7 @@ module.exports = {
         if(stats){
           fs.unlink(`../client/${params.body.path}`, (erro) => erro ? console.log(erro) : '');
         }
-        cb(error, results) 
+        cb(error, results)
       });
     })
   },
