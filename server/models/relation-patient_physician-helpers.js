@@ -25,6 +25,7 @@ module.exports = {
 
   get_all_patients_of_Physician: (params, cb) => {
     let data = [params.userid];
+    console.log(data);
     const queryString = "SELECT p.id, p.first, p.last, p.email, \
       p.date_of_birth, p.address, p.city, p.state, p.zip, \
       p.primary_phone_number, p.weight, p.height, p.blood_type, p.photo_path \

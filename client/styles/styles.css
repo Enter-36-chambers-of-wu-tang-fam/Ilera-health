@@ -758,17 +758,17 @@ h5.extraTopMargin{
 
 /* ALL PHYSICIANS VIEW */
 
-.allPhysicians {
+.allPhysicians, .allPatients {
   font-family: 'Lato', sans-serif;
   box-sizing:border-box;
 }
 
-.allPhysicians h2{
+.allPhysicians h2, .allPatients h2{
   margin: 1em 0em 1.5em 0em;
   font-weight:300;
 }
 
-.myPhysicianList{
+.myPhysicianList, .myPatientList{
   text-align:center;
   width:100%;
   float:left;
@@ -808,8 +808,11 @@ text-align:center;
 .myPhysicianList li img{
   padding:0em 3em;
 }
-.allPhysicians .physicianImage{
+.allPhysicians .physicianImage, .allPatients .patientImage{
   border-radius:50%;
+}
+.allPatients .patientImage{
+  max-width:150px;
 }
 
 .helpfulInfo{
@@ -843,34 +846,34 @@ text-align:center;
   width:10%;
 }
 
-.allPhysicians .physicianInfo{
+.allPhysicians .physicianInfo, .allPatients .patientInfo{
   padding:.5em;
   margin-top:.3em;
 }
 
 
-.physicianSpecialty{
+.physicianSpecialty, .patientSpecialty{
   margin-top:-.5em;
   font-size:.9em;
   color:#999;
 }
 
-.allPhysicianList li{
+.allPhysicianList li, .allPatientList li{
   display:inline-block;
   text-align:center;
   margin: 5%;
 }
 
-.allPhysicianList a{
+.allPhysicianList a, .allPatientList a{
   color:#333;
   padding:.5em;
 }
-.allPhysicianList a:hover{
+.allPhysicianList a:hover, .allPatientList a:hover{
   color:#099 !important;
   border-bottom:thick solid #0CC;
 }
 
-.allPhysicianList .physicianSpecialty{
+.allPhysicianList .physicianSpecialty, .allPatientList .patientSpecialty{
   margin-top:-.5em;
 }
 
@@ -929,7 +932,7 @@ text-align:center;
 }
 
 
-.physicianProfileTitle{
+.physicianProfileTitle, .patientProfileTitle{
   float:left;
   margin-left:2em;
   line-height:200px;

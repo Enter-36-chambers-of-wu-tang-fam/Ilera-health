@@ -60,7 +60,7 @@ export default (
         <Route path='signin' component={ GeneralAuth(Signin) } />
         <Route path='provider' component={ PhysicianAuth(PhysicianApp) } >
             <Route path="dashboard" component={ PhysicianDashboard } />
-            <Route path="patients" component={ AllUsers } >
+            <Route path="/provider/patients" component={ AllUsers } >
               <Route path=':patientId' component={ ProvPatProfile } />
             </Route>
             <Route path='test' component={ ProvPatProfile } />
