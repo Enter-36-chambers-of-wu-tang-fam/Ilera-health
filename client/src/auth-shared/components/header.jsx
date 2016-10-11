@@ -1,10 +1,7 @@
-// React/Redux
 import React, { Component, PropTypes } from 'react';
 import { connect } from 'react-redux';
-import { bindActionCreators } from 'redux';
-// Actions
 import { authenticateUser } from '../actions/actions.js';
-// Material UI
+import { bindActionCreators } from 'redux';
 import FlatButton from 'material-ui/FlatButton';
 
 
@@ -14,7 +11,7 @@ const buttonStyles = {
   labelStyle: {color:"#203248", fontWeight: 300},
   rippleColor: '#ccc',
   styles: { height: '50px'}
-};
+}
 
 class Header extends Component {
 
@@ -33,49 +30,73 @@ class Header extends Component {
     this.props.authenticateUser(userType, null, "logout"); //(User type, data , form of authentication)
   }   
 
-  renderFlatButton (props) {
-    return(
-      <FlatButton 
-        backgroundColor={buttonStyles.backgroundColor}
-        hoverColor={buttonStyles.hoverColor}
-        style={buttonStyles.styles}
-        labelStyle={buttonStyles.labelStyle}
-        rippleColor={buttonStyles.rippleColor}
-        {...props}
-      />
-    )
-  }
+    render() {
+      return (
+          <header>
+              <h1><a href="/"><img src="/styles/logos/myilera_large.png" /></a></h1>
+              <ul>
+              <li>
+                <FlatButton label="Home" 
+                  backgroundColor={buttonStyles.backgroundColor}
+                  href={localStorage.getItem('userType') === 'patient' ? "/patient/dashboard" : "/provider/dashboard"}
+                  hoverColor={buttonStyles.hoverColor} 
+                  style={buttonStyles.styles}
+                  labelStyle={buttonStyles.labelStyle}
+                  rippleColor={buttonStyles.rippleColor}
 
-  render() {
-    return (
-      <header>
-        <h1><a href="/"><img src="../styles/logos/myilera_large_white.png" /></a></h1>
-        <ul>
-          <li>
-            <FlatButton label="Home" href={`/${localStorage.getItem('userType')}/dashboard`} component={this.renderFlatButton}/>
-          </li>
-          <li>
-            <FlatButton label="Messages" href="/patient/messages" component={this.renderFlatButton} />
-          </li>
-          <li>
-            <FlatButton label="My Physicians" href="/patient/physicians" component={this.renderFlatButton}/>
-          </li>
-          <li>
-            <FlatButton label="Profile" href="/patient/profile" component={this.renderFlatButton}/>
-          </li>
-          <li>
-            <FlatButton label="Log Out" onTouchTap={this.signOut.bind(this)} component={this.renderFlatButton}/>
-          </li>               
-        </ul>
-      </header>
-    );
-  }
+                />
+              </li>
+               <li>
+                <FlatButton label="Messages" 
+                  backgroundColor={buttonStyles.backgroundColor}
+                  href={localStorage.getItem('userType') === 'patient' ? "/patient/messages" : "/provider/messages"}
+                  hoverColor={buttonStyles.hoverColor} 
+                  style={buttonStyles.styles}
+                  labelStyle={buttonStyles.labelStyle}
+                  rippleColor={buttonStyles.rippleColor}
+
+                />
+              </li>
+               <li>
+                <FlatButton label={localStorage.getItem('userType') === 'patient' ? "My Physicians" : "My Patients"}
+                  backgroundColor={buttonStyles.backgroundColor}
+                  hoverColor={buttonStyles.hoverColor} 
+                  href={localStorage.getItem('userType') === 'patient' ? "/patient/physicians" : "/provider/patients"}
+                  style={buttonStyles.styles}
+                  labelStyle={buttonStyles.labelStyle}
+                  rippleColor={buttonStyles.rippleColor}
+
+                />
+              </li>
+              <li>
+                <FlatButton label="Profile" 
+                  backgroundColor={buttonStyles.backgroundColor}
+                  href={localStorage.getItem('userType') === 'patient' ? "/patient/profile" : "/provider/profile"}
+                  hoverColor={buttonStyles.hoverColor} 
+                  style={buttonStyles.styles}
+                  labelStyle={buttonStyles.labelStyle}
+                  rippleColor={buttonStyles.rippleColor}
+                />
+              </li>
+              <li>
+                <FlatButton label="Log Out" 
+                  backgroundColor={buttonStyles.backgroundColor}
+                  hoverColor={buttonStyles.hoverColor} 
+                  style={buttonStyles.styles}
+                  labelStyle={buttonStyles.labelStyle}
+                  rippleColor={buttonStyles.rippleColor}
+                  onTouchTap={this.signOut.bind(this)}
+                />
+              </li>               
+            </ul>
+          </header>
+      );
+    }
 };
-
 const mapStateToProps = (state) => {
   return {
     authentication: state.authentication.authenticated
-  }
+    }
 }
 
 const mapDispatchToProps = (dispatch) => {
@@ -83,3 +104,4 @@ const mapDispatchToProps = (dispatch) => {
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(Header);
+
