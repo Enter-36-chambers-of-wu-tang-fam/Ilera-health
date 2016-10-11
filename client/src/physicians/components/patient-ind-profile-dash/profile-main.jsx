@@ -13,6 +13,14 @@ class ProfileMain extends Component {
       super(props)
     }
 
+    componentWillMount(){
+      
+    }
+
+    componentWillReceiveProps(nextProps) {
+      console.log("NEXT PROPS", nextProps)
+    }
+
 
     render() {
       const { user, appointments } = this.props;
@@ -33,7 +41,8 @@ export default connect(
   }),
   { 
 	  load: getUserInfo,
-    loadAppointments: getAllPhysicianAppts,    loadMeds: getAllPatientMedication,
+    loadAppointments: getAllPhysicianAppts,    
+    loadMeds: getAllPatientMedication,
     appointments: getAllPhysicianAppts
   }
 )(ProfileMain);

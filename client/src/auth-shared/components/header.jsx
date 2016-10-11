@@ -38,7 +38,7 @@ class Header extends Component {
               <li>
                 <FlatButton label="Home" 
                   backgroundColor={buttonStyles.backgroundColor}
-                  href={`/${localStorage.getItem('userType')}/dashboard`}
+                  href={localStorage.getItem('userType') === 'patient' ? "/patient/dashboard" : "/provider/dashboard"}
                   hoverColor={buttonStyles.hoverColor} 
                   style={buttonStyles.styles}
                   labelStyle={buttonStyles.labelStyle}
@@ -49,7 +49,7 @@ class Header extends Component {
                <li>
                 <FlatButton label="Messages" 
                   backgroundColor={buttonStyles.backgroundColor}
-                  href="/patient/messages"
+                  href={localStorage.getItem('userType') === 'patient' ? "/patient/messages" : "/provider/messages"}
                   hoverColor={buttonStyles.hoverColor} 
                   style={buttonStyles.styles}
                   labelStyle={buttonStyles.labelStyle}
@@ -58,10 +58,10 @@ class Header extends Component {
                 />
               </li>
                <li>
-                <FlatButton label="My Physicians" 
+                <FlatButton label={localStorage.getItem('userType') === 'patient' ? "My Physicians" : "My Patients"}
                   backgroundColor={buttonStyles.backgroundColor}
                   hoverColor={buttonStyles.hoverColor} 
-                  href="/patient/physicians"
+                  href={localStorage.getItem('userType') === 'patient' ? "/patient/physicians" : "/provider/patients"}
                   style={buttonStyles.styles}
                   labelStyle={buttonStyles.labelStyle}
                   rippleColor={buttonStyles.rippleColor}
@@ -71,7 +71,7 @@ class Header extends Component {
               <li>
                 <FlatButton label="Profile" 
                   backgroundColor={buttonStyles.backgroundColor}
-                  href="/patient/profile"
+                  href={localStorage.getItem('userType') === 'patient' ? "/patient/profile" : "/provider/profile"}
                   hoverColor={buttonStyles.hoverColor} 
                   style={buttonStyles.styles}
                   labelStyle={buttonStyles.labelStyle}

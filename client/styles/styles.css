@@ -291,8 +291,8 @@ main{
     font-weight:300;
     width: 30%;
     padding: 20px 2%;
-    border-top: 1px solid #999;
-    border-bottom: thin solid #ccc;
+    /* border-top: 1px solid #999; */
+    /* border-bottom: thin solid #ccc; */
     height: 295px;
     margin-top: 60px;
 }
@@ -758,23 +758,21 @@ h5.extraTopMargin{
 
 /* ALL PHYSICIANS VIEW */
 
-.allPhysicians {
+.allPhysicians, .allPatients {
   font-family: 'Lato', sans-serif;
   box-sizing:border-box;
 }
 
-.allPhysicians h2{
+.allPhysicians h2, .allPatients h2{
   margin: 1em 0em 1.5em 0em;
   font-weight:300;
 }
 
-.myPhysicianList{
+.myPhysicianList, .myPatientList{
   text-align:center;
   width:100%;
   float:left;
-  background: linear-gradient(to bottom, rgba(0,0,0,1),rgba(0,0,0,.5)), url('/styles/background_images/flower.jpg');
-  background-size: cover;
-  background-position: 25% 25%;
+  background:rgba(13, 34, 51, 0.8);
   padding:2em;
   color:#FFF;
 }
@@ -808,8 +806,11 @@ text-align:center;
 .myPhysicianList li img{
   padding:0em 3em;
 }
-.allPhysicians .physicianImage{
+.allPhysicians .physicianImage, .allPatients .patientImage{
   border-radius:50%;
+}
+.allPatients .patientImage{
+  max-width:150px;
 }
 
 .helpfulInfo{
@@ -843,34 +844,34 @@ text-align:center;
   width:10%;
 }
 
-.allPhysicians .physicianInfo{
+.allPhysicians .physicianInfo, .allPatients .patientInfo{
   padding:.5em;
   margin-top:.3em;
 }
 
 
-.physicianSpecialty{
+.physicianSpecialty, .patientSpecialty{
   margin-top:-.5em;
   font-size:.9em;
   color:#999;
 }
 
-.allPhysicianList li{
+.allPhysicianList li, .allPatientList li{
   display:inline-block;
   text-align:center;
   margin: 5%;
 }
 
-.allPhysicianList a{
+.allPhysicianList a, .allPatientList a{
   color:#333;
   padding:.5em;
 }
-.allPhysicianList a:hover{
+.allPhysicianList a:hover, .allPatientList a:hover{
   color:#099 !important;
   border-bottom:thick solid #0CC;
 }
 
-.allPhysicianList .physicianSpecialty{
+.allPhysicianList .physicianSpecialty, .allPatientList .patientSpecialty{
   margin-top:-.5em;
 }
 
@@ -881,7 +882,7 @@ text-align:center;
   text-align:center;
   padding:1em 0em;
   margin: 0 auto;
-  background: linear-gradient(to bottom, rgba(0,0,0,.5), rgba(0,0,0,0)),linear-gradient(to bottom right, rgba(242,108,44,.8), rgba(0,153,153,.9));
+  background: linear-gradient(to bottom, rgba(13, 34, 51, 0.8), rgba(0,153,153,.9));
   min-width:100% !important;
   color: #FFF;
 }
@@ -910,7 +911,8 @@ text-align:center;
 .searchProfile{
   box-sizing:border-box;
   padding: 0em;
-   font-weight:500
+  font-weight:500;
+  background: #F7F7F7;
 }
 .searchProfile b{
   font-weight: 700;
@@ -923,13 +925,17 @@ text-align:center;
 .searchProfile hr{
   width:80%;
 }
+.searchProfile .headers{
+  color: rgba(242,108,44,1);
+}
 .searchProfile .fa{
   padding: .5em .5em .5em 0em;
   margin-left: 10%;
 }
 
 
-.physicianProfileTitle{
+
+.physicianProfileTitle, .patientProfileTitle{
   float:left;
   margin-left:2em;
   line-height:200px;
@@ -938,7 +944,7 @@ text-align:center;
 }
 
 .searchProfileHeader{
-  background:rgba(0,0,0,.9) !important;
+  background: rgba(13, 34, 51, 0.8);
   color:#fff;
   text-shadow: .01em .01em .01em #fff;
   margin-top:0em;
@@ -955,7 +961,7 @@ text-align:center;
   font-weight:300;
   left:0;
   border: none;
-  background: rgba(0,102,102,1);
+  background: rgba(0,153,153,1);
   font-size:1.2em;
   border-radius:.2em;
   color:#fff;
@@ -968,7 +974,7 @@ text-align:center;
   font-family: 'Lato', sans-serif;
   cursor:pointer;
   position:relative;
-  background: rgba(0,153,153,1);
+  background: rgba(0,204,204,1);
   font-size:1.2em;
   border-radius:.2em;
   color:#fff;
@@ -1482,7 +1488,7 @@ main >section .team li:hover .teamProfile {
 @media screen and (max-width: 960px) {
     /*------- DISPLAY NONE --------*/
     .welcomeMy, .welcomeIlera, main .mainDashWelcome {
-        display: none;
+        display: none !important;
     }
     /*------- HOME --------*/
     main >section .team li{

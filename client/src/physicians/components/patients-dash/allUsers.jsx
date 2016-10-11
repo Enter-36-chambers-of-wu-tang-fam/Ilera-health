@@ -31,7 +31,8 @@ class AllUsers extends Component {
     let id = localStorage.getItem('uid');
     let code  = CryptoJS.AES.decrypt(id.toString(), 'key'); //need to change key
     let uid = code.toString(CryptoJS.enc.Utf8);
-
+    console.log("UID",uid);
+    console.log("LocalStorage",localStorage);
     if(this.props.userType === 'physician'){
       this.props.getMyPatients(uid);
     }
@@ -39,28 +40,29 @@ class AllUsers extends Component {
 
   componentWillReceiveProps(nextProps) {
     this.setState({
-      patients: this.props.myPatients
+      patients: nextProps.myPatients
     })
   }
 
   render() {
+    {console.log("STATE", this.state)}
       return (
         <div>
-        <div className="allPhysicians">
-          <ul className="myPhysicianList">
+        <div className="allPatients">
+          <ul className="myPatientList">
             <h2> My Patients</h2>
           </ul>
 
-          <ul className="allPhysicianList">
+          <ul className="allPatientList">
             {this.state.patients.map((patient,index) => {
               return (
                 <li key={index}><Link to={"/provider/patients/"+patient.id}>
-                <div className="physicianImageWrap"><img className="physicianImage" src={doc.image} /></div>
-                <p className="physicianInfo">{patient.first} {patient.last}</p>
+                <div className="patientImageWrap"><img className="patientImage" src={patient.photo_path ? patient.photo_path : ""} /></div>
+                <p className="patientInfo">{patient.first} {patient.last}</p>
                 <br/>
-                <p className="physicianSpecialty">{patient.date_of_birth}</p>
+                <p className="patientSpecialty">{patient.date_of_birth ? patient.date_of_birth.slice(0,11) : ""}</p>
                 <br/>
-                <p className="physicianSpecialty">{patient.city}, {patient.state}</p>
+                <p className="patientSpecialty">{patient.city ? patient.city : ""} {patient.state ? "," + patient.state : ""}</p>
                 </Link></li>
               )
             })}
@@ -74,7 +76,7 @@ class AllUsers extends Component {
 const mapStateToProps = (state) => {
   return {
     userType: state.authentication.userType,
-    myPatients: state.contacts
+    myPatients: state.contacts.contacts.data
   }
 }
 

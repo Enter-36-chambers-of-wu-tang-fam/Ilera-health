@@ -19,7 +19,7 @@ export default function (ComposedComponent) {
 
     componentWillUpdate(nextProps) {  
       if(nextProps.signUp === true){
-        if(nextProps.userType === 'physician') this.context.router.push('provider/');
+        if(nextProps.userType === 'physician') this.context.router.push('provider/dashboard');
         if(nextProps.userType === 'patient') this.context.router.push('/patient/form');
         if(nextProps.userType === 'staff') this.context.router.push('/staff/form');
       }
