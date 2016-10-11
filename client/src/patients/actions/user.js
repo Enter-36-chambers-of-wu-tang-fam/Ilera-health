@@ -30,13 +30,11 @@ const getUserInfoFailed = (err) => {
 //Action call below for sign up --> uncomment export default
 
 export function getUserInfo(uid) {
-  console.log("****UID***", uid)
   return (dispatch) => {
     dispatch(getUserInfoRequest());
 
     axios.get(`/api/patient/${uid}`)
     .then( user => {
-      console.log("USER", user)
       localStorage.setItem("photo", user.data[0].photo_path);
 
       dispatch(getUserInfoSuccess(user.data[0]))
@@ -190,7 +188,6 @@ export function didInit() {
 
 /////////// GET ALL ////////////
 export function getAllUserInfo(uid) {
-  console.log("****UID***", uid)
   return (dispatch) => {
     dispatch(getUserInfoRequest());
 
@@ -198,7 +195,6 @@ export function getAllUserInfo(uid) {
     .then( user => {
       axios.get(`/api/patient/contacts/${uid}`)
       .then( contacts => {
-        console.log("LAKJDFLKJASDF", user.data, contacts)
         dispatch(getUserInfoSuccess(user.data[0], contacts))
       })
 

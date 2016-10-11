@@ -13,10 +13,10 @@ const buttonStyles = {
   backgroundColor:null,
   labelStyle: {color:"#203248", fontWeight: 300},
   rippleColor: '#ccc',
-  styles: { height: '50px'}
+  styles: { height: '50px', padding: '10px'}
 };
 
-class Header extends Component {
+class HeaderProvider extends Component {
 
   constructor (props){
     super(props);
@@ -70,7 +70,6 @@ class Header extends Component {
       </header>
     );
   }
->>>>>>> figuring out provider sign in with better doc uid
 };
 
 const mapStateToProps = (state) => {
@@ -83,4 +82,4 @@ const mapDispatchToProps = (dispatch) => {
   return bindActionCreators({ authenticateUser }, dispatch);
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(Header);
+export default connect(mapStateToProps, mapDispatchToProps)(HeaderProvider);
