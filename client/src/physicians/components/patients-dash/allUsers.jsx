@@ -31,7 +31,8 @@ class AllUsers extends Component {
     let id = localStorage.getItem('uid');
     let code  = CryptoJS.AES.decrypt(id.toString(), 'key'); //need to change key
     let uid = code.toString(CryptoJS.enc.Utf8);
-    console.log(localStorage);
+    console.log("UID",uid);
+    console.log("LocalStorage",localStorage);
     if(this.props.userType === 'physician'){
       this.props.getMyPatients(uid);
     }

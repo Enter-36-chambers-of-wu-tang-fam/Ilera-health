@@ -43,13 +43,17 @@ export function authenticateUser(userType,data,reqType){
         .then( found => {
           if(userType === 'patient'){
             var encodedId = CryptoJS.AES.encrypt(String(found.data.id), 'key'); //need to change key
+            localStorage.setItem('first', found.data.first);
+            localStorage.setItem('last', found.data.last);
+            localStorage.setItem('photo', user.found.photo_path);
           } else if(userType === 'physician') {
             var encodedId = CryptoJS.AES.encrypt(String(found.data), 'key'); //need to change key
           } else {
             var encodedId = CryptoJS.AES.encrypt(String(found.data), 'key'); //need to change key
           }
-          localStorage.setItem('uid',encodedId);
-          localStorage.setItem('userType',userType);
+        localStorage.setItem('uid',encodedId);
+        localStorage.setItem('userType',userType);
+
           dispatch(verifiedAuth(encodedId,userType,false)); //false -> reroutes to dashboard in place of signup via general_auth component
         })
         .catch( err => dispatch(failedAuth(err)) )
@@ -65,6 +69,7 @@ export function authenticateUser(userType,data,reqType){
         localStorage.setItem('userType',userType);
         localStorage.setItem('first', registered.data.first);
         localStorage.setItem('last', registered.data.last);
+        localStorage.setItem('photo', user.registered.photo_path);
         dispatch(verifiedAuth(encodedId, userType, true)); //true --> reroutes to sign up form via general_auth component
       })
       .catch(error => failedAuth(error))
