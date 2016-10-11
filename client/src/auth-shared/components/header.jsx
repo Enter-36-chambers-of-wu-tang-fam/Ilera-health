@@ -70,7 +70,6 @@ class Header extends Component {
       </header>
     );
   }
->>>>>>> figuring out provider sign in with better doc uid
 };
 
 const mapStateToProps = (state) => {
