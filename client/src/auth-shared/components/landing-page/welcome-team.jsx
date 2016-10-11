@@ -3,7 +3,7 @@ import React from 'react';
 
 const WelcomeTeam = () => {
 	return (    
-		<section className="teamSec">
+		<section id='team' className="teamSec">
 		<div className="introPhotos introTeam">
 			<h2>Your Team</h2>
 		</div>

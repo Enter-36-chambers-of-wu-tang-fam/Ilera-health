@@ -33,7 +33,10 @@ class Header extends Component {
     this.props.authenticateUser(userType, null, "logout"); //(User type, data , form of authentication)
   }   
 
+<<<<<<< af932e6419d24711ef7d421cd7a3993b68f8f87f
 
+=======
+>>>>>>> quick header edits
   renderFlatButton (props) {
     return(
       <FlatButton 
