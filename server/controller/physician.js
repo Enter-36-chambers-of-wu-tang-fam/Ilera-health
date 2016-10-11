@@ -125,9 +125,15 @@ module.exports = {
       }else{
         res.json(exists[0].id);
       }
-    })
+      })
+    },
 
-  }
+    getSinglePhysician: (req,res) => {
+      Physician.getPhysicianInfoByID(req.params, (err,exists) => {
+        if(err) console.log(err);
+        res.json(exists);
+      })
+    }
   // (req, res) => {
   //   Physician.funcHere(req.body, (err,data)=>{
   //     if(err) console.log(err);

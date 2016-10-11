@@ -168,3 +168,45 @@ export function getAllUserInfo(uid) {
     });
   }
 };
+
+///////////////// USER CONTACTS ///////////////
+const getProviderRequest = () => {
+  return {
+    type: types.GET_PROVIDER_REQUEST,
+    isFetching: true,
+    loaded: false
+  }
+};
+
+
+const getProviderSuccess = (user) =>{
+  return {
+      type: types.GET_PROVIDER_SUCCESS,
+      isFetching: false,
+      loaded: true,
+      payload: user
+    }
+};
+
+const getProviderFailed = (err) => {
+  return {
+    type: types.GET_PROVIDER_FAILURE,
+    payload: err
+  }
+};
+
+export function getProvider(uid) {
+  console.log("YOU GETTING HERE?")
+  return (dispatch) => {
+    dispatch(getProviderRequest());
+
+    axios.get(`/api/physician/${uid}`)
+    .then( user => {    
+      console.log("HERE DUDE", user.data)
+      dispatch(getProviderSuccess(user.data))
+    })
+    .catch(err => {
+      dispatch(getProviderFailed(err));
+    });
+  }
+}

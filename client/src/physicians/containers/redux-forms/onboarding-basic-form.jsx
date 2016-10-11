@@ -48,35 +48,28 @@ class BackgroundInfoForm extends Component {
 
   constructor(props){
     super(props);
+		console.log("WTF", props)
     this.state = {
-        betterUID: {}
+        betterUID: localStorage.getItem('betterUID')
     }
   }
 
-  static contextTypes = {
-    router: React.PropTypes.object
-  }
-
-  componentWillMount(){
-      const { getDocInfo } = this.props;
-      var uid = localStorage.getItem('betterUID');
-      getDocInfo(uid);
-  }
+	static contextTypes = {
+		router: React.PropTypes.object
+	}
 
 	submitMe(prop){
-		this.props.handleNext();
-		//get encoded id from local storage
+		const { betterUID } = this.state; 
 		let id = localStorage.getItem('uid');
-		//code to decode user id stored in local storage
 		let code  = CryptoJS.AES.decrypt(id.toString(), 'key'); //need to change key
 		prop.uid = code.toString(CryptoJS.enc.Utf8);
 
-		axios.put('/api/patient/background', prop)
+		axios.put('/api/physician/background', prop)
 			.then( found => {
-					// this.context.router.push('/patient/form/emergencyContact/');
+				this.context.router.push('/provider/dashboard');
 			})
 			.catch( err => {
-					console.log("ERROR ENTERING INFORMATION", err);
+				console.log("ERROR ENTERING INFORMATION", err);
 			})
 	}
 
@@ -91,6 +84,10 @@ class BackgroundInfoForm extends Component {
 
 	handleNext(){
 		this.props.handleNext();
+	}
+
+	handleFinal(){
+		this.context.router.push('/provider/dashboard');
 	}
 
 	renderTextField (props) {
@@ -154,75 +151,98 @@ class BackgroundInfoForm extends Component {
 	}
 
 	render() {
-		const { error, handleSubmit, pristine, reset, submitting } = this.props;
+		const { error, handleSubmit, pristine, reset, submitting, doc } = this.props;
         const { betterUID } = this.state;
-        if(betterUID){
+        if( doc.data && betterUID !== undefined ){
             return (
-                <div>
+                <div className="providerDB">
                     <h2> Better Doctor Info </h2>
-                    <img src="" alt=""/>
+                    <img src={doc.data.data.profile.image_url} alt=""/>
                     <h6>Name</h6>
-                    <h5></h5>
+                    <p>{doc.data.data.profile.first_name} {doc.data.data.profile.last_name}, {doc.data.data.profile.title}</p>
                     <h6>Email</h6>
-                    <h5></h5>
+                    <p>{doc.data.data.profile.email ? doc.data.data.profile.email : 'No data'}</p>
                     <h6>State</h6>
-                    <h5></h5>
+                    <p>{doc.data.data.practices[0].visit_address_state ? doc.data.data.practices[0].visit_address_state : 'No data'}</p>
                     <h6>Bio</h6>
-                    <h5></h5>
+                    <p>{doc.data.data.profile.bio ? doc.data.data.profile.bio : 'No data'}</p>
+
+										<p>**If any of the information is innacurate or out of date, please <a href='http://betterdoctor.com/doctors'>update your information</a>.</p>
+
+										<div className="formBtns clearfix">
+											<div>{this.getStepContent()}</div>
+											<div style={{margin: '20px 0'}}>
+												<FlatButton
+													label="Back"
+													disabled={this.props.stepIndex === 0}
+													onTouchTap={this.handlePrev.bind(this)}
+													style={{marginRight: 12}}
+													className='btn btn-back'
+												/>
+												<RaisedButton
+													label='Finish'
+													primary={true}
+													type='submit'
+													className='btn btn-back'
+													onTouchTap={this.handleFinal.bind(this)}
+													style={{
+														'float': 'right',
+														'backgroundColor': '#fff'
+													}}
+												/>
+											</div>
+										</div>
                 </div>
             )
         } else {
             return (
-			<div  className="forms">
-				<h2>Basic User Info</h2>
-				<h6>* Required field</h6>
-					<form onSubmit={handleSubmit(props => this.submitMe(props))}>
-						<Field name="betterDoctorUID" type="text" component={this.renderTextFieldFirst} label="Better Doctor UID"/>
-						<Field name="first" type="text" component={this.renderTextField} label="First Name*"/>
-						<Field name="last" type="text" component={this.renderTextFieldLast} label="Last Name*"/>
-						<Field name="phone_number" type="text" component={this.renderTextField} label="Phone Number"/>
-						<Field name="specialty" type="text" component={this.renderTextField} label="Specialty"/>
+				<div  className="forms">
+					<h2>Basic User Info</h2>
+					<h6>* Required field</h6>
+						<form onSubmit={handleSubmit(props => this.submitMe(props))}>
+							<Field name="betterDoctorUID" type="text" component={this.renderTextField} label="Better Doctor UID"/>
+							<Field name="first" type="text" component={this.renderTextField} label="First Name*"/>
+							<Field name="last" type="text" component={this.renderTextField} label="Last Name*"/>
+							<Field name="phone_number" type="text" component={this.renderTextField} label="Phone Number"/>
+							<Field name="specialty" type="text" component={this.renderTextField} label="Specialty"/>
 
-					{error && <strong>{error}</strong>}
+						{error && <strong>{error}</strong>}
 
-					<div className="formBtns clearfix">
-						<div>{this.getStepContent()}</div>
-						<div style={{margin: '20px 0'}}>
-							<FlatButton
-								label="Back"
-								disabled={this.props.stepIndex === 0}
-								onTouchTap={this.handlePrev.bind(this)}
-								style={{marginRight: 12}}
-								className='btn btn-back'
-							/>
-							<RaisedButton
-								label='Finish'
-								primary={true}
-								type='submit'
-								className='btn btn-back'
-								style={{
-									'float': 'right',
-									'backgroundColor': '#fff'
-								}}
-							/>
+						<div className="formBtns clearfix">
+							<div>{this.getStepContent()}</div>
+							<div style={{margin: '20px 0'}}>
+								<FlatButton
+									label="Back"
+									disabled={this.props.stepIndex === 0}
+									onTouchTap={this.handlePrev.bind(this)}
+									style={{marginRight: 12}}
+									className='btn btn-back'
+								/>
+								<RaisedButton
+									label='Finish'
+									primary={true}
+									type='submit'
+									className='btn btn-back'
+									style={{
+										'float': 'right',
+										'backgroundColor': '#fff'
+									}}
+								/>
+							</div>
 						</div>
-					</div>
-				</form>
-			</div>
-		    );
-        }
-		
+					</form>
+				</div>
+			);
+		}
 	}
 };
 
 BackgroundInfoForm = reduxForm({
 	form: 'BackgroundInfoForm',
 	destroyOnUnmount: false,
-	validate
+	validate,
+	initialValues: {first: `${localStorage.getItem('first')}`, last: `${localStorage.getItem('last')}` }
 })(BackgroundInfoForm);
 
-function mapDispatchToProps(dispatch) {
-    return bindActionCreators({ getDocInfo }, dispatch);
-}
 
-export default connect(null, mapDispatchToProps)(BackgroundInfoForm);
+export default BackgroundInfoForm;
