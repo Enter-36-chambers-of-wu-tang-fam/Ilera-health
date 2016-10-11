@@ -21,6 +21,17 @@ module.exports = {
     db.query(queryString, data, (error, results) => cb(error, results) );
   },
 
+  get_all_physician_appointments_and_patient_info: (params, cb) => {
+    let data = [params.uid];
+    const queryString = 'SELECT p.id, p.first, p.last, p.photo_path, \
+      a.id, a.date, a.time, a.notes, a.id_physician, a.id_patient, \
+      a.id_institution \
+      FROM appointment a \
+      JOIN patient p ON p.id = a.id_patient \
+      WHERE a.id_physician =?';
+    db.query(queryString, data, (error, results) => cb(error, results) );
+  },
+
   // added
   get_all_appointment_by_phY_id: (params, cb) => {
     let data = [params.id_physician];
@@ -55,3 +66,17 @@ module.exports = {
   }
 
 };
+
+
+// appointment table
+
+// CREATE TABLE appointment (
+//   id INTEGER NOT NULL AUTO_INCREMENT,
+//   date DATE NULL DEFAULT NULL,
+//   time TIME NULL DEFAULT NULL,
+//   notes VARCHAR(10000) NULL DEFAULT NULL,
+//   id_physician INTEGER DEFAULT NULL,
+//   id_patient INTEGER DEFAULT NULL,
+//   id_institution INTEGER DEFAULT NULL,
+//   PRIMARY KEY (id)
+// );

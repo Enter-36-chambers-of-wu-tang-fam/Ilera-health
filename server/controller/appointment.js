@@ -11,7 +11,7 @@ module.exports = {
     });
   },
 
-  getOne_AppointmentByPat_id:(req, res) => {
+  getOne_AppointmentByPat_id: (req, res) => {
     Appointment.get_one_appointment_by_pat_id(req.body, (err,data)=>{
       if(err) console.log(err);
       res.json(data);
@@ -20,6 +20,13 @@ module.exports = {
 
   getAll_appointmentByPhY_id:(req, res) => {
     Appointment.get_all_appointment_by_phY_id(req.params, (err,data)=>{
+      if(err) console.log(err);
+      res.json(data);
+    });
+  },
+
+  getAll_physician_appointmentsPatientInfo: (req, res) => {
+    Appointment.get_all_physician_appointments_and_patient_info(req.body, (err,data)=>{
       if(err) console.log(err);
       res.json(data);
     });
@@ -52,4 +59,5 @@ module.exports = {
   //     res.json(data);
   //   });
   // },
+
 };

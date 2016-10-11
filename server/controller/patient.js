@@ -14,15 +14,22 @@ module.exports = {
   signIn: (req, res) => {
     Patient.signIn(req.body, (error, data) => {
       if(data.length > 0){
+        console.log(data);
         bcrypt.compare(req.body.password, data[0].password, (error, result) => {
           if(result){
+            console.log("first", data[0].first);
+            console.log("last", data[0].last);
+            console.log("photo", data[0].photo_path);
             sess = req.session;
             sess.email = data[0].email;
             sess.patient = data[0].id;
             module.exports.sess = sess;
             res.json({
               id: data[0].id,
-              email: data[0].email
+              email: data[0].email,
+              first: data[0].first,
+              last: data[0].last,
+              photo_path: data[0].photo_path
             });
           } else{
             res.status(401).send("That email and/or password was not found");

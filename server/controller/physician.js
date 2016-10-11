@@ -43,6 +43,7 @@ module.exports = {
           req.body.password = hashed;
 
           Physician.signUp(req.body, (error, data) => {
+            console.log("id type", data);
             if(error) console.log(error);
             sess = req.session;
             sess.email = req.body.email;
@@ -106,7 +107,7 @@ module.exports = {
       if(err) console.log(err);
       res.json(exists);
     })
-  },  
+  },
 
   addBetterDoc: (req,res) => {
     Physician.checkBetterDoc(req.body, (err,exists) => {
