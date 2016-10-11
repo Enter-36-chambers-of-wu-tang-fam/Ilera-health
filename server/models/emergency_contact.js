@@ -10,7 +10,8 @@ module.exports = {
 
   get_emergency_contact:(params, cb) => {
     let data = [params.userid];
-    const queryString = 'SELECT * FROM emergency_contact \
+    const queryString = 'SELECT * \
+      FROM emergency_contact \
       WHERE id_patient=?';
     db.query(queryString, data, (error, results)=> cb(error, results));
   },

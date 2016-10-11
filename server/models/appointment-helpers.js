@@ -9,7 +9,8 @@ module.exports = {
       params.id_patient];
     console.log("DATA", data);
     const queryString = 'INSERT INTO appointment(date, time, notes, \
-      id_physician, id_patient) value (?, ?, ?, ?, ?)';
+      id_physician, id_patient) \
+      value (?, ?, ?, ?, ?)';
     db.query(queryString, data, (error, results) => cb(error, results) );
   },
 
@@ -27,7 +28,8 @@ module.exports = {
       a.id, a.date, a.time, a.notes, a.id_physician, a.id_patient, \
       a.id_institution \
       FROM appointment a \
-      JOIN patient p ON p.id = a.id_patient \
+      JOIN patient p \
+      ON p.id = a.id_patient \
       WHERE a.id_physician =?';
     db.query(queryString, data, (error, results) => cb(error, results) );
   },
@@ -35,17 +37,22 @@ module.exports = {
   // added
   get_all_appointment_by_phY_id: (params, cb) => {
     let data = [params.id_physician];
-    const queryString = 'SELECT * FROM appointment \
+    const queryString = 'SELECT * \
+      FROM appointment \
       WHERE id_physician = '+params.id_physician;
     db.query(queryString, data, (error, results) => cb(error, results) );
   },
 
   get_all_appointment_by_pat_id: (params, cb) => {
     let data = [params.id_patient];
-    const queryString = 'SELECT a.id, a.date, a.time, a.notes, a.id_physician, a.id_patient, a.id_institution, \
-    py.title, py.first, py.last, py.email FROM appointment a \
-    JOIN physician py ON py.id = a.id_physician \
-    WHERE id_patient = ' + params.id_patient + ' ORDER by date';
+    const queryString = 'SELECT a.id, a.date, a.time, a.notes, \
+    a.id_physician, a.id_patient, a.id_institution, \
+    py.title, py.first, py.last, py.email \
+    FROM appointment a \
+    JOIN physician py \
+    ON py.id = a.id_physician \
+    WHERE id_patient = ' + params.id_patient + ' \
+    ORDER by date';
     db.query(queryString, data, (error, results) => cb(error, results) );
   },
 
@@ -53,15 +60,19 @@ module.exports = {
   update_appointment: (params, cb) => {
     let data = [ (params.date || null), (params.time || null),
       (params.notes || null) ];
-    const queryString = 'UPDATE appointment SET date=?, time=?, notes=? \
-      WHERE id ="'+params.id+'" LIMIT 1';
+    const queryString = 'UPDATE appointment \
+      SET date=?, time=?, notes=? \
+      WHERE id ="'+params.id+'" \
+      LIMIT 1';
     db.query(queryString, data, (error, results) => cb(error, results) );
   },
 
   // added
   cancel_appointment: (params, cb) => {
     let data = [params.id];
-    const queryString = 'DELETE FROM appointment WHERE id=? LIMIT 1';
+    const queryString = 'DELETE FROM appointment \
+    WHERE id=? \
+    LIMIT 1';
     db.query(queryString, data, (error, results) => cb(error, results) );
   }
 
