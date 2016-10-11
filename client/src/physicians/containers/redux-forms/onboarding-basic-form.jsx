@@ -3,6 +3,8 @@ import axios from 'axios';
 // React, Redux, Redux-Form
 import React, { Component, PropTypes } from 'react';
 import { Field, reduxForm } from 'redux-form';
+import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
 // CryptoJS
 import CryptoJS from 'crypto-js';
 // Material UI
@@ -10,12 +12,9 @@ import RaisedButton from 'material-ui/RaisedButton';
 import FlatButton from 'material-ui/FlatButton';
 import SelectField from 'material-ui/SelectField'
 import MenuItem from 'material-ui/MenuItem';
-import {
-	DatePicker,
-  TextField
-} from 'redux-form-material-ui'
+import { DatePicker, TextField } from 'redux-form-material-ui'
 // Actions
-
+import { getDocInfo } from '../../actions/better-doc.js';
 
 const validate = values => {
   const errors = {}
@@ -215,9 +214,9 @@ class BackgroundInfoForm extends Component {
 	}
 };
 
-export default reduxForm({
+BackgroundInfoForm = reduxForm({
 	form: 'BackgroundInfoForm',
-	destroyOnUnmount: false
+	destroyOnUnmount: false,
 	validate
 })(BackgroundInfoForm);
 

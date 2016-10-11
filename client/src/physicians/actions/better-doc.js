@@ -1,7 +1,7 @@
 import axios from 'axios';
-import * as types './action-constants';
+import * as types from './action-constants.js';
 
-const fetchBetterDocInfoRequest() => {
+var fetchBetterDocInfoRequest = () => {
   return {
     type: types.BETTER_DOC_INFO_REQUEST ,
     loaded: false,
@@ -9,7 +9,7 @@ const fetchBetterDocInfoRequest() => {
   }
 }
 
-const fetchBetterDocInfoSuccess(info) => {
+var fetchBetterDocInfoSuccess = (info) => {
   return {
     type: types.BETTER_DOC_INFO_SUCCESS,
     loaded: false,
@@ -17,7 +17,7 @@ const fetchBetterDocInfoSuccess(info) => {
   }
 }
 
-const fetchBetterDocInfoSuccess(err) => {
+var fetchBetterDocInfoSuccess = (err) => {
   return {
     type: types.BETTER_DOC_INFO_FAILURE,
     loaded: false,
