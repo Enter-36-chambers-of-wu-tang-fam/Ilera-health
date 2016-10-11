@@ -16,10 +16,7 @@ import { DatePicker, TextField } from 'redux-form-material-ui'
 // Actions
 import { getDocInfo } from '../../actions/better-doc.js';
 
-<<<<<<< HEAD
 
-=======
->>>>>>> c2d3ab2d6b4768d4729a5911fc85e409de15aebe
 const validate = values => {
   const errors = {}
   // if (!values.first || /\d/.test(values.first)) {
