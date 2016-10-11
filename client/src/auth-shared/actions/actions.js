@@ -45,7 +45,7 @@ export function authenticateUser(userType,data,reqType){
             var encodedId = CryptoJS.AES.encrypt(String(found.data.id), 'key'); //need to change key
             localStorage.setItem('first', found.data.first);
             localStorage.setItem('last', found.data.last);
-            localStorage.setItem('photo', user.found.photo_path);
+            localStorage.setItem('photo', found.data.photo_path);
           } else if(userType === 'physician') {
             var encodedId = CryptoJS.AES.encrypt(String(found.data), 'key'); //need to change key
           } else {
@@ -69,7 +69,6 @@ export function authenticateUser(userType,data,reqType){
         localStorage.setItem('userType',userType);
         localStorage.setItem('first', registered.data.first);
         localStorage.setItem('last', registered.data.last);
-        localStorage.setItem('photo', user.registered.photo_path);
         dispatch(verifiedAuth(encodedId, userType, true)); //true --> reroutes to sign up form via general_auth component
       })
       .catch(error => failedAuth(error))
