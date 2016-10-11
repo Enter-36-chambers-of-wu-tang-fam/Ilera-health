@@ -12,10 +12,11 @@ module.exports = {
   },
 
   signUp: (params, cb) => {
+    console.log(params);
     // Post Request To: /api/physician/signup i think this is a guess
     let data = [params.first, params.last, params.email, params.password];
-    const queryString = "INSERT INTO physician (title, first, last, email, \
-      password) VALUE (?,?,?,?,?)";
+    const queryString = "INSERT INTO physician (first, last, email, \
+      password) VALUE (?,?,?,?)";
     db.query(queryString, data, (error, results) => cb(error, results) );
   },
 
@@ -26,13 +27,26 @@ module.exports = {
     db.query(queryString, data, (error, results) => cb(error, results) );
   },
 
+  getPhysicianInfoByID: (params, cb) => {
+    let data = [params.uid];
+    const queryString = 'SELECT * FROM physician WHERE id =? LIMIT 1';
+    db.query(queryString, data, (error, results) => cb(error, results) );
+  },
+
   update_physician_info: (params, cb) => {
-    let data = [params.title, params.first, params.last, params.email,
-      params.phone_number, params.password,
-      params.photo_path, params.specialty];
-    const queryString = 'UPDATE physician SET title=?, first=?, last=?, \
-      email=?, phone_number=?, photo_path=?, specialty=? \
+    console.log(params);
+    module.exports.getPhysicianInfoByID(params, (err, physicianInfo)=> {
+
+      let data = [(params.betterDoctorUID || physicianInfo[0].betterDoctorUID),
+      params.title, (params.first || physicianInfo[0].first),
+      (params.last || physicianInfo[0].last),
+      params.phone_number, params.specialty];
+      const queryString = 'UPDATE physician SET betterDoctorUID=?, \
+      title=?, first=?, last=?, phone_number=?, specialty=? \
       WHERE id='+ params.uid;
+      db.query(queryString, data, (error, results) => cb(error, results) );
+    })
+
   },
 
   update_password: (params, cb) => {
@@ -75,3 +89,19 @@ module.exports = {
 
 
 };
+
+// physician table
+
+// CREATE TABLE `physician` (
+//   `id` INTEGER NOT NULL AUTO_INCREMENT,
+//   `betterDoctorUID` VARCHAR(100) NULL,
+//   `title` VARCHAR(10) NULL,
+//   `first` VARCHAR(30) NULL,
+//   `last` VARCHAR(30) NULL,
+//   `email` VARCHAR(30) NULL,
+//   `phone_number` VARCHAR(20) NULL,
+//   `password` VARCHAR(300) NULL,
+//   `photo_path` VARCHAR(300) NULL,
+//   `specialty` VARCHAR(500) NULL,
+//   PRIMARY KEY (`id`)
+// );
