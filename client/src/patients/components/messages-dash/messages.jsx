@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import * as actions from '../../actions/messages.js';
 import MessageInput from './message-input.jsx';
 
-export default class Messages extends Component {
+class Messages extends Component {
 
   constructor(props) {
     super(props);
@@ -22,6 +22,14 @@ export default class Messages extends Component {
      socket.on('new bc message', function(msg) {
       console.log("NEW MESSAGE INCOMING", msg, user, chosenid);
       // that.handleSave(msg)
+      if(localStorage.getItem('userType') === 'patient'){
+        var sederType = 'patient';
+        var receiverType = 'physician';
+      }else{
+        var senderType = 'physician';
+        var receiverType = 'patient';
+      }
+      dispatch(actions.receiveRawMessage(msg, user, senderType, chosenid, receiverType));
     })
     socket.on('new channel', function(channel) {
       console.log("NEW CHANNEL");
@@ -110,3 +118,7 @@ export default class Messages extends Component {
     }
   }
 };
+
+export default connect(state => ({
+  messages: state.messages.messages
+}))(Messages)

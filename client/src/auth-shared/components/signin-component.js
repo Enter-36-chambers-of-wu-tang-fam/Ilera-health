@@ -1,19 +1,16 @@
-import _ from 'lodash';
-import axios from 'axios';
+// React
 import React, { Component, PropTypes } from 'react';
-import { Field, reduxForm } from 'redux-form';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
+// Redux Form 
+import { Field, reduxForm } from 'redux-form';
+// Actions
 import { authenticateUser } from '../actions/actions.js';
+// Crypto
 import CryptoJS from 'crypto-js';
+// Material UI
 import RaisedButton from 'material-ui/RaisedButton';
-import {
-  AutoComplete,
-  RadioButtonGroup,
-  RadioButton,
-  SelectField,
-  TextField
-} from 'redux-form-material-ui'
+import { SelectField, TextField } from 'redux-form-material-ui'
 
 const validate = values => {
   const errors = {}
@@ -64,13 +61,25 @@ class SigninForm extends Component {
           <h2>{this.state.userType} Sign In</h2>
           <form onSubmit={ handleSubmit(props => this.onSubmit(props)) }>
             <div>
-              <Field name="email" type="text" component={this.renderTextField} label="Username (Email)"/>
+              <Field 
+                name="email" 
+                type="text" 
+                component={this.renderTextField} 
+                label="Username (Email)"/>
             </div>
             <div>
-              <Field name="password" type="password" component={this.renderTextField} label="Password"/>
+              <Field 
+                name="password" 
+                type="password" 
+                component={this.renderTextField} 
+                label="Password"/>
             </div>
             {error && <strong>{error}</strong>}
-            <RaisedButton label="Sign In" type='submit' className='btn' style={{
+            <RaisedButton 
+              label="Sign In" 
+              type='submit' 
+              className='btn' 
+              style={{
                 width: '100%',
                 margin: '20px 0 0 0'
               }}/>
@@ -80,16 +89,14 @@ class SigninForm extends Component {
   }   
 };
 
-// user types...recorded on application state
-
 SigninForm = reduxForm({
 	form: 'SigninForm',
 	validate
-}, null, {  })(SigninForm);
+})(SigninForm);
 
 function mapDispatchToProps(dispatch) {
     return bindActionCreators({ authenticateUser }, dispatch);
 }
 
-export default connect(null, mapDispatchToProps)(SigninForm)
+export default connect(null, mapDispatchToProps)(SigninForm);
 

@@ -1,26 +1,24 @@
-import _ from 'lodash';
-import axios from 'axios';
+// React/Redux
 import React, { Component, PropTypes } from 'react';
-import { Field, reduxForm } from 'redux-form';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
+// Redux-Form
+import { Field, reduxForm } from 'redux-form';
+// Actions
 import { authenticateUser } from '../actions/actions.js';
-import CryptoJS from 'crypto-js';
+// Material UI
 import RaisedButton from 'material-ui/RaisedButton';
-import {
-  AutoComplete,
-  RadioButtonGroup,
-  RadioButton,
-  SelectField,
-  TextField
-} from 'redux-form-material-ui'
+import { SelectField, TextField } from 'redux-form-material-ui';
+// Other
+import CryptoJS from 'crypto-js';
+import axios from 'axios';
 
 const validate = values => {
   const errors = {}
-	 if (!values.first || /\d/.test(values.first)) {
+	if (!values.first || /\d/.test(values.first)) {
     errors.first = 'Please enter a valid first name'
   }
-	 if (!values.last || /\d/.test(values.last)) {
+	if (!values.last || /\d/.test(values.last)) {
     errors.last = 'Please enter a valid last name'
   }
   if (!values.email || !/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(values.email)) {
@@ -29,7 +27,6 @@ const validate = values => {
   if (!values.password || values.password.length < 8) {
     errors.password = 'Password required. Must be at least 8 charachters long'
   }
-
   if (values.reTypePassword && values.reTypePassword !== values.password) {
     errors.reTypePassword = 'Passwords must match'
   }
@@ -98,27 +95,28 @@ class SignupForm extends Component {
                 <Field name="reTypePassword" type="password" component={this.renderTextField} label="Re-Type Password"/>
               </div>
               {error && <strong>{error}</strong>}
-						  <RaisedButton label="Sign Up" type='submit' className='btn' style={{
-                width: '100%',
-                margin: '20px 0 0 0'
-              }}/>
+						  <RaisedButton 
+                label="Sign Up" 
+                type='submit' 
+                className='btn' 
+                style={{
+                  width: '100%',
+                  margin: '20px 0 0 0'
+                }}/>
 						</form>
 				</div>
 			)
 		}
-
 };
 
 SignupForm = reduxForm({
 	form: 'SignupForm',
   destroyOnUnmount: false,
 	validate
-}, null, {  })(SignupForm);
-
+})(SignupForm);
 
 function mapDispatchToProps(dispatch) {
     return bindActionCreators({ authenticateUser }, dispatch);
 }
-
 
 export default connect(null, mapDispatchToProps)(SignupForm)
