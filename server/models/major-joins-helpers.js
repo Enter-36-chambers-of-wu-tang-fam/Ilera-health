@@ -36,15 +36,24 @@ module.exports = {
       hl.patient_photo_path, hl.id_physician, hl.id_patient, \
       r.id, r.betterDoctorUID, r.id_physician, r.id_patient \
       FROM patient p \
-      JOIN patient_physician r ON r.id_patient = p.id \
-      JOIN physician py ON py.id = r.id_physician \
-      JOIN appointment a ON a.id_patient = p.id \
-      JOIN appointment_document ad ON ad.id_appointment = a.id \
-      JOIN insurance_plan ip ON ip.id_patient = p.id \
-      JOIN emergency_contact ec ON ec.id_patient = p.id \
-      JOIN patient_medication pm ON pm.id_patient = p.id \
-      JOIN payment pay ON pay.id_patient = p.id \
-      JOIN health_log hl ON hl.id_patient = p.id \
+      JOIN patient_physician r \
+      ON r.id_patient = p.id \
+      JOIN physician py \
+      ON py.id = r.id_physician \
+      JOIN appointment a \
+      ON a.id_patient = p.id \
+      JOIN appointment_document ad \
+      ON ad.id_appointment = a.id \
+      JOIN insurance_plan ip \
+      ON ip.id_patient = p.id \
+      JOIN emergency_contact ec \
+      ON ec.id_patient = p.id \
+      JOIN patient_medication pm \
+      ON pm.id_patient = p.id \
+      JOIN payment pay \
+      ON pay.id_patient = p.id \
+      JOIN health_log hl \
+      ON hl.id_patient = p.id \
       WHERE p.id=?';
     db.query(queryString, (error, results) => cb(error, results) );
   }

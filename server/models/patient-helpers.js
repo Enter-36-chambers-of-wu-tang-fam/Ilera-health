@@ -20,13 +20,17 @@ module.exports = {
 
   signIn: (params, cb) => {
     let data = [params.email];
-    const queryString = 'SELECT * FROM patient WHERE email =? LIMIT 1';
+    const queryString = 'SELECT * \
+      FROM patient \
+      WHERE email =? \
+      LIMIT 1';
     db.query(queryString, data, (error, results) => cb(error, results) );
   },
 
   signUp: (params, cb) => {
     let data = [params.first, params.last, params.email, params.password];
-    const queryString = "INSERT INTO patient (first, last, email, password) \
+    const queryString = "INSERT INTO patient \
+      (first, last, email, password) \
       VALUES (?,?,?,?)";
     db.query(queryString, data, (error, results) => cb(error, results) );
   },
@@ -34,13 +38,19 @@ module.exports = {
   checkPatient: (params, cb) => {
     console.log("**", params.email)
     let data = [params.email];
-    const queryString = "SELECT * FROM patient WHERE email=? LIMIT 1";
+    const queryString = "SELECT * \
+      FROM patient \
+      WHERE email=? \
+      LIMIT 1";
     db.query(queryString, data, (error, results) => cb(error, results) );
   },
 
   getPatientInfoByID: (params, cb) => {
     let data = [params.uid];
-    const queryString = 'SELECT * FROM patient WHERE id =? LIMIT 1';
+    const queryString = 'SELECT * \
+      FROM patient \
+      WHERE id =? \
+      LIMIT 1';
     db.query(queryString, data, (error, results) => cb(error, results) );
   },
 
@@ -61,12 +71,13 @@ module.exports = {
         params.birth_city, params.birth_country,
         params.marital_status, params.primary_language,
         params.secondary_language];
-        const queryString ='UPDATE patient SET first=?, last=?, middle=?, \
-        maiden=?, address=?, city=?, state=?, zip=?, primary_phone_number=?, \
-        secondary_phone_number=?, date_of_birth=?, birth_city=?, \
-        birth_country=?, marital_status=?, primary_language=?, \
-        secondary_language=? \
-        WHERE id='+ params.uid;
+        const queryString ='UPDATE patient \
+          SET first=?, last=?, middle=?, \
+          maiden=?, address=?, city=?, state=?, zip=?, primary_phone_number=?, \
+          secondary_phone_number=?, date_of_birth=?, birth_city=?, \
+          birth_country=?, marital_status=?, primary_language=?, \
+          secondary_language=? \
+          WHERE id='+ params.uid;
         db.query(queryString, data, (error, results) => cb(error, results) );
     })
   },
@@ -76,9 +87,11 @@ module.exports = {
     let data = [ params.gender, params.weight, params.height,
       params.blood_type, params.conditions, params.procedures,
       params.medications, params.allergies];
-    const queryString ='UPDATE patient SET gender=?, weight=?, \
+    const queryString ='UPDATE patient \
+      SET gender=?, weight=?, \
       height=?, blood_type=?, conditions=?, procedures=?, \
-      medications=?, allergies=? WHERE id='+ params.uid;
+      medications=?, allergies=? \
+      WHERE id='+ params.uid;
     db.query(queryString, data, (error, results) => cb(error, results) );
   },
 
@@ -86,8 +99,9 @@ module.exports = {
     // Post Request to: api/user/initform  =>   { Patient Table}
     let data = [ params.address, params.city, params.state, params.zip,
       params.primary_phone_number, params.secondary_phone_number];
-    const queryString ='UPDATE patient SET address=?, city=?, state=?, \
-      zip=?, primary_phone_number=?, secondary_phone_number=? \
+    const queryString ='UPDATE patient \
+      SET address=?, city=?, state=?, zip=?, primary_phone_number=?, \
+      secondary_phone_number=? \
       WHERE id='+ params.uid;
       db.query(queryString, data, (error, results) => cb(error, results) );
   },
@@ -95,12 +109,16 @@ module.exports = {
   update_password: (params, cb) => {
     // Post Request to: api/user/initform  =>   { Patient Table}
     let data = [params.password];
-    const queryString ='UPDATE patient SET password=? WHERE id='+ params.uid;
+    const queryString ='UPDATE patient \
+      SET password=? \
+      WHERE id='+ params.uid;
     db.query(queryString, data, (error, results) => cb(error, results) );
   },
 
   delete_photo: (params, cb) => {
-    const queryString = 'SELECT photo_path FROM patient WHERE id='+params.uid;
+    const queryString = 'SELECT photo_path \
+      FROM patient \
+      WHERE id='+params.uid;
     db.query(queryString,(error, results)=> {
       checkIfFile(`../client/${results[0].photo_path}`, (err,stats) => {
         if(err) console.log(err);
@@ -108,7 +126,9 @@ module.exports = {
           fs.unlink(`../client/${results[0].photo_path}`, (erro) =>
           erro ? console.log(erro) : console.log("Successful Delete"));
         }
-          const nullQuery ='UPDATE patient SET photo_path=NULL WHERE id='+params.uid;
+          const nullQuery ='UPDATE patient \
+            SET photo_path=NULL \
+            WHERE id='+params.uid;
           db.query(queryString, (err, status) => cb(err,status))
       })
     })
@@ -118,24 +138,33 @@ module.exports = {
 
   update_photo: (params, cb) => {
     let data = [params.photo_path];
-    const queryString ='UPDATE patient SET photo_path=? WHERE id='+ params.uid;
+    const queryString ='UPDATE patient \
+      SET photo_path=? \
+      WHERE id='+ params.uid;
     db.query(queryString, data, (error, results) => cb(error, results) );
   },
 
   get_patient: (params, cb) => {
     console.log(params.userid)
     let data = [params.userid];
-    const queryString = "SELECT * FROM patient WHERE id=? LIMIT 1";
+    const queryString = "SELECT * \
+      FROM patient \
+      WHERE id=? \
+      LIMIT 1";
     db.query(queryString, data, (error, results) => cb(error, results) );
   },
 
   get_records: (params, cb) => {
-    const queryString = "SELECT * FROM med_records WHERE id_patient="+ params.uid;
+    const queryString = "SELECT * \
+      FROM med_records \
+      WHERE id_patient="+ params.uid;
     db.query(queryString, (error, results) => cb(error, results) );
   },
 
   delete_record: (params, cb) => {
-    const queryString = "DELETE FROM med_records WHERE id="+params.body.id+" AND id_patient="+ params.params.uid;
+    const queryString = "DELETE FROM med_records \
+    WHERE id="+params.body.id+" \
+    AND id_patient="+ params.params.uid;
     db.query(queryString, (error, results) => {
       checkIfFile(`../client/${params.body.path}`, (err,stats) => {
         if(err) console.log(err);
@@ -161,8 +190,10 @@ module.exports = {
     const queryString = 'SELECT a.id, a.date, a.time, a.notes, \
       a.id_physician, p.first, p.last, p_m.drug_name, p_m.dosage, \
       FROM patient p \
-      JOIN appointment a ON a.id_patient = p.id \
-      JOIN patient_medication p_m ON p_m.id_patient = p.id';
+      JOIN appointment a \
+      ON a.id_patient = p.id \
+      JOIN patient_medication p_m \
+      ON p_m.id_patient = p.id';
     db.query(queryString, data, (error, results) => cb(error, results) );
   }
   // (params, cb) => {

@@ -17,8 +17,9 @@ module.exports = {
   create_patient_physician_relation: (params, cb) => {
     params.betterDocId = (params.betterDocId) ? params.betterDocId : null;
     let data = [params.betterDocId, params.id_physician, params.id_patient];
-    const queryString = "INSERT INTO patient_physician(betterDoctorUID, \
-      id_physician, id_patient) value (?,?,?)";
+    const queryString = "INSERT INTO patient_physician\
+      (betterDoctorUID, id_physician, id_patient) \
+      value (?,?,?)";
     db.query(queryString, data, (error, results) => cb(error, results) );
   },
 
@@ -28,7 +29,9 @@ module.exports = {
       p.date_of_birth, p.address, p.city, p.state, p.zip, \
       p.primary_phone_number, p.weight, p.height, p.blood_type, p.photo_path \
       FROM patient_physician pr \
-      JOIN patient p ON p.id = pr.id_patient AND pr.id_physician=? \
+      JOIN patient p \
+      ON p.id = pr.id_patient \
+      AND pr.id_physician=? \
       ORDER BY p.last DESC";
     db.query(queryString, data, (error, results) => cb(error, results) );
   },
@@ -40,9 +43,13 @@ module.exports = {
       i.inst_name, i.type, i.description, i.rating, i.phone_number, \
       i.address, i.city, i.state, i.zip, i.email, pi.id, pi.id_institution \
       FROM patient_physician pr \
-      JOIN physician py ON py.id = pr.id_physician AND pr.id_patient=? \
-      JOIN physician_institution pi ON pi.id_physician = pr.id_physician \
-      JOIN institution i ON i.id = pi.id_institution \
+      JOIN physician py \
+      ON py.id = pr.id_physician \
+      AND pr.id_patient=? \
+      JOIN physician_institution pi \
+      ON pi.id_physician = pr.id_physician \
+      JOIN institution i \
+      ON i.id = pi.id_institution \
       ORDER BY py.last DESC";
     db.query(queryString, data, (error, results) => cb(error, results) );
   },
@@ -52,7 +59,9 @@ module.exports = {
     const queryString = "SELECT pr.id_physician, py.id, py.first, py.last, \
       py.email,py.betterDoctorUID, py.phone_number, py.photo_path, py.specialty \
       FROM patient_physician pr \
-      JOIN physician py ON py.id = pr.id_physician AND pr.id_patient=? \
+      JOIN physician py \
+      ON py.id = pr.id_physician \
+      AND pr.id_patient=? \
       ORDER BY py.last DESC";
     db.query(queryString, data, (error, results) => cb(error, results) );
   },
@@ -60,8 +69,9 @@ module.exports = {
   delete_PatientPhysicianRelation: (params, cb) => {
     let data = [params.betterDocId, params.id_patient];
     console.log(data);
-    const queryString = "DELETE FROM patient_physician WHERE \
-      betterDoctorUID=? AND id_patient=?";
+    const queryString = "DELETE FROM patient_physician \
+      WHERE betterDoctorUID=? \
+      AND id_patient=?";
     db.query(queryString, data, (error, results) => cb(error, results) );
   }
 
