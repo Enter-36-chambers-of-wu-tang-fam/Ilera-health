@@ -248,13 +248,26 @@ main{
     margin: 2% 1.5%;
 }
 
-.dashboardInsurance h5, .profileDash .provViewPatDash h6{
+.dashboardInsurance h5, .profileDash .provViewPatDash h6, .providerDB h6{
     font-size: 14px;
     text-transform: uppercase;
     text-align: left;
     color: #aaa;
     margin-bottom: 5px;
-
+}
+.providerDB img{
+    margin-bottom: 15px;
+}
+.providerDB p{
+    line-height: 140%;
+    margin-bottom: 10px;
+}
+.providerDB p:last-of-type{
+    color: red;
+}
+.providerDB p:last-of-type a{
+    color: red;
+    text-decoration: underline;
 }
 .profileDash .provViewPatDash h5{
     margin-bottom: 10px;
@@ -532,7 +545,7 @@ main > section:nth-of-type(odd){
     height: 100px;
 }
 .introProviders {
-  background-image:  url('./background_images/providers.jpg');
+  background-image:  url('./background_images/forProviders.png');
   background-position: center -190px;
 }
 .introPhotos h2 {
@@ -583,7 +596,7 @@ main .welcomeMessage li{
     margin-left: 4%;
     line-height: 125%;
 }
-main .welcomeMessage > button {
+main .welcomeMessage > a > button {
   float:left;
   margin: 2% 5% 0 0!important;
 }
@@ -1382,19 +1395,11 @@ main >section .team li:hover .teamProfile {
 .providerDashMain{
     background: #eee;
 }
-.dashboardMain > div{
-    padding-top: 82px;
-}
 .providerDashMain > h3{
     font-size: 3vw;
     color: white;
     text-align: center;
     padding: 20% 0;
-}
-.providerDashRight{
-    position: fixed;
-    margin-left: 70%;
-    top: 50px;
 }
 .providerDashRight > a, .providerDashRight > div{
     height: 250px;
@@ -1459,10 +1464,6 @@ main >section .team li:hover .teamProfile {
     color: white;
     margin: 0;
     background: #203248;
-    position: fixed;
-    left: 0;
-    right: 30%;
-    z-index: 15;
 }
 .medsTableLabels > ul > li, .medsList > div > ul > li {
     float: left;

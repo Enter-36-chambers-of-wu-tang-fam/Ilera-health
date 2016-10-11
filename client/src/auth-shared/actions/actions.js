@@ -71,6 +71,7 @@ export function authenticateUser(userType,data,reqType){
         localStorage.setItem('userType',userType);
         localStorage.setItem('first', registered.data.first);
         localStorage.setItem('last', registered.data.last);
+        console.log("LOCAL STORAGE", localStorage)
         dispatch(verifiedAuth(encodedId, userType, true)); //true --> reroutes to sign up form via general_auth component
       })
       .catch(error => failedAuth(error))

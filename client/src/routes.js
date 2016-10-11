@@ -16,25 +16,21 @@ import GeneralAuth from './auth-shared/higher-order-components/general_auth.js';
 
 //Shared Components
 import App from './main/app.js';
-import Welcome from './auth-shared/components/welcome.jsx';
+import Welcome from './auth-shared/components/landing-page/welcome.jsx';
 import Signin from './auth-shared/components/signin-component.js';
 import Signup from './auth-shared/components/signup-component.js';
-// ./components/auth/signup-component.js
 import AllPhysicians from './patients/components/physicians-dash/allPhysicians.jsx';
-// ./components/shared/allPhysicians.jsx
 import AllPhysicianProfile from './patients/components/physicians-dash/allPhysicianProfile.jsx'
-
 import Profile from './patients/components/profile-dash/patient-profile.jsx';
 import Chat from './patients/containers/messages/chat-container.js';
 
 // Physician Components
 import PhysicianApp from './physicians/physician-app/physician-app.jsx';
+import ProviderAppFormContainer from './physicians/components/onboarding/provider-signup-forms.jsx';
 import PhysicianDashboard from './physicians/components/main-dash/provider-dash.jsx';
 import Notes from './physicians/physician-app/notes.jsx';
 import Calendar from './physicians/physician-app/calendar.jsx';
-
 import ProvPatProfile from './physicians/components/patient-ind-profile-dash/profile-main.jsx';
-// ./components/physician-app/calendar.jsx
 import AllUsers from './physicians/components/patients-dash/allUsers.jsx'
 
 // Patient Components
@@ -59,6 +55,9 @@ export default (
         <Route path='signup' component={ GeneralAuth(Signup) } />
         <Route path='signin' component={ GeneralAuth(Signin) } />
         <Route path='provider' component={ PhysicianAuth(PhysicianApp) } >
+            <Route path="welcome" >
+                <IndexRoute component={ ProviderAppFormContainer } />
+            </Route>
             <Route path="dashboard" component={ PhysicianDashboard } />
             <Route path="/provider/patients" component={ AllUsers } />
             <Route path='/provider/patients/:patientId' component={ ProvPatProfile } />
@@ -69,7 +68,7 @@ export default (
             <Route path="calendar" component ={ Calendar }/>
         </Route>
         <Route path='patient' component={ PatientAuth(PatientApp) } >
-            <Route path="form" >
+            <Route path="welcome" >
                 <IndexRoute component={ PatientAppFormContainer } />
             </Route>
             <Route path="dashboard" component={ PatientDashboard } />

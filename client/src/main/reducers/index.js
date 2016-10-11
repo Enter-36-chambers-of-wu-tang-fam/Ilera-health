@@ -10,7 +10,9 @@ import appointments from './appointment-reducer.js';
 import profile from './profile-reducer.js';
 import healthLog from './health-log-reducer';
 import userInfo from './user-reducer';
-import records from './records-reducer'
+import records from './records-reducer';
+import docInfo from './better-doc-reducer.js';
+import provider from './provider-reducer.js';
 
 const rootReducer = combineReducers({
     authentication: authenticate.authenticated,
@@ -22,7 +24,9 @@ const rootReducer = combineReducers({
     messages: messages,
     profile: profile,
     records: records,
-    user: userInfo
+    user: userInfo,
+    betterDoc: docInfo,
+    provider: provider
 });
 
 export default rootReducer;
