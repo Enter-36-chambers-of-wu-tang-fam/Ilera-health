@@ -1,6 +1,20 @@
 import axios from 'axios';
 import * as types from './action-constants';
 
+export function receiveRawMessage(msg, user, senderType, chosenid, receiverType) {
+  return {
+    type: types.RECEIVE_MESSAGE,
+    payload: {
+			date: Date.now(),
+			direct_message: msg.direct_message,
+			receiver_id: chosenid,
+			sender_id: user,
+			sender_type: senderType,
+			receiver_type: receiverType
+		}
+  };
+}
+
 const addMessageRequest = (message) => {
 	return {
 		type:  types.MESSAGE_ADD_REQUEST,
@@ -75,13 +89,6 @@ export function fetchMessages(userid, senderType, rid, receiverType) {
 		  dispatch(fetchMessagesFailure(error));
 	  });
   }
-}
-
-export function receiveRawMessage(message) {
-  return {
-    type: types.RECEIVE_MESSAGE,
-    payload: message
-  };
 }
 
 const fetchPatientPhysicians = (physicians) => {

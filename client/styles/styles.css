@@ -583,7 +583,7 @@ main .welcomeMessage li{
     margin-left: 4%;
     line-height: 125%;
 }
-main .welcomeMessage > button {
+main .welcomeMessage > a > button {
   float:left;
   margin: 2% 5% 0 0!important;
 }
