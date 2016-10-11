@@ -49,7 +49,13 @@ module.exports = {
             sess.email = req.body.email;
             sess.user = data;
             module.exports.sess = sess;
-            res.json(data.insertId);
+            res.json({
+              data: data,
+              first: req.body.first,
+              last: req.body.last,
+              email: req.body.email,
+              user: data.insertId
+            });
           });
         })
       }

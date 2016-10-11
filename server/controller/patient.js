@@ -54,6 +54,7 @@ module.exports = {
           req.body.password = hashed;
 
           Patient.signUp(req.body, (error, data) => {
+            console.log("DATA!!!", data)
             if(error) console.log(error);
             sess = req.session;
             sess.email = req.body.email;
