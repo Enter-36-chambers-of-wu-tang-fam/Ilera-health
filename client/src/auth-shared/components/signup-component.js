@@ -13,11 +13,6 @@ import { SelectField, TextField } from 'redux-form-material-ui';
 import CryptoJS from 'crypto-js';
 import axios from 'axios';
 
-
-const highlightStyles = {
-  styles: { color: 'white', backgroundColor: 'rgb(242, 108, 44)'}
-}
-
 const validate = values => {
   const errors = {}
 	if (!values.first || /\d/.test(values.first)) {

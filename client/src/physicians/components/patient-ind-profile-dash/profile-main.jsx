@@ -47,6 +47,6 @@ export default connect(
   { 
 	  load: getUserInfo,
     loadAppointments: getAllPhysicianAppts,    
-    loadMeds: getAllPatientMedication,
+    loadMeds: getAllPatientMedication
   }
 )(ProfileMain);
