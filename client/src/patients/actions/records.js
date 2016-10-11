@@ -30,6 +30,7 @@ const getRecordsFailure = (errorMsg) => {
 
 
 export const getRecords = (uid) => {
+  console.info('CALLED WITH UID', uid);
   return function(dispatch){
     dispatch(getRecordsRequest());
     axios.get(`/api/patient/getRecords/${uid}`)

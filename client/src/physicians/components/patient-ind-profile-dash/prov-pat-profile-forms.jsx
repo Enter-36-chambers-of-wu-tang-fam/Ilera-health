@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
 import {Tabs, Tab} from 'material-ui/Tabs';
 import { connect } from 'react-redux';
-import { getUserInfo, getUserContacts, getUserInsurance, didInit } from '../../../patients/actions/user.js';
+import { getUserInfo, getUserContacts, getUserInsurance, getUserRecords, getUserReminders, didInit } from '../../../patients/actions/user.js';
+import { getRecords } from '../../../patients/actions/records.js';
 // CryptoJS
 import CryptoJS from 'crypto-js';
 // Components
@@ -9,6 +10,8 @@ import BackgroundInfoFormInitialized from '../../../patients/containers/redux-fo
 import ContactInfoFormInitialized from '../../../patients/containers/redux-forms/profile-update/contact-form-initialized.js';
 import HealthInfoFormInitialized from '../../../patients/containers/redux-forms/profile-update/health-form-initialized.js';
 import ProviderInfoFormInitialized from '../../../patients/containers/redux-forms/profile-update/provider-form-initialized.js';
+import PatientRecords from '../../../patients/components/medical-history-dash/medical-history-dashboard.jsx';
+import PatientNotes from '../../../patients/components/medical-history-dash/appointment-history-dashboard.jsx';
 import ProfileMeds from './prov-pat-profile-meds.jsx';
 import { getAllPatientMedication } from '../../../physicians/actions/medication.js';
 
@@ -25,14 +28,22 @@ class PatientProfileTabs extends Component {
     super(props);
     this.state = {
       value: 'a',
+      physId: null
     };
   }
 
 	componentWillMount(){
-	  const { dispatch, initialize, load, loadContacts, loadMeds, info } = this.props;
-	  load(21);
-		loadContacts(21);
-		loadMeds(21);
+	  const { dispatch, initialize, load, loadContacts, loadMeds, loadRecords, loadReminders, info, records, patId } = this.props;
+    let id = localStorage.getItem('uid');
+		let code  = CryptoJS.AES.decrypt(id.toString(), 'key'); 
+		let uid = code.toString(CryptoJS.enc.Utf8);
+    
+    this.setState({physId: uid});
+	  load(this.props.patId);
+		loadContacts(this.props.patId);
+		loadMeds(this.props.patId);
+    loadRecords(this.props.patId);
+    loadReminders(this.props.patId);
   }
 
   handleChange(value) {
@@ -42,7 +53,7 @@ class PatientProfileTabs extends Component {
   };
 
   render() {
-		const { user, medications } = this.props;
+		const { user, medications} = this.props;
     return (
 			<div className="profileForms">
 				<Tabs
@@ -71,12 +82,12 @@ class PatientProfileTabs extends Component {
 					</Tab>
 					<Tab onClick={this.handleChange.bind(this, 'e')} label="Records" style={styles.tab} value="e">
 						<div>
-							<h2></h2>
+							<PatientRecords records={this.props.records} />
 						</div>
 					</Tab>
 					<Tab onClick={this.handleChange.bind(this, 'f')} label="Notes" style={styles.tab} value="f">
 						<div>
-							<h2></h2>
+							<PatientNotes reminders={this.props.reminders} patId={this.props.user.id} physId={this.state.physId} />
 						</div>
 					</Tab>
 					<Tab onClick={this.handleChange.bind(this, 'g')} label="Meds" style={styles.tab} value="g">
@@ -96,12 +107,16 @@ export default connect(
 		init: state.user.init,
 		contacts: state.user.e_contacts[0] || state.user.e_contacts,
 		provider: state.user.provider[0] || state.user.provider,
-		medications: state.meds.medication
+		medications: state.meds.medication,
+    records: state.records.records,
+    reminders: state.user.reminders
   }),
   { 
 	  load: getUserInfo,
 		loadContacts: getUserContacts,
 		loadMeds: getAllPatientMedication,
+    loadRecords: getRecords,
+    loadReminders: getUserReminders,
 	  didInit: didInit
   }
 )(PatientProfileTabs)

@@ -47,6 +47,7 @@ export function authenticateUser(userType,data,reqType){
             localStorage.setItem('last', found.data.last);
             localStorage.setItem('photo', found.data.photo_path);
           } else if(userType === 'physician') {
+            console.log(found);
             var encodedId = CryptoJS.AES.encrypt(String(found.data), 'key'); //need to change key
           } else {
             var encodedId = CryptoJS.AES.encrypt(String(found.data), 'key'); //need to change key
@@ -65,6 +66,7 @@ export function authenticateUser(userType,data,reqType){
       axios.post(`/api/${userType}/signup`, data)
       .then(registered => {
         let encodedId = CryptoJS.AES.encrypt(String(registered.data.user), 'key');  //need to change key to actual key
+        console.log("registered!!!!", registered)
         localStorage.setItem('uid',encodedId);
         localStorage.setItem('userType',userType);
         localStorage.setItem('first', registered.data.first);

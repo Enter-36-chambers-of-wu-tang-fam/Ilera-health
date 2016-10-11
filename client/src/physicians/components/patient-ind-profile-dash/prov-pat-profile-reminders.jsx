@@ -23,11 +23,18 @@ class DashboardReminders extends Component {
 	}
 
 	componentWillReceiveProps(nextProps){
-		this.setState({reminders: nextProps.reminders})
+    let id = localStorage.getItem('uid');
+    let code  = CryptoJS.AES.decrypt(id.toString(), 'key'); //need to change key
+    const uid = code.toString(CryptoJS.enc.Utf8);
+		this.setState({reminders: nextProps.reminders.filter(item => {
+        return Number(item.id_physician) === Number(uid); //Only get current physicians appointments
+      }) 
+    })
 	}
 
 	render(){
 		const { reminders } = this.state;
+    console.log("REMINDA", this.state.reminders);
 			return (
 					 <div>
                 <h3>Reminders</h3>
@@ -47,8 +54,8 @@ class DashboardReminders extends Component {
                                         <p>{day}</p>
                                     </div>
                                     <div>
-                                        <p>{time[0] === '0' ? time.slice(1) : time} {time.slice(0,2) > 7 ? " AM" : " PM"} </p>
-                                        <h6>{reminder.first} {reminder.last}, {reminder.title}</h6>
+                                        <p>{time[0] === '0' ? time.slice(1,5) : time} {time.slice(0,2) > 7 ? " AM" : " PM"} </p>
+                                        <h6>{reminder.first} {reminder.last} {reminder.title !== null ? ","+reminder.title : ''}</h6>
                                     </div>
                                 </li>
                             )

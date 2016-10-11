@@ -23,6 +23,7 @@ class RecordsDashboard extends Component{
   
   constructor(props){
     super(props);
+    const status = (localStorage.getItem('userType')) === 'patient' ? false : true;
     this.state = {
       records: [],
       fixedHeader: true,
@@ -35,6 +36,8 @@ class RecordsDashboard extends Component{
       deselectOnClickaway: true,
       showCheckboxes: false,
       height: '200px',
+
+      patient:status
     }
   }
   componentWillMount(){
@@ -46,7 +49,7 @@ class RecordsDashboard extends Component{
 
   componentWillReceiveProps(nextProps){
     this.setState({
-      records: nextProps.records.records.data
+      records: nextProps.records.data
     })
   }
 
@@ -61,26 +64,26 @@ class RecordsDashboard extends Component{
   }
 
   render () {
-    
+    const { records, height, fixedHeader, fixedFooter, selectable, multiSelectable, showCheckboxes, enableSelectAll,deselectOnClickaway, showRowHover, stripedRows, patient } = this.state;
     return (
         <div className="medRecords">
-          <a href="/patient/records/upload" className="uploadRecord"><button>Upload</button></a>
-          <a href="/patient/records/appointments" className="uploadRecord"><button>Appointment Notes</button></a>
+          {patient ? "" : <a href="/patient/records/upload" className="uploadRecord"><button>Upload</button></a>}
+          {patient ? "" : <a href="/patient/records/appointments" className="uploadRecord"><button>Appointment Notes</button></a> }
         <Table
-          height={this.state.height}
-          fixedHeader={this.state.fixedHeader}
-          fixedFooter={this.state.fixedFooter}
-          selectable={this.state.selectable}
-          multiSelectable={this.state.multiSelectable}
+          height={height}
+          fixedHeader={fixedHeader}
+          fixedFooter={fixedFooter}
+          selectable={selectable}
+          multiSelectable={multiSelectable}
           style={styles.clearFix}
         >
           <TableHeader
-            displaySelectAll={this.state.showCheckboxes}
-            adjustForCheckbox={this.state.showCheckboxes}
-            enableSelectAll={this.state.enableSelectAll}
+            displaySelectAll={showCheckboxes}
+            adjustForCheckbox={showCheckboxes}
+            enableSelectAll={enableSelectAll}
           >
             <TableRow>
-              <TableHeaderColumn colSpan="5" tooltip="Medical Records Data" style={{textAlign: 'center', fontSize:'24px'}}>
+              <TableHeaderColumn colSpan={patient ? "4" : "5"} tooltip="Medical Records Data" style={{textAlign: 'center', fontSize:'24px'}}>
                 Medical Records Data
               </TableHeaderColumn>
             </TableRow>
@@ -89,16 +92,16 @@ class RecordsDashboard extends Component{
               <TableHeaderColumn tooltip="The Type">Document Type</TableHeaderColumn>
               <TableHeaderColumn tooltip="The Description">Document Description</TableHeaderColumn>
               <TableHeaderColumn tooltip="The Record">Record Document</TableHeaderColumn>
-              <TableHeaderColumn tooltip="The Record">Remove Document</TableHeaderColumn>
+              {patient ? '' : <TableHeaderColumn tooltip="The Record">Remove Document</TableHeaderColumn>}
             </TableRow>
           </TableHeader>
           <TableBody
-            displayRowCheckbox={this.state.showCheckboxes}
-            deselectOnClickaway={this.state.deselectOnClickaway}
-            showRowHover={this.state.showRowHover}
-            stripedRows={this.state.stripedRows}
+            displayRowCheckbox={showCheckboxes}
+            deselectOnClickaway={deselectOnClickaway}
+            showRowHover={showRowHover}
+            stripedRows={stripedRows}
           >
-            {this.state.records.map((record, index) => (
+            {records.map((record, index) => (
               <TableRow key={index} selected={record.selected}>
                 <TableRowColumn>{record.date.slice(0,10)}</TableRowColumn>
                 <TableRowColumn>{record.type}</TableRowColumn>
@@ -112,15 +115,15 @@ class RecordsDashboard extends Component{
                     {['doc','txt'].indexOf(record.document_path.slice(-3)) > -1 ? <i className="fa fa-file-text-o fa-3x" aria-hidden="true"></i> : '' }
                   </a>
                 </TableRowColumn>
-                <TableRowColumn><button onClick={this.handleRemoval.bind(this,record.id,record.document_path)}>Delete</button></TableRowColumn>
+                {patient ? "" : <TableRowColumn><button onClick={this.handleRemoval.bind(this,record.id,record.document_path)}>Delete</button></TableRowColumn>}
               </TableRow>
               ))}
           </TableBody>
           <TableFooter
-            adjustForCheckbox={this.state.showCheckboxes}
+            adjustForCheckbox={showCheckboxes}
           >
             <TableRow>
-              <TableRowColumn colSpan="5" style={{textAlign: 'center'}}>
+              <TableRowColumn colSpan={patient ? "4" : "5"} style={{textAlign: 'center'}}>
                 End Records
               </TableRowColumn>
             </TableRow>
@@ -133,7 +136,7 @@ class RecordsDashboard extends Component{
 
 const mapStateToProps = (state) => {
   return {
-    records: state.records
+    records: state.records.records
   }
 }
 

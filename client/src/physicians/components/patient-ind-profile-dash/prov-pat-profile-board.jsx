@@ -16,7 +16,7 @@ const ProfileDash = ({user}) => {
                 <h6>Primary Phone</h6>
                 <h5>{user.primary_phone_number ? user.primary_phone_number : "No data"}</h5>
                 <h6>D.O.B.</h6>
-                <h5>{user.date_of_birth ? user.date_of_birth : "No data"}</h5>
+                <h5>{user.date_of_birth ? user.date_of_birth.slice(0,10) : "No data"}</h5>
                 <h6>Allergies</h6>
                 <h5>{user.allergies ? user.allergies : "No data"}</h5>
             </div>
