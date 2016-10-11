@@ -13,6 +13,11 @@ import { SelectField, TextField } from 'redux-form-material-ui';
 import CryptoJS from 'crypto-js';
 import axios from 'axios';
 
+
+const highlightStyles = {
+  styles: { color: 'white', backgroundColor: 'rgb(242, 108, 44)'}
+}
+
 const validate = values => {
   const errors = {}
 	if (!values.first || /\d/.test(values.first)) {
@@ -49,8 +54,8 @@ class SignupForm extends Component {
 
 	onSubmit(props) {
     this.props.authenticateUser(this.state.userType, props,"signup");
-    if(this.state.userType === 'physician') this.context.router.push('provider/');
-    if(this.state.userType === 'patient') this.context.router.push('/patient/form');
+    if(this.state.userType === 'physician') this.context.router.push('provider/welcome');
+    if(this.state.userType === 'patient') this.context.router.push('/patient/welcome');
     if(this.state.userType === 'staff') this.context.router.push('/staff/form');
   }
 

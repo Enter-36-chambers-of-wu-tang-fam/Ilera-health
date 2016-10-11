@@ -1,7 +1,10 @@
+// React
 import React, { Component } from 'react';
+// Material UI
 import FlatButton from 'material-ui/FlatButton';
 import Dialog from 'material-ui/Dialog';
 import {Tabs, Tab} from 'material-ui';
+// Components
 import SignUp from './signup-component.js';
 import SignIn from './signin-component.js';
 
@@ -10,148 +13,120 @@ const buttonStyles = {
   backgroundColor:null,
   labelStyle: {color:"#203248", fontWeight: 300},
   rippleColor: '#ccc',
-  styles: { height: '50px'}
-}
+  styles: { height: '50px', padding: '20px'}
+};
+
+const tabStyles = {
+  styles: { backgroundColor: '#203248' }
+};
 
 export default class UnauthHeader extends Component {
 
-    constructor (props){
-      super(props);
-      this.state = {
-        openSignup: false,
-        openSignin: false,
-        userType: ''
-      }
+  constructor (props){
+    super(props);
+    this.state = {
+      openSignup: false,
+      openSignin: false,
+      userType: ''
     }
-    handleSignupOpen() {
-      this.setState({openSignup: true});
-    };
+  }
+  handleSignupOpen() {
+    this.setState({openSignup: true});
+  };
 
-    handleSignupClose() {
-      this.setState({openSignup: false});
-    };
+  handleSignupClose() {
+    this.setState({openSignup: false});
+  };
 
-    handleSigninOpen() {
-      this.setState({openSignin: true});
-    };
+  handleSigninOpen() {
+    this.setState({openSignin: true});
+  };
 
-    handleSigninClose() {
-      this.setState({openSignin: false});
-    };
+  handleSigninClose() {
+    this.setState({openSignin: false});
+  };
 
-    handleActive(tab){
-      if(tab.props['label'] === 'Provider'){
-        var user = 'provider';
-      }else{
-        var user = 'patient';
-      }
-      console.log("USER", user);
-      this.setState({ userType: user });
+  handleActive(tab){
+    if(tab.props['label'] === 'Provider'){
+      var user = 'provider';
+    }else{
+      var user = 'patient';
     }
+    this.setState({ userType: user });
+  }
 
-    render() {
+  renderFlatButton (props) {
+    return(
+      <FlatButton 
+        backgroundColor={buttonStyles.backgroundColor}
+        hoverColor={buttonStyles.hoverColor}
+        style={buttonStyles.styles}
+        labelStyle={buttonStyles.labelStyle}
+        rippleColor={buttonStyles.rippleColor}
+        {...props}
+      />
+    )
+  }
 
-      return (
-          <header>
-            <h1><a href="/"><img src="../styles/logos/myilera_large_white.png" /></a></h1>
-            <ul>
+  render() {
+    return (
+        <header>
+          <h1><a href="/"><img src="../styles/logos/myilera_large_white.png" /></a></h1>
+          <ul>
+            <li>
+              <FlatButton label="For Patients" href={'#forpatients'} component={this.renderFlatButton} />
+            </li>
               <li>
-                <FlatButton label="For Patients"
-                  backgroundColor={buttonStyles.backgroundColor}
-                  hoverColor={buttonStyles.hoverColor}
-                  style={buttonStyles.styles}
-                  labelStyle={buttonStyles.labelStyle}
-                  rippleColor={buttonStyles.rippleColor}
-
-                />
-              </li>
-               <li>
-                <FlatButton label="For Providers"
-                  backgroundColor={buttonStyles.backgroundColor}
-                  hoverColor={buttonStyles.hoverColor}
-                  style={buttonStyles.styles}
-                  labelStyle={buttonStyles.labelStyle}
-                  rippleColor={buttonStyles.rippleColor}
-
-                />
-              </li>
+              <FlatButton label="For Providers" href={'#forproviders'} component={this.renderFlatButton} />
+            </li>
+            <li>
+              <FlatButton label="For Staff" component={this.renderFlatButton}  />
+            </li>
               <li>
-               <FlatButton label="For Staff"
-                 backgroundColor={buttonStyles.backgroundColor}
-                 hoverColor={buttonStyles.hoverColor}
-                 style={buttonStyles.styles}
-                 labelStyle={buttonStyles.labelStyle}
-                 rippleColor={buttonStyles.rippleColor}
-
-               />
-             </li>
-               <li>
-                <FlatButton label="About"
-                  backgroundColor={buttonStyles.backgroundColor}
-                  hoverColor={buttonStyles.hoverColor}
-                  style={buttonStyles.styles}
-                  labelStyle={buttonStyles.labelStyle}
-                  rippleColor={buttonStyles.rippleColor}
-
-                />
-              </li>
-              <li>
-                <FlatButton label="Sign up"
-                  backgroundColor={buttonStyles.backgroundColor}
-                  hoverColor={buttonStyles.hoverColor}
-                  style={buttonStyles.styles}
-                  labelStyle={buttonStyles.labelStyle}
-                  rippleColor={buttonStyles.rippleColor}
-                  onTouchTap={this.handleSignupOpen.bind(this)}
-                />
-              </li>
-              <li>
-                <FlatButton label="Sign in"
-                  backgroundColor={buttonStyles.backgroundColor}
-                  hoverColor={buttonStyles.hoverColor}
-                  style={buttonStyles.styles}
-                  labelStyle={buttonStyles.labelStyle}
-                  rippleColor={buttonStyles.rippleColor}
-                  onTouchTap={this.handleSigninOpen.bind(this)}
-                />
-              </li>
-            </ul>
-            <Dialog
-              modal={false}
-              open={this.state.openSignup}
-              onRequestClose={this.handleSignupClose.bind(this)}
-            >
-              <Tabs>
-                <Tab label="Patient" onActive={this.handleActive.bind(this)}>
-                  <SignUp userType={'patient'} title={'Patient'}/>
-                </Tab>
-                <Tab label="Physician" onActive={this.handleActive.bind(this)}>
-                  <SignUp userType={'physician'} title={'Physician'} />
-                </Tab>
-                <Tab label="Staff" onActive={this.handleActive.bind(this)}>
-                  <SignUp userType={'staff'} title={'Staff'} />
-                </Tab>
-              </Tabs>
-
-            </Dialog>
-            <Dialog
-              modal={false}
-              open={this.state.openSignin}
-              onRequestClose={this.handleSigninClose.bind(this)}
-            >
-              <Tabs>
-                <Tab label="Patient" onActive={this.handleActive.bind(this)}>
-                  <SignIn userType={'patient'} title={'Patient'}/>
-                </Tab>
-                <Tab label="Physician" onActive={this.handleActive.bind(this)}>
-                  <SignIn userType={'physician'} title={'Physician'} />
-                </Tab>
-                <Tab label="Staff" onActive={this.handleActive.bind(this)}>
-                  <SignIn userType={'staff'} title={'Staff'}/>
-                </Tab>
-              </Tabs>
-            </Dialog>
-          </header>
+              <FlatButton label="About" href={'#team'} component={this.renderFlatButton}  />
+            </li>
+            <li>
+              <FlatButton label="Sign up" component={this.renderFlatButton} onTouchTap={this.handleSignupOpen.bind(this)} />
+            </li>
+            <li>
+              <FlatButton label="Sign in" component={this.renderFlatButton} onTouchTap={this.handleSigninOpen.bind(this)} />
+            </li>
+          </ul>
+          <Dialog
+            modal={false}
+            open={this.state.openSignup}
+            onRequestClose={this.handleSignupClose.bind(this)}
+          >
+            <Tabs>
+              <Tab label="Patient" style={tabStyles.styles} onActive={this.handleActive.bind(this)}>
+                <SignUp userType={'patient'} title={'Patient'}/>
+              </Tab>
+              <Tab label="Physician" style={tabStyles.styles} onActive={this.handleActive.bind(this)}>
+                <SignUp userType={'physician'} title={'Physician'} />
+              </Tab>
+              <Tab label="Staff" style={tabStyles.styles} onActive={this.handleActive.bind(this)}>
+                <SignUp userType={'staff'} title={'Staff'} />
+              </Tab>
+            </Tabs>
+          </Dialog>
+          <Dialog
+            modal={false}
+            open={this.state.openSignin}
+            onRequestClose={this.handleSigninClose.bind(this)}
+          >
+            <Tabs>
+              <Tab label="Patient" style={tabStyles.styles} onActive={this.handleActive.bind(this)}>
+                <SignIn userType={'patient'} title={'Patient'}/>
+              </Tab>
+              <Tab label="Physician" style={tabStyles.styles} onActive={this.handleActive.bind(this)}>
+                <SignIn userType={'physician'} title={'Physician'} />
+              </Tab>
+              <Tab label="Staff" style={tabStyles.styles} onActive={this.handleActive.bind(this)}>
+                <SignIn userType={'staff'} title={'Staff'}/>
+              </Tab>
+            </Tabs>
+          </Dialog>
+        </header>
       );
     }
-}
+};

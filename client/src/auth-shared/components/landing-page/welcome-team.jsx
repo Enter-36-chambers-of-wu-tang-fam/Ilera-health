@@ -3,7 +3,7 @@ import React from 'react';
 
 const WelcomeTeam = () => {
 	return (    
-		<section className="teamSec">
+		<section id='team' className="teamSec">
 		<div className="introPhotos introTeam">
 			<h2>Your Team</h2>
 		</div>
@@ -23,7 +23,7 @@ const WelcomeTeam = () => {
 						<div className="teamProfile">
 							<h4>Kent Moreland</h4>
 							<h5>Software Engineer</h5>
-							<p>Lorem ipsum desc goes here. Forthecoming ipsum dipsum.</p>
+							<p>Dad | Husband | Lover of life | Writer of Code</p>
 						</div>
 					</li>
 					<li>

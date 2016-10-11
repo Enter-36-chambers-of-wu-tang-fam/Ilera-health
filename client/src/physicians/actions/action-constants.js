@@ -86,3 +86,8 @@ export const MEDS_FETCH_SUCCESS = 'MEDS_FETCH_SUCCESS';
 export const MEDS_FETCH_FAILURE = 'MEDS_FETCH_FAILURE';
 // meds select
 export const MED_CHOSEN = 'MED_CHOSEN';
+
+//================================== BETTER DOC ==============================
+export const BETTER_DOC_INFO_REQUEST = 'BETTER_DOC_INFO_REQUEST';
+export const BETTER_DOC_INFO_SUCCESS = 'BETTER_DOC_INFO_SUCCESS';
+export const BETTER_DOC_INFO_FAILURE = 'BETTER_DOC_INFO_FAILURE';
