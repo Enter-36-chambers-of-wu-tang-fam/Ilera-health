@@ -248,13 +248,26 @@ main{
     margin: 2% 1.5%;
 }
 
-.dashboardInsurance h5, .profileDash .provViewPatDash h6{
+.dashboardInsurance h5, .profileDash .provViewPatDash h6, .providerDB h6{
     font-size: 14px;
     text-transform: uppercase;
     text-align: left;
     color: #aaa;
     margin-bottom: 5px;
-
+}
+.providerDB img{
+    margin-bottom: 15px;
+}
+.providerDB p{
+    line-height: 140%;
+    margin-bottom: 10px;
+}
+.providerDB p:last-of-type{
+    color: red;
+}
+.providerDB p:last-of-type a{
+    color: red;
+    text-decoration: underline;
 }
 .profileDash .provViewPatDash h5{
     margin-bottom: 10px;

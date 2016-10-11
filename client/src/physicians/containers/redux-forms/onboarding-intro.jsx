@@ -32,7 +32,7 @@ class FormIntro extends Component {
 				<h2>Welcome!</h2>
 				<p>Thank you for signing up for Ilera Health. Let's begin!</p> 
 				<p>If you entered a Better Doctor UID, you will be prompted to confirm your information on the next screen. If any of the information is innacurate or out of date, please <a href='http://betterdoctor.com/doctors'>update your information</a>. </p>
-				<p>If you did not enter a Better Doctor UId upon sign up, the next screen will prompt you to add some basic information. We suggest you <a href="http://betterdoctor.com/doctors">register</a> with Better Doctor in order to help us verify your practice.</p>
+				<p>If you did not enter a Better Doctor UID upon sign up, the next screen will prompt you to add some basic information. We suggest you <a href="http://betterdoctor.com/doctors">register</a> with Better Doctor in order to help us verify your practice.</p>
 			<div>{this.getStepContent()}</div>
 			<div style={{marginTop: 40}}>
 					<FlatButton

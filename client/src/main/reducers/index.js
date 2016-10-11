@@ -12,6 +12,7 @@ import healthLog from './health-log-reducer';
 import userInfo from './user-reducer';
 import records from './records-reducer';
 import docInfo from './better-doc-reducer.js';
+import provider from './provider-reducer.js';
 
 const rootReducer = combineReducers({
     authentication: authenticate.authenticated,
@@ -24,7 +25,8 @@ const rootReducer = combineReducers({
     profile: profile,
     records: records,
     user: userInfo,
-    betterDoc: docInfo
+    betterDoc: docInfo,
+    provider: provider
 });
 
 export default rootReducer;

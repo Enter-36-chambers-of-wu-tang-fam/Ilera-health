@@ -53,6 +53,7 @@ class SignupForm extends Component {
   }
 
 	onSubmit(props) {
+    localStorage.setItem('betterUID', props.betterUID);
     this.props.authenticateUser(this.state.userType, props,"signup");
     if(this.state.userType === 'physician') this.context.router.push('provider/welcome');
     if(this.state.userType === 'patient') this.context.router.push('/patient/welcome');

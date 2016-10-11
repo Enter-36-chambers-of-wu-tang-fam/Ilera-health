@@ -1,7 +1,9 @@
 // React
 import React, { Component, PropTypes } from 'react';
+import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
 // Actions
-import * as actions from '../../../auth-shared/actions/actions.js';
+import { getDocInfo } from '../../actions/better-doc.js';
 // Material UI
 import { Step, Stepper, StepLabel } from 'material-ui/Stepper';
 import RaisedButton from 'material-ui/RaisedButton';
@@ -22,9 +24,19 @@ class ProviderAppFormsContainer extends Component {
 		this.state = {
 			finished: false,
 			stepIndex: 0,
-			uid: null
+			uid: null,
+      doc: {}
 		};
 	} 
+
+  componentWillMount(){
+    const { getDocInfo } = this.props;
+    var uid = localStorage.getItem('betterUID');
+    console.log("BETTERUID", uid);
+    if( uid !== undefined ){
+      (getDocInfo(uid));
+    }
+  }
 
   handleNext() {
     const {stepIndex} = this.state;
@@ -42,18 +54,21 @@ class ProviderAppFormsContainer extends Component {
   };
 
   getStepContent(stepIndex) {
+    const { doc, user } = this.props;
+    console.log("FUCKKKK", doc)
     switch (stepIndex) {
       case 0:
         return <ProviderIntro stepIndex={this.state.stepIndex} getStepContent={this.getStepContent.bind(this)} handleNext={this.handleNext.bind(this)} handlePrev={this.handlePrev.bind(this)}/>
       case 1:
-        return <BackgroundInfoForm stepIndex={this.state.stepIndex} getStepContent={this.getStepContent.bind(this)} handleNext={this.handleNext.bind(this)} handlePrev={this.handlePrev.bind(this)}/>;
+        return <BackgroundInfoForm stepIndex={this.state.stepIndex} getStepContent={this.getStepContent.bind(this)} handleNext={this.handleNext.bind(this)} handlePrev={this.handlePrev.bind(this)} doc={doc} />;
       default:
-        return <FormIntro />;
+        return <ProviderIntro />;
     }
   }
 
   render() {
 		const {finished, stepIndex} = this.state;
+    
 		return (
         <div style={{width: '100%', maxWidth: 700, margin: '0 auto 30px'}}>
             <Stepper activeStep={stepIndex}>
@@ -70,4 +85,14 @@ class ProviderAppFormsContainer extends Component {
 	}
 };
 
-export default ProviderAppFormsContainer;
+function mapStateToProps(state){
+	return {
+		doc: state.betterDoc.doc
+	}
+}
+
+function mapDispatchToProps(dispatch) {
+    return bindActionCreators({ getDocInfo }, dispatch);
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(ProviderAppFormsContainer);
