@@ -58,6 +58,7 @@ module.exports = {
 
   // added
   update_appointment: (params, cb) => {
+    console.log("UPDATE PARAMS!!", params)
     let data = [ (params.date || null), (params.time || null),
       (params.notes || null) ];
     const queryString = 'UPDATE appointment \

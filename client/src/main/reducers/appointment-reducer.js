@@ -21,6 +21,24 @@ const appointment = {
                   appointmentSet: action.payload,
                   isPosted: action.isPosted
                 })
+              
+              case types.UPDATE_APPOINTMENT_REQUEST:
+                return Object.assign({},state, {
+                  appointmenUpdate: action.payload,
+                  isPosted: action.isPosted
+                })
+
+              case types.UPDATE_APPOINTMENT_SUCCESS:
+                return Object.assign({},state, {
+                  appointmentUpdate: action.payload,
+                  userType: action.isPosted
+                })
+              
+              case types.UPDATE_APPOINTMENT_FAILURE:
+                return Object.assign({},state, {
+                  appointmentUpdate: action.payload,
+                  isPosted: action.isPosted
+                })
               default:
                 return state;
               }
