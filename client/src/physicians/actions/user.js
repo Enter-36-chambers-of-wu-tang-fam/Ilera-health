@@ -34,7 +34,7 @@ export function getUserInfo(uid) {
   return (dispatch) => {
     dispatch(getUserInfoRequest());
 
-    axios.get(`/api/physician/${uid}`)
+    axios.get(`/api/patient/${uid}`)
     .then( user => {
       console.log("USER", user)
       localStorage.setItem("photo", user.data[0].photo_path);
