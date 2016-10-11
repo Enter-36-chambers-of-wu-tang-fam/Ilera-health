@@ -8,7 +8,7 @@ import Dialog from 'material-ui/Dialog';
 import FlatButton from 'material-ui/FlatButton';
 import RaisedButton from 'material-ui/RaisedButton';
 import TextField from 'material-ui/TextField';
-import PatientNotes from '../../../patients/containers/redux-forms/appointmentNotes/appointment-form.jsx'
+import PatientNotes from '../../../patients/containers/redux-forms/appointmentNotes/appointment-form.jsx';
 
 const styles = {
   propContainer: {
@@ -18,6 +18,15 @@ const styles = {
   },
   clearFix: {
     clear: "both"
+  },
+  modalStyle: {
+    width: '80%',
+    minWidth:'80%'
+  },
+  textArea: {
+    width: "100%",
+    minWidth: "100%",
+    color: "#333"
   }
 };
 
@@ -36,6 +45,7 @@ class AppointmentHistoryDashboard extends Component{
       currentNote: null,
       currentDate: null,
       currentTime: null,
+      currentName: null,
       fixedHeader: true,
       fixedFooter: true,
       stripedRows: false,
@@ -69,12 +79,14 @@ class AppointmentHistoryDashboard extends Component{
 	}
 
 
-  handleOpen(note,date,time) {
+  handleOpen(id,note,name,date,time) {
     this.setState({
       open: true,
+      currentId: id,
       currentNote: note,
       currentDate: date,
-      currentTime: time
+      currentTime: time,
+      currentName: name
       });
   };
 
@@ -136,7 +148,7 @@ class AppointmentHistoryDashboard extends Component{
                 <TableRowColumn>{appointment.date === null ? 'no date' : appointment.date.slice(0,10)}</TableRowColumn>
                 <TableRowColumn>{appointment.time[0] === '0' ? appointment.time.slice(1,5) : appointment.time.slice(0,5)} {appointment.time.slice(0,2) > 7 ? " AM" : " PM"} </TableRowColumn>
                 <TableRowColumn>{appointment.first} {appointment.last}, {appointment.title}</TableRowColumn>
-                <TableRowColumn>{appointment.notes === null ? 'No Notes Yet': <a href="#" onClick={this.handleOpen.bind(this, appointment.notes, appointment.date.slice(0,10), 
+                <TableRowColumn>{appointment.notes === null ? 'No Notes Yet': <a href="#" onClick={this.handleOpen.bind(this, appointment.id, appointment.notes, appointment.first+' '+appointment.last, appointment.date.slice(0,10), 
                   appointment.time[0] === '0' ? appointment.time.slice(1,5) : appointment.time.slice(0,5))}>View</a>}</TableRowColumn>
               </TableRow>
               ))}
@@ -154,23 +166,37 @@ class AppointmentHistoryDashboard extends Component{
 
 
         <Dialog
-          title="Scrollable Dialog"
+          title="Appointment Notes"
           actions={actions}
           modal={false}
           open={open}
           onRequestClose={this.handleClose.bind(this)}
           autoScrollBodyContent={true}
+          contentStyle={styles.modalStyle}
         >
-          {patient ? <PatientNotes physId={this.state.physId} patId={this.state.patId} /> : 
+          {patient ? <PatientNotes physId={this.state.physId} patId={this.state.patId} currentId={this.state.currentId} currentTime={this.state.currentTime} currentDate={this.state.currentDate} currentNote={this.state.currentNote} /> : 
           <div> 
             <br /> 
+            {"Provider: " + this.state.currentName}
+            <br />
+            <br />
+            <h2>Change Appointment Date and/or Time</h2>
+            <br />
             {"Date: " + this.state.currentDate} 
             <br /> 
             <br /> 
             {"Time: " + this.state.currentTime} 
             <br /> 
             <br /> 
-            {this.state.currentNote === null ? 'No Notes Yet' : "Provider's Notes: " + this.state.currentNote}
+            <TextField 
+              name="note" 
+              type="textarea" 
+              multiLine={true} 
+              label="Appointment Notes" 
+              disabled={true}
+              defaultValue={this.state.currentNote === null ? 'No Notes Yet' : "Provider's Notes: " + this.state.currentNote}
+              style={styles.textArea}
+            />   
           </div> } 
         </Dialog>
         </div>
