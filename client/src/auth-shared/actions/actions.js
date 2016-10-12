@@ -3,6 +3,8 @@
 import axios from 'axios';
 import CryptoJS from 'crypto-js';
 import { browserHistory } from 'react-router'
+import setAuthorizationToken from '../../../utils/setAuthorizationToken.js'
+import jwt from 'jsonwebtoken';
 import * as types from './action-constants';
 
 
@@ -42,6 +44,14 @@ export function authenticateUser(userType,data,reqType){
       axios.post(`/api/${userType}/signin`, data)
         .then( found => {
           if(userType === 'patient'){
+
+            const token = found.data.id;
+            localStorage.setItem("jwtToken", token);
+            setAuthorizationToken(token);
+            console.log(jwt.decode(token))
+
+
+
             var encodedId = CryptoJS.AES.encrypt(String(found.data.id), 'key'); //need to change key
             localStorage.setItem('first', found.data.first);
             localStorage.setItem('last', found.data.last);

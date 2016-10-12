@@ -138,7 +138,6 @@ put_photo: (req,res) => {
   },
 
   logout: (req, res) => {
-    sess = undefined;
     req.session.destroy();
     res.status(200).send("Logout complete");
   }
