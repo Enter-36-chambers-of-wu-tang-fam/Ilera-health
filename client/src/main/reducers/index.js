@@ -17,6 +17,7 @@ import provider from './provider-reducer.js';
 const rootReducer = combineReducers({
     authentication: authenticate.authenticated,
     allPhysicianAppointments: appointments.physAppt,
+    allPhysApptsPatInfo: appointments.patientInfo,
     contacts: contacts,
     form: formReducer,
     healthLogs: healthLog,

@@ -1,4 +1,5 @@
 import * as types from '../../patients/actions/action-constants.js';
+import * as phytypes from '../../physicians/actions/action-constants.js';
 
 const appointment = {
 
@@ -15,7 +16,7 @@ const appointment = {
                   appointmentSet: action.payload,
                   userType: action.isPosted
                 })
-              
+
               case types.SET_APPOINTMENT_FAILURE:
                 return Object.assign({},state, {
                   appointmentSet: action.payload,
@@ -67,10 +68,22 @@ const appointment = {
               default:
                 return state;
               }
-            }
+            },
+
+  patientInfo: (state={}, action) => {
+    switch(action.type) {
+      case phytypes.ALL_PHYSICIAN_APPOINTMENTS_PATIENTS_INFO_SUCCESS:
+      console.error("action",action);
+        return Object.assign({}, state, {
+          info: action.payload
+        })
+      default:
+        return state;
+    }
+  }
+
 
 }
- 
+
 
 export default appointment;
-

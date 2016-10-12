@@ -13,7 +13,8 @@ module.exports = app => {
   app.post('/api/patient/setappointment', Appointment.postAppointment);
 
   app.put('/api/update/appointment', Appointment.updateAppointment);
-  
+
   app.delete('/api/cancel/appointment', Appointment.cancelAppointment);
 
 };
+// /api/physician/appointments/${physid}

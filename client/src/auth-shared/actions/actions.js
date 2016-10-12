@@ -47,10 +47,16 @@ export function authenticateUser(userType,data,reqType){
             localStorage.setItem('last', found.data.last);
             localStorage.setItem('photo', found.data.photo_path);
           } else if(userType === 'physician') {
-            console.log(found);
-            var encodedId = CryptoJS.AES.encrypt(String(found.data), 'key'); //need to change key
+            console.log("this is found",found);
+            var encodedId = CryptoJS.AES.encrypt(String(found.data.id), 'key'); //need to change key
+            localStorage.setItem('first', found.data.first);
+            localStorage.setItem('last', found.data.last);
+            localStorage.setItem('photo', found.data.photo_path);
           } else {
-            var encodedId = CryptoJS.AES.encrypt(String(found.data), 'key'); //need to change key
+            var encodedId = CryptoJS.AES.encrypt(String(found.data.id), 'key'); //need to change key
+            localStorage.setItem('first', found.data.first);
+            localStorage.setItem('last', found.data.last);
+            localStorage.setItem('photo', found.data.photo_path);
           }
         localStorage.setItem('uid',encodedId);
         localStorage.setItem('userType',userType);
