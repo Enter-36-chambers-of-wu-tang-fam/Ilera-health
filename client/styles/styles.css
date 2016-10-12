@@ -294,7 +294,7 @@ main{
 }
 
 
-.dashboardRows:first-of-type, .profileForms > div:first-of-type{
+.dashboardRows:first-of-type, .profileDash{
     background-image: linear-gradient(to bottom, rgba(0,0,0,.6), rgba(0,0,0,.2)), url('https://hd.unsplash.com/photo-1463740839922-2d3b7e426a56');
     background-repeat: no-repeat;
     background-position: center;
