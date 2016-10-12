@@ -112,10 +112,12 @@ header > ul{
 }
 header > ul > li{
     float: left;
-    height: 50;
 }
 header > ul{
     float: right;
+}
+.mobileBurger{
+    display: none;
 }
 form {
     width: 100%;
@@ -130,7 +132,7 @@ input[type='radio']{
     min-height: 10px;
     background: linear-gradient(to bottom,rgba(0,0,0,.1),rgba(0,0,0,0));
 }
-.dashboardRows:after, .wrapper:after, .reminders:after, .profileDash:after, .chat:after, .messageContacts > ul:after, .contactItem:after, header:after, header ul:after, main > section > ul:after, .welcomeHeader:after, section:after, .messagesUser:after, .messagesIncoming:after, .team:after, #mainDashWelcomeMobile:after, .providerDashParent:after, .medsTableLabels > ul:after, .medsList > div > ul:after, .provPatMeds > div:first-of-type:after {
+.dashboardRows:after, .wrapper:after, .reminders:after, .profileDash:after, .chat:after, .messageContacts > ul:after, .contactItem:after, header:after, header ul:after, main > section > ul:after, .welcomeHeader:after, section:after, .messagesUser:after, .messagesIncoming:after, .team:after, #mainDashWelcomeMobile:after, .providerDashParent:after, .medsTableLabels > ul:after, .medsList > div > ul:after, .provPatMeds > div:first-of-type:after, .profileSummary:after {
     clear: both;
     content: '';
     display: block;
@@ -140,6 +142,9 @@ input[type='radio']{
 }
 .messagesUser{
     text-align: right;
+}
+.contactsTab{
+    display: none;
 }
 .dashboardRows a{
     display: block;
@@ -431,6 +436,9 @@ margin: 1em 0em;
 ::-webkit-input-placeholder, :-moz-placeholder, ::-moz-placeholder, :-ms-input-placeholder {  
    font-weight: lighter
 }
+.chat, .messageContacts > div:first-of-type{
+    padding-top: 20px;
+}
 .chatInput{
     position: absolute;
     bottom: 0;
@@ -685,7 +693,15 @@ h5.extraTopMargin{
     width: 30%;
     min-height: 500px;
 }
-
+.profileForms{
+    padding-bottom: 40px;
+}
+.profileForms form{
+    padding: 0 15px;
+}
+.profileForms button{
+    margin-top: 20px;
+}
 .profilePage > div:last-of-type{
     width: 70%;
 }
@@ -1486,6 +1502,28 @@ main >section .team li:hover .teamProfile {
 
 
 /*----------- MEDIA QUERIES ---------*/
+@media screen and (min-width: 2230px) {
+    .introProviders {
+        background-position: center -450px;
+    }
+}
+
+@media screen and (min-width: 1670px) {
+    .welcomeHeader > div {
+        min-height: 750px;
+    }
+
+    .welcomeHeader > div:first-of-type {
+        background-position: center 255px;
+        background-size: 70%;
+    }
+    .introProviders {
+        background-position: center -360px;
+    }
+}
+
+
+
 @media screen and (max-width: 960px) {
     /*------- DISPLAY NONE --------*/
     .welcomeMy, .welcomeIlera, main .mainDashWelcome {
@@ -1532,6 +1570,12 @@ main >section .team li:hover .teamProfile {
     .welcomeHeader {
         box-shadow: none; 
     }
+    main .welcomeMessage > h1 {
+        font-size: 5.2vw;
+    }
+    main .welcomeMessage li {
+        font-size: 3.4vw;
+    }
     /*---- PATIENT DASHBOARD ------*/
     .bottomRow > div, .bottomRow > a, .dashboardMain > div {
         width: 45%;
@@ -1551,22 +1595,148 @@ main >section .team li:hover .teamProfile {
         width: 90%;
         float: none;
     }
-    
-
+    .patientDash .dashboardMain > div {
+        width: 47%;
+        margin-top: 0;
+    }
+    /*------- PATIENT INFO EDIT/PROFILE*/
+    .profilePage > div {
+        float: none;
+        width: 100%;
+        min-height: 400px;
+    }
+    .profilePage .profileSummary > div:first-of-type {
+        min-height: 400px !important;
+    }
+    .profileSummary {
+        padding: 30px 3%;
+        border-right: none;
+        position: relative;
+    }
+    .profilePage > div:last-of-type {
+        width: 100%;
+        margin-right: 0;
+        margin-left: 0;
+    }
+    .profileSummary > div {
+        float: left;
+        width: 50%;
+    }
+    /*-------- MESSAGES -------*/
+    .showContacts, .hideContacts{
+        position: absolute;
+        z-index: 20;
+        width: 100%;
+        left: 0;
+        right: 0;
+        bottom: 0;
+    }
+    .hideContacts{
+        display: none;
+    }
+    .chat > div {
+        float: none;
+        width: 100%;
+    }
+    .chat > div:first-of-type {
+        width: 100%;
+        float: none;
+        background: white;
+    }
+    .showContacts{
+        display: block;
+    }
+    .contactsTab{
+        display: block;
+        position: absolute;
+        z-index: 25;
+        left: 0;
+        top: 66px;
+        background: #ccc;
+        padding: 12px;
+        border-top-right-radius: 5px;
+        border-bottom-right-radius: 5px;
+    }
 }
 
-@media screen and (max-width: 580px) {
-    main .welcomeMessage li {
-        font-size: 1.9vw;
+@media screen and (max-width: 765px) {
+    .mobileBurger{
+        display: block;
     }
-    .welcomeHeader > div {
-        min-height: 560px;
+    .noBurger{
+        display: none;
+    }
+    .welcomeHeader > div:nth-of-type(2) {
+        min-height: 300px;
+    }
+    main .welcomeMessage {
+        margin: 5% 0% 4% 5%;
+    }
+    .welcomeHeader > div:first-of-type {
+        background-size: 66%;
+    }
+    .welcomeMy2 {
+        padding: 30px 0 0 0;
+        font-size: 11vw;
+    }
+    .mobileBurger {
+        display: block;
+        position: relative;
+        float: right;
+        padding: 15px;
+    }
+    .showBurger {
+        float: none;
+        position: absolute;
+        top: 45px;
+        background: #eee;
+        width: 100%;
+    }
+    .showBurger > li {
+        float: none;
+        padding: 10px;
+        border-bottom: 1px solid white;
+    }
+    .showBurger > li:hover{
+        background-color: #ccc;
+    }
+    .homeModal > div > div{
+        width: 100% !important;
+    }
+    .homeModal h2{
+        font-size: 30px;
+        margin: 20px 0 0px;
+    }
+    .stepper{
+        padding: 0 15px;
+    }
+    .stepper > div > div h6{
+        display: none;
+    }
+    .formIntro > div > div:first-of-type{
+        margin: 0 4% !important;
+    }
+    .patientAppMain {
+        padding: 30px 0 50px;
     }
 }
 
 @media screen and (max-width: 535px) {
     .welcomeHeader > div {
         min-height: 520px;
+    }
+    .profileDash{
+        display: none;
+    }
+    .profileForms > div:nth-of-type(2) > div > button div {
+        font-size: 11px;
+    }
+    .profileSummary > div {
+        float: none;
+        width: 100%;
+    }
+    .profilePage .profileSummary > div:first-of-type {
+        min-height: 280px !important;
     }
 }
 
@@ -1611,18 +1781,15 @@ main >section .team li:hover .teamProfile {
         background-position: center 76px;
         background-size: 70%;
     }
-    .welcomeHeader > div:nth-of-type(2) {
-        min-height: 330px;
-    }
     .welcomeMy2 {
         font-size: 10vw;
+        padding: 16px 0 0 0;
     }
     main .welcomeMessage > h1 {
         font-size: 5.2vw;
     }
     main .welcomeMessage li {
-        font-size: 2.5vw;
-        margin-left: 2%;
+        font-size: 4.5vw;
     }
     main .welcomeMessage {
         margin: 5% 0% 2% 5%;
@@ -1639,6 +1806,10 @@ main >section .team li:hover .teamProfile {
     }
     .dashboardRows:first-of-type, .profileForms > div:first-of-type {
         padding: 1px 0;
+    }
+    .patientDash .dashboardMain > div {
+        width: 100%;
+        float: none;
     }
     
     

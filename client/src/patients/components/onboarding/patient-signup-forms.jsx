@@ -70,22 +70,22 @@ class PatientAppFormsContainer extends Component {
 		const {finished, stepIndex} = this.state;
     const contentStyle = {margin: '0 16px'};
 		return (
-				<div style={{width: '100%', maxWidth: 700, margin: '0 auto 30px'}}>
+				<div className="stepper" style={{width: '100%', maxWidth: 700, margin: '0 auto 30px'}}>
 					<Stepper activeStep={stepIndex}>
             <Step>
-							<StepLabel>Welcome</StepLabel>
+							<StepLabel><h6>Welcome</h6></StepLabel>
 						</Step>
 						<Step>
-							<StepLabel>Basic Info</StepLabel>
+							<StepLabel><h6>Basic Info</h6></StepLabel>
 						</Step>
 						<Step>
-							<StepLabel>Contact Info</StepLabel>
+							<StepLabel><h6>Contact Info</h6></StepLabel>
 						</Step>
             <Step>
-							<StepLabel>Health Info</StepLabel>
+							<StepLabel><h6>Health Info</h6></StepLabel>
 						</Step>
 						<Step>
-							<StepLabel>Provider Info</StepLabel>
+							<StepLabel><h6>Provider Info</h6></StepLabel>
 						</Step>
 					</Stepper>
 					<div>{this.getStepContent(stepIndex)}</div>
