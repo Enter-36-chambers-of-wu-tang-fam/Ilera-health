@@ -17,11 +17,11 @@ export default function (ComposedComponent) {
       }
     }
 
-    componentWillUpdate(nextProps) {  
+    componentWillUpdate(nextProps) {
       if(nextProps.signUp === true){
         if(nextProps.userType === 'physician') this.context.router.push('/provider/welcome');
-        if(nextProps.userType === 'patient') this.context.router.push('/patient/form');
-        if(nextProps.userType === 'staff') this.context.router.push('/staff/form');
+        if(nextProps.userType === 'patient') this.context.router.push('/patient/welcome');
+        if(nextProps.userType === 'staff') this.context.router.push('/staff/welcome');
       }
       else if(nextProps.authentication !== null && nextProps.userType !== null){
         if(nextProps.userType === 'physician') this.context.router.push('provider/dashboard');
