@@ -88,6 +88,7 @@ class AddMedForm extends Component {
     console.log("YOU ARE HERE 1")
       axios.post('/api/patient/medications', prop)
         .then( found => {
+          console.log("I'm WORKING!!!!")
           // this.context.router.push('/patient/form/insurance/');
         })
         .catch( err => {

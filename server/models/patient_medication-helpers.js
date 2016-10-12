@@ -6,6 +6,7 @@ module.exports = {
 
   //added params here and miodified queryString
   new_medication: (params, cb) => {
+    console.log("I'm reached", params);
     let data = [params.drug_name, params.dosage, params.id_medication,
       params.id_physician, params.id_patient, params.start_date, params.end_date];
     const queryString = 'INSERT INTO patient_medication \
