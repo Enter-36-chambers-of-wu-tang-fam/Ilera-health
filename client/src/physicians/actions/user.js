@@ -30,7 +30,6 @@ const getUserInfoFailed = (err) => {
 //Action call below for sign up --> uncomment export default
 
 export function getUserInfo(uid) {
-  console.log("****UID***", uid)
   return (dispatch) => {
     dispatch(getUserInfoRequest());
 
@@ -141,7 +140,7 @@ const didInitSuccess = () => {
   }
 };
 
-export function didInit() {
+export function didInit () {
   return (dispatch) => {
     dispatch(didInitSuccess());
   }
@@ -169,7 +168,7 @@ export function getAllUserInfo(uid) {
   }
 };
 
-///////////////// USER CONTACTS ///////////////
+///////////////// PROVIDER INFO ///////////////
 const getProviderRequest = () => {
   return {
     type: types.GET_PROVIDER_REQUEST,
@@ -196,16 +195,16 @@ const getProviderFailed = (err) => {
 };
 
 export function getProvider(uid) {
-  console.log("YOU GETTING HERE?")
   return (dispatch) => {
     dispatch(getProviderRequest());
 
     axios.get(`/api/physician/${uid}`)
     .then( user => {    
       console.log("HERE DUDE", user.data)
-      dispatch(getProviderSuccess(user.data))
+      dispatch(getProviderSuccess(user.data[0]))
     })
     .catch(err => {
+      console.log("AND HERE DUDE")
       dispatch(getProviderFailed(err));
     });
   }
