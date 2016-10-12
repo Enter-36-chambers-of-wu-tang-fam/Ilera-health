@@ -49,7 +49,9 @@ const store = createStore(
 let rootElement = document.getElementById('app');
 
 //Axios authorization headers
-setAuthorizationToken(localStorage.jwtToken);
+if(localStorage.jwtToken){
+  setAuthorizationToken(localStorage.jwtToken);
+}
 
 
 ReactDOM.render(

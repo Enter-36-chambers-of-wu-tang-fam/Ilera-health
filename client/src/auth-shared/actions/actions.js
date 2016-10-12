@@ -43,34 +43,17 @@ export function authenticateUser(userType,data,reqType){
       dispatch(requestAuth(null));
       axios.post(`/api/${userType}/signin`, data)
         .then( found => {
-          if(userType === 'patient'){
-
             const token = found.data.id;
             localStorage.setItem("jwtToken", token);
             setAuthorizationToken(token);
             console.log(jwt.decode(token))
 
-
-
-            var encodedId = CryptoJS.AES.encrypt(String(found.data.id), 'key'); //need to change key
-            localStorage.setItem('first', found.data.first);
-            localStorage.setItem('last', found.data.last);
-            localStorage.setItem('photo', found.data.photo_path);
-          } else if(userType === 'physician') {
-            console.log("this is found",found);
-            var encodedId = CryptoJS.AES.encrypt(String(found.data.id), 'key'); //need to change key
-            localStorage.setItem('first', found.data.first);
-            localStorage.setItem('last', found.data.last);
-            localStorage.setItem('photo', found.data.photo_path);
-          } else {
-            var encodedId = CryptoJS.AES.encrypt(String(found.data.id), 'key'); //need to change key
-            localStorage.setItem('first', found.data.first);
-            localStorage.setItem('last', found.data.last);
-            localStorage.setItem('photo', found.data.photo_path);
-          }
-        localStorage.setItem('uid',encodedId);
-        localStorage.setItem('userType',userType);
-
+          var encodedId = CryptoJS.AES.encrypt(String(found.data.id), 'key'); //need to change key
+          localStorage.setItem('first', found.data.first);
+          localStorage.setItem('last', found.data.last);
+          localStorage.setItem('photo', found.data.photo_path);
+          localStorage.setItem('uid',encodedId);
+          localStorage.setItem('userType',userType);
           dispatch(verifiedAuth(encodedId,userType,false)); //false -> reroutes to dashboard in place of signup via general_auth component
         })
         .catch( err => dispatch(failedAuth(err)) )
@@ -98,6 +81,7 @@ export function authenticateUser(userType,data,reqType){
       dispatch(requestAuth(null));
       axios.post(`/api/${userType}/logout/`).then(loggedout => {
           localStorage.clear();
+          setAuthorizationToken(false);
           dispatch(verifiedAuth(null,null,false));
       })
       .catch(error => dispatch(failedAuth(error)));
