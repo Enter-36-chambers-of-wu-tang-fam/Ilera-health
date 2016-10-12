@@ -90,7 +90,7 @@ export default (
               <IndexRoute component={ StaffAppFormContainer } />
           </Route>
           <Route path="dashboard" component={ StaffDashboard } />
-          
+
         </Route>
     </Router>
 );
