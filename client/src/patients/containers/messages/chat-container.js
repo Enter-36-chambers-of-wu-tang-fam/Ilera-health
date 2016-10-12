@@ -26,8 +26,13 @@ class ChatContainer extends Component {
 			messages: [],
 			chosen: false,
 			chosenid: '',
-			windowHeight: ''
+			windowHeight: '',
+			toggle: true
 		}
+	}
+
+	handleClick() {
+		this.setState({ toggle: !this.state.toggle })
 	}
 
 	componentWillMount() {
@@ -37,7 +42,7 @@ class ChatContainer extends Component {
 		}else{
 			dispatch(contacts.fetchMyPatients(this.state.uid))
 		}
-
+		
 		this.setState({windowHeight: window.innerHeight - 50 });
 
 	}
@@ -45,30 +50,34 @@ class ChatContainer extends Component {
 	userSelected (userid, chosenid, receiverType, senderType, contact){
 		const { dispatch } = this.props;
 		dispatch(actions.fetchMessages(this.state.uid, senderType, chosenid, receiverType));
-		this.setState({ chosen: true, chosenid: chosenid, senderType: senderType, receiverType: receiverType, chosenContact: contact});
+		this.setState({ chosen: true, chosenid: chosenid, senderType: senderType, receiverType: receiverType, chosenContact: contact, toggle: !this.state.toggle });
 	}
 
 	render() {
 		const { windowHeight } = this.state;
 		return (
-			<div className="chat">
-				<MessageContacts {...this.props} 
-					userSelected={this.userSelected.bind(this)} 
-					contacts={this.props.contacts.data || []} 
-					height={windowHeight}
-					user={this.state.uid} />
-				<Messages {...this.props} 
-					chosen={this.state.chosen} 
-					chosenid={this.state.chosenid} 
-					messages={this.props.messages || []} 
-					user={this.state.uid} 
-					contact={ this.state.chosenContact }
-					senderType={this.state.senderType}
-					receiverType={this.state.receiverType}
-					height={windowHeight}
-					socket={ window.socket } />
+			<div>
+				<span className="contactsTab" onClick={this.handleClick.bind(this)}><i className="fa fa-users fa-2x" aria-hidden="true"></i></span>
+				<div className="chat">
+					<div className={ this.state.toggle ? 'hideContacts' : 'showContacts'}>
+						<MessageContacts {...this.props} 
+							userSelected={this.userSelected.bind(this)} 
+							contacts={this.props.contacts.data || []} 
+							height={windowHeight}
+							user={this.state.uid} />
+					</div>
+					<Messages {...this.props} 
+						chosen={this.state.chosen} 
+						chosenid={this.state.chosenid} 
+						messages={this.props.messages || []} 
+						user={this.state.uid} 
+						contact={ this.state.chosenContact }
+						senderType={this.state.senderType}
+						receiverType={this.state.receiverType}
+						height={windowHeight}
+						socket={ window.socket } />
+				</div>
 			</div>
-
 		);
 	}
 };
