@@ -1,8 +1,13 @@
 import * as types from '../../auth-shared/actions/action-constants.js';
 
+const initialState = {
+  authenticated: localStorage.uid,
+  userType: localStorage.userType
+}
+
 const authenticate = {
 
-authenticated: (state = {authenticated: localStorage.getItem('uid'), userType: localStorage.getItem('userType')}, action) => {
+authenticated: (state = initialState, action = {}) => {
     switch(action.type) {
       case types.AUTH_REQUEST:
         console.log("AUTH REQUEST");
