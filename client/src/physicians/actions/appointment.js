@@ -112,7 +112,8 @@ export const getAllPhysicianApptsPatientsInfo = physid => {
   return function(dispatch) {
     axios.get(`/api/physician/appointments/${physid}`).then( info => {
       info.data.forEach(item => {
-        item.time = item.time.charAt(3) == 0 ? item.time.substr(4): item.time.substr(3);
+        console.log("TIME", item.time)
+        item.time = item.time.charAt(1) == 0 ? item.time.substr(1,5): item.time.substr(0,5);
 
 
         // let date = item.date.slice(2);

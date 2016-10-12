@@ -17,23 +17,18 @@ class DashboardMain extends Component {
     let id = localStorage.getItem('uid');
     let code  = CryptoJS.AES.decrypt(id.toString(), 'key');
     const uid = code.toString(CryptoJS.enc.Utf8);
-    console.error("this is uid",uid);
     this.props.loadAppointments(uid);
     // console.error('state.allPhysApptsPatInfo',state.allPhysApptsPatInfo);
 
   }
 
   componentWillReceiveProps(nextProps){
-    console.error("nextProps",nextProps);
     this.setState({
       appointments: nextProps.appointments.info.data
     })
   }
 
   render() {
-    console.error("Props", this.props.appointments)
-    console.error('DashboardMain',this.state.appointments);
-
       if(this.state.appointments){
     return (
       <div className="dashboardMain">
