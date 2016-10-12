@@ -64,13 +64,17 @@ export function authenticateUser(userType,data,reqType){
       dispatch(requestAuth(data));
       axios.post(`/api/${userType}/signup`, data)
       .then(registered => {
+
+        const token = found.data.id;
+        localStorage.setItem("jwtToken", token);
+        setAuthorizationToken(token);
+        console.log(jwt.decode(token))
+
         let encodedId = CryptoJS.AES.encrypt(String(registered.data.user), 'key');  //need to change key to actual key
-        console.log("registered!!!!", registered)
         localStorage.setItem('uid',encodedId);
         localStorage.setItem('userType',userType);
         localStorage.setItem('first', registered.data.first);
         localStorage.setItem('last', registered.data.last);
-        console.log("LOCAL STORAGE", localStorage)
         dispatch(verifiedAuth(encodedId, userType, true)); //true --> reroutes to sign up form via general_auth component
       })
       .catch(error => failedAuth(error))
