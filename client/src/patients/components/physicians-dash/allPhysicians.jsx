@@ -177,7 +177,7 @@ class AllUsers extends Component {
 
             <form className="searchForm" onSubmit={handleSubmit(props => this.searchSubmit(props))} >
               <div>
-                <h2> <i className="fa fa-search fa-2x" aria-hidden="true"></i> Find A Physician</h2>
+                <h2> <i className="fa fa-search" aria-hidden="true"></i> Find A Physician</h2>
                 <label htmlFor="docQuery" className="formLabel">Search </label>
                 <Field placeholder="Search by name, location, practice, specialty" name="docQuery" type="text" component={renderInput} />
               </div>

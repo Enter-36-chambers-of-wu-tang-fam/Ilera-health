@@ -268,6 +268,7 @@ class PhysicianCalendar extends Component{
           open={this.state.open}
           onRequestClose={this.handleClose}
           children={`Your appointment has been set for ${moment(this.state.appointmentDate).format("dddd, MMMM Do YYYY")} at ${String(this.state.appointmentTime)} ${this.state.morning[this.state.appointmentTime] ? ' AM' : ' PM'}!`}
+          className="homeModal"
         >
 
 
