@@ -11,7 +11,7 @@ const initialState = {
 export default function userInfoReducer(state = initialState, action) {
   switch (action.type) {
     case BETTER_DOC_INFO_REQUEST:
-			return { 
+			return {
 				...state, 
 				isFetching: true, 
 				loaded: false,
