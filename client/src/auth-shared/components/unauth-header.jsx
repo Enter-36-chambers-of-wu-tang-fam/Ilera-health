@@ -27,7 +27,8 @@ export default class UnauthHeader extends Component {
     this.state = {
       openSignup: false,
       openSignin: false,
-      userType: ''
+      userType: '',
+      burgerPlease: false
     }
   }
   handleSignupOpen() {
@@ -55,6 +56,10 @@ export default class UnauthHeader extends Component {
     this.setState({ userType: user });
   }
 
+  handleClick() {
+    this.setState({ burgerPlease: !this.state.burgerPlease })
+  }
+
   renderFlatButton (props) {
     return(
       <FlatButton 
@@ -72,7 +77,8 @@ export default class UnauthHeader extends Component {
     return (
         <header>
           <h1><a href="/"><img src="../styles/logos/myilera_large_white.png" /></a></h1>
-          <ul>
+          <div className='mobileBurger' onClick={this.handleClick.bind(this)}><i className="fa fa-bars fa-2x" aria-hidden="true"></i></div>
+          <ul className={this.state.burgerPlease ? 'showBurger' : 'noBurger'}>
             <li>
               <FlatButton label="For Patients" href={'#forpatients'} component={this.renderFlatButton} />
             </li>
@@ -96,6 +102,8 @@ export default class UnauthHeader extends Component {
             modal={false}
             open={this.state.openSignup}
             onRequestClose={this.handleSignupClose.bind(this)}
+            autoScrollBodyContent={true}
+            className="homeModal"
           >
             <Tabs>
               <Tab label="Patient" style={tabStyles.styles} onActive={this.handleActive.bind(this)}>
@@ -113,6 +121,8 @@ export default class UnauthHeader extends Component {
             modal={false}
             open={this.state.openSignin}
             onRequestClose={this.handleSigninClose.bind(this)}
+            autoScrollBodyContent={true}
+            className="homeModal"
           >
             <Tabs>
               <Tab label="Patient" style={tabStyles.styles} onActive={this.handleActive.bind(this)}>

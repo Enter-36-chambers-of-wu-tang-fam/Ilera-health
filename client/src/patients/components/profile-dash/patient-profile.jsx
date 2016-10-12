@@ -15,7 +15,9 @@ export default class Profile extends Component {
     }
 
     componentWillMount(){
-      this.setState({windowHeight: window.innerHeight - 50 });
+      if(window.innerWidth > 765){
+        this.setState({windowHeight: window.innerHeight - 50 });
+      }
     }
 
     render() {

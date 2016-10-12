@@ -159,28 +159,31 @@ class ProfileSum extends Component {
             color: '#fff',
             background: "rgba(13,34,51,.8)"
           }}>
-            <Dropzone onDrop={this.onDrop.bind(this)} multiple={false} style={styles.dropzone} activeStyle={styles.dropHover}  accept="image/*">
-              <div className="profilePic" style={profilePicture}>
-                <div className="profilePic_overlay"><i className="fa fa-camera fa-2x" aria-hidden="true"></i> Drag & Drop!</div>
-              </div>
-            </Dropzone>
-
-            <h3>{`${localStorage.getItem('first')} ${localStorage.getItem('last')}`}</h3>
-            <RaisedButton label="Reset Credentials" onClick={this.onResetClick.bind(this)} labelColor="white" backgroundColor='rgba(242, 108, 44, 1)' style={styles.btn}/>
-            <form onSubmit={handleSubmit(props => this.submitMe(props))} className={this.state.clicked ? 'showPReset' : 'hidePReset'}>
-              <Field name="email" type="text" component={this.renderTextField} label="Email"/>
-              <Field name="password" type="text" component={this.renderTextField} label="Old Password"/>
-              <Field name="newPassword" type="text" component={this.renderTextField} label="New Password"/>
-              <Field name="reTypePassword" type="text" component={this.renderTextField} label="Re-Type New Password"/>
-              {error && <strong>{error}</strong>}
-              <RaisedButton
-                  label='Save'
-                  primary={true}
-                  type='submit'
-                  backgroundColor='rgba(242, 108, 44, 1)' 
-                  style={styles.btn}
-              />
-            </form>
+            <div>
+              <Dropzone onDrop={this.onDrop.bind(this)} multiple={false} style={styles.dropzone} activeStyle={styles.dropHover}  accept="image/*">
+                <div className="profilePic" style={profilePicture}>
+                  <div className="profilePic_overlay"><i className="fa fa-camera fa-2x" aria-hidden="true"></i> Drag & Drop!</div>
+                </div>
+              </Dropzone>
+              <h3>{`${localStorage.getItem('first')} ${localStorage.getItem('last')}`}</h3>
+            </div>
+            <div>
+              <RaisedButton label="Reset Credentials" onClick={this.onResetClick.bind(this)} labelColor="white" backgroundColor='rgba(242, 108, 44, 1)' style={styles.btn}/>
+              <form onSubmit={handleSubmit(props => this.submitMe(props))} className={this.state.clicked ? 'showPReset' : 'hidePReset'}>
+                <Field name="email" type="text" component={this.renderTextField} label="Email"/>
+                <Field name="password" type="text" component={this.renderTextField} label="Old Password"/>
+                <Field name="newPassword" type="text" component={this.renderTextField} label="New Password"/>
+                <Field name="reTypePassword" type="text" component={this.renderTextField} label="Re-Type New Password"/>
+                {error && <strong>{error}</strong>}
+                <RaisedButton
+                    label='Save'
+                    primary={true}
+                    type='submit'
+                    backgroundColor='rgba(242, 108, 44, 1)' 
+                    style={styles.btn}
+                />
+              </form>
+            </div>
           </div>
       );
     }

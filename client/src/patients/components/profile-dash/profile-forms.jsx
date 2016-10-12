@@ -48,7 +48,6 @@ class ProfileForms extends Component {
 				<ProfileDash />
 				<Tabs
 					value={this.state.value}
-
 				>
 					<Tab onClick={this.handleChange.bind(this, 'a')} label="Basic User Info" style={styles.tab} value="a" >
 						<div>
