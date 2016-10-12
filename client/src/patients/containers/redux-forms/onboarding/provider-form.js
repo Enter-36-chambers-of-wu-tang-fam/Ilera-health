@@ -7,6 +7,7 @@ import FlatButton from 'material-ui/FlatButton';
 import CryptoJS from 'crypto-js';
 import SelectField from 'material-ui/SelectField'
 import MenuItem from 'material-ui/MenuItem';
+import request from 'superagent';
 import {
   TextField
 } from 'redux-form-material-ui';
@@ -150,19 +151,18 @@ class InsuranceForm extends Component {
     this.setState({value: e.target.value});
     let query = `https://api.betterdoctor.com/2016-03-01/doctors?query=${e.target.value}&sort=best-match-desc&skip=0&limit=40&user_key=bdd1495417e49ba2f1aa40461ce8f17d`;
     if(e.target.value.length > 2){
-      axios.get(query)
-      .then( result => {
+    request.get(query)
+      .end((err, result) => {
+        if (err) { console.error(err) }
         var docs = [];
         
-        result.data.data.map( doctor => {
+        result.body.data.map( doctor => {
           docs.push({first_name: doctor.profile.first_name, last_name: doctor.profile.last_name, title: doctor.profile.title, npi: doctor.npi, betterDoctorUID: doctor.uid});
         })
         console.log("DOCSSSS", docs)
         this.setState({docs: docs});
       })
-      .catch( err => {
-        console.log("ERROR FETCHING DOCTOR INFO")
-      })
+      // .catch( err => {  console.log("ERROR FETCHING DOCTOR INFO")  })
     }else{
       this.setState({docs: []});
     }

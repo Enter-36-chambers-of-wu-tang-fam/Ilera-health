@@ -148,8 +148,12 @@ class AppointmentHistoryDashboard extends Component{
                 <TableRowColumn>{appointment.date === null ? 'no date' : appointment.date.slice(0,10)}</TableRowColumn>
                 <TableRowColumn>{appointment.time[0] === '0' ? appointment.time.slice(1,5) : appointment.time.slice(0,5)} {appointment.time.slice(0,2) > 7 ? " AM" : " PM"} </TableRowColumn>
                 <TableRowColumn>{appointment.first} {appointment.last}, {appointment.title}</TableRowColumn>
-                <TableRowColumn>{appointment.notes === null ? 'No Notes Yet': <a href="#" onClick={this.handleOpen.bind(this, appointment.id, appointment.notes, appointment.first+' '+appointment.last, appointment.date.slice(0,10), 
-                  appointment.time[0] === '0' ? appointment.time.slice(1,5) : appointment.time.slice(0,5))}>View</a>}</TableRowColumn>
+                <TableRowColumn>
+                  {appointment.notes === null ? 'No Notes Yet': <a href="#" onClick={this.handleOpen.bind(this, appointment.id, appointment.notes, appointment.first+' '+appointment.last, appointment.date.slice(0,10), 
+                  appointment.time[0] === '0' ? appointment.time.slice(1,5) : appointment.time.slice(0,5))}>View</a>}
+                  {appointment.notes === null && patient ? <a href="#" onClick={this.handleOpen.bind(this, appointment.id, appointment.notes, appointment.first+' '+appointment.last, appointment.date.slice(0,10), 
+                  appointment.time[0] === '0' ? appointment.time.slice(1,5) : appointment.time.slice(0,5))}>Begin Note</a> : ''}
+                </TableRowColumn>
               </TableRow>
               ))}
           </TableBody>
@@ -180,7 +184,7 @@ class AppointmentHistoryDashboard extends Component{
             {"Provider: " + this.state.currentName}
             <br />
             <br />
-            <h2>Change Appointment Date and/or Time</h2>
+            <h2>Appointment Details</h2>
             <br />
             {"Date: " + this.state.currentDate} 
             <br /> 

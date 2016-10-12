@@ -109,12 +109,9 @@ const getAllPhysicianApptsPatientsFailure = errorMsg => {
 
 export const getAllPhysicianApptsPatientsInfo = physid => {
   let currAppts = {};
-  console.error("ID action",physid);
   return function(dispatch) {
     axios.get(`/api/physician/appointments/${physid}`).then( info => {
-      console.error("INFO",info.data);
       info.data.forEach(item => {
-        console.error("ITEM",item);
         item.time = item.time.charAt(3) == 0 ? item.time.substr(4): item.time.substr(3);
 
 

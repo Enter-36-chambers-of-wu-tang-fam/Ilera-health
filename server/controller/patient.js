@@ -50,12 +50,16 @@ module.exports = {
     
             if(error) console.log(error);
             
+            const token = jwt.sign({
+              id: data.insertId,
+            }, config.jwtSecret)
+
             res.json({
               data: data,
               first: req.body.first,
               last: req.body.last,
               email: req.body.email,
-              user: data.insertId
+              id: token
             })
             // res.json(data.insertId);
           });

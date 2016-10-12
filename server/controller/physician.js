@@ -1,9 +1,11 @@
+'use strict'
+
 const Promise = require("bluebird");
 const bcrypt = require("bcrypt-nodejs");
 const hashHelp = require("../security/hash.js");
 const Physician = require("../models/physician-helpers.js");
-
-var sess;
+const jwt = require("jsonwebtoken");
+const config = require("../config");
 
 module.exports = {
 
@@ -12,12 +14,11 @@ module.exports = {
       if(data.length > 0){
         bcrypt.compare(req.body.password, data[0].password, (error, result) => {
           if(result){
-            sess = req.session;
-            sess.email = data[0].email;
-            sess.user = data[0].id;
-            module.exports.sess = sess;
+            const token =jwt.sign({
+                id: data[0].id,
+              }, config.jwtSecret)
             res.json({
-              id: data[0].id,
+              id: token,
               email: data[0].email,
               first: data[0].first,
               last: data[0].last,
@@ -36,11 +37,9 @@ module.exports = {
 
   signUp: (req, res) => {
     Physician.checkPhysician(req.body,(error,data) => {
-
       if(error){
         console.log(error);
       }
-
       if(data.length > 0){
         res.status(409).send("The email address you specified is already in use.");
       } else {
@@ -51,17 +50,25 @@ module.exports = {
           Physician.signUp(req.body, (error, data) => {
             console.log("id type", data);
             if(error) console.log(error);
-            sess = req.session;
-            sess.email = req.body.email;
-            sess.user = data;
-            module.exports.sess = sess;
-            res.json({
-              data: data,
-              first: req.body.first,
-              last: req.body.last,
-              email: req.body.email,
-              user: data.insertId
-            });
+             if(data[0].id){
+                  const token = jwt.sign({
+                    id: data[0].id,
+                  }, config.jwtSecret)
+
+                res.json({
+                  data: data[0],
+                  first: req.body.first,
+                  last: req.body.last,
+                  email: req.body.email,
+                  id: token
+                });
+             }else{
+                const token = jwt.sign({
+                  id: data.insertId,
+                }, config.jwtSecret)
+
+                res.json({id: token})
+             }
           });
         })
       }
@@ -109,7 +116,6 @@ module.exports = {
   },
 
   logout: (req, res) => {
-    sess = undefined;
     req.session.destroy();
     res.status(200).send("Logout complete");
   },

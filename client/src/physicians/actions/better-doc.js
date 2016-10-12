@@ -30,7 +30,6 @@ export function getDocInfo(uid){
     fetchBetterDocInfoRequest()
     return axios.get(`https://api.betterdoctor.com/2016-03-01/doctors/${uid}?user_key=bdd1495417e49ba2f1aa40461ce8f17d`)
     .then(response => {
-      console.log("HERE DOC", response.data)
       dispatch(fetchBetterDocInfoSuccess(response));
     })
     .catch(error => {

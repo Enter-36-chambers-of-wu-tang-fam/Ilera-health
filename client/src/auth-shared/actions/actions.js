@@ -8,9 +8,8 @@ import jwt from 'jsonwebtoken';
 import * as types from './action-constants';
 
 
-/***********************SIGN IN && SIGN UP *****************************/
+////////////////////////// SIGN IN && SIGN UP /////////////////////////////////
 
-////////////////LOGIN LOGIN LOGIN ///////////////
 const requestAuth = (creds) => {
   return {
     type: types.AUTH_REQUEST,
@@ -34,9 +33,10 @@ const failedAuth = (message) => {
     type: types.AUTH_FAILURE,
     payload: null,
     userType: null,
-    message: message
+    message: "Your email and/or password was not correct. please try again"
   }
 };
+
 export function authenticateUser(userType,data,reqType){
   if(reqType === "login"){
     return function(dispatch){
@@ -47,7 +47,6 @@ export function authenticateUser(userType,data,reqType){
           const token = found.data.id;
           localStorage.setItem("jwtToken", token);
           setAuthorizationToken(token);
-          console.log(jwt.decode(token))
 
           var encodedId = CryptoJS.AES.encrypt(String(found.data.id), 'key'); //need to change key
           
@@ -61,18 +60,18 @@ export function authenticateUser(userType,data,reqType){
         .catch( err => dispatch(failedAuth(err)) )
     }
   }
+
   if(reqType === "signup"){
     return function(dispatch){
       dispatch(requestAuth(data));
       axios.post(`/api/${userType}/signup`, data)
       .then(registered => {
-
-        const token = found.data.id;
+        console.log("REGISTERED!!!", registered)
+        const token = registered.data.id;
         localStorage.setItem("jwtToken", token);
         setAuthorizationToken(token);
-        console.log(jwt.decode(token))
 
-        let encodedId = CryptoJS.AES.encrypt(String(registered.data.user), 'key');  //need to change key to actual key
+        let encodedId = CryptoJS.AES.encrypt(String(registered.data.id), 'key');  //need to change key to actual key
         
         localStorage.setItem('first', registered.data.first);
         localStorage.setItem('last', registered.data.last);        
@@ -83,6 +82,7 @@ export function authenticateUser(userType,data,reqType){
       .catch(error => failedAuth(error))
     }
   }
+  
   if(reqType === "logout"){
     return (dispatch) =>{
       dispatch(requestAuth(null));
@@ -121,7 +121,6 @@ const failedContactPost = (message) => {
   }
 };
 
-//Action call below for sign up --> uncomment export default
 
 export const contactPost = (id, info, userType) => {
   return (dispatch) => {
@@ -169,7 +168,6 @@ const failedHealthPost = (message) => {
   }
 };
 
-//Action call below for sign up --> uncomment export default
 
 export const healthPost = (id, healthInfo) => {
   return (dispatch) => {
@@ -215,10 +213,8 @@ const failedEmergencyContact = (message) => {
   }
 };
 
-//Action call below for sign up --> uncomment export default
 
 export function emergencyContact(id, contact) {
-console.log("IN ACTION")
   return {
       type: types.EMERGENCY_CONTACT_SUCCESS,
       payload: contact
@@ -250,7 +246,6 @@ const failedInsurancePost = (message) => {
   }
 };
 
-//Action call below for sign up --> uncomment export default
 
 export const insurancePost = (id, insurance) => {
   return (dispatch) => {

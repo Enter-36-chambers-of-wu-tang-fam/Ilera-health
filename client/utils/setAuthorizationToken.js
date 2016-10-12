@@ -2,7 +2,9 @@ import axios from 'axios';
 
 export default function setAuthorizationToken(token) {
   if (token) {
-    axios.defaults.headers.common['Authorization'] = `Bearer ${token}`;
+    const instance = axios.create();
+    instance.defaults.headers.common['Authorization'] = `Bearer ${token}`;
+    
   } else {
     delete axios.defaults.headers.common['Authorization'];
   }

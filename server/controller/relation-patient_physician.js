@@ -12,7 +12,6 @@ module.exports = {
   },
   // new way checks for relation
   createPatientPhysicianRelation: (req, res) => {
-
     Relation.get_patient_physician_relation(req.body,(error,data) => {
       if(error){
         console.log(error);

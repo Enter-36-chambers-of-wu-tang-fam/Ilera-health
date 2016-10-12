@@ -47,6 +47,7 @@ const renderDropzoneInput = (field) => {
         <span className="error">{field.meta.error}</span>}
       {files && Array.isArray(files) && (
         <ul>
+        <br/>
           { files.map((file, i) => <li key={i}>{file.name}</li>) }
         </ul>
       )}
@@ -101,8 +102,6 @@ class UploadRecordForm extends Component {
     const { handleSubmit, reset} = this.props;
     return (
       <div className="uploadRecordPage">  
-        <p className="successmsg">{this.state.message}</p>
-        <p className="errormsg">{this.state.errorMessage}</p>
       <br/>
       <br/>
         <form onSubmit={handleSubmit(this.onSubmit.bind(this))}>
@@ -112,6 +111,7 @@ class UploadRecordForm extends Component {
               component={renderDropzoneInput}
             />
           </div>
+          <br />
             <label htmlFor="date">Date </label>
             <Field 
               name="date" 
@@ -134,6 +134,9 @@ class UploadRecordForm extends Component {
               component="input"
             />
           <div>
+          <br />
+            <p className="successmsg">{this.state.message}</p>
+            <p className="errormsg">{this.state.errorMessage}</p>
           <br/>
             <button className="formButton" type="submit">
               Submit
