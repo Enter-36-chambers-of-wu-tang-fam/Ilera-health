@@ -5,8 +5,7 @@ const bcrypt = require("bcrypt-nodejs");
 const hashHelp = require("../security/hash.js");
 const Patient = require("../models/patient-helpers.js");
 const jwt = require("jsonwebtoken");
-const config = require("../config")
-
+const config = require("../config");
 
 module.exports = {
 

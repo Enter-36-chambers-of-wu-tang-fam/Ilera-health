@@ -13,7 +13,7 @@ const socketEvents = require('./sockets/socket-events')(io);
 const getAll = require('./controller/allPatient.js');
 const Patient = require("./models/patient-helpers");
 const MedRecord = require("./models/med_record-helpers.js");
-
+const authenticate = require('./middlewares/authenticate');
 //Mike's additions --> please don't move yet..need to finish setting up paths
 
 const multer = require('multer');
@@ -51,7 +51,7 @@ app.put('/api/messages/edit', Message.editOneMessage);
 app.delete('/api/messages/delete', Message.deleteOneMessage);
 //Record for the photo upload --> Mike Addition
 
-app.post('/upload/profile_picture/:uid', uploadProfile.single('upload'), function(req,res, next){
+app.post('/upload/profile_picture/:uid', authenticate, uploadProfile.single('upload'), function(req,res, next){
   let data = {photo_path: `/src/uploads/profile/${req.file.filename}`, uid: req.params.uid};
   Patient.delete_photo(data, (error, result) => {
     if(error) console.log(error);
@@ -62,7 +62,7 @@ app.post('/upload/profile_picture/:uid', uploadProfile.single('upload'), functio
   });
 });
 
-app.post('/upload/old_records/:uid', uploadRecords.single('upload'), function(req,res, next){
+app.post('/upload/old_records/:uid', authenticate, uploadRecords.single('upload'), function(req,res, next){
    req.body.document_path = `/src/uploads/old_records/${req.file.filename}`;
    req.body.uid = req.params.uid;
   MedRecord.upload_document(req.body, (error, result) => {
@@ -75,7 +75,7 @@ app.post('/upload/old_records/:uid', uploadRecords.single('upload'), function(re
   // })
 });
 
-app.post('/upload/appointment_documents/:uid', uploadAppointment.single('upload'), function(req,res, next){
+app.post('/upload/appointment_documents/:uid', authenticate, uploadAppointment.single('upload'), function(req,res, next){
   let data = {photo_path: `/src/uploads/appointment/${req.file.filename}`, uid: req.params.uid};
   Patient.update_appointment(data,(err,data)=>{
       res.json(data);
