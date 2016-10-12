@@ -1,10 +1,12 @@
-import _ from 'lodash';
+// Contact form initialized and used for patient to update their info
+// Axios
 import axios from 'axios';
 // React, Redux-Form, React-Router
 import React, { Component, PropTypes } from 'react';
 import { Field, reduxForm } from 'redux-form';
 import { Router, Route, Link, browserHistory } from 'react-router';
 import { connect } from 'react-redux';
+// Actions
 import { getUserContacts, didInit } from '../../../actions/user.js';
 // CryptoJS
 import CryptoJS from 'crypto-js';
@@ -23,7 +25,6 @@ const patientStyle = {
 const providerStyle = {
 	display: {display: 'none'}
 }
-
 
 // FORM VALIDATION
 const validate = values => {
@@ -97,6 +98,7 @@ class ContactInfoFormInitialized extends Component {
     router: React.PropTypes.object
   }
 
+	// initialize form with user info
   handleInitialize(nextProps){
     const data = {
       "e_1_contact_first": nextProps.contacts.e_1_contact_first,
@@ -128,7 +130,7 @@ class ContactInfoFormInitialized extends Component {
     // store form data
     axios.put('/api/patient/contacts/update', prop)
       .then( found => {
-        // this.context.router.push('/patient/form/insurance/');
+        console.log("DATA UPDATED SUCCESSFULLY");
       })
       .catch( err => {
           console.log("ERROR ENTERING INFORMATION");
@@ -136,7 +138,6 @@ class ContactInfoFormInitialized extends Component {
   }
 
 	renderTextField ({ input, label, disabled, meta: { touched, error } } ) {
-
 		return(
 			<TextField
 				hintText={label}
@@ -176,46 +177,46 @@ class ContactInfoFormInitialized extends Component {
           <Field name="e_1_contact_phone" type="text" component={this.renderTextField} label="Phone Number" disabled={patient}/>
           <Field name="e_1_contact_email" type="email" component={this.renderTextField} label="Email" disabled={patient}/>
           <div>
-							<Field name="e_1_contact_relationship" component={this.renderSelectField} label="Relationship" disabled={patient}>
-								<MenuItem value={'Father'} primaryText="Father"/>
-								<MenuItem value={'Mother'} primaryText="Mother"/>
-								<MenuItem value={'Step-Father'} primaryText="Step-Father"/>
-								<MenuItem value={'Step-Mother'} primaryText="Step-Mother"/>
-								<MenuItem value={'Sibling'} primaryText="Sibling"/>
-								<MenuItem value={'Legal Guardian'} primaryText="Legal Guardian"/>
-								<MenuItem value={'Friend'} primaryText="Friend"/>
-								<MenuItem value={'Spouse'} primaryText="Spouse"/>
-                <MenuItem value={'Child'} primaryText="Child"/>
-                <MenuItem value={'Grandparent'} primaryText="Grandparent"/>
-                <MenuItem value={'Other'} primaryText="Other"/>
-							</Field>
-						</div>
+            <Field name="e_1_contact_relationship" component={this.renderSelectField} label="Relationship" disabled={patient}>
+              <MenuItem value={'Father'} primaryText="Father"/>
+              <MenuItem value={'Mother'} primaryText="Mother"/>
+              <MenuItem value={'Step-Father'} primaryText="Step-Father"/>
+              <MenuItem value={'Step-Mother'} primaryText="Step-Mother"/>
+              <MenuItem value={'Sibling'} primaryText="Sibling"/>
+              <MenuItem value={'Legal Guardian'} primaryText="Legal Guardian"/>
+              <MenuItem value={'Friend'} primaryText="Friend"/>
+              <MenuItem value={'Spouse'} primaryText="Spouse"/>
+              <MenuItem value={'Child'} primaryText="Child"/>
+              <MenuItem value={'Grandparent'} primaryText="Grandparent"/>
+              <MenuItem value={'Other'} primaryText="Other"/>
+            </Field>
+          </div>
           <h4>EMERCENGY CONTACT (2)</h4>
           <Field name="e_2_contact_first" type="text" component={this.renderTextField} label="First Name" disabled={patient}/>
           <Field name="e_2_contact_last" type="text" component={this.renderTextField} label="Last Name" disabled={patient}/>
           <Field name="e_2_contact_phone" type="text" component={this.renderTextField} label="Phone Number" disabled={patient}/>
           <Field name="e_2_contact_email" type="email" component={this.renderTextField} label="Email" disabled={patient}/>
           <div>
-							<Field name="e_2_contact_relationship" component={this.renderSelectField} label="Relationship" disabled={patient}>
-								<MenuItem value={'Father'} primaryText="Father"/>
-								<MenuItem value={'Mother'} primaryText="Mother"/>
-								<MenuItem value={'Step-Father'} primaryText="Step-Father"/>
-								<MenuItem value={'Step-Mother'} primaryText="Step-Mother"/>
-								<MenuItem value={'Sibling'} primaryText="Sibling"/>
-								<MenuItem value={'Legal Guardian'} primaryText="Legal Guardian"/>
-								<MenuItem value={'Friend'} primaryText="Friend"/>
-								<MenuItem value={'Spouse'} primaryText="Spouse"/>
-                <MenuItem value={'Child'} primaryText="Child"/>
-                <MenuItem value={'Grandparent'} primaryText="Grandparent"/>
-                <MenuItem value={'Other'} primaryText="Other"/>
-							</Field>
-						</div>
+            <Field name="e_2_contact_relationship" component={this.renderSelectField} label="Relationship" disabled={patient}>
+              <MenuItem value={'Father'} primaryText="Father"/>
+              <MenuItem value={'Mother'} primaryText="Mother"/>
+              <MenuItem value={'Step-Father'} primaryText="Step-Father"/>
+              <MenuItem value={'Step-Mother'} primaryText="Step-Mother"/>
+              <MenuItem value={'Sibling'} primaryText="Sibling"/>
+              <MenuItem value={'Legal Guardian'} primaryText="Legal Guardian"/>
+              <MenuItem value={'Friend'} primaryText="Friend"/>
+              <MenuItem value={'Spouse'} primaryText="Spouse"/>
+              <MenuItem value={'Child'} primaryText="Child"/>
+              <MenuItem value={'Grandparent'} primaryText="Grandparent"/>
+              <MenuItem value={'Other'} primaryText="Other"/>
+            </Field>
+          </div>
           {error && <strong>{error}</strong>}
           <RaisedButton
-							label='Save'
-							primary={true}
-							type='submit'
-							style={patient ? providerStyle.display : patientStyle.display}
+            label='Save'
+            primary={true}
+            type='submit'
+            style={patient ? providerStyle.display : patientStyle.display}
 					/>
         </form>
       </div>

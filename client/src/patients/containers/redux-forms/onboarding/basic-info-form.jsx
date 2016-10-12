@@ -1,35 +1,26 @@
-import _ from 'lodash';
+// Axios
 import axios from 'axios';
 // React, Redux, Redux-Form
 import React, { Component, PropTypes } from 'react';
 import { Field, reduxForm } from 'redux-form';
-import { bindActionCreators } from 'redux';
-import { connect } from 'react-redux';
-import { getUserInfo } from '../../../actions/user.js';
 // CryptoJS
 import CryptoJS from 'crypto-js';
 // Material UI
 import RaisedButton from 'material-ui/RaisedButton';
 import FlatButton from 'material-ui/FlatButton';
 import SelectField from 'material-ui/SelectField'
-import TextField from 'material-ui/TextField';
 import MenuItem from 'material-ui/MenuItem';
+import { DatePicker, TextField } from 'redux-form-material-ui'
+// Actions
+import { emergencyContact } from '../../../../auth-shared/actions/actions.js';
 
-
-const patientStyle = {
-	display: {display: 'block'}
-}
-
-const providerStyle = {
-	display: {display: 'none'}
-}
 
 const validate = values => {
   const errors = {}
+
 	if (values.middle && /\d/.test(values.middle)) {
     errors.middle = 'Please enter a valid middle name'
   }
-
 	if (values.maiden && /\d/.test(values.maiden)) {
     errors.maiden = 'Please enter a valid maiden name'
   }
@@ -44,88 +35,88 @@ const validate = values => {
   }
 
   return errors
-}
+};
 
-class BackgroundInfoFormInitialized extends Component {
+class BackgroundInfoForm extends Component {
 
   constructor(props){
     super(props);
-	const status = (localStorage.getItem('userType')) === 'patient' ? false : true;
-	this.state = {
-		patient: status
+		let maxDate = new Date();
+		let minDate = new Date(1900, 1, 1);
+		this.state = {
+			maxDate: maxDate,
+			minDate: minDate
+		};
+  }
+
+  static contextTypes = {
+    router: React.PropTypes.object
+  }
+
+	componentWillMount(){
+		const { initialize } = this.props;
+		initialize({first: localStorage.getItem('first'), last: localStorage.getItem('last')});
 	}
-  }
 
-  handleInitialize(nextProps){
-	const { didInit } = this.props;
-	const data = {
-		"first": nextProps.user.first,
-		"middle": nextProps.user.middle,
-		"last": nextProps.user.last,
-		"maiden": nextProps.user.maiden,
-		"primary_phone_number": nextProps.user.primary_phone_number,
-      	"secondary_phone_number": nextProps.user.secondary_phone_number,
-      	"address": nextProps.user.address,
-      	"city": nextProps.user.city,
-      	"state": nextProps.user.state,
-      	"zip": nextProps.user.zip,
-		"date_of_birth": nextProps.user.date_of_birth,
-		"birth_country": nextProps.user.birth_country,
-		"birth_city": nextProps.user.birth_city,
-		"marital_status": nextProps.user.marital_status,
-		"primary_language": nextProps.user.primary_language,
-		"secondary_language": nextProps.user.secondary_language
-	}
-	this.props.initialize(data);
-	nextProps.didInit();
-  }
-
-  componentWillReceiveProps(nextProps){
-	  console.log(nextProps)
-	 if(!nextProps.init){
-		  this.handleInitialize(nextProps);
-	  }
-  }
-
+	// save info in database and update stepper
 	submitMe(prop){
-		//get encoded id from local storage
+		this.props.handleNext();
 		let id = localStorage.getItem('uid');
-		//code to decode user id stored in local storage
 		let code  = CryptoJS.AES.decrypt(id.toString(), 'key'); //need to change key
 		prop.uid = code.toString(CryptoJS.enc.Utf8);
 
 		axios.put('/api/patient/background', prop)
 			.then( found => {
-				// this.context.router.push('/patient/form/emergencyContact/');
+					console.log("BACKGROUND INFO SUCCESSFULLY ENTERED");
 			})
 			.catch( err => {
-				console.log("ERROR ENTERING INFORMATION", err);
+					console.log("ERROR ENTERING INFORMATION", err);
 			})
 	}
 
+	// updates stepper
+	getStepContent(){
+		let steps=this.props.stepIndex;
+		this.props.getStepContent(steps);
+	}
 
-	renderTextField ({ input, label, disabled, meta: { touched, error } } ) {
+	// updates stepper
+	handlePrev(){
+		this.props.handlePrev();
+	}
 
+	// updates stepper
+	handleNext(){
+		this.props.handleNext();
+	}
+
+	renderTextField (props) {
 		return(
 			<TextField
-				hintText={label}
-				floatingLabelText={label}
+				hintText={props.label}
+				floatingLabelText={props.label}
 				fullWidth={true}
-				onChange={(event, index, value) => input.onChange(value)}
-				errorText={touched && error}
-				disabled={disabled}
-				{...input}
+				errorText={props.touched && props.error}
+				{...props}
 			/>
 		)
 	}
 
-	renderSelectField ({ input, label, disabled, meta: { touched, error }, children }) {
+	renderDatePicker (props) {
+		return(
+			<DatePicker
+				errorText={props.touched && props.error}
+				{...props}
+			/>
+		)
+	}
+
+	renderSelectField ({ input, label, meta: { touched, error }, children }) {
 		return (
 			<SelectField
 				floatingLabelText={label}
 				errorText={touched && error}
 				fullWidth={true}
-				disabled={disabled}
 				{...input}
 				onChange={(event, index, value) => input.onChange(value)}
 				children={children}/>
@@ -134,22 +125,22 @@ class BackgroundInfoFormInitialized extends Component {
 
 	render() {
 		const { error, handleSubmit, pristine, reset, submitting } = this.props;
-		const { patient } = this.state;
+
 		return (
 			<div  className="forms">
 				<h2>Basic User Info</h2>
 				<h6>* Required field</h6>
 					<form onSubmit={handleSubmit(props => this.submitMe(props))}>
-						<Field name="first" type="text" component={this.renderTextField} label="First Name*" disabled={patient} />
-						<Field name="middle" type="text" component={this.renderTextField} label="Middle Name" disabled={patient}/>
-						<Field name="last" type="text" component={this.renderTextField} label="Last Name*" disabled={patient}/>
-						<Field name="maiden" type="text" component={this.renderTextField} label="Maiden Name" disabled={patient}/>
-						<Field name="primary_phone_number" type="text" component={this.renderTextField} label="Primary Phone Number" disabled={patient}/>
-           		 		<Field name="secondary_phone_number" type="text" component={this.renderTextField} label="Secondary Phone Number" disabled={patient}/>
-						<Field name="address" type="text" component={this.renderTextField} label="Street Address" disabled={patient}/>
-						<Field name="city" type="text" component={this.renderTextField} label="City" disabled={patient}/>
+						<Field name="first" type="text" component={this.renderTextField} label="First Name*"/>
+						<Field name="middle" type="text" component={this.renderTextField} label="Middle Name"/>
+						<Field name="last" type="text" component={this.renderTextField} label="Last Name*"/>
+						<Field name="maiden" type="text" component={this.renderTextField} label="Maiden Name"/>
+						<Field name="primary_phone_number" type="text" component={this.renderTextField} label="Primary Phone Number"/>
+            <Field name="secondary_phone_number" type="text" component={this.renderTextField} label="Secondary Phone Number"/>
+						<Field name="address" type="text" component={this.renderTextField} label="Street Address"/>
+						<Field name="city" type="text" component={this.renderTextField} label="City"/>
 						<div>
-							<Field name="state" component={this.renderSelectField} label="State" disabled={patient}>
+							<Field name="state" component={this.renderSelectField} label="State">
 								<MenuItem value="AL" primaryTex ="Alabama" />
 								<MenuItem value="AK" primaryText="Alaska" />
 								<MenuItem value="AZ" primaryText="Arizona" />
@@ -203,10 +194,16 @@ class BackgroundInfoFormInitialized extends Component {
 								<MenuItem value="WY" primaryText="Wyoming" />
 							</Field>
 						</div>
-						<Field name="zip" type="text" component={this.renderTextField} label="Zip Code" disabled={patient}/>
-						<Field name="date_of_birth" label="Date of Birth" component={this.renderTextField} disabled={patient}/>
+						<Field name="zip" type="text" component={this.renderTextField} label="Zip Code"/>
+						<Field name="date_of_birth"  
+							minDate={this.state.minDate} 
+							maxDate={this.state.maxDate} 
+							type="date" fullWidth={true} 
+							floatingLabelText="Date of Birth" 
+							floatingLabelFixed={true} 
+							component={this.renderDatePicker}/>
 						<div>
-							<Field name="birth_country" component={this.renderSelectField} label="Country of Birth" disabled={patient}>
+							<Field name="birth_country" component={this.renderSelectField} label="Country of Birth">
 								<MenuItem value="Afghanistan" primaryText="Afghanistan" />
 								<MenuItem value="Åland Islands" primaryText="Åland Islands" />
 								<MenuItem value="Albania" primaryText="Albania" />
@@ -458,9 +455,9 @@ class BackgroundInfoFormInitialized extends Component {
 								<MenuItem value="Zimbabwe" primaryText="Zimbabwe" />
 						</Field>
 					</div>
-					<Field name="birth_city" type="text" component={this.renderTextField} label="City of Birth" disabled={patient}/>
+					<Field name="birth_city" type="text" component={this.renderTextField} label="City of Birth"/>
 					<div>
-						<Field name="marital_status" component={this.renderSelectField} label="Marital Status" disabled={patient}>
+						<Field name="marital_status" component={this.renderSelectField} label="Marital Status">
 							<MenuItem value={'Married'} primaryText="Married"/>
 							<MenuItem value={'Single'} primaryText="Single"/>
 							<MenuItem value={'Widow'} primaryText="Widow"/>
@@ -468,27 +465,41 @@ class BackgroundInfoFormInitialized extends Component {
 							<MenuItem value={'Separated'} primaryText="Separated"/>
 						</Field>
 					</div>
-					<Field name="primary_language" type="text" component={this.renderTextField} label="Primary Language" disabled={patient}/>
-					<Field name="secondary_language" type="text" component={this.renderTextField} label="Secondary Language" disabled={patient}/>
+					<Field name="primary_language" type="text" component={this.renderTextField} label="Primary Language"/>
+					<Field name="secondary_language" type="text" component={this.renderTextField} label="Secondary Language"/>
 
 					{error && <strong>{error}</strong>}
 
-					<RaisedButton
-							label='Save'
-							primary={true}
-							type='submit'
-							style={patient ? providerStyle.display : patientStyle.display}
-					/>
+					<div className="formBtns clearfix">
+						<div>{this.getStepContent()}</div>
+						<div style={{margin: '20px 0'}}>
+							<FlatButton
+								label="Back"
+								disabled={this.props.stepIndex === 0}
+								onTouchTap={this.handlePrev.bind(this)}
+								style={{marginRight: 12}}
+								className='btn btn-back'
+							/>
+							<RaisedButton
+								label={this.props.stepIndex === 3 ? 'Finish' : 'Next'}
+								primary={true}
+								type='submit'
+								className='btn btn-back'
+								style={{
+									'float': 'right',
+									'backgroundColor': '#fff'
+								}}
+							/>
+						</div>
+					</div>
 				</form>
 			</div>
 		);
 	}
 };
 
-BackgroundInfoFormInitialized = reduxForm({
-  form: 'BackgroundInfoFormInitialized',
-  destroyOnUnmount: false,
-  validate
-})(BackgroundInfoFormInitialized);
-
-export default BackgroundInfoFormInitialized;
+export default reduxForm({
+	form: 'BackgroundInfoForm',
+	destroyOnUnmount: false,
+	validate
+})(BackgroundInfoForm);

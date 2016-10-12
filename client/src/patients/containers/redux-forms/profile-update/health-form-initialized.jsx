@@ -1,20 +1,21 @@
-import _ from 'lodash';
+// Health form initialized and used for patient to update their info
+// Axios
 import axios from 'axios';
+// React / Redux
 import React, { Component, PropTypes } from 'react';
 import { Field, reduxForm } from 'redux-form';
 import { connect } from 'react-redux';
+// Crypto
 import CryptoJS from 'crypto-js';
+// Material UI
 import RaisedButton from 'material-ui/RaisedButton';
 import FlatButton from 'material-ui/FlatButton';
 import SelectField from 'material-ui/SelectField'
 import MenuItem from 'material-ui/MenuItem';
 import Checkbox from 'material-ui/Checkbox';
-import {Table, TableBody, TableFooter, TableHeader, TableHeaderColumn, TableRow, TableRowColumn}
-  from 'material-ui/Table';
 import { TextField } from 'redux-form-material-ui'
-import { getUserInfo, didInit } from '../../../actions/user.js';
-
 // Actions
+import { getUserInfo, didInit } from '../../../actions/user.js';
 import { emergencyContact } from '../../../../auth-shared/actions/actions.js';
 
 const patientStyle = {
@@ -43,19 +44,8 @@ class HealthInfoFormInitialized extends Component {
 
   constructor(props){
     super(props);
-		let maxDate = new Date();
-		let minDate = new Date(1900, 1, 1);
 		const status = (localStorage.getItem('userType')) === 'patient' ? false : true;
 		this.state = {
-			fixedHeader: true,
-      fixedFooter: true,
-      stripedRows: false,
-      showRowHover: false,
-      selectable: true,
-      multiSelectable: true,
-      enableSelectAll: true,
-      showCheckboxes: true,
-      height: '300px',
 			allergies: [],
 			patient: status
 		};
@@ -87,24 +77,21 @@ class HealthInfoFormInitialized extends Component {
   }
 
 	submitMe(prop){
-		//get encoded id from local storage
 		let id = localStorage.getItem('uid');
-		//code to decode user id stored in local storage
 		let code  = CryptoJS.AES.decrypt(id.toString(), 'key'); //need to change key
 		prop.uid = code.toString(CryptoJS.enc.Utf8);
 
 		axios.put('/api/patient/health', prop)
-			.then( found => {
-					// this.context.router.push('/patient/form/emergencyContact/');
-			})
-			.catch( err => {
-					console.log("ERROR ENTERING INFORMATION", err);
-			})
+		.then( found => {
+			console.log("DATA UPDATED SUCCESSFULLY");
+		})
+		.catch( err => {
+			console.log("ERROR ENTERING INFORMATION", err);
+		})
 	}
 
 
 	renderTextField ({ input, label, disabled, meta: { touched, error } } ) {
-
 		return(
 			<TextField
 				hintText={label}
@@ -119,7 +106,6 @@ class HealthInfoFormInitialized extends Component {
 	}
 
 	renderMultiLineTextField ({ input, label, disabled, meta: { touched, error } } ) {
-
 		return(
 			<TextField
 				hintText={label}
@@ -150,21 +136,20 @@ class HealthInfoFormInitialized extends Component {
 	render() {
 		const { error, handleSubmit, pristine, reset, submitting } = this.props;
 		const { patient } = this.state;
-		console.log("PATIENT", patient)
 		return (
 			<div  className="forms">
 				<h2>Health Info</h2>
 					<form onSubmit={handleSubmit(props => this.submitMe(props))}>
 						<div>
 							<Field name="gender" component={this.renderSelectField} label="Gender" disabled={patient}>
-									<MenuItem value={'Male'} primaryText="Male"/>
-									<MenuItem value={'Female'} primaryText="Female"/>
-									<MenuItem value={'Transgender'} primaryText="Transgender"/>
-									<MenuItem value={'Transsexual'} primaryText="Transsexual"/>
-									<MenuItem value={'Trans Woman'} primaryText="Trans Female"/>
-									<MenuItem value={'Trans Man'} primaryText="Trans Male"/>
-									<MenuItem value={'Genderfluid'} primaryText="Genderfluid"/>
-									<MenuItem value={'Agender'} primaryText="Agender"/>
+								<MenuItem value={'Male'} primaryText="Male"/>
+								<MenuItem value={'Female'} primaryText="Female"/>
+								<MenuItem value={'Transgender'} primaryText="Transgender"/>
+								<MenuItem value={'Transsexual'} primaryText="Transsexual"/>
+								<MenuItem value={'Trans Woman'} primaryText="Trans Female"/>
+								<MenuItem value={'Trans Man'} primaryText="Trans Male"/>
+								<MenuItem value={'Genderfluid'} primaryText="Genderfluid"/>
+								<MenuItem value={'Agender'} primaryText="Agender"/>
 							</Field>
 						</div>
 						<Field name="weight" type="text" component={this.renderTextField} label="Weight (lbs)" disabled={patient}/>
@@ -188,14 +173,14 @@ class HealthInfoFormInitialized extends Component {
 
 						{error && <strong>{error}</strong>}
 						<RaisedButton
-								label='Save'
-								primary={true}
-								type='submit'
-								style={patient ? providerStyle.display : patientStyle.display }
+							label='Save'
+							primary={true}
+							type='submit'
+							style={patient ? providerStyle.display : patientStyle.display }
 						/>
 					</form>
 			</div>
-			);
+		);
 	}
 };
 

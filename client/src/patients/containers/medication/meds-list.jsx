@@ -45,7 +45,9 @@ class MedicationList extends Component{
       );
     }else{
       return (
-        <h3 className="click">No medications listed</h3>
+        <div style={ {minHeight: windowHeight} }>
+          <h3>No medications listed</h3>
+        </div>
       );
     }
   }

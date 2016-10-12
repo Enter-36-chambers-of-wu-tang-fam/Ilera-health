@@ -6,13 +6,13 @@ import { getUserInfo } from '../../actions/user.js';
 import CryptoJS from 'crypto-js';
 
 // Components
-import DashboardMessages from './dashboard-messages.jsx';
-import DashboardRecords from './dashboard-records.jsx';
-import DashboardPhysicians from './dashboard-physicians.jsx';
-import DashboardMain from './dashboard-main.jsx';
-import DashboardProfile from './dashboard-profile.jsx';
-import DashboardHealthLog from './dashboard-healthLog.jsx';
-import DashboardMeds from './dashboard-meds.jsx';
+import DashboardMessages from '../../components/main-dash/dashboard-messages.jsx';
+import DashboardRecords from '../../components/main-dash/dashboard-records.jsx';
+import DashboardPhysicians from '../../components/main-dash/dashboard-physicians.jsx';
+import DashboardMain from '../../components/main-dash/dashboard-main.jsx';
+import DashboardProfile from '../../components/main-dash/dashboard-profile.jsx';
+import DashboardHealthLog from '../../components/main-dash/dashboard-healthLog.jsx';
+import DashboardMeds from '../../components/main-dash/dashboard-meds.jsx';
 
 class PatientDashboard extends Component {
 

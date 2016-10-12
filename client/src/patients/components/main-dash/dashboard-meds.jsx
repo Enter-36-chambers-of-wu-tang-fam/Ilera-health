@@ -1,16 +1,18 @@
-import React, { Component } from 'react';
+// Meds button on dashboard
+// React
+import React from 'react';
 
 const DashboardMeds = () => {
 
-    return (
-        <div className="dashboardMeds">
-            <h3>Meds</h3>
-            <i className="fa fa-medkit" aria-hidden="true"></i>
-            <p className="sneakPeak">
-                Never lose track agains
-            </p>
-        </div>
-    );
+	return (
+		<div className="dashboardMeds">
+			<h3>Meds</h3>
+			<i className="fa fa-medkit" aria-hidden="true"></i>
+			<p className="sneakPeak">
+				Never lose track agains
+			</p>
+		</div>
+	);
 
 };
 

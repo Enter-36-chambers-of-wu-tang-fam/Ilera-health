@@ -1,7 +1,7 @@
 import axios from 'axios';
 import * as types from './action-constants';
 
-export function receiveRawMessage(msg, user, senderType, chosenid, receiverType) {
+export function receiveRawMessage( msg, user, senderType, chosenid, receiverType ) {
   return {
     type: types.RECEIVE_MESSAGE,
     payload: {
@@ -13,88 +13,85 @@ export function receiveRawMessage(msg, user, senderType, chosenid, receiverType)
 			receiver_type: receiverType
 		}
   };
-}
+};
 
-const addMessageRequest = (message) => {
+const addMessageRequest = ( message ) => {
 	return {
 		type:  types.MESSAGE_ADD_REQUEST,
 		isFetching: true,
 		payload: message
-	}
-}
+	};
+};
 
-const addMessage = (message) => {
+const addMessage = ( message ) => {
 	return {
 		type: types.MESSAGE_ADD_SUCCESS,
 		isFetching: false,
 		payload: message
-	}
-}
+	};
+};
 
-const addMessageFailed = (err) => {
+const addMessageFailed = ( err ) => {
 	return {
 		type: types.MESSAGE_ADD_FAILURE,
 		isFetching: false,
 		payload: err
-	}
-}
+	};
+};
 
-export function newMessage(senderType, receiverType, message, senderid, receiverid) {
-	console.log("NEW MESSAGE POSTING", senderid, receiverid)
+export function newMessage( senderType, receiverType, message, senderid, receiverid ) {
   return dispatch => {
-    dispatch(addMessageRequest(message))
+    dispatch(addMessageRequest( message ));
     return axios.post('/api/messages/newmessage', {sender_type: senderType, receiver_type: receiverType, direct_message: message.direct_message, sender_id: senderid, receiver_id: receiverid})
 			.then( success => {
-				console.log("SUCCESS", success)
-					dispatch(addMessage(message));
+				dispatch(addMessage(message));
 			})
 			.catch( err => {
-					dispatch(addMessageFailed(err));
+				dispatch(addMessageFailed(err));
 			})
-  }
-}
+  };
+};
 
 const fetchMessagesRequest = () => {
 	return {
 		type: types.MESSAGE_FETCH_REQUEST,
-		isFetching: true,
-	}
-}
+		isFetching: true
+	};
+};
 
-const fetchMessagesSuccess = (messages) => {
+const fetchMessagesSuccess = ( messages) => {
 	return {
 		type: types.MESSAGE_FETCH_SUCCESS,
 		isFetching: false,
 		payload: messages
-	}
-}
+	};
+};
 
-const fetchMessagesFailure = (err) => {
+const fetchMessagesFailure = ( err ) => {
 	return {
 		type: types.MESSAGE_FETCH_FAILURE,
 		isFetching: false,
 		payload: err
-	}
-}
+	};
+};
 
-export function fetchMessages(userid, senderType, rid, receiverType) {
+export function fetchMessages( userid, senderType, rid, receiverType ) {
   return dispatch => {
-    dispatch(fetchMessagesRequest())
+    dispatch( fetchMessagesRequest() );
     return axios.get(`/api/messages/${senderType}/${userid}/${receiverType}/${rid}`)
-      .then(response =>{
-				console.log("RESPONSE", response.data)
-				dispatch(fetchMessagesSuccess(response.data));	  
+		.then(response =>{
+			dispatch( fetchMessagesSuccess(response.data) );	  
 	  })
 		.catch(error => {
-		  dispatch(fetchMessagesFailure(error));
+		  dispatch( fetchMessagesFailure(error) );
 	  });
-  }
-}
+  };
+};
 
-const fetchPatientPhysicians = (physicians) => {
+const fetchPatientPhysicians = ( physicians ) => {
 	return {
 		type: types.PATIENT_FETCH_PHYSICIANS,
 		isFetching: false,
 		payload: physicians
-	}
-}
+	};
+};

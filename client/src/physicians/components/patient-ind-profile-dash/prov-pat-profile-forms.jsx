@@ -6,10 +6,10 @@ import { getRecords } from '../../../patients/actions/records.js';
 // CryptoJS
 import CryptoJS from 'crypto-js';
 // Components
-import BackgroundInfoFormInitialized from '../../../patients/containers/redux-forms/profile-update/basic-form-initialized.js';
-import ContactInfoFormInitialized from '../../../patients/containers/redux-forms/profile-update/contact-form-initialized.js';
-import HealthInfoFormInitialized from '../../../patients/containers/redux-forms/profile-update/health-form-initialized.js';
-import ProviderInfoFormInitialized from '../../../patients/containers/redux-forms/profile-update/provider-form-initialized.js';
+import BackgroundInfoFormInitialized from '../../../patients/containers/redux-forms/profile-update/basic-form-initialized.jsx';
+import ContactInfoFormInitialized from '../../../patients/containers/redux-forms/profile-update/contact-form-initialized.jsx';
+import HealthInfoFormInitialized from '../../../patients/containers/redux-forms/profile-update/health-form-initialized.jsx';
+import ProviderInfoFormInitialized from '../../../patients/containers/redux-forms/profile-update/provider-form-initialized.jsx';
 import PatientRecords from '../../../patients/components/medical-history-dash/medical-history-dashboard.jsx';
 import PatientNotes from '../../../patients/components/medical-history-dash/appointment-history-dashboard.jsx';
 import ProfileMeds from './prov-pat-profile-meds.jsx';

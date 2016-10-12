@@ -68,7 +68,7 @@ class MedicationDetail extends Component {
     }else{
       return (
         <div>
-            <h3>Click on a medication</h3>
+            <h3 className="click">Click on a medication</h3>
         </div>
       );
     }

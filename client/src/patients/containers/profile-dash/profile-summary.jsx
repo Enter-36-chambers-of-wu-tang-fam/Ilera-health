@@ -1,13 +1,17 @@
+// Component seen on the left hand that contains summary info for user (photo, name) and button to reset password
+// React / Redux
 import React, { Component } from 'react';
-import RaisedButton from 'material-ui/RaisedButton';
 import { Field, reduxForm } from 'redux-form';
-import { TextField } from 'redux-form-material-ui';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
+// Material UI
+import RaisedButton from 'material-ui/RaisedButton';
+import { TextField } from 'redux-form-material-ui';
+// Actions
 import { getUserInfo } from '../../actions/user.js';
+// Photo dropzone
 import Dropzone from 'react-dropzone';
 import request from 'superagent';
-
 // CryptoJS
 import CryptoJS from 'crypto-js';
 
@@ -88,7 +92,7 @@ class ProfileSum extends Component {
       // store form data
       axios.put('/api/patient/password/update', prop)
         .then( found => {
-          // this.context.router.push('/patient/form/insurance/');
+          console.log("PASSWORD RESET SUCCESSFULLY");
         })
         .catch( err => {
             console.log("ERROR ENTERING INFORMATION");
@@ -96,8 +100,7 @@ class ProfileSum extends Component {
     }
 
     //picture upload
-
-     onDrop(file) {
+    onDrop(file) {
 	    const { load } = this.props;
 	    let id = localStorage.getItem('uid');
 		  let code  = CryptoJS.AES.decrypt(id.toString(), 'key'); //need to change key
@@ -109,13 +112,13 @@ class ProfileSum extends Component {
       .send(upload)
       .end(function(err, resp){
         if (err) { console.error(err) }
-    });
+      });
 
-    this.setState({
-      uploadFiles: file[0]
-    });
+      this.setState({
+        uploadFiles: file[0]
+      });
     
-    load(uid);
+      load(uid);
   }
 
   componentWillUpdate(){
@@ -126,67 +129,67 @@ class ProfileSum extends Component {
       load(uid);
   }
 
-    onResetClick(){
-      this.setState({clicked: !this.state.clicked})
-    }
+  onResetClick(){
+    this.setState({clicked: !this.state.clicked})
+  }
 
-      renderTextField (props) {
-        return(
-          <TextField 
-              hintText={props.label}
-              floatingLabelText={props.label}
-              fullWidth={true}
-              errorText={props.touched && props.error}
-              hintStyle={styles.hintStyle}
-              floatingLabelStyle={styles.floatingLabelStyle}
-              floatingLabelFocusStyle={styles.floatingLabelFocusStyle}
-              inputStyle={styles.inputStyle}
-              {...props}
-          />
-        )
-      }
+  renderTextField (props) {
+    return(
+      <TextField 
+        hintText={props.label}
+        floatingLabelText={props.label}
+        fullWidth={true}
+        errorText={props.touched && props.error}
+        hintStyle={styles.hintStyle}
+        floatingLabelStyle={styles.floatingLabelStyle}
+        floatingLabelFocusStyle={styles.floatingLabelFocusStyle}
+        inputStyle={styles.inputStyle}
+        {...props}
+      />
+    )
+  }
 
-    render() {
-      const { height, error, handleSubmit, pristine, reset, submitting } = this.props;
-      const profilePicture = {
-        backgroundImage: `url(${this.state.uploadFiles.length > 0 ? this.state.uploadFiles.preview : this.props.user.photo_path === null ?
-          '/styles/defaults/default_photo.png' : this.props.user.photo_path})`,
-        backgroundSize:'cover'
+  render() {
+    const { height, error, handleSubmit, pristine, reset, submitting } = this.props;
+    const profilePicture = {
+      backgroundImage: `url(${this.state.uploadFiles.length > 0 ? this.state.uploadFiles.preview : this.props.user.photo_path === null ?
+        '/styles/defaults/default_photo.png' : this.props.user.photo_path})`,
+      backgroundSize:'cover'
     };
-      return (
-          <div className="profileSummary" style={{
-            minHeight: height,
-            color: '#fff',
-            background: "rgba(13,34,51,.8)"
-          }}>
-            <div>
-              <Dropzone onDrop={this.onDrop.bind(this)} multiple={false} style={styles.dropzone} activeStyle={styles.dropHover}  accept="image/*">
-                <div className="profilePic" style={profilePicture}>
-                  <div className="profilePic_overlay"><i className="fa fa-camera fa-2x" aria-hidden="true"></i> Drag & Drop!</div>
-                </div>
-              </Dropzone>
-              <h3>{`${localStorage.getItem('first')} ${localStorage.getItem('last')}`}</h3>
+    return (
+      <div className="profileSummary" style={{
+        minHeight: height,
+        color: '#fff',
+        background: "rgba(13,34,51,.8)"
+      }}>
+        <div>
+          <Dropzone onDrop={this.onDrop.bind(this)} multiple={false} style={styles.dropzone} activeStyle={styles.dropHover}  accept="image/*">
+            <div className="profilePic" style={profilePicture}>
+              <div className="profilePic_overlay"><i className="fa fa-camera fa-2x" aria-hidden="true"></i> Drag & Drop!</div>
             </div>
-            <div>
-              <RaisedButton label="Reset Credentials" onClick={this.onResetClick.bind(this)} labelColor="white" backgroundColor='rgba(242, 108, 44, 1)' style={styles.btn}/>
-              <form onSubmit={handleSubmit(props => this.submitMe(props))} className={this.state.clicked ? 'showPReset' : 'hidePReset'}>
-                <Field name="email" type="text" component={this.renderTextField} label="Email"/>
-                <Field name="password" type="text" component={this.renderTextField} label="Old Password"/>
-                <Field name="newPassword" type="text" component={this.renderTextField} label="New Password"/>
-                <Field name="reTypePassword" type="text" component={this.renderTextField} label="Re-Type New Password"/>
-                {error && <strong>{error}</strong>}
-                <RaisedButton
-                    label='Save'
-                    primary={true}
-                    type='submit'
-                    backgroundColor='rgba(242, 108, 44, 1)' 
-                    style={styles.btn}
-                />
-              </form>
-            </div>
-          </div>
-      );
-    }
+          </Dropzone>
+          <h3>{`${localStorage.getItem('first')} ${localStorage.getItem('last')}`}</h3>
+        </div>
+        <div>
+          <RaisedButton label="Reset Credentials" onClick={this.onResetClick.bind(this)} labelColor="white" backgroundColor='rgba(242, 108, 44, 1)' style={styles.btn}/>
+          <form onSubmit={handleSubmit(props => this.submitMe(props))} className={this.state.clicked ? 'showPReset' : 'hidePReset'}>
+            <Field name="email" type="text" component={this.renderTextField} label="Email"/>
+            <Field name="password" type="text" component={this.renderTextField} label="Old Password"/>
+            <Field name="newPassword" type="text" component={this.renderTextField} label="New Password"/>
+            <Field name="reTypePassword" type="text" component={this.renderTextField} label="Re-Type New Password"/>
+            {error && <strong>{error}</strong>}
+            <RaisedButton
+              label='Save'
+              primary={true}
+              type='submit'
+              backgroundColor='rgba(242, 108, 44, 1)' 
+              style={styles.btn}
+            />
+          </form>
+        </div>
+      </div>
+    );
+  }
 };
 
 ProfileSum = reduxForm({
@@ -202,6 +205,3 @@ export default connect(
   { 
     load: getUserInfo,
   })(ProfileSum);
-
-//---------
-
