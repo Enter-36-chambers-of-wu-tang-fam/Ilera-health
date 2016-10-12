@@ -132,7 +132,7 @@ input[type='radio']{
     min-height: 10px;
     background: linear-gradient(to bottom,rgba(0,0,0,.1),rgba(0,0,0,0));
 }
-.dashboardRows:after, .wrapper:after, .reminders:after, .profileDash:after, .chat:after, .messageContacts > ul:after, .contactItem:after, header:after, header ul:after, main > section > ul:after, .welcomeHeader:after, section:after, .messagesUser:after, .messagesIncoming:after, .team:after, #mainDashWelcomeMobile:after, .providerDashParent:after, .medsTableLabels > ul:after, .medsList > div > ul:after, .provPatMeds > div:first-of-type:after, .profileSummary:after {
+.dashboardRows:after, .wrapper:after, .reminders:after, .profileDash:after, .chat:after, .messageContacts > ul:after, .contactItem:after, header:after, header ul:after, main > section > ul:after, .welcomeHeader:after, section:after, .messagesUser:after, .messagesIncoming:after, .team:after, #mainDashWelcomeMobile:after, .providerDashParent:after, .medsTableLabels > ul:after, .medsList > div > ul:after, .provPatMeds > div:first-of-type:after, .profileSummary:after, .patientMeds:after, .patientMeds ul:after {
     clear: both;
     content: '';
     display: block;
@@ -253,7 +253,7 @@ main{
     margin: 2% 1.5%;
 }
 
-.dashboardInsurance h5, .profileDash .provViewPatDash h6, .providerDB h6{
+.dashboardInsurance h5, .profileDash .provViewPatDash h6, .providerDB h6, .patientMeds h3{
     font-size: 14px;
     text-transform: uppercase;
     text-align: left;
@@ -415,7 +415,7 @@ margin: 1em 0em;
 #chatBoard {
     position: relative;
 }
-#chatBoard h3{
+#chatBoard h3, .patientMeds .click{
     font-size: 4vw;
     text-align: center;
     color: #eee;
@@ -1503,8 +1503,57 @@ main >section .team li:hover .teamProfile {
     padding-right: 10px;
     color: #E82C0C;
 }
-
-
+.noMeds{
+    font-size: 24px;
+    text-align: center;
+    padding: 20%;
+}
+.patientMeds > div > div{
+    float: left;
+    width: 20%;
+    padding: 2% 3%;
+}
+.patientMeds > div > div:first-of-type {
+    background-color: #eee;
+}
+.patientMeds > div > div:first-of-type h3, .patientMeds i {
+    color: rgb(242, 108, 44);
+}
+.patientMeds i{
+    padding-right: 3px;
+    margin-right: -17px;
+    position: relative;
+    left: -20px;
+}
+.patientMeds img{
+    display: block;
+    border-radius: 5px;
+    padding-bottom: 5px;
+}
+.patientMeds > div > div:nth-of-type(2){
+    width: 80%;
+}
+.patientMeds > div > div:nth-of-type(2) > ul > li{
+    padding: 10px 0;
+}
+.patientMeds > div > div:first-of-type > ul > li{
+    padding: 10px 0;
+}
+.medTitle{
+    text-transform: uppercase;
+}
+.prescriber a{
+    text-transform: uppercase;
+    color: #333;
+}
+.prescriber h4{
+    padding-top: 0;
+    text-align: left;
+    font-size: 12px;
+    margin: 12px 0 4px;
+    text-transform: uppercase;
+    color: #bbb;
+}
 /*----------- MEDIA QUERIES ---------*/
 @media screen and (min-width: 2230px) {
     .introProviders {
@@ -1775,7 +1824,16 @@ main >section .team li:hover .teamProfile {
         margin: 10px auto;
         display: block;
     }
-    
+    /*-------- PATIENT MEDS -------*/
+    .patientMeds > div > div {
+        float: left;
+        width: 40%;
+        padding: 10% 3%;
+    }
+    .patientMeds > div > div:nth-of-type(2) {
+        width: 60%;
+        padding: 10% 1% 0 9%;
+    }
 }
 
 @media screen and (max-width: 535px) {

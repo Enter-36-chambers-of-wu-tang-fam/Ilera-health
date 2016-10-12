@@ -1,85 +1,63 @@
+// Patient's view of medications prescribed
+// React / Redux
 import React, { Component, PropTypes } from 'react';
 import { connect } from 'react-redux';
+// Actions
 import { medChosen } from '../../actions/medication.js';
-import Medication from '../../components/medication-dash/meds-page/medication-class.jsx';
-import MedicationDetail from './meds-details.jsx';
 
 class MedicationList extends Component{
   constructor(props){
     super(props);
-    console.log('hello from MedicationList',props);
+    this.state = {
+      windowHeight: ''
+    }
   }
+
+  componentWillMount(){
+    this.setState({ windowHeight: window.innerHeight })
+  }
+
   handleClick(medSelect){
     this.props.Chosen(medSelect)
-    console.log('click');
   }
 
   render(){
-    return (
-      <ul>
-        {this.props.meds.map(medication=>{
-          return (
-            <li
-              key={medication.id*Math.random()}
-              onClick={ this.handleClick.bind(this, medication) }
-            >
+    const { meds } = this.props;
+    const { windowHeight } = this.state;
 
-              {medication.drug_name}
-            </li>
-          )
-        })}
-
-      </ul>
-    );
+    if( meds.length > 0 ){
+      return (
+        <div style={ {minHeight: windowHeight} }> 
+          <h3>Med Name</h3>
+          <ul>
+            {meds.map( medication =>{
+              return (
+                <li
+                  key={medication.id*Math.random()}
+                  onClick={ this.handleClick.bind(this, medication) }
+                >
+                <p className="medTitle">{medication.drug_name}</p>
+                </li>
+              )
+            })}
+          </ul>
+        </div>
+      );
+    }else{
+      return (
+        <h3 className="click">No medications listed</h3>
+      );
+    }
   }
-}
+};
 
 const mapDispatchToProps = dispatch => {
   return {
     Chosen: medSelect => dispatch(medChosen(medSelect))
   }
-}
+};
 
 export default connect(state => ({
   meds: state.meds.medication,
   chosenMed: state.meds.chosenMed
-}), mapDispatchToProps)(MedicationList)
-
-// id
-// drug_name
-// dosage
-// id_medication
-// id_physician
-// id_patient
-// start_date
-// end_date
-
-//
-// const MedicationList = ({handleClick, meds}) => {
-//   const handleClick = selectedMed =>{
-//
-//   }
-//   return (
-//     <ul>
-//       {meds.map(medication=>{
-//         return ( <li key={medication.id}>
-//           onClick={ handleClick(medication) }
-//           {medication.drug_name}
-//         </li> )
-//       })}
-//     </ul>
-//   );
-// }
-//
-// export default MedicationList;
-
-
-
-// id
-// drug_name
-// dosage
-// id_medication
-// id_physician
-// id_patient
-// start_date
-// end_date
+}), mapDispatchToProps)(MedicationList);
