@@ -167,31 +167,31 @@ class BackgroundInfoForm extends Component {
                     <h6>Bio</h6>
                     <p>{doc.data.data.profile.bio ? doc.data.data.profile.bio : 'No data'}</p>
 
-										<p>**If any of the information is innacurate or out of date, please <a href='http://betterdoctor.com/doctors'>update your information</a>.</p>
+					<p>**If any of the information is innacurate or out of date, please <a href='http://betterdoctor.com/doctors'>update your information</a>.</p>
 
-										<div className="formBtns clearfix">
-											<div>{this.getStepContent()}</div>
-											<div style={{margin: '20px 0'}}>
-												<FlatButton
-													label="Back"
-													disabled={this.props.stepIndex === 0}
-													onTouchTap={this.handlePrev.bind(this)}
-													style={{marginRight: 12}}
-													className='btn btn-back'
-												/>
-												<RaisedButton
-													label='Finish'
-													primary={true}
-													type='submit'
-													className='btn btn-back'
-													onTouchTap={this.handleFinal.bind(this)}
-													style={{
-														'float': 'right',
-														'backgroundColor': '#fff'
-													}}
-												/>
-											</div>
-										</div>
+					<div className="formBtns clearfix">
+						<div>{this.getStepContent()}</div>
+						<div style={{margin: '20px 0'}}>
+							<FlatButton
+								label="Back"
+								disabled={this.props.stepIndex === 0}
+								onTouchTap={this.handlePrev.bind(this)}
+								style={{marginRight: 12}}
+								className='btn btn-back'
+							/>
+							<RaisedButton
+								label='Finish'
+								primary={true}
+								type='submit'
+								className='btn btn-back'
+								onTouchTap={this.handleFinal.bind(this)}
+								style={{
+									'float': 'right',
+									'backgroundColor': '#fff'
+								}}
+							/>
+						</div>
+					</div>
                 </div>
             )
         } else {
