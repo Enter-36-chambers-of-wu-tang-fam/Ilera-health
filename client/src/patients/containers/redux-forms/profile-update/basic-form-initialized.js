@@ -6,7 +6,6 @@ import { Field, reduxForm } from 'redux-form';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import { getUserInfo } from '../../../actions/user.js';
-
 // CryptoJS
 import CryptoJS from 'crypto-js';
 // Material UI
@@ -52,7 +51,6 @@ class BackgroundInfoFormInitialized extends Component {
   constructor(props){
     super(props);
 	const status = (localStorage.getItem('userType')) === 'patient' ? false : true;
-	console.log("STATUS", status)
 	this.state = {
 		patient: status
 	}
