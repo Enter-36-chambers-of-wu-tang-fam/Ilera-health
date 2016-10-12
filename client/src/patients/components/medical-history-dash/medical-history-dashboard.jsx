@@ -36,7 +36,7 @@ class RecordsDashboard extends Component{
       deselectOnClickaway: true,
       showCheckboxes: false,
       height: '200px',
-
+      mobile: false,
       patient:status
     }
   }
@@ -45,6 +45,12 @@ class RecordsDashboard extends Component{
     let code  = CryptoJS.AES.decrypt(id.toString(), 'key'); //need to change key
     let uid = code.toString(CryptoJS.enc.Utf8);
     this.props.retrieveRecords(uid);
+  }
+
+  componentDidMount() {
+    if(window.innerWidth < 735){
+      this.setState({ mobile: true })
+    }
   }
 
   componentWillReceiveProps(nextProps){
@@ -64,8 +70,9 @@ class RecordsDashboard extends Component{
   }
 
   render () {
-    const { records, height, fixedHeader, fixedFooter, selectable, multiSelectable, showCheckboxes, enableSelectAll,deselectOnClickaway, showRowHover, stripedRows, patient } = this.state;
-    return (
+    const { records, height, fixedHeader, fixedFooter, selectable, multiSelectable, showCheckboxes, enableSelectAll,deselectOnClickaway, showRowHover, stripedRows, patient, mobile } = this.state;
+    if( !mobile ){
+      return (
         <div className="medRecords">
           {patient ? "" : <a href="/patient/records/upload" className="uploadRecord"><button>Upload</button></a>}
           {patient ? "" : <a href="/patient/records/appointments" className="uploadRecord"><button>Appointment Notes</button></a> }
@@ -130,7 +137,72 @@ class RecordsDashboard extends Component{
           </TableFooter>
         </Table>
         </div>
-    );
+      );
+    }else{
+      return (
+        <div className="medRecords">
+          {patient ? "" : <a href="/patient/records/upload" className="uploadRecord"><button>Upload</button></a>}
+          {patient ? "" : <a href="/patient/records/appointments" className="uploadRecord"><button>Appointment Notes</button></a> }
+        <Table
+          height={height}
+          fixedHeader={fixedHeader}
+          fixedFooter={fixedFooter}
+          selectable={selectable}
+          multiSelectable={multiSelectable}
+          style={styles.clearFix}
+        >
+          <TableHeader
+            displaySelectAll={showCheckboxes}
+            adjustForCheckbox={showCheckboxes}
+            enableSelectAll={enableSelectAll}
+          >
+            <TableRow>
+              <TableHeaderColumn colSpan={patient ? "4" : "3"} tooltip="Medical Records Data" style={{textAlign: 'center', fontSize:'24px'}}>
+                Medical Records Data
+              </TableHeaderColumn>
+            </TableRow>
+            <TableRow>
+              <TableHeaderColumn tooltip="The Description">Description</TableHeaderColumn>
+              <TableHeaderColumn tooltip="The Record">Document</TableHeaderColumn>
+              {patient ? '' : <TableHeaderColumn tooltip="The Record">Remove</TableHeaderColumn>}
+            </TableRow>
+          </TableHeader>
+          <TableBody
+            displayRowCheckbox={showCheckboxes}
+            deselectOnClickaway={deselectOnClickaway}
+            showRowHover={showRowHover}
+            stripedRows={stripedRows}
+          >
+            {records.map((record, index) => (
+              <TableRow key={index} selected={record.selected}>
+                <TableRowColumn>{record.description}</TableRowColumn>
+                <TableRowColumn>
+                  <a href={record.document_path} target="_blank">
+                    {record.document_path.slice(-3) === 'pdf' ? <i className="fa fa-file-pdf-o fa-3x" aria-hidden="true"></i> : '' }
+                    {record.document_path.slice(-3) === 'zip' ? <i className="fa fa-file-archive-o fa-3x" aria-hidden="true"></i> : '' }             
+                    {['mp4','mp3', 'wav'].indexOf(record.document_path.slice(-3)) > -1 ? <i className="fa fa-file-audio-o fa-3x" aria-hidden="true"></i> : '' }
+                    {['jpg','peg','png'].indexOf(record.document_path.slice(-3)) > -1 ? <i className="fa fa-file-image-o fa-3x" aria-hidden="true"></i> : '' }
+                    {['doc','txt'].indexOf(record.document_path.slice(-3)) > -1 ? <i className="fa fa-file-text-o fa-3x" aria-hidden="true"></i> : '' }
+                  </a>
+                </TableRowColumn>
+                {patient ? "" : <TableRowColumn><button onClick={this.handleRemoval.bind(this,record.id,record.document_path)}>Delete</button></TableRowColumn>}
+              </TableRow>
+              ))}
+          </TableBody>
+          <TableFooter
+            adjustForCheckbox={showCheckboxes}
+          >
+            <TableRow>
+              <TableRowColumn colSpan={patient ? "4" : "5"} style={{textAlign: 'center'}}>
+                End Records
+              </TableRowColumn>
+            </TableRow>
+          </TableFooter>
+        </Table>
+        </div>
+      );
+    }
+    
   }
 };
 

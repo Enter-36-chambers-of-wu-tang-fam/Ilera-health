@@ -1679,8 +1679,8 @@ main >section .team li:hover .teamProfile {
         width: 23%;
     }
     /*-------- MY RECORDS ----------*/
-    .medRecords table > thead > tr:nth-of-type(2) > th:first-of-type, .medRecords table > thead > tr:nth-of-type(2) > th:nth-of-type(2){
-        display: none;
+    .medRecords th {
+        font-size: 15px !important;
     }
 }
 
