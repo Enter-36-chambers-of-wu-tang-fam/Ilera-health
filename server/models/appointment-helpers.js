@@ -7,7 +7,6 @@ module.exports = {
   make_appointment:(params, cb) => {
     let data = [params.date, params.time, params.notes, params.id_physician,
       params.id_patient];
-    console.log("DATA", data);
     const queryString = 'INSERT INTO appointment(date, time, notes, \
       id_physician, id_patient) \
       value (?, ?, ?, ?, ?)';
@@ -59,7 +58,6 @@ module.exports = {
 
   // added
   update_appointment: (params, cb) => {
-    console.log("UPDATE PARAMS!!", params)
     let data = [ (params.date || null), (params.time || null),
       (params.notes || null) ];
     const queryString = 'UPDATE appointment \
@@ -80,25 +78,3 @@ module.exports = {
 
 };
 
-
-// appointment table
-
-// CREATE TABLE appointment (
-//   id INTEGER NOT NULL AUTO_INCREMENT,
-//   date DATE NULL DEFAULT NULL,
-//   time TIME NULL DEFAULT NULL,
-//   notes VARCHAR(10000) NULL DEFAULT NULL,
-//   id_physician INTEGER DEFAULT NULL,
-//   id_patient INTEGER DEFAULT NULL,
-//   id_institution INTEGER DEFAULT NULL,
-//   PRIMARY KEY (id)
-// );
-
-
-// SELECT p.id, p.first, p.last, p.photo_path,
-//   a.id, a.date, a.time, a.notes, a.id_physician, a.id_patient,
-//   a.id_institution
-//   FROM appointment a
-//   JOIN patient p
-//   ON p.id = a.id_patient
-//   WHERE a.id_physician =5;

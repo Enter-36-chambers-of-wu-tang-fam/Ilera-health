@@ -55,7 +55,7 @@ class ProviderAppFormsContainer extends Component {
 
   getStepContent(stepIndex) {
     const { doc, user } = this.props;
-    console.log("FUCKKKK", doc)
+
     switch (stepIndex) {
       case 0:
         return <ProviderIntro stepIndex={this.state.stepIndex} getStepContent={this.getStepContent.bind(this)} handleNext={this.handleNext.bind(this)} handlePrev={this.handlePrev.bind(this)}/>

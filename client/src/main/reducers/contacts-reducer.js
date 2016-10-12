@@ -21,46 +21,33 @@ export default function contactsReducer(state = initialState, action) {
   switch (action.type) {
     
     case PATIENT_FETCH_PHYSICIANS:
-        console.log("PATIENT_FETCH_PHYSICIANS");
         return { ...state, loaded: true, contacts: action.payload }
     case PATIENT_FETCH_PHYSICIANS_FAILURE:
-        console.log("PATIENT_FETCH_PHYSICIANS_FAILURE");
         return { ...state, loaded: false }
     case PHYSICIAN_FETCH_PATIENTS:
-        console.log("PHYSICIAN_FETCH_PATIENTS");
         return { ...state, loaded: true, contacts: action.payload }
     case PHYSICIAN_FETCH_PATIENTS_FAILURE:
-        console.log("PHYSICIAN_FETCH_PATIENTS_FAILURE");
         return { ...state, loaded: false }
 
     case MAKE_MY_PHYSICIAN_REQUEST:
-        console.log("MAKE_MY_PHYSICIAN_REQUEST");
         return { ...state, relationMade: action.relation }
     case MAKE_MY_PHYSICIAN_SUCCESS:
-        console.log("MAKE_MY_PHYSICIAN_SUCCESS");
         return { ...state, relationMade: action.relation }
     case MAKE_MY_PHYSICIAN_FAILURE:
-        console.log("MAKE_MY_PHYSICIAN_FAILURE");
         return { ...state, relationMade: action.relation }
 
     case CHECK_MY_RELATIONSHIP_REQUEST:
-        console.log("CHECK_MY_RELATIONSHIP_REQUEST");
         return { ...state, relation: action.relation }
     case CHECK_MY_RELATIONSHIP_SUCCESS:
-        console.log("CHECK_MY_RELATIONSHIP_SUCCESS");
         return { ...state, relation: action.relation }
     case CHECK_MY_RELATIONSHIP_FAILURE:
-        console.log("CHECK_MY_RELATIONSHIP_FAILURE");
         return { ...state, relation: action.relation }
     
     case REMOVE_RELATIONSHIP_REQUEST:
-        console.log("REMOVE_RELATIONSHIP_REQUEST");
         return { ...state, relationRemoved: action.relation }
     case REMOVE_RELATIONSHIP_SUCCESS:
-        console.log("REMOVE_RELATIONSHIP_SUCCESS");
         return { ...state, relationRemoved: action.relation }
     case REMOVE_RELATIONSHIP_FAILURE:
-        console.log("REMOVE_RELATIONSHIP_FAILURE");
         return { ...state, relationRemoved: action.relation }
 
     default:

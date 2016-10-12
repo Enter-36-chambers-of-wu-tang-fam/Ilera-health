@@ -2,9 +2,9 @@ import React, { Component } from 'react';
 import { Field, reduxForm, formValueSelector } from 'redux-form';
 import { Router, Route, Link } from 'react-router'
 import { connect } from 'react-redux';
-import axios from 'axios';
 import { fetchMyPhysicians } from '../../actions/contacts';
 import CryptoJS from 'crypto-js';
+import request from 'superagent';
 
 const getPhysicians = '/api/patient/getallphy';
 const getPatients = '/api/physician/patients';
@@ -69,10 +69,13 @@ class AllUsers extends Component {
           let lat = position.coords.latitude;
           let lon = position.coords.longitude;
           let query = `https://api.betterdoctor.com/2016-03-01/doctors?location=${lat}%2C${lon}%2C100&user_location=${lat}%2C${lon}&skip=0&limit=20&user_key=bdd1495417e49ba2f1aa40461ce8f17d`;
-          axios.get(query)
-            .then(result => {
+         
+          request.get(query)
+          .end((err, result) => {
+              if (err) { console.error(err) }
               let docs = [];
-              result.data.data.map((doctor,index) => {
+
+              result.body.data.map((doctor,index) => {
                 docs.push({
                   title: doctor.profile.title,
                   first_name: doctor.profile.first_name,
@@ -86,7 +89,7 @@ class AllUsers extends Component {
               })
               that.setState({docs: docs});
             })
-            .catch(err => { console.log("ERROR FETCHING DOCTOR INFO", err) })
+            // .catch(err => { console.log("ERROR FETCHING DOCTOR INFO", err) })
         })
       }
     } else {
@@ -106,17 +109,18 @@ class AllUsers extends Component {
     let qName = this.state.doc_name ? `name=${this.state.doc_name}`:'';
     let qQuery = this.state.doc_query ? `&query=${this.state.doc_query}`:'';
     let qSpecialty = this.state.doc_specialty ? `&specialty_uid=${this.state.doc_specialty}` : '' ;
-    let qLocation = (this.state.doc_state && this.state.doc_city) ? `&location=${this.state.doc_state}-${this.state.doc_city}`: '';
+    let qLocation = (this.state.doc_state && this.state.doc_city) ? `&location=${this.state.doc_state}-${this.state.doc_city.trim().replace(' ','-')}`: '';
     let qGender =  this.state.doc_gender ? `&gender=${this.state.doc_gender}`: '';
     let qSort = this.state.doc_sort ? `&sort=${this.state.doc_sort}`: '';
     let qLimit = this.state.doc_limit ? `&limit=${this.state.doc_limit}`: '&limit=20'; //Let users set the limit ??
     let authKey = `&user_key=4cccf671bab24d87e0f4e4cad7dc0e29`;
     let query = `https://api.betterdoctor.com/2016-03-01/doctors?` + qName + qQuery + qSpecialty + qLocation + qGender + qSort + qLimit + authKey;
-    console.log("QUERY",query);
-      axios.get(query)
-        .then(result => {
+
+      request.get(query)
+      .end((err, result) => {
+          if (err) { console.error(err) }
           let docs = [];
-          result.data.data.map(doctor => {
+          result.body.data.map(doctor => {
             docs.push({
               title: doctor.profile.title,
               first_name: doctor.profile.first_name,
@@ -130,7 +134,7 @@ class AllUsers extends Component {
           })
           that.setState({docs: docs});
         })
-        .catch(err => { console.log("ERROR FETCHING DOCTOR INFO", err) })
+        // .catch(err => { console.log("ERROR FETCHING DOCTOR INFO", err) })
 
   }
 

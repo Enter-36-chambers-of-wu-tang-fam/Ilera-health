@@ -275,10 +275,10 @@ class PhysicianCalendar extends Component{
             style={style.textArea}
           />   
           <br />
+          <br />
+          {this.state.submittedAppointment ? <p className="appointmentSuccess">Your note has been published for the patient to view!!</p> : ''}
+          <br />
           <RaisedButton className="appointmentRequestButton" label="Submit Appointment Details" primary={true} style={submitStyle} onClick={this.handleSubmit.bind(this)}/>
-
-          {this.state.submittedAppointment ? <h4 className="appointmentSuccess">Your appointment has been set!</h4> : ''}
-
       </div>
     );
   }

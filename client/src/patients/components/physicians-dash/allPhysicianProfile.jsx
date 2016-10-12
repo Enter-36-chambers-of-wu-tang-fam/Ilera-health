@@ -4,7 +4,7 @@ import { Router, Route, Link } from 'react-router'
 import { connect } from 'react-redux';
 import { fetchMyPhysicians, makeMyPhysician, checkMyRelationship, removeRelationship } from '../../actions/contacts.js'
 import CryptoJS from 'crypto-js';
-import axios from 'axios';
+import request from 'superagent';
 
 
 
@@ -43,29 +43,30 @@ class ViewProfile extends Component {
     let that = this;
     if(this.props.userType === 'patient'){
           let query = `https://api.betterdoctor.com/2016-03-01/doctors/${this.props.params.provider}?user_key=bdd1495417e49ba2f1aa40461ce8f17d`;
-          axios.get(query)
-            .then(doctor => {
+          request.get(query)
+          .end((err, doctor) => {
+              if (err) { console.error(err) }
               that.setState({
-                doc: doctor.data || null,
-                title: doctor.data.data.profile.title || null,
-                name: doctor.data.data.profile.first_name + ' ' + doctor.data.data.profile.last_name || null,
-                first: doctor.data.data.profile.first_name || null,
-                last: doctor.data.data.profile.last_name || null,
-                image: doctor.data.data.profile.image_url || null,
-                gender: doctor.data.data.profile.gender || null,
-                bio: doctor.data.data.profile.bio ? doctor.data.data.profile.bio : null,
-                specialties: doctor.data.data.specialties ? doctor.data.data.specialties : null,
-                language: doctor.data.data.profile.languages[0].name ? doctor.data.data.profile.languages[0].name : null,
-                practices: doctor.data.data.practices,
-                practice_street: doctor.data.data.practices[0].visit_address.street ? doctor.data.data.practices[0].visit_address.street : null,
-                practice_city:doctor.data.data.practices[0].visit_address.city ? doctor.data.data.practices[0].visit_address.city : null,
-                practice_state:doctor.data.data.practices[0].visit_address.state ? doctor.data.data.practices[0].visit_address.state : null,
-                practice_zip:doctor.data.data.practices[0].visit_address.zip ? doctor.data.data.practices[0].visit_address.zip : null,
-                insurance_one: doctor.data.data.insurances[0].insurance_provider.name ? doctor.data.data.insurances[0].insurance_provider.name : null,
-                insurance_two: doctor.data.data.insurances[1].insurance_provider.name ? doctor.data.data.insurances[1].insurance_provider.name : null,
+                doc: doctor.body || null,
+                title: doctor.body.data.profile.title || null,
+                name: doctor.body.data.profile.first_name + ' ' + doctor.body.data.profile.last_name || null,
+                first: doctor.body.data.profile.first_name || null,
+                last: doctor.body.data.profile.last_name || null,
+                image: doctor.body.data.profile.image_url || null,
+                gender: doctor.body.data.profile.gender || null,
+                bio: doctor.body.data.profile.bio ? doctor.body.data.profile.bio : null,
+                specialties: doctor.body.data.specialties ? doctor.body.data.specialties : null,
+                language: doctor.body.data.profile.languages[0].name ? doctor.body.data.profile.languages[0].name : null,
+                practices: doctor.body.data.practices,
+                practice_street: doctor.body.data.practices[0].visit_address.street ? doctor.body.data.practices[0].visit_address.street : null,
+                practice_city:doctor.body.data.practices[0].visit_address.city ? doctor.body.data.practices[0].visit_address.city : null,
+                practice_state:doctor.body.data.practices[0].visit_address.state ? doctor.body.data.practices[0].visit_address.state : null,
+                practice_zip:doctor.body.data.practices[0].visit_address.zip ? doctor.body.data.practices[0].visit_address.zip : null,
+                insurance_one: doctor.body.data.insurances[0].insurance_provider.name ? doctor.body.data.insurances[0].insurance_provider.name : null,
+                insurance_two: doctor.body.data.insurances[1].insurance_provider.name ? doctor.body.data.insurances[1].insurance_provider.name : null,
               });
             })
-            .catch(err => { console.log("ERROR FETCHING DOCTOR INFO", err) })
+            // .catch(err => { console.log("ERROR FETCHING DOCTOR INFO", err) })
 
     } else {
         this.setState({doc: {}});

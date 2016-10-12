@@ -30,6 +30,9 @@ const logger = createLogger();
 // Reducers
 import rootReducer from './main/reducers/index.js';
 
+//JWT Authorization Token
+import setAuthorizationToken from '../utils/setAuthorizationToken'
+
 // store
 const store = createStore(
     rootReducer,
@@ -44,6 +47,12 @@ const store = createStore(
 
 // where our app will be rendered within index.html
 let rootElement = document.getElementById('app');
+
+//Axios authorization headers
+if(localStorage.jwtToken){
+  setAuthorizationToken(localStorage.jwtToken);
+}
+
 
 ReactDOM.render(
   <Provider store={ store }>

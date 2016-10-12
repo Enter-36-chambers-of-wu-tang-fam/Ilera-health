@@ -29,9 +29,14 @@ class SigninForm extends Component {
   constructor(props){
     super(props);
     this.state = {
-			userType: props.userType
+			userType: props.userType,
+      message: null
 		}
   }
+
+   componentWillReceiveProps(nextProps) {
+     this.setState({message: nextProps.errorMsg})
+   }
 
   static contextTypes = {
     router: React.PropTypes.object
@@ -59,6 +64,7 @@ class SigninForm extends Component {
     return (
       <div>
           <h2>{this.state.userType} Sign In</h2>
+          <p className="errorMsg">{ this.state.message ? this.state.message : '' }</p>
           <form onSubmit={ handleSubmit(props => this.onSubmit(props)) }>
             <div>
               <Field 
@@ -94,9 +100,15 @@ SigninForm = reduxForm({
 	validate
 })(SigninForm);
 
+function mapStateToProps(state) {
+  return {
+    errorMsg: state.authentication.message
+  }
+}
+
 function mapDispatchToProps(dispatch) {
     return bindActionCreators({ authenticateUser }, dispatch);
 }
 
-export default connect(null, mapDispatchToProps)(SigninForm);
+export default connect(mapStateToProps, mapDispatchToProps)(SigninForm);
 

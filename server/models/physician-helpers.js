@@ -28,17 +28,16 @@ module.exports = {
   signUp: (params, cb) => {
     console.log(params);
     module.exports.checkPhysicianBetDocUID(params, (error, results) => {
-      console.log(results);
-      if(results.length > 0){
-        console.log("I am updating",params);
-        module.exports.update_physician_info_on_SignUp(params, (error, result)=>{
-          console.log("update_physician_info_on_SignUp",result);
-          module.exports.checkPhysician(params, (error, resultz)=>{
-            cb(error, resultz);
+      if(results.length > 0 && results[0].email === null && results[0].password === null){
+        module.exports.update_physician_info_on_SignUp(params, (err, updated)=>{
+          if(err) console.log(err); 
+          console.log("update_physician_info_on_SignUp",updated);
+          module.exports.checkPhysician(params, (errata, result)=>{
+            cb(errata, result);
           })
         });
       } else {
-        console.log(error);
+        if(error) console.log(error);
         module.exports.realSignUp(params, (error, result)=>{
           cb(error, result);
         });
@@ -93,11 +92,10 @@ module.exports = {
 
   update_physician_info_on_SignUp: (params, cb) => {
     console.log(params);
-    let data = [params.first, params.last, params.email,
-      params.password];
+    let data = [params.first, params.last, params.email, params.password];
     const queryString = 'UPDATE physician \
       SET first=?, last=?, email=?, password=? \
-      WHERE betterDoctorUID='+ params.betterUID;
+      WHERE betterDoctorUID ="'+params.betterUID+'"';
     db.query(queryString, data, (error, results) => cb(error, results) );
 
   },

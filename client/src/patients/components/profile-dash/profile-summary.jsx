@@ -7,6 +7,7 @@ import { bindActionCreators } from 'redux';
 import { getUserInfo } from '../../actions/user.js';
 import Dropzone from 'react-dropzone';
 import request from 'superagent';
+import axios from 'axios';
 
 // CryptoJS
 import CryptoJS from 'crypto-js';
@@ -105,9 +106,11 @@ class ProfileSum extends Component {
 
       var upload = new FormData();
       upload.append('upload',file[0]);
-      request.post(`/upload/profile_picture/${uid}`)
-      .send(upload)
-      .end(function(err, resp){
+      axios.post(`/upload/profile_picture/${uid}`, upload)
+        .then(item =>{
+          console.log("Success");
+        })
+        .catch(err =>{
         if (err) { console.error(err) }
     });
 
