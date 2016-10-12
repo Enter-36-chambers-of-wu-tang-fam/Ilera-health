@@ -43,12 +43,14 @@ export function authenticateUser(userType,data,reqType){
       dispatch(requestAuth(null));
       axios.post(`/api/${userType}/signin`, data)
         .then( found => {
-            const token = found.data.id;
-            localStorage.setItem("jwtToken", token);
-            setAuthorizationToken(token);
-            console.log(jwt.decode(token))
+
+          const token = found.data.id;
+          localStorage.setItem("jwtToken", token);
+          setAuthorizationToken(token);
+          console.log(jwt.decode(token))
 
           var encodedId = CryptoJS.AES.encrypt(String(found.data.id), 'key'); //need to change key
+          
           localStorage.setItem('first', found.data.first);
           localStorage.setItem('last', found.data.last);
           localStorage.setItem('photo', found.data.photo_path);
@@ -71,10 +73,11 @@ export function authenticateUser(userType,data,reqType){
         console.log(jwt.decode(token))
 
         let encodedId = CryptoJS.AES.encrypt(String(registered.data.user), 'key');  //need to change key to actual key
+        
+        localStorage.setItem('first', registered.data.first);
+        localStorage.setItem('last', registered.data.last);        
         localStorage.setItem('uid',encodedId);
         localStorage.setItem('userType',userType);
-        localStorage.setItem('first', registered.data.first);
-        localStorage.setItem('last', registered.data.last);
         dispatch(verifiedAuth(encodedId, userType, true)); //true --> reroutes to sign up form via general_auth component
       })
       .catch(error => failedAuth(error))

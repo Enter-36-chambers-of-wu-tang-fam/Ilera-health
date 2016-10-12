@@ -76,7 +76,7 @@ export default class UnauthHeader extends Component {
   render() {
     return (
         <header>
-          <h1><a href="/"><img src="../styles/logos/myilera_large_white.png" /></a></h1>
+          <h1><a href="/"><img src="/styles/logos/myilera_large.png" /></a></h1>
           <div className='mobileBurger' onClick={this.handleClick.bind(this)}><i className="fa fa-bars fa-2x" aria-hidden="true"></i></div>
           <ul className={this.state.burgerPlease ? 'showBurger' : 'noBurger'}>
             <li>
