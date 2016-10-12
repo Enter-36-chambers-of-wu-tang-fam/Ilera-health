@@ -82,3 +82,67 @@ export const getAllPhysicianAppts = (physid) => {
 
   return getAllPhysicianApptsSuccess(currAppts);
 }
+
+const getAllPhysicianApptsPatientsSuccess = info => {
+  return {
+    type: types.ALL_PHYSICIAN_APPOINTMENTS_PATIENTS_INFO_SUCCESS,
+    payload: info,
+    retrieved: true
+  }
+};
+
+const getAllPhysicianApptsPatientsRequest = physician => {
+  return {
+    type: types.ALL_PHYSICIAN_APPOINTMENTS_PATIENTS_INFO_REQUEST,
+    payload: physician,
+    retrieved: false
+  }
+};
+
+const getAllPhysicianApptsPatientsFailure = errorMsg => {
+  return {
+    type: types.ALL_PHYSICIAN_APPOINTMENTS_PATIENTS_INFO_FAILURE,
+    payload: errorMsg,
+    retrieved: false
+  }
+};
+
+export const getAllPhysicianApptsPatientsInfo = physid => {
+  let currAppts = {};
+  console.error("ID action",physid);
+  return function(dispatch) {
+    axios.get(`/api/physician/appointments/${physid}`).then( info => {
+      console.error("INFO",info.data);
+      info.data.forEach(item => {
+        console.error("ITEM",item);
+        item.time = item.time.charAt(3) == 0 ? item.time.substr(4): item.time.substr(3);
+
+
+        // let date = item.date.slice(2);
+        // if(currAppts[date]) currAppts[date][item.time] = true;
+        // else {
+        //   currAppts[date] = {};
+        //   currAppts[date][item.time] = true;
+        // }
+        // currAppts
+        // currAppts[item] = item;
+      })
+      dispatch(getAllPhysicianApptsPatientsSuccess(info));
+    })
+    .catch(err => console.error("getAllPhysicianApptsPatientsInfo ERROR",err) );
+
+  }
+
+}
+
+// export const setAppointment = (appt) => {
+//   return function(dispatch){
+//     dispatch(setAppointmentSuccess(appt));
+//     axios.post('/api/patient/setappointment', appt)
+//       .then(setDate => {
+//         dispatch(setAppointmentSuccess(setDate));
+//       })
+//       .catch(error => dispatch(setAppointmentFailure(error)))
+//   }
+// }
+// /api/physician/appointments/${physid}

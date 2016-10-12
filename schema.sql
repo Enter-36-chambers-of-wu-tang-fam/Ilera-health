@@ -508,6 +508,7 @@ INSERT INTO `patient` (`first`,`last`,`email`,`password`,`pin`,`address`,`city`,
 -- INSERT INTO `patient_physician` (`id_physician`,`id_patient`) VALUES ('2','1');
 -- INSERT INTO `patient_physician` (`id_physician`,`id_patient`) VALUES ('2','7');
 -- INSERT INTO `patient_physician` (`id_physician`,`id_patient`) VALUES ('1','7');
+-- INSERT INTO `patient_physician` (`id_physician`,`id_patient`) VALUES ('1','5');
 
 -- INSERT INTO `institution` (`id`,`inst_name`,`type`,`description`,`rating`,`phone_number`,`address`,`city`,`state`,`zip`,`email`) VALUES
 -- ('','','','','','','','','','','');

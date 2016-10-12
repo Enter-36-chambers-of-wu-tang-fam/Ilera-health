@@ -26,7 +26,7 @@ module.exports = {
   },
 
   getAll_physician_appointmentsPatientInfo: (req, res) => {
-    Appointment.get_all_physician_appointments_and_patient_info(req.body, (err,data)=>{
+    Appointment.get_all_physician_appointments_and_patient_info(req.params, (err,data)=>{
       if(err) console.log(err);
       res.json(data);
     });

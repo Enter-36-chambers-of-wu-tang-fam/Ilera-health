@@ -16,7 +16,13 @@ module.exports = {
             sess.email = data[0].email;
             sess.user = data[0].id;
             module.exports.sess = sess;
-            res.json(data[0].id);
+            res.json({
+              id: data[0].id,
+              email: data[0].email,
+              first: data[0].first,
+              last: data[0].last,
+              photo_path: data[0].photo_path
+            });
           } else{
             console.log(error);
             res.status(401).send("That email and/or password was not found");

@@ -23,6 +23,7 @@ module.exports = {
   },
 
   get_all_physician_appointments_and_patient_info: (params, cb) => {
+    console.log('get_all_physician_appointments_and_patient_info',params);
     let data = [params.uid];
     const queryString = 'SELECT p.id, p.first, p.last, p.photo_path, \
       a.id, a.date, a.time, a.notes, a.id_physician, a.id_patient, \
@@ -92,3 +93,12 @@ module.exports = {
 //   id_institution INTEGER DEFAULT NULL,
 //   PRIMARY KEY (id)
 // );
+
+
+// SELECT p.id, p.first, p.last, p.photo_path,
+//   a.id, a.date, a.time, a.notes, a.id_physician, a.id_patient,
+//   a.id_institution
+//   FROM appointment a
+//   JOIN patient p
+//   ON p.id = a.id_patient
+//   WHERE a.id_physician =5;
