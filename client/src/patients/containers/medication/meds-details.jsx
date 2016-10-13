@@ -22,13 +22,13 @@ class MedicationDetail extends Component {
           <li>
             <h3><i className="fa fa-calendar-check-o" aria-hidden="true"></i> Start</h3>
             { chosenMed.start_date ?
-              chosenMed.start_date :
+              chosenMed.start_date.slice(0,10) :
               "No data" }
           </li>
           <li>
             <h3><i className="fa fa-calendar-times-o" aria-hidden="true"></i>End</h3>
             { chosenMed.end_date ?
-              chosenMed.end_date :
+              chosenMed.end_date.slice(0,10) :
               "No data" }
           </li>
           <li>

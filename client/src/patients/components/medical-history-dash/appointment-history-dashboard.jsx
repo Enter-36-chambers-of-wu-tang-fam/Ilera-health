@@ -152,7 +152,7 @@ class AppointmentHistoryDashboard extends Component{
                   {appointment.notes === null ? 'No Notes Yet': <a href="#" onClick={this.handleOpen.bind(this, appointment.id, appointment.notes, appointment.first+' '+appointment.last, appointment.date.slice(0,10), 
                   appointment.time[0] === '0' ? appointment.time.slice(1,5) : appointment.time.slice(0,5))}>View</a>}
                   {appointment.notes === null && patient ? <a href="#" onClick={this.handleOpen.bind(this, appointment.id, appointment.notes, appointment.first+' '+appointment.last, appointment.date.slice(0,10), 
-                  appointment.time[0] === '0' ? appointment.time.slice(1,5) : appointment.time.slice(0,5))}>Begin Note</a> : ''}
+                  appointment.time[0] === '0' ? appointment.time.slice(1,5) : appointment.time.slice(0,5))}> Begin Note</a> : ''}
                 </TableRowColumn>
               </TableRow>
               ))}
