@@ -15,37 +15,37 @@ const buttonStyles = {
 const WelcomeIntro = () => {
 	return (
 		<section className="welcomeHeader">
-				<div>
-					<p className="splitLogo welcomeMy">my</p>
-					<p className="splitLogo welcomeMy2">my ilera</p> 
+			<div>
+				<p className="splitLogo welcomeMy">my</p>
+				<p className="splitLogo welcomeMy2">my ilera</p> 
+			</div>
+			<div>
+				<p className="splitLogo welcomeIlera">ilera</p>
+				<div className="welcomeMessage">
+					<h1>Your Health in Your Hands</h1>
+					<ul>
+						<li>Manage your entire health portfolio in one place</li>
+						<li>Manage and connect with healthcare providers across disciplines</li>
+						<li>Choose which providers you share your information with</li>
+					</ul>
+					<a href='#forpatients'>
+						<FlatButton 
+							label="For Patients" 
+							hoverColor={buttonStyles.hoverColor} 
+							style={buttonStyles.styles} 
+							backgroundColor={buttonStyles.backgroundColor} 
+							labelStyle={buttonStyles.labelStyle} />
+					</a>
+					<a href='#forproviders'>
+						<FlatButton 
+							label="For Providers" 
+							hoverColor={buttonStyles.hoverColor} 
+							style={buttonStyles.styles} 
+							backgroundColor={buttonStyles.backgroundColor} 
+							labelStyle={buttonStyles.labelStyle} />
+					</a>
 				</div>
-				<div>
-					<p className="splitLogo welcomeIlera">ilera</p>
-					<div className="welcomeMessage">
-						<h1>Your Health in Your Hands</h1>
-						<ul>
-							<li>Manage your entire health portfolio in one place</li>
-							<li>Manage and connect with healthcare providers across disciplines</li>
-							<li>Choose which providers you share your information with</li>
-						</ul>
-						<a href='#forpatients'>
-							<FlatButton 
-								label="For Patients" 
-								hoverColor={buttonStyles.hoverColor} 
-								style={buttonStyles.styles} 
-								backgroundColor={buttonStyles.backgroundColor} 
-								labelStyle={buttonStyles.labelStyle} />
-						</a>
-						<a href='#forproviders'>
-							<FlatButton 
-								label="For Providers" 
-								hoverColor={buttonStyles.hoverColor} 
-								style={buttonStyles.styles} 
-								backgroundColor={buttonStyles.backgroundColor} 
-								labelStyle={buttonStyles.labelStyle} />
-						</a>
-					</div>
-				</div>
+			</div>
 		</section>
 	);
 };

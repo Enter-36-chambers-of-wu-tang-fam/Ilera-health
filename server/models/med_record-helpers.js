@@ -44,8 +44,6 @@ module.exports = {
     })
   },
 
-
-
   update_photo: (params, cb) => {
     let data = [params.photo_path];
     const queryString ='UPDATE patient \
@@ -64,7 +62,6 @@ module.exports = {
     db.query(queryString, data, (error, results) => cb(error, results) );
   },
 
-
   // need to update this
   patient_info: (params, cb) => {
     // Post Request to : api/user/main  =>   { Patient main page }
@@ -81,34 +78,5 @@ module.exports = {
       ON p_m.id_patient = p.id';
     db.query(queryString, data, (error, results) => cb(error, results) );
   }
-  // (params, cb) => {
-  //   let data = [params]
-  //
-  //   db.query(queryString, data, (error, results) => cb(error, results) );
-  // },
 
 };
-
-
-
-
-
-// module.exports = {
-
-  // : (params, cb) => {
-  //   let data = [params.uid];
-  //   const queryString = '';
-  //   db.query(queryString, (error, results) => cb(error, results) );
-  // }
-
-// };
-
-// CREATE TABLE `med_records` (
-//   `id` INTEGER NOT NULL AUTO_INCREMENT,
-//   `date` DATE NULL,
-//   `type` VARCHAR(400) NULL,
-//   `document_path` VARCHAR(500) NULL,
-//   `description` VARCHAR(1000) NULL,
-//   `id_patient` INTEGER NOT NULL,
-//   PRIMARY KEY (`id`)
-// );

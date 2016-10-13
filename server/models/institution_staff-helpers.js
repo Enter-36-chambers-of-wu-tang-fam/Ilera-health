@@ -13,19 +13,4 @@ module.exports = {
     db.query(queryString, data, (error, results) => cb(error, results) );
   }
 
-  // (params, cb) => {
-  //   let data = [params.id_patient];
-  //   const queryString = '';
-  //   db.query(queryString, data, (error, results) => cb(error, results) );
-  // },
-
-
 };
-
-
-// CREATE TABLE `institution_staff` (
-//   `id` INTEGER NOT NULL AUTO_INCREMENT,
-//   `id_staff` INTEGER DEFAULT NULL,
-//   `id_institution` INTEGER DEFAULT NULL,
-//   PRIMARY KEY (`id`)
-// );

@@ -2,7 +2,6 @@
 
 const db = require('../db/dbConnect/connection.js');
 
-
 module.exports = {
 
   post_initInsurance_plan: (params, cb) => {
@@ -86,11 +85,5 @@ module.exports = {
       LIMIT 1';
     db.query(queryString, data, (error, results) => cb(error, results) );
   }
-
-  // (params, cb) => {
-  //   let data = [params];
-  //   const queryString = 'insurance_plan';
-  //   db.query(queryString, data, (error, results) => cb(error, results) );
-  // },
 
 };
