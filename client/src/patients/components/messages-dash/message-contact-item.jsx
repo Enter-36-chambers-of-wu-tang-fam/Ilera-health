@@ -17,10 +17,13 @@ const ContactItem = ({user, userSelected, contact}) => {
     }
 
     return (
-			<li className='contactItem'>    
+			<li className='contactItem'>
 				<a onClick={ handleClick.bind(this, contact) }>
 					<div>
-						<img src='https://pbs.twimg.com/profile_images/446566229210181632/2IeTff-V.jpeg' alt=''/>
+						<img
+              src='https://pbs.twimg.com/profile_images/446566229210181632/2IeTff-V.jpeg'
+              alt=''
+            />
 					</div>
 					<div>
 						<h4>{ contact.first } { contact.last}</h4>
@@ -31,7 +34,7 @@ const ContactItem = ({user, userSelected, contact}) => {
 				</a>
 			</li>
     );
-      
+
 };
 
 export default ContactItem;

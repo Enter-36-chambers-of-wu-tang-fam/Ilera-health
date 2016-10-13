@@ -38,7 +38,7 @@ export function fetchMyPhysicians( userid ) {
   return dispatch => {
     return axios.get(`/api/patient/${userid}/physicians`)
 		.then( response =>{
-			dispatch( fetchPatientPhysicians(response) );	  
+			dispatch( fetchPatientPhysicians(response) );
 	  })
 		.catch( error => {
 		  dispatch( fetchPatientPhysiciansFailure(error) );
@@ -51,7 +51,7 @@ export function fetchMyPatients( userid ) {
 	return dispatch => {
     return axios.get(`/api/physician/${userid}/patients`)
 		.then( response => {
-			dispatch( fetchPhysicianPatients(response) );	  
+			dispatch( fetchPhysicianPatients(response) );
 	  })
     .catch( error => {
 		  dispatch( fetchPhysicianPatientsFailure(error) );
@@ -90,7 +90,7 @@ export const makeMyPhysician = ( relationship ) => {
 				relationship.id_physician = docId.data;
 				axios.post(`/api/relation/create`, relationship)
 					.then( response => {
-						dispatch( makeMyPhysicianSuccess(response) );	  
+						dispatch( makeMyPhysicianSuccess(response) );
 					})
 			})
 			.catch( error => {
@@ -128,7 +128,9 @@ export const checkMyRelationship = ( relationship ) => {
     dispatch( checkMyRelationshipRequest(relationship) );
     return axios.post('/api/relation', relationship)
       .then( response => {
-        response.data.length > 0 ? dispatch(checkMyRelationshipSuccess(true)) : dispatch(checkMyRelationshipSuccess(false));    
+        response.data.length > 0 ?
+				dispatch(checkMyRelationshipSuccess(true)) :
+				dispatch(checkMyRelationshipSuccess(false));    
       })
       .catch( error => checkMyRelationshipFailure(error));
   };
@@ -162,7 +164,7 @@ export const removeRelationship = ( relationship ) => {
     dispatch(removeRelationshipRequest());
     return axios.post(`/api/relation/delete`, relationship)
 		.then( response => {
-			dispatch( removeRelationshipSuccess() );	  
+			dispatch( removeRelationshipSuccess() );
 	  })
 		.catch( error => dispatch( removeRelationshipFailure( error ) ));
   };

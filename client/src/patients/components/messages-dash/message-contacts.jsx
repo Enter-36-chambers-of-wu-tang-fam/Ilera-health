@@ -10,7 +10,12 @@ import MessageSearch from './message-search.jsx';
 			<MessageSearch />
 			<ul>
 				{contacts.map( contact => {
-					return <ContactItem user={user} userSelected={userSelected} key={ contact.id } contact={contact}/>
+					return <ContactItem
+            user={user}
+            userSelected={userSelected}
+            key={ contact.id }
+            contact={contact}
+          />
 				})}
 			</ul>
 		</div>

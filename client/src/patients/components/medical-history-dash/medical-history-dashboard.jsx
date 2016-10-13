@@ -20,7 +20,7 @@ const styles = {
 
 
 class RecordsDashboard extends Component{
-  
+
   constructor(props){
     super(props);
     const status = (localStorage.getItem('userType')) === 'patient' ? false : true;
@@ -65,7 +65,7 @@ class RecordsDashboard extends Component{
     let code  = CryptoJS.AES.decrypt(id.toString(), 'key'); //need to change key
     let uid = code.toString(CryptoJS.enc.Utf8);
 
-    this.props.removeRecords(info, uid); 
+    this.props.removeRecords(info, uid);
     this.props.retrieveRecords(uid);
   }
 
@@ -74,8 +74,18 @@ class RecordsDashboard extends Component{
     if( !mobile ){
       return (
         <div className="medRecords">
-          {patient ? "" : <a href="/patient/records/upload" className="uploadRecord"><button>Upload</button></a>}
-          {patient ? "" : <a href="/patient/records/appointments" className="uploadRecord"><button>Appointment Notes</button></a> }
+          {patient ? "" :
+            <a
+              href="/patient/records/upload"
+              className="uploadRecord">
+              <button>Upload</button>
+            </a>}
+          {patient ? "" :
+            <a
+              href="/patient/records/appointments"
+              className="uploadRecord">
+              <button>Appointment Notes</button>
+            </a> }
         <Table
           height={height}
           fixedHeader={fixedHeader}
@@ -90,16 +100,39 @@ class RecordsDashboard extends Component{
             enableSelectAll={enableSelectAll}
           >
             <TableRow>
-              <TableHeaderColumn colSpan={patient ? "4" : "5"} tooltip="Medical Records Data" style={{textAlign: 'center', fontSize:'24px'}}>
+              <TableHeaderColumn
+                colSpan={patient ? "4" : "5"}
+                tooltip="Medical Records Data"
+                style={{textAlign: 'center', fontSize:'24px'}}
+              >
                 Medical Records Data
               </TableHeaderColumn>
             </TableRow>
             <TableRow>
-              <TableHeaderColumn tooltip="The Date">Date</TableHeaderColumn>
-              <TableHeaderColumn tooltip="The Type">Document Type</TableHeaderColumn>
-              <TableHeaderColumn tooltip="The Description">Document Description</TableHeaderColumn>
-              <TableHeaderColumn tooltip="The Record">Record Document</TableHeaderColumn>
-              {patient ? '' : <TableHeaderColumn tooltip="The Record">Remove Document</TableHeaderColumn>}
+              <TableHeaderColumn
+                tooltip="The Date">Date
+              </TableHeaderColumn>
+              <TableHeaderColumn
+                tooltip="The Type"
+              >
+                Document Type
+              </TableHeaderColumn>
+              <TableHeaderColumn
+                tooltip="The Description"
+              >
+              Document Description
+            </TableHeaderColumn>
+              <TableHeaderColumn
+                tooltip="The Record"
+              >
+              Record Document
+            </TableHeaderColumn>
+              {patient ? '' :
+                <TableHeaderColumn
+                  tooltip="The Record"
+                >
+                Remove Document
+                </TableHeaderColumn>}
             </TableRow>
           </TableHeader>
           <TableBody
@@ -109,20 +142,63 @@ class RecordsDashboard extends Component{
             stripedRows={stripedRows}
           >
             {records.map((record, index) => (
-              <TableRow key={index} selected={record.selected}>
-                <TableRowColumn>{record.date.slice(0,10)}</TableRowColumn>
-                <TableRowColumn>{record.type}</TableRowColumn>
-                <TableRowColumn>{record.description}</TableRowColumn>
+              <TableRow
+                key={index}
+                selected={record.selected}
+              >
                 <TableRowColumn>
-                  <a href={record.document_path} target="_blank">
-                    {record.document_path.slice(-3) === 'pdf' ? <i className="fa fa-file-pdf-o fa-3x" aria-hidden="true"></i> : '' }
-                    {record.document_path.slice(-3) === 'zip' ? <i className="fa fa-file-archive-o fa-3x" aria-hidden="true"></i> : '' }             
-                    {['mp4','mp3', 'wav'].indexOf(record.document_path.slice(-3)) > -1 ? <i className="fa fa-file-audio-o fa-3x" aria-hidden="true"></i> : '' }
-                    {['jpg','peg','png'].indexOf(record.document_path.slice(-3)) > -1 ? <i className="fa fa-file-image-o fa-3x" aria-hidden="true"></i> : '' }
-                    {['doc','txt'].indexOf(record.document_path.slice(-3)) > -1 ? <i className="fa fa-file-text-o fa-3x" aria-hidden="true"></i> : '' }
+                  {record.date.slice(0,10)}
+                </TableRowColumn>
+                <TableRowColumn>
+                  {record.type}
+                </TableRowColumn>
+                <TableRowColumn>
+                  {record.description}
+                </TableRowColumn>
+                <TableRowColumn>
+                  <a
+                    href={record.document_path}
+                    target="_blank"
+                  >
+                    {record.document_path.slice(-3) === 'pdf' ?
+                      <i
+                        className="fa fa-file-pdf-o fa-3x"
+                        aria-hidden="true"
+                      >
+                    </i> : '' }
+                    {record.document_path.slice(-3) === 'zip' ?
+                      <i
+                        className="fa fa-file-archive-o fa-3x"
+                        aria-hidden="true"
+                      >
+                    </i> : '' }
+                    {['mp4','mp3', 'wav'].indexOf(record.document_path.slice(-3)) > -1 ?
+                      <i
+                        className="fa fa-file-audio-o fa-3x"
+                        aria-hidden="true"
+                        >
+                      </i> : '' }
+                    {['jpg','peg','png'].indexOf(record.document_path.slice(-3)) > -1 ?
+                      <i className="fa fa-file-image-o fa-3x"
+                        aria-hidden="true"
+                        >
+                      </i> : '' }
+                    {['doc','txt'].indexOf(record.document_path.slice(-3)) > -1 ?
+                      <i
+                        className="fa fa-file-text-o fa-3x"
+                        aria-hidden="true"
+                        >
+                      </i> : '' }
                   </a>
                 </TableRowColumn>
-                {patient ? "" : <TableRowColumn><button onClick={this.handleRemoval.bind(this,record.id,record.document_path)}>Delete</button></TableRowColumn>}
+                {patient
+                  ? "" : <TableRowColumn>
+                  <button
+                    onClick={this.handleRemoval.bind(this,record.id,record.document_path)}
+                  >
+                  Delete
+                </button>
+              </TableRowColumn>}
               </TableRow>
               ))}
           </TableBody>
@@ -130,7 +206,10 @@ class RecordsDashboard extends Component{
             adjustForCheckbox={showCheckboxes}
           >
             <TableRow>
-              <TableRowColumn colSpan={patient ? "4" : "5"} style={{textAlign: 'center'}}>
+              <TableRowColumn
+                colSpan={patient ? "4" : "5"}
+                style={{textAlign: 'center'}}
+              >
                 End Records
               </TableRowColumn>
             </TableRow>
@@ -141,8 +220,24 @@ class RecordsDashboard extends Component{
     }else{
       return (
         <div className="medRecords">
-          {patient ? "" : <a href="/patient/records/upload" className="uploadRecord"><button>Upload</button></a>}
-          {patient ? "" : <a href="/patient/records/appointments" className="uploadRecord"><button>Appointment Notes</button></a> }
+          {patient ? "" :
+            <a
+              href="/patient/records/upload"
+              className="uploadRecord"
+            >
+            <button>
+              Upload
+            </button>
+          </a>}
+          {patient ? "" :
+            <a
+              href="/patient/records/appointments"
+              className="uploadRecord"
+            >
+            <button>
+              Appointment Notes
+            </button>
+          </a> }
         <Table
           height={height}
           fixedHeader={fixedHeader}
@@ -157,14 +252,31 @@ class RecordsDashboard extends Component{
             enableSelectAll={enableSelectAll}
           >
             <TableRow>
-              <TableHeaderColumn colSpan={patient ? "4" : "3"} tooltip="Medical Records Data" style={{textAlign: 'center', fontSize:'24px'}}>
+              <TableHeaderColumn
+                colSpan={patient ? "4" : "3"}
+                tooltip="Medical Records Data"
+                style={{textAlign: 'center', fontSize:'24px'}}
+              >
                 Medical Records Data
               </TableHeaderColumn>
             </TableRow>
             <TableRow>
-              <TableHeaderColumn tooltip="The Description">Description</TableHeaderColumn>
-              <TableHeaderColumn tooltip="The Record">Document</TableHeaderColumn>
-              {patient ? '' : <TableHeaderColumn tooltip="The Record">Remove</TableHeaderColumn>}
+              <TableHeaderColumn
+                tooltip="The Description"
+              >
+                Description
+              </TableHeaderColumn>
+              <TableHeaderColumn
+                tooltip="The Record"
+              >
+                Document
+              </TableHeaderColumn>
+              {patient ? '' :
+                <TableHeaderColumn
+                  tooltip="The Record"
+                >
+                Remove
+              </TableHeaderColumn>}
             </TableRow>
           </TableHeader>
           <TableBody
@@ -174,18 +286,56 @@ class RecordsDashboard extends Component{
             stripedRows={stripedRows}
           >
             {records.map((record, index) => (
-              <TableRow key={index} selected={record.selected}>
+              <TableRow
+                key={index}
+                selected={record.selected}
+              >
                 <TableRowColumn>{record.description}</TableRowColumn>
                 <TableRowColumn>
-                  <a href={record.document_path} target="_blank">
-                    {record.document_path.slice(-3) === 'pdf' ? <i className="fa fa-file-pdf-o fa-3x" aria-hidden="true"></i> : '' }
-                    {record.document_path.slice(-3) === 'zip' ? <i className="fa fa-file-archive-o fa-3x" aria-hidden="true"></i> : '' }             
-                    {['mp4','mp3', 'wav'].indexOf(record.document_path.slice(-3)) > -1 ? <i className="fa fa-file-audio-o fa-3x" aria-hidden="true"></i> : '' }
-                    {['jpg','peg','png'].indexOf(record.document_path.slice(-3)) > -1 ? <i className="fa fa-file-image-o fa-3x" aria-hidden="true"></i> : '' }
-                    {['doc','txt'].indexOf(record.document_path.slice(-3)) > -1 ? <i className="fa fa-file-text-o fa-3x" aria-hidden="true"></i> : '' }
+                  <a
+                    href={record.document_path}
+                    target="_blank"
+                  >
+                    {record.document_path.slice(-3) === 'pdf' ?
+                      <i
+                        className="fa fa-file-pdf-o fa-3x"
+                        aria-hidden="true"
+                      >
+                      </i> : '' }
+                    {record.document_path.slice(-3) === 'zip' ?
+                      <i
+                        className="fa fa-file-archive-o fa-3x"
+                        aria-hidden="true"
+                      >
+                      </i> : '' }
+                    {['mp4','mp3', 'wav'].indexOf(record.document_path.slice(-3)) > -1 ?
+                      <i
+                        className="fa fa-file-audio-o fa-3x"
+                        aria-hidden="true"
+                      >
+                      </i> : '' }
+                    {['jpg','peg','png'].indexOf(record.document_path.slice(-3)) > -1 ?
+                      <i
+                        className="fa fa-file-image-o fa-3x"
+                        aria-hidden="true"
+                      >
+                    </i> : '' }
+                    {['doc','txt'].indexOf(record.document_path.slice(-3)) > -1 ?
+                      <i
+                        className="fa fa-file-text-o fa-3x"
+                        aria-hidden="true"
+                      >
+                    </i> : '' }
                   </a>
                 </TableRowColumn>
-                {patient ? "" : <TableRowColumn><button onClick={this.handleRemoval.bind(this,record.id,record.document_path)}>Delete</button></TableRowColumn>}
+                {patient ? "" :
+                  <TableRowColumn>
+                    <button
+                      onClick={this.handleRemoval.bind(this,record.id,record.document_path)}
+                    >
+                      Delete
+                    </button>
+                  </TableRowColumn>}
               </TableRow>
               ))}
           </TableBody>
@@ -193,7 +343,10 @@ class RecordsDashboard extends Component{
             adjustForCheckbox={showCheckboxes}
           >
             <TableRow>
-              <TableRowColumn colSpan={patient ? "4" : "5"} style={{textAlign: 'center'}}>
+              <TableRowColumn
+                colSpan={patient ? "4" : "5"}
+                style={{textAlign: 'center'}}
+              >
                 End Records
               </TableRowColumn>
             </TableRow>
@@ -202,7 +355,7 @@ class RecordsDashboard extends Component{
         </div>
       );
     }
-    
+
   }
 };
 
@@ -220,4 +373,3 @@ const mapDispatchToProps = (dispatch) => {
 }
 
 export default connect(mapStateToProps,mapDispatchToProps)(RecordsDashboard);
-
