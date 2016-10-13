@@ -52,9 +52,19 @@ class StaffAppFormsContainer extends Component {
   getStepContent(stepIndex) {
     switch (stepIndex) {
       case 0:
-        return <FormIntro stepIndex={this.state.stepIndex} getStepContent={this.getStepContent.bind(this)} handleNext={this.handleNext.bind(this)} handlePrev={this.handlePrev.bind(this)}/>
+        return <FormIntro
+          stepIndex={this.state.stepIndex}
+          getStepContent={this.getStepContent.bind(this)}
+          handleNext={this.handleNext.bind(this)}
+          handlePrev={this.handlePrev.bind(this)}
+        />
       case 1:
-        return <BackgroundInfoForm stepIndex={this.state.stepIndex} getStepContent={this.getStepContent.bind(this)} handleNext={this.handleNext.bind(this)} handlePrev={this.handlePrev.bind(this)}/>;
+        return <BackgroundInfoForm
+          stepIndex={this.state.stepIndex}
+          getStepContent={this.getStepContent.bind(this)}
+          handleNext={this.handleNext.bind(this)}
+          handlePrev={this.handlePrev.bind(this)}
+        />;
       default:
         return <FormIntro />;
     }
@@ -64,7 +74,9 @@ class StaffAppFormsContainer extends Component {
 		const {finished, stepIndex} = this.state;
     const contentStyle = {margin: '0 16px'};
 		return (
-				<div style={{width: '100%', maxWidth: 700, margin: '0 auto 30px'}}>
+				<div
+          style={{width: '100%', maxWidth: 700, margin: '0 auto 30px'}}
+        >
 					<Stepper activeStep={stepIndex}>
             <Step>
 							<StepLabel>Welcome</StepLabel>
