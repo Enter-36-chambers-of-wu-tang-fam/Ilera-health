@@ -1,4 +1,4 @@
-// parent component for provider Dashboard 
+// parent component for provider Dashboard
 // React / Component
 import React, { Component } from 'react';
 import { Router, Route, Link, browserHistory } from 'react-router';
@@ -36,11 +36,21 @@ class ProviderDashboard extends Component {
     const { windowHeight } = this.state;
     const { appointments, user } = this.props;
     return (
-      <div className="providerDashParent clearfix">
-        <div className="providerDashMain clearfix" style={{ minHeight: windowHeight}}>
-          <DashboardMain appointments={appointments} />
+      <div
+        className="providerDashParent clearfix"
+      >
+        <div
+          className="providerDashMain clearfix"
+          style={{ minHeight: windowHeight}}
+        >
+          <DashboardMain
+            appointments={appointments}
+          />
         </div>
-        <div className="providerDashRight" style={{ minHeight: windowHeight}}>
+        <div
+          className="providerDashRight"
+          style={{ minHeight: windowHeight}}
+        >
           <DashboardWelcome user={user}/>
           <Link to='/provider/patients'>
             <DashboardPatients />
@@ -61,7 +71,7 @@ export default connect(
   state => ({
 		appointments: state.allPhysicianAppointments
   }),
-  { 
+  {
 		loadAppointments: getAllPhysicianAppts
   }
 )(ProviderDashboard);

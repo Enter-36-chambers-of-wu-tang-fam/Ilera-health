@@ -37,7 +37,7 @@ class ProfileMeds extends Component {
         })
         .catch( err => {
             console.log("ERROR ENTERING INFORMATION");
-        }) 
+        })
     };
 
     render(){
@@ -54,38 +54,40 @@ class ProfileMeds extends Component {
                     />
                 </div>
                 <div className="medsTableLabels">
-                    <ul>
-                        <li>Name</li>
-                        <li>Dosage</li>
-                        <li>Prescriber</li>
-                        <li>Start Date</li>
-                        <li>End Date</li>
-                    </ul>
-                    <div className="medsList">
-                        {this.props.medications.map( med => {
-                            return <div key={med.id * Math.random()}>
-                                        <ul>
-                                            <li>
-                                                <a onClick={this.handleDelete.bind(this)}>
-                                                    <i className="material-icons">delete</i>
-                                                </a>
-                                                {med.drug_name}
-                                            </li>
-                                            <li>{med.dosage}</li>
-                                            <li>{med.first} {med.last}</li>
-                                            <li>{med.start_date.slice(0,10)}</li>
-                                            <li>{med.end_date.slice(0,10)}</li>
-                                        </ul>
-                                    </div>
-                        })}
-                    </div>
+                  <ul>
+                    <li>Name</li>
+                    <li>Dosage</li>
+                    <li>Prescriber</li>
+                    <li>Start Date</li>
+                    <li>End Date</li>
+                  </ul>
+                  <div className="medsList">
+                    {this.props.medications.map( med => {
+                      return <div key={med.id * Math.random()}>
+                               <ul>
+                                <li>
+                                   <a onClick={this.handleDelete.bind(this)}>
+                                     <i className="material-icons">delete</i>
+                                   </a>
+                                   {med.drug_name}
+                                 </li>
+                                 <li>{med.dosage}</li>
+                                 <li>{med.first} {med.last}</li>
+                                 <li>{med.start_date.slice(0,10)}</li>
+                                 <li>{med.end_date.slice(0,10)}</li>
+                               </ul>
+                            </div>
+                    })}
+                  </div>
                 </div>
                 <Dialog
                     modal={false}
                     open={this.state.openMeds}
                     onRequestClose={this.handleOpenMedsClose.bind(this)}
                 >
-                    <AddMedForm patId={this.props.patId} />
+                    <AddMedForm
+                      patId={this.props.patId}
+                    />
                 </Dialog>
             </div>
         );

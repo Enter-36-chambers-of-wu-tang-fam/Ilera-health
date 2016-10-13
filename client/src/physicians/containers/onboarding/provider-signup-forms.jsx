@@ -28,7 +28,7 @@ class ProviderAppFormsContainer extends Component {
 			uid: null,
       doc: {}
 		};
-	} 
+	}
 
   // if provider gave a better doc uid, grab the info from api
   componentWillMount(){
@@ -61,17 +61,17 @@ class ProviderAppFormsContainer extends Component {
 
     switch (stepIndex) {
       case 0:
-        return <ProviderIntro 
-                  stepIndex={this.state.stepIndex} 
-                  getStepContent={this.getStepContent.bind(this)} 
-                  handleNext={this.handleNext.bind(this)} 
+        return <ProviderIntro
+                  stepIndex={this.state.stepIndex}
+                  getStepContent={this.getStepContent.bind(this)}
+                  handleNext={this.handleNext.bind(this)}
                   handlePrev={this.handlePrev.bind(this)}/>
       case 1:
-        return <BackgroundInfoForm 
-                  stepIndex={this.state.stepIndex} 
-                  getStepContent={this.getStepContent.bind(this)} 
-                  handleNext={this.handleNext.bind(this)} 
-                  handlePrev={this.handlePrev.bind(this)} 
+        return <BackgroundInfoForm
+                  stepIndex={this.state.stepIndex}
+                  getStepContent={this.getStepContent.bind(this)}
+                  handleNext={this.handleNext.bind(this)}
+                  handlePrev={this.handlePrev.bind(this)}
                   doc={doc} />;
       default:
         return <ProviderIntro />;
@@ -80,19 +80,22 @@ class ProviderAppFormsContainer extends Component {
 
   render() {
 		const {finished, stepIndex} = this.state;
-    
+
 		return (
-        <div className="stepper" style={{width: '100%', maxWidth: 700, margin: '0 auto 30px'}}>
-            <Stepper activeStep={stepIndex}>
-                <Step>
-                    <StepLabel><h6>Welcome</h6></StepLabel>
-                </Step>
-                <Step>
-                    <StepLabel><h6>Basic Info</h6></StepLabel>
-                </Step>
-            </Stepper>
-            <div>{this.getStepContent(stepIndex)}</div>
-        </div>
+      <div
+				className="stepper"
+				style={{width: '100%', maxWidth: 700, margin: '0 auto 30px'}}
+			>
+        <Stepper activeStep={stepIndex}>
+          <Step>
+            <StepLabel><h6>Welcome</h6></StepLabel>
+          </Step>
+          <Step>
+            <StepLabel><h6>Basic Info</h6></StepLabel>
+          </Step>
+        </Stepper>
+        <div>{this.getStepContent(stepIndex)}</div>
+      </div>
 		);
 	}
 };
@@ -104,7 +107,7 @@ function mapStateToProps(state){
 };
 
 function mapDispatchToProps(dispatch) {
-    return bindActionCreators({ getDocInfo }, dispatch)
+  return bindActionCreators({ getDocInfo }, dispatch)
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(ProviderAppFormsContainer);

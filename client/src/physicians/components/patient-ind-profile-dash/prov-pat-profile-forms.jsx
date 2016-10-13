@@ -35,9 +35,9 @@ class PatientProfileTabs extends Component {
 	componentWillMount(){
 	  const { dispatch, initialize, load, loadContacts, loadMeds, loadRecords, loadReminders, info, records, patId } = this.props;
     let id = localStorage.getItem('uid');
-		let code  = CryptoJS.AES.decrypt(id.toString(), 'key'); 
+		let code  = CryptoJS.AES.decrypt(id.toString(), 'key');
 		let uid = code.toString(CryptoJS.enc.Utf8);
-    
+
     this.setState({physId: uid});
 	  load(this.props.patId);
 		loadContacts(this.props.patId);
@@ -58,41 +58,101 @@ class PatientProfileTabs extends Component {
 			<div className="profileForms">
 				<Tabs
 					value={this.state.value}
-
 				>
-					<Tab onClick={this.handleChange.bind(this, 'a')} label="Basic User Info" style={styles.tab} value="a" >
+					<Tab
+            onClick={this.handleChange.bind(this, 'a')}
+            label="Basic User Info"
+            style={styles.tab}
+            value="a"
+          >
 						<div>
-							<BackgroundInfoFormInitialized user={this.props.user} init={this.props.init} didInit={this.props.didInit}/>
+							<BackgroundInfoFormInitialized
+                user={this.props.user}
+                init={this.props.init}
+                didInit={this.props.didInit}
+              />
 						</div>
 					</Tab>
-					<Tab onClick={this.handleChange.bind(this, 'b')} label="Contact Info" style={styles.tab} value="b" >
+					<Tab
+            onClick={this.handleChange.bind(this, 'b')}
+            label="Contact Info"
+            style={styles.tab}
+            value="b"
+          >
 						<div>
-							<ContactInfoFormInitialized contacts={this.props.contacts} init={this.props.init} didInit={this.props.didInit}/>
+							<ContactInfoFormInitialized
+                contacts={this.props.contacts}
+                init={this.props.init}
+                didInit={this.props.didInit}
+              />
 						</div>
 					</Tab>
-					<Tab onClick={this.handleChange.bind(this, 'c')} label="Health Info" style={styles.tab} value="c" >
+					<Tab
+            onClick={this.handleChange.bind(this, 'c')}
+            label="Health Info"
+            style={styles.tab}
+            value="c"
+          >
 						<div>
-							<HealthInfoFormInitialized health={this.props.user} init={this.props.init} didInit={this.props.didInit}/>
+							<HealthInfoFormInitialized
+                health={this.props.user}
+                init={this.props.init}
+                didInit={this.props.didInit}
+              />
 						</div>
 					</Tab>
-					<Tab onClick={this.handleChange.bind(this, 'd')} label="Provider Info" style={styles.tab} value="d">
+					<Tab
+            onClick={this.handleChange.bind(this, 'd')}
+            label="Provider Info"
+            style={styles.tab}
+            value="d"
+          >
 						<div>
-							<ProviderInfoFormInitialized provider={this.props.provider} init={this.props.init} didInit={this.props.didInit} />
+							<ProviderInfoFormInitialized
+                provider={this.props.provider}
+                init={this.props.init}
+                didInit={this.props.didInit}
+              />
 						</div>
 					</Tab>
-					<Tab onClick={this.handleChange.bind(this, 'e')} label="Records" style={styles.tab} value="e">
+					<Tab
+            onClick={this.handleChange.bind(this, 'e')}
+            label="Records"
+            style={styles.tab}
+            value="e"
+            >
 						<div>
-							<PatientRecords records={this.props.records} />
+							<PatientRecords
+                records={this.props.records}
+              />
 						</div>
 					</Tab>
-					<Tab onClick={this.handleChange.bind(this, 'f')} label="Notes" style={styles.tab} value="f">
+					<Tab
+            onClick={this.handleChange.bind(this, 'f')}
+            label="Notes"
+            style={styles.tab}
+            value="f"
+          >
 						<div>
-							<PatientNotes reminders={this.props.reminders} patId={this.props.user.id} physId={this.state.physId} />
+							<PatientNotes
+                reminders={this.props.reminders}
+                patId={this.props.user.id}
+                physId={this.state.physId}
+              />
 						</div>
 					</Tab>
-					<Tab onClick={this.handleChange.bind(this, 'g')} label="Meds" style={styles.tab} value="g">
+					<Tab
+            onClick={this.handleChange.bind(this, 'g')}
+            label="Meds"
+            style={styles.tab}
+            value="g"
+          >
 						<div>
-							<ProfileMeds user={user} patId={this.props.user.id} medications={medications}/>
+							<ProfileMeds
+                user={user}
+                patId={this.props.user.id}
+                medications={medications}
+              />
 						</div>
 					</Tab>
 				</Tabs>
@@ -111,7 +171,7 @@ export default connect(
     records: state.records.records,
     reminders: state.user.reminders
   }),
-  { 
+  {
 	  load: getUserInfo,
 		loadContacts: getUserContacts,
 		loadMeds: getAllPatientMedication,

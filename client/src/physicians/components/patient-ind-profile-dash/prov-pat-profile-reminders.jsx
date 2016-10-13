@@ -28,7 +28,7 @@ class DashboardReminders extends Component {
     const uid = code.toString(CryptoJS.enc.Utf8);
 		this.setState({reminders: nextProps.reminders.filter(item => {
         return Number(item.id_physician) === Number(uid); //Only get current physicians appointments
-      }) 
+      })
     })
 	}
 
@@ -36,33 +36,42 @@ class DashboardReminders extends Component {
 		const { reminders } = this.state;
     console.log("REMINDA", this.state.reminders);
 			return (
-					 <div>
-                <h3>Reminders</h3>
-                <div id="dashReminders">
-                    <ul className='dashRemindersList clearfix'>
-                        { !reminders ? "No reminders" : reminders.map(reminder => {
-                            var date = new Date(reminder.date);
-                            var months = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sept", "Oct", "Nov", "Dec"];
-                            var month = date.getMonth();
-                            month = months[month];
-                            var day = date.getDate();
-                            var time = reminder.time.slice(0,6);
-                            return (
-                                <li className="reminders" key={reminder.id}>
-                                    <div>
-                                        <p>{month}</p>
-                                        <p>{day}</p>
-                                    </div>
-                                    <div>
-                                        <p>{time[0] === '0' ? time.slice(1,5) : time} {time.slice(0,2) > 7 ? " AM" : " PM"} </p>
-                                        <h6>{reminder.first} {reminder.last} {reminder.title !== null ? ","+reminder.title : ''}</h6>
-                                    </div>
-                                </li>
-                            )
-                        })}
-                    </ul>
-                </div>
-            </div>
+				<div>
+          <h3>Reminders</h3>
+          <div id="dashReminders">
+            <ul className='dashRemindersList clearfix'>
+                { !reminders ? "No reminders" : reminders.map(reminder => {
+                    var date = new Date(reminder.date);
+                    var months = ["Jan", "Feb", "Mar", "Apr",
+											"May", "Jun", "Jul", "Aug", "Sept",
+											"Oct", "Nov", "Dec"];
+                    var month = date.getMonth();
+                    month = months[month];
+                    var day = date.getDate();
+                    var time = reminder.time.slice(0,6);
+                    return (
+                      <li className="reminders" key={reminder.id}>
+                        <div>
+                          <p>{month}</p>
+                          <p>{day}</p>
+                        </div>
+                        <div>
+                          <p>
+														{time[0] === '0' ? time.slice(1,5) : time}
+														{time.slice(0,2) > 7 ? " AM" : " PM"}
+													</p>
+                          <h6>
+														{reminder.first}
+														{reminder.last}
+														{reminder.title !== null ? ","+reminder.title : ''}
+													</h6>
+                        </div>
+                      </li>
+                    )
+                })}
+            </ul>
+          </div>
+        </div>
 			);
 	}
 };
@@ -73,7 +82,7 @@ const mapDispatchToProps = (dispatch) => {
 
 const mapStateToProps = (state) => {
   return {
-		reminders: state.user.reminders	
+		reminders: state.user.reminders
 	}
 }
 

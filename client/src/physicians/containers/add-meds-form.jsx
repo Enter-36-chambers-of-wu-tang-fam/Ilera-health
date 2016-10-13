@@ -93,17 +93,17 @@ class AddMedForm extends Component {
         })
         .catch( err => {
             console.log("ERROR ENTERING INFORMATION");
-        }) 
+        })
   }
 
   renderTextField (props) {
     return(
-      <TextField 
-          hintText={props.label}
-          floatingLabelText={props.label}
-          fullWidth={true}
-          errorText={props.touched && props.error}
-          {...props}
+      <TextField
+        hintText={props.label}
+        floatingLabelText={props.label}
+        fullWidth={true}
+        errorText={props.touched && props.error}
+        {...props}
       />
     )
   }
@@ -114,20 +114,48 @@ class AddMedForm extends Component {
     return (
       <div>
         <h2>Add Med</h2>
-        <form onSubmit={handleSubmit(props => this.submitMe(props))}>
-            <Field name="drug_name" type="text" component={this.renderTextField} label="Medication*"/>
-            <Field name="dosage" type="text" component={this.renderTextField} label="Dosage*"/>
-            <Field name="start_date (YYYY-MM-DD)" type="text" component={this.renderTextField} label="Start Date*" normalize={normalizeDate}/>
-            <Field name="end_date (YYYY-MM-DD)" type="text" component={this.renderTextField} label="End Date" normalize={normalizeDate}/>
-            
-            <RaisedButton label="Save" type='submit' className='btn' style={{
-                width: '100%',
-                margin: '20px 0 0 0'
-            }}/>
+        <form
+          onSubmit={handleSubmit(props => this.submitMe(props))}
+          >
+          <Field
+            name="drug_name"
+            type="text"
+            component={this.renderTextField}
+            label="Medication*"
+          />
+          <Field
+            name="dosage"
+            type="text"
+            component={this.renderTextField}
+            label="Dosage*"
+          />
+          <Field
+            name="start_date (YYYY-MM-DD)"
+            type="text"
+            component={this.renderTextField}
+            label="Start Date*"
+            normalize={normalizeDate}
+          />
+          <Field
+            name="end_date (YYYY-MM-DD)"
+            type="text"
+            component={this.renderTextField}
+            label="End Date"
+            normalize={normalizeDate}
+          />
+
+          <RaisedButton
+            label="Save"
+            type='submit'
+            className='btn'
+            style={{
+              width: '100%',
+              margin: '20px 0 0 0'
+          }}/>
         </form>
       </div>
     );
-  }   
+  }
 };
 
 export default reduxForm({

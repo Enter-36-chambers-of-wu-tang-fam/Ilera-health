@@ -59,7 +59,7 @@ class BackgroundInfoForm extends Component {
 	}
 
 	submitMe(prop){
-		const { betterUID } = this.state; 
+		const { betterUID } = this.state;
 		let id = localStorage.getItem('uid');
 		let code  = CryptoJS.AES.decrypt(id.toString(), 'key'); //need to change key
 		prop.uid = code.toString(CryptoJS.enc.Utf8);
@@ -132,15 +132,32 @@ class BackgroundInfoForm extends Component {
 					<h2> Better Doctor Info </h2>
 					<img src={doc.data.data.profile.image_url} alt=""/>
 					<h6>Name</h6>
-					<p>{doc.data.data.profile.first_name} {doc.data.data.profile.last_name}, {doc.data.data.profile.title}</p>
+					<p>
+            {doc.data.data.profile.first_name}
+            {doc.data.data.profile.last_name},
+            {doc.data.data.profile.title}
+          </p>
 					<h6>Email</h6>
-					<p>{doc.data.data.profile.email ? doc.data.data.profile.email : 'No data'}</p>
+					<p>
+            {doc.data.data.profile.email ?
+              doc.data.data.profile.email : 'No data'}
+            </p>
 					<h6>State</h6>
-					<p>{doc.data.data.practices[0].visit_address_state ? doc.data.data.practices[0].visit_address_state : 'No data'}</p>
+					<p>
+            {doc.data.data.practices[0].visit_address_state ?
+              doc.data.data.practices[0].visit_address_state : 'No data'}
+          </p>
 					<h6>Bio</h6>
-					<p>{doc.data.data.profile.bio ? doc.data.data.profile.bio : 'No data'}</p>
+					<p>
+            {doc.data.data.profile.bio ?
+              doc.data.data.profile.bio : 'No data'}
+          </p>
 
-					<p>**If any of the information is innacurate or out of date, please <a href='http://betterdoctor.com/doctors'>update your information</a>.</p>
+					<p>
+            **If any of the information is innacurate or out of date, please
+            <a href='http://betterdoctor.com/doctors'>update your information</a>
+            .
+          </p>
 
 					<div className="formBtns clearfix">
 						<div>{this.getStepContent()}</div>
@@ -170,12 +187,39 @@ class BackgroundInfoForm extends Component {
 					<div  className="forms">
 						<h2>Basic User Info</h2>
 						<h6>* Required field</h6>
-						<form onSubmit={handleSubmit(props => this.submitMe(props))}>
-							<Field name="betterDoctorUID" type="text" component={this.renderTextField} label="Better Doctor UID"/>
-							<Field name="first" type="text" component={this.renderTextField} label="First Name*"/>
-							<Field name="last" type="text" component={this.renderTextField} label="Last Name*"/>
-							<Field name="phone_number" type="text" component={this.renderTextField} label="Phone Number"/>
-							<Field name="specialty" type="text" component={this.renderTextField} label="Specialty"/>
+						<form
+              onSubmit={handleSubmit(props => this.submitMe(props))}
+            >
+							<Field
+                name="betterDoctorUID"
+                type="text"
+                component={this.renderTextField}
+                label="Better Doctor UID"
+              />
+							<Field
+                name="first"
+                type="text"
+                component={this.renderTextField}
+                label="First Name*"
+              />
+							<Field
+                name="last"
+                type="text"
+                component={this.renderTextField}
+                label="Last Name*"
+              />
+							<Field
+                name="phone_number"
+                type="text"
+                component={this.renderTextField}
+                label="Phone Number"
+              />
+							<Field
+                name="specialty"
+                type="text"
+                component={this.renderTextField}
+                label="Specialty"
+              />
 
 							{error && <strong>{error}</strong>}
 
@@ -212,7 +256,10 @@ BackgroundInfoForm = reduxForm({
 	form: 'BackgroundInfoForm',
 	destroyOnUnmount: false,
 	validate,
-	initialValues: {first: `${localStorage.getItem('first')}`, last: `${localStorage.getItem('last')}` }
+	initialValues: {
+    first: `${localStorage.getItem('first')}`,
+    last: `${localStorage.getItem('last')}`
+  }
 })(BackgroundInfoForm);
 
 export default BackgroundInfoForm;
