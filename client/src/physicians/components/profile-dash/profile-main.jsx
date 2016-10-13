@@ -74,12 +74,39 @@ class ProviderProfileUpdate extends Component {
       return (
           <div className="profileRight">
             <h2>Basic User Info</h2>
-						<form onSubmit={handleSubmit(props => this.submitMe(props))}>
-							<Field name="betterDoctorUID" type="text" component={this.renderTextField} label="Better Doctor UID"/>
-							<Field name="first" type="text" component={this.renderTextField} label="First Name*"/>
-							<Field name="last" type="text" component={this.renderTextField} label="Last Name*"/>
-							<Field name="phone_number" type="text" component={this.renderTextField} label="Phone Number"/>
-							<Field name="specialty" type="text" component={this.renderTextField} label="Specialty"/>
+						<form
+              onSubmit={handleSubmit(props => this.submitMe(props))}
+            >
+							<Field
+                name="betterDoctorUID"
+                type="text"
+                component={this.renderTextField}
+                label="Better Doctor UID"
+              />
+							<Field
+                name="first"
+                type="text"
+                component={this.renderTextField}
+                label="First Name*"
+              />
+							<Field
+                name="last"
+                type="text"
+                component={this.renderTextField}
+                label="Last Name*"
+                />
+							<Field
+                name="phone_number"
+                type="text"
+                component={this.renderTextField}
+                label="Phone Number"
+              />
+							<Field
+                name="specialty"
+                type="text"
+                component={this.renderTextField}
+                label="Specialty"
+              />
 
 						{error && <strong>{error}</strong>}
 								<FlatButton
@@ -103,7 +130,7 @@ export default connect(
     user: state.provider.provider,
 		init: state.provider.init
   }),
-  { 
+  {
 	  load: getProvider,
 	  didInit: didInit
   }

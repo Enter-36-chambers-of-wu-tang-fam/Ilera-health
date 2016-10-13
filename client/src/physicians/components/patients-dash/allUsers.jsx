@@ -11,7 +11,13 @@ const getPatients = '/api/physician/patients';
 
 const renderInput = field =>
   <div>
-    <input {...field.input} type={field.type} onChange={field.onChange} value={field.value} placeholder={field.placeholder}/>
+    <input
+      {...field.input}
+      type={field.type}
+      onChange={field.onChange}
+      value={field.value}
+      placeholder={field.placeholder}
+    />
     {field.meta.touched &&
      field.meta.error &&
      <span className="error">{field.meta.error}</span>}
@@ -56,14 +62,28 @@ class AllUsers extends Component {
           <ul className="allPatientList">
             {this.state.patients.map((patient,index) => {
               return (
-                <li key={index}><Link to={"/provider/patients/"+patient.id}>
-                <div className="patientImageWrap"><img className="patientImage" src={patient.photo_path ? patient.photo_path : ""} /></div>
-                <p className="patientInfo">{patient.first} {patient.last}</p>
+                <li
+                  key={index}>
+                  <Link to={"/provider/patients/"+patient.id}>
+                <div className="patientImageWrap">
+                  <img className="patientImage"
+                    src={patient.photo_path ? patient.photo_path : ""}
+                    />
+                </div>
+                <p className="patientInfo">
+                  {patient.first} {patient.last}
+                </p>
                 <br/>
-                <p className="patientSpecialty">{patient.date_of_birth ? patient.date_of_birth.slice(0,11) : ""}</p>
+                <p className="patientSpecialty">
+                  {patient.date_of_birth ? patient.date_of_birth.slice(0,11) : ""}
+                </p>
                 <br/>
-                <p className="patientSpecialty">{patient.city ? patient.city : ""} {patient.state ? "," + patient.state : ""}</p>
-                </Link></li>
+                <p className="patientSpecialty">
+                  {patient.city ? patient.city : ""}
+                  {patient.state ? "," + patient.state : ""}
+                </p>
+                  </Link>
+              </li>
               )
             })}
           </ul>

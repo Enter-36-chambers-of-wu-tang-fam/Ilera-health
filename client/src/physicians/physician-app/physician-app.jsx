@@ -10,13 +10,13 @@ export default class PhysicianApp extends Component {
       localStorage.removeItem('userType');
     }
     render(){
-        return (
-            <div>
-                <Header />
-                <main className="physicianAppMain">
-                    { this.props.children }
-                </main>
-            </div>
-        );
+      return (
+        <div>
+          <Header />
+          <main className="physicianAppMain">
+            { this.props.children }
+          </main>
+        </div>
+      );
     }
 };

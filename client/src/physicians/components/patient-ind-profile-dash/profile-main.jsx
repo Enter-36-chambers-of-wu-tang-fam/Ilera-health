@@ -29,8 +29,14 @@ class ProfileMain extends Component {
       const { user, appointments, records } = this.props;
       return (
           <div>
-            <ProfileDash user={user} appointments={appointments} />
-            <PatientProfileTabs user={user} patId={this.props.params.patientId}/>
+            <ProfileDash
+              user={user}
+              appointments={appointments}
+            />
+            <PatientProfileTabs
+              user={user}
+              patId={this.props.params.patientId}
+            />
           </div>
       );
     }
@@ -44,9 +50,9 @@ export default connect(
     records: state.records,
     reminders: state.user.reminders
   }),
-  { 
+  {
 	  load: getUserInfo,
-    loadAppointments: getAllPhysicianAppts,    
+    loadAppointments: getAllPhysicianAppts,
     loadMeds: getAllPatientMedication,
     loadRecords: getRecords,
     loadReminders: getUserReminders,
