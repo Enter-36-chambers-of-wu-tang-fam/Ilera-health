@@ -11,10 +11,18 @@ const getPatients = '/api/physician/patients';
 
 const renderInput = field =>
   <div>
-    <input {...field.input} type={field.type} onChange={field.onChange} value={field.value} placeholder={field.placeholder}/>
+    <input
+      {...field.input}
+      type={field.type}
+      onChange={field.onChange}
+      value={field.value}
+      placeholder={field.placeholder}
+    />
     {field.meta.touched &&
      field.meta.error &&
-     <span className="error">{field.meta.error}</span>}
+     <span className="error">
+       {field.meta.error}
+     </span>}
   </div>
 
 
@@ -44,31 +52,51 @@ class AllUsers extends Component {
   }
 
   render() {
-      return (
-        <div>
-        <div className="allPhysicians">
-          <ul className="myPhysicianList">
-            <h2> My Patients</h2>
-          </ul>
+    return (
+      <div>
+      <div className="allPhysicians">
+        <ul className="myPhysicianList">
+          <h2> My Patients</h2>
+        </ul>
 
-          <ul className="allPhysicianList">
-            {this.state.patients.map((patient,index) => {
-              return (
-                <li key={index}><Link to={"/provider/patients/"+patient.id}>
-                <div className="physicianImageWrap"><img className="physicianImage" src={doc.image} /></div>
-                <p className="physicianInfo">{patient.first} {patient.last}</p>
+        <ul className="allPhysicianList">
+          {this.state.patients.map((patient,index) => {
+            return (
+              <li
+                key={index}>
+                <Link to={"/provider/patients/"+patient.id}
+                >
+                <div
+                  className="physicianImageWrap">
+                  <img
+                    className="physicianImage"
+                    src={doc.image}
+                  />
+                </div>
+                <p
+                  className="physicianInfo">
+                  {patient.first} {patient.last}
+                </p>
                 <br/>
-                <p className="physicianSpecialty">{patient.date_of_birth}</p>
+                <p
+                  className="physicianSpecialty">
+                  {patient.date_of_birth}
+                </p>
                 <br/>
-                <p className="physicianSpecialty">{patient.city}, {patient.state}</p>
-                </Link></li>
-              )
-            })}
-          </ul>
-        </div>
-        </div>
-      );
-    }
+                <p
+                  className="physicianSpecialty"
+                >
+                  {patient.city}, {patient.state}
+                </p>
+                </Link>
+              </li>
+            )
+          })}
+        </ul>
+      </div>
+      </div>
+    );
+  }
 };
 
 const mapStateToProps = (state) => {

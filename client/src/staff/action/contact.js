@@ -1,8 +1,10 @@
 import axios from 'axios';
 import {
   PHYSICIAN_FETCH_PATIENTS, PHYSICIAN_FETCH_PATIENTS_FAILURE,
-  CHECK_MY_RELATIONSHIP_REQUEST, CHECK_MY_RELATIONSHIP_SUCCESS, CHECK_MY_RELATIONSHIP_FAILURE,
-  REMOVE_RELATIONSHIP_REQUEST, REMOVE_RELATIONSHIP_SUCCESS, REMOVE_RELATIONSHIP_FAILURE
+  CHECK_MY_RELATIONSHIP_REQUEST,
+  CHECK_MY_RELATIONSHIP_SUCCESS, CHECK_MY_RELATIONSHIP_FAILURE,
+  REMOVE_RELATIONSHIP_REQUEST, REMOVE_RELATIONSHIP_SUCCESS,
+  REMOVE_RELATIONSHIP_FAILURE
 } from './action-constants';
 
 
@@ -67,7 +69,9 @@ export const checkMyRelationship = (relationship) => {
     dispatch(checkMyRelationshipRequest(relationship));
     return axios.post('/api/relation', relationship)
       .then(response => {
-        response.data.length > 0 ? dispatch(checkMyRelationshipSuccess(true)) : dispatch(checkMyRelationshipSuccess(false))
+        response.data.length > 0 ?
+        dispatch(checkMyRelationshipSuccess(true)) :
+        dispatch(checkMyRelationshipSuccess(false))
       })
       .catch(error => checkMyRelationshipFailure(error));
   }

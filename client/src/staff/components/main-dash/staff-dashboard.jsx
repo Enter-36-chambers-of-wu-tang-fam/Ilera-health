@@ -12,41 +12,49 @@ import DashboardWelcome from './staff-dash-welcome.jsx';
 
 class StaffDashboard extends Component {
 
-    constructor (props){
-      super(props);
-      this.state = {
-          windowHeight: ''
-      }
+  constructor (props){
+    super(props);
+    this.state = {
+        windowHeight: ''
     }
+  }
 
-    componentWillMount() {
-		this.setState({windowHeight: window.innerHeight });
+  componentWillMount() {
+	this.setState({windowHeight: window.innerHeight });
 	}
 
-    render() {
-      const { windowHeight } = this.state;
-      return (
-          <div className="providerDashParent clearfix">
-            <div className="providerDashMain clearfix" style={{ minHeight: windowHeight}}>
-              <DashboardMain />
-            </div>
+  render() {
+    const { windowHeight } = this.state;
+    return (
+      <div
+        className="providerDashParent clearfix"
+      >
+        <div
+          className="providerDashMain clearfix"
+          style={{ minHeight: windowHeight}}
+        >
+          <DashboardMain />
+        </div>
 
-            <div className="providerDashRight" style={{ minHeight: windowHeight}}>
-              <DashboardWelcome />
-              <Link to='/staff/patients'>
-                <DashboardPatients />
-              </Link>
-              <Link to='/staff/messages'>
-                <DashboardMessages />
-              </Link>
-              <Link to='/staff/profile'>
-                <DashboardProfile />
-              </Link>
+        <div
+          className="providerDashRight"
+          style={{ minHeight: windowHeight}}
+        >
+          <DashboardWelcome />
+          <Link to='/staff/patients'>
+            <DashboardPatients />
+          </Link>
+          <Link to='/staff/messages'>
+            <DashboardMessages />
+          </Link>
+          <Link to='/staff/profile'>
+            <DashboardProfile />
+          </Link>
 
-            </div>
-          </div>
-      );
-    }
+        </div>
+      </div>
+    );
+  }
 };
 
 const mapDispatchToProps = (dispatch) => {
