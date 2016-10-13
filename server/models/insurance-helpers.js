@@ -2,7 +2,6 @@
 
 const db = require('../db/dbConnect/connection.js');
 
-
 module.exports = {
 
   get_insurance: (params, cb) => {
@@ -23,14 +22,3 @@ module.exports = {
   }
 
 };
-
-// DROP TABLE IF EXISTS `insurance`;
-//
-// CREATE TABLE `insurance` (
-//   `id` INTEGER NOT NULL AUTO_INCREMENT,
-//   `insurer` varchar(255) NULL,
-//   `type` varchar(255) NULL,
-//   `network` varchar(255) NULL,
-//   `uid` varchar(255) NULL,
-//   PRIMARY KEY (`id`)
-// );

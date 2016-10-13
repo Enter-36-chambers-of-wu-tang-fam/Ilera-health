@@ -50,16 +50,4 @@ module.exports = {
     db.query(queryString, data, (error, results) => cb(error, results) );
   }
 
-  // added
-  // getInsurance_professional: (params, cb) => {
-  //   let data = [params];
-  //   const queryString = '';
-  //   db.query(queryString, data, (error, results) => cb(error, results) );
-  // }
-
-  // (params, cb) => {
-  //   let data = [params];
-  //   const queryString = ;
-  //   db.query(queryString, data, (error, results) => cb(error, results) );
-  // },
 };

@@ -7,7 +7,6 @@ module.exports = app => {
   app.post('/api/patient/signin', Patient.signIn);
 
   //not for now but this will get all of the patient info eventually we are still in stage 1
-  // app.get('/api/patient/dashboard', Patient.get_patient_info);
   app.get('/api/patient/:userid', authenticate, Patient.get_patient_info);
 
   // Post Request to: api/patient/signup  =>   { Patient Table}

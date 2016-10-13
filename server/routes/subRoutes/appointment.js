@@ -19,4 +19,3 @@ module.exports = app => {
   app.delete('/api/cancel/appointment', Appointment.cancelAppointment);
 
 };
-// /api/physician/appointments/${physid}

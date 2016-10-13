@@ -7,7 +7,6 @@ const server = require('http').Server(app);
 const session = require('express-session');
 const path = require('path');
 const router = require('./routes/routes.js');
-const Message = require('./controller/messages.js');
 const io = require('socket.io')(server);
 const socketEvents = require('./sockets/socket-events')(io);
 const getAll = require('./controller/allPatient.js');
@@ -17,7 +16,6 @@ const MedRecord = require("./models/med_record-helpers.js");
 //JWT authentication
 const authenticate = require('./middlewares/authenticate');
 const physAuth = require('./middlewares/physician_authenticate');
-const msgAuth = require('./middlewares/message_authenticate');
 
 //UPLOAD REQUIREMENTS AND STORAGE PATHS
 
@@ -43,16 +41,6 @@ app.use(session({
 }));
 
 router(app);
-
-
-app.post('/api/messages/newmessage', msgAuth, Message.postMessage);
-// app.get('/api/messages/:senderType/:userid/:receiverType/:rid', Message.getAllMessages);
-app.get('/api/messages/:physid/:patid', Message.getAllMessages_phy_from_pat);
-// app.get('/api/messages/patient/:patid/:physid', Message.getAllMessages_pat_from_phy);
-app.get('/api/messages/:senderType/:userid/:receiverType/:rid', msgAuth, Message.getAllMessages);
-app.get('/api/messages/getOne', Message.getOneMessage);
-app.put('/api/messages/edit', Message.editOneMessage);
-app.delete('/api/messages/delete', Message.deleteOneMessage);
 
 
 // FILE UPLOAD PATHS

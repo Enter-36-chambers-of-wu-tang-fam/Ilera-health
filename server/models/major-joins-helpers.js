@@ -2,7 +2,6 @@
 
 const db = require('../db/dbConnect/connection.js');
 
-
 module.exports = {
 
   getAll_patientInfo: (params, cb) => {

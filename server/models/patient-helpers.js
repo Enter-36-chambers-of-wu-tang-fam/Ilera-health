@@ -176,10 +176,6 @@ module.exports = {
     })
   },
 
-
-
-
-
   // need to update this
   patient_info: (params, cb) => {
     // Post Request to : api/user/main  =>   { Patient main page }

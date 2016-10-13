@@ -2,7 +2,7 @@
 // React
 import React from 'react';
 // Components
-import WelcomeIntro from './Welcome-intro.jsx';
+import WelcomeIntro from './welcome-intro.jsx';
 import ForPatients from './welcome-for-patients.jsx';
 import ForProviders from './welcome-for-providers.jsx';
 import WelcomeTeam from './welcome-team.jsx';
