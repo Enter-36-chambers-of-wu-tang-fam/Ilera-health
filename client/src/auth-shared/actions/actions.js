@@ -2,8 +2,8 @@
 import axios from 'axios';
 import CryptoJS from 'crypto-js';
 import { browserHistory } from 'react-router'
-import setAuthorizationToken from '../../../utils/setAuthorizationToken.js'
-import jwt from 'jsonwebtoken';
+// import setAuthorizationToken from '../../../utils/setAuthorizationToken.js'
+// import jwt from 'jsonwebtoken';
 import * as types from './action-constants';
 
 
@@ -41,9 +41,9 @@ export function authenticateUser( userType,data,reqType ) {
       axios.post(`/api/${userType}/signin`, data)
         .then( found => {
 
-          const token = found.data.id;
-          localStorage.setItem("jwtToken", token);
-          setAuthorizationToken(token);
+          // const token = found.data.id;
+          // localStorage.setItem("jwtToken", token);
+          // setAuthorizationToken(token);
 
           var encodedId = CryptoJS.AES.encrypt(String(found.data.id), 'key'); //need to change key
           
@@ -63,9 +63,9 @@ export function authenticateUser( userType,data,reqType ) {
       dispatch( requestAuth(data) );
       axios.post(`/api/${userType}/signup`, data)
       .then(registered => {
-        const token = registered.data.id;
-        localStorage.setItem("jwtToken", token);
-        setAuthorizationToken(token);
+        // const token = registered.data.id;
+        // localStorage.setItem("jwtToken", token);
+        // setAuthorizationToken(token);
 
         let encodedId = CryptoJS.AES.encrypt(String(registered.data.id), 'key');  //need to change key to actual key
         

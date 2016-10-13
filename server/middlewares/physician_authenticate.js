@@ -16,9 +16,8 @@ module.exports = (req, res, next) => {
       if (err) {
         res.status(401).json({ error: 'Failed to authenticate' });
       } else {
-        Physician.getPhysicianInfoByID({ uid: decoded.id }, (err,data) =>{
-          if (data.length === 0) res.status(404).json({ error: 'No such user'});
-
+        Physician.getPhysicianInfoByID({ uid: decoded.id }, (error,data) =>{
+          if (error || !data) res.status(404).json({ error: 'No such user'});
           //Account taken for variation in id naming
 
           req.body.uid ? req.body.uid = decoded.id : undefined;

@@ -14,8 +14,8 @@ const Patient = require("./models/patient-helpers");
 const MedRecord = require("./models/med_record-helpers.js");
 
 //JWT authentication
-const authenticate = require('./middlewares/authenticate');
-const physAuth = require('./middlewares/physician_authenticate');
+// const authenticate = require('./middlewares/authenticate');
+// const physAuth = require('./middlewares/physician_authenticate');
 
 //UPLOAD REQUIREMENTS AND STORAGE PATHS
 
@@ -49,7 +49,7 @@ router(app);
   // if one already exists --> delete current
   //upload photo
 
-app.post('/upload/profile_picture/:uid', uploadProfile.single('upload'), authenticate, function(req,res, next){
+app.post('/upload/profile_picture/:uid', uploadProfile.single('upload'), function(req,res, next){
   let data = {photo_path: `/src/uploads/profile/${req.file.filename}`, uid: req.params.uid};
   Patient.delete_photo(data, (error, result) => {
     if(error) console.log(error);
@@ -63,7 +63,7 @@ app.post('/upload/profile_picture/:uid', uploadProfile.single('upload'), authent
 // Records
   //upload records
 
-app.post('/upload/old_records/:uid', authenticate, uploadRecords.single('upload'), function(req,res, next){
+app.post('/upload/old_records/:uid', uploadRecords.single('upload'), function(req,res, next){
    req.body.document_path = `/src/uploads/old_records/${req.file.filename}`;
    req.body.uid = req.params.uid;
   MedRecord.upload_document(req.body, (error, result) => {
@@ -75,7 +75,7 @@ app.post('/upload/old_records/:uid', authenticate, uploadRecords.single('upload'
 // Appointments
   //upload appointment documents --> not set yet
 
-app.post('/upload/appointment_documents/:uid', authenticate, uploadAppointment.single('upload'), function(req,res, next){
+app.post('/upload/appointment_documents/:uid', uploadAppointment.single('upload'), function(req,res, next){
   let data = {photo_path: `/src/uploads/appointment/${req.file.filename}`, uid: req.params.uid};
   Patient.update_appointment(data,(err,data)=>{
       res.json(data);

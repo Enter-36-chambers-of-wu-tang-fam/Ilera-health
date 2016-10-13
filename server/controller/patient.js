@@ -4,8 +4,8 @@ const Promise = require("bluebird");
 const bcrypt = require("bcrypt-nodejs");
 const hashHelp = require("../security/hash.js");
 const Patient = require("../models/patient-helpers.js");
-const jwt = require("jsonwebtoken");
-const config = require("../config");
+// const jwt = require("jsonwebtoken");
+// const config = require("../config");
 
 module.exports = {
 
@@ -14,11 +14,11 @@ module.exports = {
       if(data.length > 0){
         bcrypt.compare(req.body.password, data[0].password, (error, result) => {
           if(result){
-            const token =jwt.sign({
-              id: data[0].id,
-            }, config.jwtSecret)
+            // const token =jwt.sign({
+            //   id: data[0].id,
+            // }, config.jwtSecret)
             res.json({
-              id: token,
+              id: data[0].id,
               email: data[0].email,
               first: data[0].first,
               last: data[0].last,
@@ -50,16 +50,16 @@ module.exports = {
     
             if(error) console.log(error);
             
-            const token = jwt.sign({
-              id: data.insertId,
-            }, config.jwtSecret)
+            // const token = jwt.sign({
+            //   id: data.insertId,
+            // }, config.jwtSecret)
 
             res.json({
               data: data,
               first: req.body.first,
               last: req.body.last,
               email: req.body.email,
-              id: token
+              id: data.insertId
             })
             // res.json(data.insertId);
           });
