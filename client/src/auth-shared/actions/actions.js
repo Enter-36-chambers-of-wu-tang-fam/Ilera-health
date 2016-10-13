@@ -34,7 +34,7 @@ const failedAuth = ( message ) => {
   }
 };
 
-export function authenticateUser(userType,data,reqType){
+export function authenticateUser( userType,data,reqType ) {
   if(reqType === "login"){
     return dispatch => {
       dispatch( requestAuth(null) );
