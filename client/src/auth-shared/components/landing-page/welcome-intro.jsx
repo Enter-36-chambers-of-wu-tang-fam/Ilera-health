@@ -1,5 +1,7 @@
 // Opening/intro for landing page
+// React
 import React from 'react';
+// Material UI
 import FlatButton from 'material-ui/FlatButton';
 
 const buttonStyles = {
@@ -27,10 +29,20 @@ const WelcomeIntro = () => {
 							<li>Choose which providers you share your information with</li>
 						</ul>
 						<a href='#forpatients'>
-							<FlatButton label="For Patients" hoverColor={buttonStyles.hoverColor} style={buttonStyles.styles} backgroundColor={buttonStyles.backgroundColor} labelStyle={buttonStyles.labelStyle} />
+							<FlatButton 
+								label="For Patients" 
+								hoverColor={buttonStyles.hoverColor} 
+								style={buttonStyles.styles} 
+								backgroundColor={buttonStyles.backgroundColor} 
+								labelStyle={buttonStyles.labelStyle} />
 						</a>
 						<a href='#forproviders'>
-							<FlatButton label="For Providers" hoverColor={buttonStyles.hoverColor} style={buttonStyles.styles} backgroundColor={buttonStyles.backgroundColor} labelStyle={buttonStyles.labelStyle} />
+							<FlatButton 
+								label="For Providers" 
+								hoverColor={buttonStyles.hoverColor} 
+								style={buttonStyles.styles} 
+								backgroundColor={buttonStyles.backgroundColor} 
+								labelStyle={buttonStyles.labelStyle} />
 						</a>
 					</div>
 				</div>

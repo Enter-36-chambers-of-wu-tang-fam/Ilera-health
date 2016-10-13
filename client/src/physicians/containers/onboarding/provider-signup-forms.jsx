@@ -1,3 +1,4 @@
+// Parent container for forms provider goes through upon successful signup
 // React
 import React, { Component, PropTypes } from 'react';
 import { connect } from 'react-redux';
@@ -11,13 +12,13 @@ import FlatButton from 'material-ui/FlatButton';
 // Other
 import CryptoJS from 'crypto-js';
 // Components
-import BackgroundInfoForm from '../../containers/redux-forms/onboarding-basic-form.jsx';
-import ProviderIntro from '../../containers/redux-forms/onboarding-intro.jsx';
+import BackgroundInfoForm from '../redux-forms/onboarding-basic-form.jsx';
+import ProviderIntro from '../../components/onboarding/onboarding-intro.jsx';
 
 class ProviderAppFormsContainer extends Component {
 	static contextTypes = {
-        router: React.PropTypes.object
-    }
+    router: React.PropTypes.object
+  }
 
 	constructor(props){
 		super(props);
@@ -29,15 +30,16 @@ class ProviderAppFormsContainer extends Component {
 		};
 	} 
 
+  // if provider gave a better doc uid, grab the info from api
   componentWillMount(){
     const { getDocInfo } = this.props;
     var uid = localStorage.getItem('betterUID');
-    console.log("BETTERUID", uid);
     if( uid !== undefined ){
       (getDocInfo(uid));
     }
   }
 
+  // move stepper forward
   handleNext() {
     const {stepIndex} = this.state;
     this.setState({
@@ -46,21 +48,31 @@ class ProviderAppFormsContainer extends Component {
     });
   }
 
+  // move stepper back
   handlePrev() {
     const {stepIndex} = this.state;
     if (stepIndex > 0) {
       this.setState({stepIndex: stepIndex - 1});
     }
-  };
+  }
 
   getStepContent(stepIndex) {
     const { doc, user } = this.props;
 
     switch (stepIndex) {
       case 0:
-        return <ProviderIntro stepIndex={this.state.stepIndex} getStepContent={this.getStepContent.bind(this)} handleNext={this.handleNext.bind(this)} handlePrev={this.handlePrev.bind(this)}/>
+        return <ProviderIntro 
+                  stepIndex={this.state.stepIndex} 
+                  getStepContent={this.getStepContent.bind(this)} 
+                  handleNext={this.handleNext.bind(this)} 
+                  handlePrev={this.handlePrev.bind(this)}/>
       case 1:
-        return <BackgroundInfoForm stepIndex={this.state.stepIndex} getStepContent={this.getStepContent.bind(this)} handleNext={this.handleNext.bind(this)} handlePrev={this.handlePrev.bind(this)} doc={doc} />;
+        return <BackgroundInfoForm 
+                  stepIndex={this.state.stepIndex} 
+                  getStepContent={this.getStepContent.bind(this)} 
+                  handleNext={this.handleNext.bind(this)} 
+                  handlePrev={this.handlePrev.bind(this)} 
+                  doc={doc} />;
       default:
         return <ProviderIntro />;
     }
@@ -70,13 +82,13 @@ class ProviderAppFormsContainer extends Component {
 		const {finished, stepIndex} = this.state;
     
 		return (
-        <div style={{width: '100%', maxWidth: 700, margin: '0 auto 30px'}}>
+        <div className="stepper" style={{width: '100%', maxWidth: 700, margin: '0 auto 30px'}}>
             <Stepper activeStep={stepIndex}>
                 <Step>
-                    <StepLabel>Welcome</StepLabel>
+                    <StepLabel><h6>Welcome</h6></StepLabel>
                 </Step>
                 <Step>
-                    <StepLabel>Basic Info</StepLabel>
+                    <StepLabel><h6>Basic Info</h6></StepLabel>
                 </Step>
             </Stepper>
             <div>{this.getStepContent(stepIndex)}</div>
@@ -89,10 +101,10 @@ function mapStateToProps(state){
 	return {
 		doc: state.betterDoc.doc
 	}
-}
+};
 
 function mapDispatchToProps(dispatch) {
-    return bindActionCreators({ getDocInfo }, dispatch);
-}
+    return bindActionCreators({ getDocInfo }, dispatch)
+};
 
 export default connect(mapStateToProps, mapDispatchToProps)(ProviderAppFormsContainer);

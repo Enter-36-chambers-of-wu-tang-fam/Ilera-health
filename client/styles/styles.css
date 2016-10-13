@@ -157,7 +157,7 @@ input[type='radio']{
 #mainDashWelcomeMobile{
     display: none;
 }
-.dashboardRows a:hover, .dashboardRows a:hover h3, .dashboardRows a:hover p, .dashboardRows a:hover i {
+.dashboardRows a:hover, .dashboardRows a:hover h3, .dashboardRows a:hover p, .dashboardRows a:hover i, .providerDashRight > a:hover i, .providerDashRight > a:hover h3, .providerDashRight > a:hover {
     background: rgb(242, 108, 44);
     color: white;
 }
@@ -1404,8 +1404,8 @@ main >section .team li:hover .teamProfile {
 
 
 /* PROVIDER DASH*/
-.providerDashParent{
-
+.providerDashParent {
+    padding: 20px 0;
 }
 .providerDashParent > div{
     float: left;
@@ -1733,6 +1733,13 @@ main >section .team li:hover .teamProfile {
     .medRecords th {
         font-size: 15px !important;
     }
+    /*-------- PROVIDER DASHBOARD -------*/
+    .providerDashRight > a, .providerDashRight > div {
+        height: 180px;
+    }
+    .providerDashRight > a h3 {
+        padding: 2% 0 0;
+    }
 }
 
 @media screen and (max-width: 765px) {
@@ -1863,6 +1870,11 @@ main >section .team li:hover .teamProfile {
     .uploadRecordPage .formButton {
         margin: 2% auto;
         width: 90%;
+    }
+    /*--------- PROVIDER DASHBOARD ----------*/
+    .providerDashParent > div, .providerDashParent > div:first-of-type {
+        float: none;
+        width: 100%;
     }
 }
 

@@ -1,4 +1,5 @@
 // Landing page parent component
+// React
 import React from 'react';
 // Components
 import WelcomeIntro from './Welcome-intro.jsx';

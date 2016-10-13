@@ -6,27 +6,24 @@ import ReactDOM from 'react-dom';
 import { Router, Route, IndexRoute } from 'react-router';
 
 //Authentication Requirement
-import PhysicianAuth from './auth-shared/higher-order-components/physician_auth.js';
-
-import PatientAuth from './auth-shared/higher-order-components/patient_auth.js';
-
-import StaffAuth from './auth-shared/higher-order-components/staff_auth.js';
-
-import GeneralAuth from './auth-shared/higher-order-components/general_auth.js';
+import PhysicianAuth from './auth-shared/higher-order-components/physician_auth.jsx';
+import PatientAuth from './auth-shared/higher-order-components/patient_auth.jsx';
+import StaffAuth from './auth-shared/higher-order-components/staff_auth.jsx';
+import GeneralAuth from './auth-shared/higher-order-components/general_auth.jsx';
 
 //Shared Components
 import App from './main/app.js';
 import Welcome from './auth-shared/components/landing-page/welcome.jsx';
-import Signin from './auth-shared/components/signin-component.js';
-import Signup from './auth-shared/components/signup-component.js';
+import Signin from './auth-shared/components/signin-component.jsx';
+import Signup from './auth-shared/components/signup-component.jsx';
 import AllPhysicians from './patients/components/physicians-dash/allPhysicians.jsx';
 import AllPhysicianProfile from './patients/components/physicians-dash/allPhysicianProfile.jsx'
 import Chat from './patients/containers/messages/chat-container.js';
 
 // Physician Components
 import PhysicianApp from './physicians/physician-app/physician-app.jsx';
-import ProviderAppFormContainer from './physicians/components/onboarding/provider-signup-forms.jsx';
-import PhysicianDashboard from './physicians/components/main-dash/provider-dash.jsx';
+import ProviderAppFormContainer from './physicians/containers/onboarding/provider-signup-forms.jsx';
+import PhysicianDashboard from './physicians/containers/main-dash/provider-dash.jsx';
 import Notes from './physicians/physician-app/notes.jsx';
 import Calendar from './physicians/physician-app/calendar.jsx';
 import ProvPatProfile from './physicians/components/patient-ind-profile-dash/profile-main.jsx';
