@@ -50,7 +50,7 @@ module.exports = {
           Physician.signUp(req.body, (error, data) => {
             console.log("id type", data);
             if(error) console.log(error);
-             if(data[0].id){
+             if(data[0] !== undefined){
                   const token = jwt.sign({
                     id: data[0].id,
                   }, config.jwtSecret)

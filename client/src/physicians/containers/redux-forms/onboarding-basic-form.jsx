@@ -1,4 +1,5 @@
-import _ from 'lodash';
+// Form shown after welcome view upon successful provider sign up
+// Axios
 import axios from 'axios';
 // React, Redux, Redux-Form
 import React, { Component, PropTypes } from 'react';
@@ -19,15 +20,9 @@ import { getDocInfo } from '../../actions/better-doc.js';
 
 const validate = values => {
   const errors = {}
-  // if (!values.first || /\d/.test(values.first)) {
-  //   errors.first = 'Please enter a valid first name'
-  // }
 	if (values.middle && /\d/.test(values.middle)) {
     errors.middle = 'Please enter a valid middle name'
   }
-  // if (!values.last || /\d/.test(values.last)) {
-  //   errors.last = 'Please enter a valid last name'
-  // }
 	if (values.maiden && /\d/.test(values.maiden)) {
     errors.maiden = 'Please enter a valid maiden name'
   }
@@ -56,6 +51,11 @@ class BackgroundInfoForm extends Component {
 
 	static contextTypes = {
 		router: React.PropTypes.object
+	}
+
+	componentWillMount(){
+		const { initialize } = this.props;
+		initialize({first: `${localStorage.getItem('first')}`, last: `${localStorage.getItem('last')}` });
 	}
 
 	submitMe(prop){
@@ -102,33 +102,6 @@ class BackgroundInfoForm extends Component {
 		)
 	}
 
-	renderTextFieldFirst (props) {
-		return(
-			<TextField
-				hintText={props.label}
-				floatingLabelText={props.label}
-				fullWidth={true}
-				value={localStorage.getItem('first')}
-				errorText={props.touched && props.error}
-				{...props}
-			/>
-		)
-	}
-
-	renderTextFieldLast (props) {
-		return(
-			<TextField
-				hintText={props.label}
-				floatingLabelText={props.label}
-				fullWidth={true}
-				value={localStorage.getItem('last')}
-				defaultValue={localStorage.getItem('last')}
-				errorText={props.touched && props.error}
-				{...props}
-			/>
-		)
-	}
-
 	renderDatePicker (props) {
 		return(
 			<DatePicker
@@ -152,20 +125,20 @@ class BackgroundInfoForm extends Component {
 
 	render() {
 		const { error, handleSubmit, pristine, reset, submitting, doc } = this.props;
-        const { betterUID } = this.state;
-        if( doc.data && betterUID !== undefined ){
-            return (
-                <div className="providerDB">
-                    <h2> Better Doctor Info </h2>
-                    <img src={doc.data.data.profile.image_url} alt=""/>
-                    <h6>Name</h6>
-                    <p>{doc.data.data.profile.first_name} {doc.data.data.profile.last_name}, {doc.data.data.profile.title}</p>
-                    <h6>Email</h6>
-                    <p>{doc.data.data.profile.email ? doc.data.data.profile.email : 'No data'}</p>
-                    <h6>State</h6>
-                    <p>{doc.data.data.practices[0].visit_address_state ? doc.data.data.practices[0].visit_address_state : 'No data'}</p>
-                    <h6>Bio</h6>
-                    <p>{doc.data.data.profile.bio ? doc.data.data.profile.bio : 'No data'}</p>
+		const { betterUID } = this.state;
+		if( doc.data && betterUID !== undefined ){
+			return (
+				<div className="providerDB">
+					<h2> Better Doctor Info </h2>
+					<img src={doc.data.data.profile.image_url} alt=""/>
+					<h6>Name</h6>
+					<p>{doc.data.data.profile.first_name} {doc.data.data.profile.last_name}, {doc.data.data.profile.title}</p>
+					<h6>Email</h6>
+					<p>{doc.data.data.profile.email ? doc.data.data.profile.email : 'No data'}</p>
+					<h6>State</h6>
+					<p>{doc.data.data.practices[0].visit_address_state ? doc.data.data.practices[0].visit_address_state : 'No data'}</p>
+					<h6>Bio</h6>
+					<p>{doc.data.data.profile.bio ? doc.data.data.profile.bio : 'No data'}</p>
 
 					<p>**If any of the information is innacurate or out of date, please <a href='http://betterdoctor.com/doctors'>update your information</a>.</p>
 
@@ -177,8 +150,7 @@ class BackgroundInfoForm extends Component {
 								disabled={this.props.stepIndex === 0}
 								onTouchTap={this.handlePrev.bind(this)}
 								style={{marginRight: 12}}
-								className='btn btn-back'
-							/>
+								className='btn btn-back' />
 							<RaisedButton
 								label='Finish'
 								primary={true}
@@ -188,17 +160,16 @@ class BackgroundInfoForm extends Component {
 								style={{
 									'float': 'right',
 									'backgroundColor': '#fff'
-								}}
-							/>
+								}}/>
 						</div>
 					</div>
-                </div>
-            )
-        } else {
-            return (
-				<div  className="forms">
-					<h2>Basic User Info</h2>
-					<h6>* Required field</h6>
+				</div>
+				)
+			} else {
+				return (
+					<div  className="forms">
+						<h2>Basic User Info</h2>
+						<h6>* Required field</h6>
 						<form onSubmit={handleSubmit(props => this.submitMe(props))}>
 							<Field name="betterDoctorUID" type="text" component={this.renderTextField} label="Better Doctor UID"/>
 							<Field name="first" type="text" component={this.renderTextField} label="First Name*"/>
@@ -206,35 +177,35 @@ class BackgroundInfoForm extends Component {
 							<Field name="phone_number" type="text" component={this.renderTextField} label="Phone Number"/>
 							<Field name="specialty" type="text" component={this.renderTextField} label="Specialty"/>
 
-						{error && <strong>{error}</strong>}
+							{error && <strong>{error}</strong>}
 
-						<div className="formBtns clearfix">
-							<div>{this.getStepContent()}</div>
-							<div style={{margin: '20px 0'}}>
-								<FlatButton
-									label="Back"
-									disabled={this.props.stepIndex === 0}
-									onTouchTap={this.handlePrev.bind(this)}
-									style={{marginRight: 12}}
-									className='btn btn-back'
-								/>
-								<RaisedButton
-									label='Finish'
-									primary={true}
-									type='submit'
-									className='btn btn-back'
-									style={{
-										'float': 'right',
-										'backgroundColor': '#fff'
-									}}
-								/>
+							<div className="formBtns clearfix">
+								<div>{this.getStepContent()}</div>
+								<div style={{margin: '20px 0'}}>
+									<FlatButton
+										label="Back"
+										disabled={this.props.stepIndex === 0}
+										onTouchTap={this.handlePrev.bind(this)}
+										style={{marginRight: 12}}
+										className='btn btn-back'
+									/>
+									<RaisedButton
+										label='Finish'
+										primary={true}
+										type='submit'
+										className='btn btn-back'
+										style={{
+											'float': 'right',
+											'backgroundColor': '#fff'
+										}}
+									/>
+								</div>
 							</div>
-						</div>
-					</form>
-				</div>
-			);
+						</form>
+					</div>
+				);
+			}
 		}
-	}
 };
 
 BackgroundInfoForm = reduxForm({
@@ -243,6 +214,5 @@ BackgroundInfoForm = reduxForm({
 	validate,
 	initialValues: {first: `${localStorage.getItem('first')}`, last: `${localStorage.getItem('last')}` }
 })(BackgroundInfoForm);
-
 
 export default BackgroundInfoForm;

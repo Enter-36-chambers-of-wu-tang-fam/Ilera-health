@@ -48,15 +48,35 @@ class PatientAppFormsContainer extends Component {
   getStepContent(stepIndex) {
     switch (stepIndex) {
       case 0:
-        return <FormIntro stepIndex={this.state.stepIndex} getStepContent={this.getStepContent.bind(this)} handleNext={this.handleNext.bind(this)} handlePrev={this.handlePrev.bind(this)}/>
+        return <FormIntro 
+                  stepIndex={this.state.stepIndex} 
+                  getStepContent={this.getStepContent.bind(this)} 
+                  handleNext={this.handleNext.bind(this)} 
+                  handlePrev={this.handlePrev.bind(this)}/>
       case 1:
-        return <BackgroundInfoForm stepIndex={this.state.stepIndex} getStepContent={this.getStepContent.bind(this)} handleNext={this.handleNext.bind(this)} handlePrev={this.handlePrev.bind(this)}/>;
+        return <BackgroundInfoForm 
+                  stepIndex={this.state.stepIndex} 
+                  getStepContent={this.getStepContent.bind(this)} 
+                  handleNext={this.handleNext.bind(this)} 
+                  handlePrev={this.handlePrev.bind(this)}/>;
       case 2:
-        return <ContactInfoForm stepIndex={this.state.stepIndex} getStepContent={this.getStepContent.bind(this)} handleNext={this.handleNext.bind(this)} handlePrev={this.handlePrev.bind(this)}/>;
+        return <ContactInfoForm 
+                  stepIndex={this.state.stepIndex} 
+                  getStepContent={this.getStepContent.bind(this)} 
+                  handleNext={this.handleNext.bind(this)} 
+                  handlePrev={this.handlePrev.bind(this)}/>;
       case 3:
-        return <HealthInfo stepIndex={this.state.stepIndex} getStepContent={this.getStepContent.bind(this)} handleNext={this.handleNext.bind(this)} handlePrev={this.handlePrev.bind(this)}/>;
+        return <HealthInfo 
+                  stepIndex={this.state.stepIndex} 
+                  getStepContent={this.getStepContent.bind(this)} 
+                  handleNext={this.handleNext.bind(this)} 
+                  handlePrev={this.handlePrev.bind(this)}/>;
       case 4:
-        return <InsuranceForm stepIndex={this.state.stepIndex} getStepContent={this.getStepContent.bind(this)} handleNext={this.handleNext.bind(this)} handlePrev={this.handlePrev.bind(this)}/>;
+        return <InsuranceForm 
+                  stepIndex={this.state.stepIndex} 
+                  getStepContent={this.getStepContent.bind(this)} 
+                  handleNext={this.handleNext.bind(this)} 
+                  handlePrev={this.handlePrev.bind(this)}/>;
       default:
         return <FormIntro />;
     }

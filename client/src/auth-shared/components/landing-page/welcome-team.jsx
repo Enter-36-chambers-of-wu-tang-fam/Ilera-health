@@ -1,15 +1,16 @@
 // Team section for landing page
+// React
 import React from 'react';
 
 const WelcomeTeam = () => {
 	return (    
 		<section id='team' className="teamSec">
-		<div className="introPhotos introTeam">
-			<h2>Your Team</h2>
-		</div>
-		<div className="wrapper">
-			<h3>Ilera means 'health'in Yoruba. And your health, privacy, and something are our priority.</h3>
-			<ul className="team">
+			<div className="introPhotos introTeam">
+				<h2>Your Team</h2>
+			</div>
+			<div className="wrapper">
+				<h3>Ilera means 'health'in Yoruba. And your health, privacy, and something are our priority.</h3>
+				<ul className="team">
 					<li>
 						<img src="../../styles/background_images/neekon.png" alt=""/>
 						<div className="teamProfile">
@@ -45,7 +46,7 @@ const WelcomeTeam = () => {
 				</ul>
 			</div>
 		</section>
-    );
+	);
 };
 
 export default WelcomeTeam;

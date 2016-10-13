@@ -1,4 +1,5 @@
 // For Patients section of the landing page
+// React
 import React from 'react';
 
 const ForPatients = () => {

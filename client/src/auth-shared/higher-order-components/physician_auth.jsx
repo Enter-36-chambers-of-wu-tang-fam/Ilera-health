@@ -1,3 +1,4 @@
+// React / Redux
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 
@@ -41,4 +42,4 @@ function mapStateToProps(state){
 }
 
   return connect(mapStateToProps)(PatientAuthentication);
-}
+};

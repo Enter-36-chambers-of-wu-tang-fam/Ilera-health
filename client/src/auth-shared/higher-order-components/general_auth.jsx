@@ -1,5 +1,7 @@
+// React / Redux
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+// Components
 import UnauthHeader from '../components/unauth-header.jsx';
 
 export default function (ComposedComponent) {
@@ -49,4 +51,4 @@ function mapStateToProps(state){
 }
 
   return connect(mapStateToProps)(GeneralAuthentication);
-}
+};

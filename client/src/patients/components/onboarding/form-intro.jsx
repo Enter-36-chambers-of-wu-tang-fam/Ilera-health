@@ -50,27 +50,27 @@ class FormIntro extends Component {
 			<div>{this.getStepContent()}</div>
 			<div style={{marginTop: 40}}>
 				<FlatButton
-						label="Back"
-						disabled={this.props.stepIndex === 0}
-						onTouchTap={this.handlePrev.bind(this)}
-						style={{marginRight: 12}}
-						className='btn btn-back'
+					label="Back"
+					disabled={this.props.stepIndex === 0}
+					onTouchTap={this.handlePrev.bind(this)}
+					style={{marginRight: 12}}
+					className='btn btn-back'
 				/>
 				<RaisedButton
-						label={'Dashboard'}
-						onTouchTap={this.handleSkip.bind(this)}
-						style={{
-								margin: '0 25%'
-						}}
+					label={'Dashboard'}
+					onTouchTap={this.handleSkip.bind(this)}
+					style={{
+						margin: '0 25%'
+					}}
 				/>
 				<RaisedButton
-						label={this.props.stepIndex === 2 ? 'Finish' : 'Next'}
-						primary={true}
-						onTouchTap={this.handleNext.bind(this)}
-						className='btn btn-back'
-						style={{
-								float: 'right'
-						}}
+					label={this.props.stepIndex === 2 ? 'Finish' : 'Next'}
+					primary={true}
+					onTouchTap={this.handleNext.bind(this)}
+					className='btn btn-back'
+					style={{
+						float: 'right'
+					}}
 				/>
 			</div>
 			</div>
