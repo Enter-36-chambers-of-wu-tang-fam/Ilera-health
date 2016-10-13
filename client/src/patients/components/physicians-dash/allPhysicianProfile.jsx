@@ -1,11 +1,15 @@
+// React / Redux
 import React, { Component } from 'react';
 import { Field, reduxForm, formValueSelector } from 'redux-form';
 import { Router, Route, Link } from 'react-router'
 import { connect } from 'react-redux';
-import { fetchMyPhysicians, makeMyPhysician, checkMyRelationship, removeRelationship } from '../../actions/contacts.js'
+// Actions
+import { fetchMyPhysicians, makeMyPhysician, checkMyRelationship, removeRelationship } from '../../actions/contacts.js';
+// Crypto
 import CryptoJS from 'crypto-js';
 import request from 'superagent';
-
+// Axios
+import axios from 'axios';
 
 
 class ViewProfile extends Component {
@@ -34,8 +38,8 @@ class ViewProfile extends Component {
     }
   }
 
+  // get info from Better Doctor API
   componentWillMount() {
-
     let id = localStorage.getItem('uid');
     let code  = CryptoJS.AES.decrypt(id.toString(), 'key'); //need to change key
     let uid = code.toString(CryptoJS.enc.Utf8);
@@ -76,8 +80,6 @@ class ViewProfile extends Component {
     let relation = {id_patient: uid, betterDocId: this.props.params.provider};
     
     this.props.getMyRelation(relation);
-
-
   }
 
   componentWillReceiveProps(nextProps) {

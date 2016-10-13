@@ -1383,7 +1383,7 @@ main >section .team li{
     bottom: 0;
     left: 0;
     right: 0;
-    padding: 30px 10px;
+    padding: 5px 10px;
     border-radius: 5px;
 }
 /*main >section .team li:hover {

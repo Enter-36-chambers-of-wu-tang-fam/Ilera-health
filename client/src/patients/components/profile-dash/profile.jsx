@@ -1,7 +1,9 @@
+// React / Redux
 import React, { Component } from 'react';
 import { Field, reduxForm, formValueSelector } from 'redux-form';
 import { Router, Route, Link } from 'react-router'
 import { connect } from 'react-redux';
+// Axios
 import axios from 'axios';
 
 
@@ -28,7 +30,6 @@ class ViewProfile extends Component {
     let that = this;
     if(this.props.userType === 'patient'){
           let query = `https://api.betterdoctor.com/2016-03-01/doctors/${this.props.params.provider}?user_key=bdd1495417e49ba2f1aa40461ce8f17d`;
-          console.log(query);
           axios.get(query)
             .then(doctor => {
               that.setState({
@@ -52,15 +53,11 @@ class ViewProfile extends Component {
     }
 
     //PHYSICIAN VIEW OF ALL PATIENTS
-
     if(this.props.userType === 'physician'){
-      
-
     }
   }  
 
   render() {
-    console.log("STATA", this.state)
       return (
         
           <div>
@@ -84,7 +81,3 @@ const mapStateToProps = (state) => {
 }
 
 export default connect(mapStateToProps)(ViewProfile);
-
-
-
-

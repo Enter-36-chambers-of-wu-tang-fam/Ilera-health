@@ -1,23 +1,20 @@
+// Parent component of the forms user fills out upon sign up
 // React
 import React, { Component, PropTypes } from 'react';
+// Actions
 import * as actions from '../../../auth-shared/actions/actions.js';
-// ../../actions/actions.js
-import {
-  Step,
-  Stepper,
-  StepLabel,
-} from 'material-ui/Stepper';
+// Material UI
+import { Step, Stepper, StepLabel } from 'material-ui/Stepper';
 import RaisedButton from 'material-ui/RaisedButton';
 import FlatButton from 'material-ui/FlatButton';
+// Crypto
 import CryptoJS from 'crypto-js';
-
-
 // Components
-import BackgroundInfoForm from '../../containers/redux-forms/onboarding/basic-info-form.js';
-import ContactInfoForm from '../../containers/redux-forms/onboarding/contact-info-form.js';
-import InsuranceForm from '../../containers/redux-forms/onboarding/provider-form.js';
-import FormIntro from '../../containers/redux-forms/onboarding/form-intro.js';
-import HealthInfo from '../../containers/redux-forms/onboarding/health-info-form.js';
+import BackgroundInfoForm from '../../containers/redux-forms/onboarding/basic-info-form.jsx';
+import ContactInfoForm from '../../containers/redux-forms/onboarding/contact-info-form.jsx';
+import InsuranceForm from '../../containers/redux-forms/onboarding/provider-form.jsx';
+import FormIntro from './form-intro.jsx';
+import HealthInfo from '../../containers/redux-forms/onboarding/health-info-form.jsx';
 
 class PatientAppFormsContainer extends Component {
 	static contextTypes = {
@@ -32,7 +29,6 @@ class PatientAppFormsContainer extends Component {
 			uid: null
 		};
 	} 
-
 
   handleNext() {
     const {stepIndex} = this.state;

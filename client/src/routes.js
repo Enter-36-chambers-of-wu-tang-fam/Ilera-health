@@ -34,8 +34,8 @@ import AllUsers from './physicians/components/patients-dash/allUsers.jsx'
 import PhysProfile from './physicians/components/profile-dash/patient-profile.jsx';
 
 // Patient Components
-import PatientApp from './patients/components/patient-app.jsx';
-import PatientDashboard from './patients/components/main-dash/patient-dashboard.jsx';
+import PatientApp from './patients/containers/patient-app.jsx';
+import PatientDashboard from './patients/containers/main-dash/patient-dashboard.jsx';
 import HealthLog from './patients/components/health-log-dash/health-log.jsx';
 import Profile from './patients/components/profile-dash/patient-profile.jsx';
 import Medication from './patients/containers/medication/medication-container.js';

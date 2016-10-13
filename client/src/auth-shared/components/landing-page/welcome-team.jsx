@@ -15,7 +15,7 @@ const WelcomeTeam = () => {
 						<div className="teamProfile">
 							<h4>Neekon Etemad</h4>
 							<h5>Software Engineer</h5>
-							<p>Lorem ipsum desc goes here. Forthecoming ipsum dipsum.</p>
+							<p>Life long learner | Basketball player | Full stack engineer</p>
 						</div>
 					</li>
 					<li>
