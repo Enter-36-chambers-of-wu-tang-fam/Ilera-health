@@ -5,7 +5,12 @@ import * as actions from '../../actions/messages.js';
 	return (
 		<div>
 			<form>
-				<input type="text" placeholder="Search Contact" name="messageSearch" id="messageSearch" />
+				<input
+          type="text"
+          placeholder="Search Contact"
+          name="messageSearch"
+          id="messageSearch"
+        />
 			</form>
 		</div>
 	);

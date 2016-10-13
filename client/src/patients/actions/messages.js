@@ -42,7 +42,10 @@ const addMessageFailed = ( err ) => {
 export function newMessage( senderType, receiverType, message, senderid, receiverid ) {
   return dispatch => {
     dispatch(addMessageRequest( message ));
-    return axios.post('/api/messages/newmessage', {sender_type: senderType, receiver_type: receiverType, direct_message: message.direct_message, sender_id: senderid, receiver_id: receiverid})
+    return axios.post('/api/messages/newmessage',
+    {sender_type: senderType, receiver_type: receiverType,
+      direct_message: message.direct_message,
+      sender_id: senderid, receiver_id: receiverid})
 			.then( success => {
 				dispatch(addMessage(message));
 			})
@@ -80,7 +83,7 @@ export function fetchMessages( userid, senderType, rid, receiverType ) {
     dispatch( fetchMessagesRequest() );
     return axios.get(`/api/messages/${senderType}/${userid}/${receiverType}/${rid}`)
 		.then(response =>{
-			dispatch( fetchMessagesSuccess(response.data) );	  
+			dispatch( fetchMessagesSuccess(response.data) );
 	  })
 		.catch(error => {
 		  dispatch( fetchMessagesFailure(error) );

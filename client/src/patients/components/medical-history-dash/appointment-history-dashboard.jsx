@@ -33,7 +33,7 @@ const styles = {
 
 
 class AppointmentHistoryDashboard extends Component{
-  
+
   constructor(props){
     super(props);
     const status = (localStorage.getItem('userType')) === 'patient' ? false : true;
@@ -56,7 +56,7 @@ class AppointmentHistoryDashboard extends Component{
       deselectOnClickaway: true,
       showCheckboxes: false,
       height: '200px',
-      
+
       patient:status
     }
   }
@@ -126,7 +126,11 @@ class AppointmentHistoryDashboard extends Component{
             enableSelectAll={enableSelectAll}
           >
             <TableRow>
-              <TableHeaderColumn colSpan="4" tooltip="Appointment Information" style={{textAlign: 'center', fontSize:'24px'}}>
+              <TableHeaderColumn
+                colSpan="4"
+                tooltip="Appointment Information"
+                style={{textAlign: 'center', fontSize:'24px'}}
+              >
                 Appointment History Data
               </TableHeaderColumn>
             </TableRow>
@@ -145,14 +149,49 @@ class AppointmentHistoryDashboard extends Component{
           >
             {appointments.map((appointment, index) => (
               <TableRow key={index} selected={appointment.selected}>
-                <TableRowColumn>{appointment.date === null ? 'no date' : appointment.date.slice(0,10)}</TableRowColumn>
-                <TableRowColumn>{appointment.time[0] === '0' ? appointment.time.slice(1,5) : appointment.time.slice(0,5)} {appointment.time.slice(0,2) > 7 ? " AM" : " PM"} </TableRowColumn>
-                <TableRowColumn>{appointment.first} {appointment.last}, {appointment.title}</TableRowColumn>
                 <TableRowColumn>
-                  {appointment.notes === null ? 'No Notes Yet': <a href="#" onClick={this.handleOpen.bind(this, appointment.id, appointment.notes, appointment.first+' '+appointment.last, appointment.date.slice(0,10), 
-                  appointment.time[0] === '0' ? appointment.time.slice(1,5) : appointment.time.slice(0,5))}>View</a>}
-                  {appointment.notes === null && patient ? <a href="#" onClick={this.handleOpen.bind(this, appointment.id, appointment.notes, appointment.first+' '+appointment.last, appointment.date.slice(0,10), 
-                  appointment.time[0] === '0' ? appointment.time.slice(1,5) : appointment.time.slice(0,5))}> Begin Note</a> : ''}
+                  {appointment.date === null ?
+                    'no date' : appointment.date.slice(0,10)}
+                </TableRowColumn>
+                <TableRowColumn>
+                  {appointment.time[0] === '0' ?
+                    appointment.time.slice(1,5) :
+                    appointment.time.slice(0,5)}
+                    {appointment.time.slice(0,2) > 7 ?
+                      " AM" : " PM"}
+                </TableRowColumn>
+                <TableRowColumn>
+                  {appointment.first}
+                  {appointment.last},
+                  {appointment.title}
+                </TableRowColumn>
+                <TableRowColumn>
+                  {appointment.notes === null ?
+                    'No Notes Yet':
+                    <a
+                      href="#"
+                      onClick={this.handleOpen.bind(this,
+                        appointment.id, appointment.notes,
+                        appointment.first+' '+appointment.last,
+                        appointment.date.slice(0,10),
+                        appointment.time[0] === '0' ?
+                        appointment.time.slice(1,5) :
+                        appointment.time.slice(0,5))}>
+                        View
+                    </a>}
+                  {appointment.notes === null && patient ?
+                    <a
+                      href="#"
+                      onClick={this.handleOpen.bind(this,
+                        appointment.id, appointment.notes,
+                        appointment.first+' '+appointment.last,
+                        appointment.date.slice(0,10),
+                        appointment.time[0] === '0' ?
+                        appointment.time.slice(1,5) :
+                        appointment.time.slice(0,5))}
+                    >
+                      Begin Note
+                    </a> : ''}
                 </TableRowColumn>
               </TableRow>
               ))}
@@ -178,30 +217,40 @@ class AppointmentHistoryDashboard extends Component{
           autoScrollBodyContent={true}
           contentStyle={styles.modalStyle}
         >
-          {patient ? <PatientNotes physId={this.state.physId} patId={this.state.patId} currentId={this.state.currentId} currentTime={this.state.currentTime} currentDate={this.state.currentDate} currentNote={this.state.currentNote} /> : 
-          <div> 
-            <br /> 
+          {patient ?
+            <PatientNotes
+              physId={this.state.physId}
+              patId={this.state.patId}
+              currentId={this.state.currentId}
+              currentTime={this.state.currentTime}
+              currentDate={this.state.currentDate}
+              currentNote={this.state.currentNote}
+            /> :
+          <div>
+            <br />
             {"Provider: " + this.state.currentName}
             <br />
             <br />
             <h2>Appointment Details</h2>
             <br />
-            {"Date: " + this.state.currentDate} 
-            <br /> 
-            <br /> 
-            {"Time: " + this.state.currentTime} 
-            <br /> 
-            <br /> 
-            <TextField 
-              name="note" 
-              type="textarea" 
-              multiLine={true} 
-              label="Appointment Notes" 
+            {"Date: " + this.state.currentDate}
+            <br />
+            <br />
+            {"Time: " + this.state.currentTime}
+            <br />
+            <br />
+            <TextField
+              name="note"
+              type="textarea"
+              multiLine={true}
+              label="Appointment Notes"
               disabled={true}
-              defaultValue={this.state.currentNote === null ? 'No Notes Yet' : "Provider's Notes: " + this.state.currentNote}
+              defaultValue={this.state.currentNote === null
+                ? 'No Notes Yet' :
+                "Provider's Notes: " + this.state.currentNote}
               style={styles.textArea}
-            />   
-          </div> } 
+            />
+          </div> }
         </Dialog>
         </div>
     );
@@ -216,9 +265,8 @@ const mapDispatchToProps = (dispatch) => {
 
 const mapStateToProps = (state) => {
   return {
-		reminders: state.user.reminders	
+		reminders: state.user.reminders
 	}
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(AppointmentHistoryDashboard);
-
