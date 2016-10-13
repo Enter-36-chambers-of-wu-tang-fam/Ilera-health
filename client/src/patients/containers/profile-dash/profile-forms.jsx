@@ -1,34 +1,39 @@
+// Forms used for patient to update their information, same forms used during onboarding
+// React / Redux
 import React, { Component } from 'react';
-import {Tabs, Tab} from 'material-ui/Tabs';
 import { connect } from 'react-redux';
+// Material UI
+import {Tabs, Tab} from 'material-ui/Tabs';
+// Actions
 import { getUserInfo, getUserContacts, getUserInsurance, didInit } from '../../actions/user.js';
 // CryptoJS
 import CryptoJS from 'crypto-js';
 // Components
-import BackgroundInfoFormInitialized from '../../containers/redux-forms/profile-update/basic-form-initialized.js';
-import ContactInfoFormInitialized from '../../containers/redux-forms/profile-update/contact-form-initialized.js';
-import HealthInfoFormInitialized from '../../containers/redux-forms/profile-update/health-form-initialized.js';
-import ProviderInfoFormInitialized from '../../containers/redux-forms/profile-update/provider-form-initialized.js';
-import ProfileDash from './profile-board.js';
+import BackgroundInfoFormInitialized from '../redux-forms/profile-update/basic-form-initialized.jsx';
+import ContactInfoFormInitialized from '../redux-forms/profile-update/contact-form-initialized.jsx';
+import HealthInfoFormInitialized from '../redux-forms/profile-update/health-form-initialized.jsx';
+import ProviderInfoFormInitialized from '../redux-forms/profile-update/provider-form-initialized.jsx';
+import ProfileDash from '../../components/profile-dash/profile-board.jsx';
 
 const styles = {
   tab: {
     backgroundColor: '#0D2233'
-  },
+  }
 };
 
 class ProfileForms extends Component {
 
-    constructor(props) {
+	constructor(props) {
     super(props);
     this.state = {
-      value: 'a',
+      value: 'a'
     };
   }
 
+	// get info used for initializing forms
 	componentWillMount(){
-    console.log("MAIN COMPONENT LOADED")
 	  const { dispatch, initialize, load, loadContacts, info } = this.props;
+
 	  let id = localStorage.getItem('uid');
 		let code  = CryptoJS.AES.decrypt(id.toString(), 'key'); //need to change key
 		let uid = code.toString(CryptoJS.enc.Utf8);
@@ -38,7 +43,7 @@ class ProfileForms extends Component {
 
   handleChange(value) {
     this.setState({
-      value: value,
+      value: value
     });
   };
 
@@ -87,4 +92,4 @@ export default connect(
 		loadContacts: getUserContacts,
 	  didInit: didInit
   }
-)(ProfileForms)
+)(ProfileForms);

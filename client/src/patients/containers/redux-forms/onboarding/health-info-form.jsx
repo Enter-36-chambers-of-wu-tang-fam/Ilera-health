@@ -1,21 +1,21 @@
-import _ from 'lodash';
+// Axios
 import axios from 'axios';
+// React / Redux
 import React, { Component, PropTypes } from 'react';
 import { Field, reduxForm } from 'redux-form';
+// Actions
+import { emergencyContact } from '../../../../auth-shared/actions/actions.js';
+// Crypto
 import CryptoJS from 'crypto-js';
+// Material UI
 import RaisedButton from 'material-ui/RaisedButton';
 import FlatButton from 'material-ui/FlatButton';
 import SelectField from 'material-ui/SelectField'
 import MenuItem from 'material-ui/MenuItem';
 import Checkbox from 'material-ui/Checkbox';
-import {Table, TableBody, TableFooter, TableHeader, TableHeaderColumn, TableRow, TableRowColumn}
-  from 'material-ui/Table';
-import {
-  TextField
-} from 'redux-form-material-ui'
+import {Table, TableBody, TableFooter, TableHeader, TableHeaderColumn, TableRow, TableRowColumn} from 'material-ui/Table';
+import { TextField } from 'redux-form-material-ui'
 
-// Actions
-import { emergencyContact } from '../../../../auth-shared/actions/actions.js';
 
 const validate = values => {
   const errors = {}
@@ -36,9 +36,7 @@ class HealthInfo extends Component {
   constructor(props){
     super(props);
 		let maxDate = new Date();
-
 		let minDate = new Date(1900, 1, 1);
-		console.log(maxDate, minDate);
 		this.state = {
 			fixedHeader: true,
       fixedFooter: true,
@@ -48,16 +46,7 @@ class HealthInfo extends Component {
       multiSelectable: true,
       enableSelectAll: true,
       showCheckboxes: true,
-      height: '300px',
-			allergies: [
-				'Food',
-				'Skin',
-				'Dust',
-				'Insects',
-				'Sinus',
-				'Medicines',
-				'Pets'
-			]
+      height: '300px'
 		};
   }
 
@@ -65,33 +54,37 @@ class HealthInfo extends Component {
     router: React.PropTypes.object
   }
 
+	// update stepper and save form info in db
 	submitMe(prop){
 		this.props.handleNext();
-
-		//get encoded id from local storage
 		let id = localStorage.getItem('uid');
-		//code to decode user id stored in local storage
 		let code  = CryptoJS.AES.decrypt(id.toString(), 'key'); //need to change key
 		prop.uid = code.toString(CryptoJS.enc.Utf8);
 
 		axios.put('/api/patient/health', prop)
 			.then( found => {
-				console.log("HEALTH INFO SUBMITTED");
+				console.log("HEALTH INFO SUBMITTED SUCCESSFULLY");
 			})
 			.catch( err => {
 					console.log("ERROR ENTERING INFORMATION", err);
 			})
 	}
 
+	// update stepper
+	// see patient-signup-forms.jsx
 	getStepContent(){
 		let steps=this.props.stepIndex;
 		this.props.getStepContent(steps);
 	}
 
+	// update stepper
+	// see patient-signup-forms.jsx
 	handlePrev(){
 		this.props.handlePrev();
 	}
 
+	// update stepper
+	// see patient-signup-forms.jsx
 	handleNext(){
 		this.props.handleNext();
 	}
@@ -143,14 +136,14 @@ class HealthInfo extends Component {
 					<form onSubmit={handleSubmit(props => this.submitMe(props))}>
 						<div>
 							<Field name="gender" component={this.renderSelectField} label="Gender">
-									<MenuItem value={'Male'} primaryText="Man"/>
-									<MenuItem value={'Female'} primaryText="Woman"/>
-									<MenuItem value={'Transgender'} primaryText="Transgender"/>
-									<MenuItem value={'Transsexual'} primaryText="Transsexual"/>
-									<MenuItem value={'Trans Woman'} primaryText="Trans Woman"/>
-									<MenuItem value={'Trans Man'} primaryText="Trans Man"/>
-									<MenuItem value={'Genderfluid'} primaryText="Genderfluid"/>
-									<MenuItem value={'Agender'} primaryText="Agender"/>
+								<MenuItem value={'Male'} primaryText="Man"/>
+								<MenuItem value={'Female'} primaryText="Woman"/>
+								<MenuItem value={'Transgender'} primaryText="Transgender"/>
+								<MenuItem value={'Transsexual'} primaryText="Transsexual"/>
+								<MenuItem value={'Trans Woman'} primaryText="Trans Woman"/>
+								<MenuItem value={'Trans Man'} primaryText="Trans Man"/>
+								<MenuItem value={'Genderfluid'} primaryText="Genderfluid"/>
+								<MenuItem value={'Agender'} primaryText="Agender"/>
 							</Field>
 						</div>
 						<Field name="weight" type="text" component={this.renderTextField} label="Weight (lbs)"/>

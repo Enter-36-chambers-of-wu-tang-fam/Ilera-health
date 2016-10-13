@@ -1,6 +1,8 @@
+// Parent component for patient's profile view where they can update their information
+// React
 import React, { Component } from 'react';
 // Components
-import ProfileSum from './profile-summary.jsx';
+import ProfileSum from '../../containers/profile-dash/profile-summary.jsx';
 import ProfileMain from './profile-main.jsx';
 
 let height = $(window).innerHeight();

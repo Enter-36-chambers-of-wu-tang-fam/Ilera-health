@@ -1,6 +1,8 @@
+// Parent of all patient app components/containers
 // React
 import React, { Component, PropTypes } from 'react';
 import { connect } from 'react-redux';
+// Actions
 import * as actions from '../../auth-shared/actions/actions.js';
 // Components
 import Signin from '../../auth-shared/components/signin-component.js';

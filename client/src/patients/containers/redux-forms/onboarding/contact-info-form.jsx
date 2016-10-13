@@ -1,4 +1,4 @@
-import _ from 'lodash';
+// Axios
 import axios from 'axios';
 // React, Redux-Form, React-Router
 import React, { Component, PropTypes } from 'react';
@@ -11,9 +11,7 @@ import RaisedButton from 'material-ui/RaisedButton';
 import FlatButton from 'material-ui/FlatButton';
 import SelectField from 'material-ui/SelectField'
 import MenuItem from 'material-ui/MenuItem';
-import {
-  TextField
-} from 'redux-form-material-ui';
+import { TextField } from 'redux-form-material-ui';
 
 // FORM VALIDATION
 const validate = values => {
@@ -83,11 +81,9 @@ class ContactInfoForm extends Component {
     router: React.PropTypes.object
   }
 
+  // update stepper and store info in db
   submitMe(prop) {
-    
-    // see patient-signup-forms.jsx
     this.props.handleNext();
-    // decrypt user id
 		let id = localStorage.getItem('uid');
 		let code  = CryptoJS.AES.decrypt(id.toString(), 'key'); //need to change key
 		prop.uid = code.toString(CryptoJS.enc.Utf8);
@@ -95,7 +91,7 @@ class ContactInfoForm extends Component {
     if ( (localStorage.getItem('contactSubmitted')) === "true" ){
       axios.put('/api/patient/contacts/update', prop)
         .then( found => {
-          // this.context.router.push('/patient/form/insurance/');
+          console.log("CONTACT INFO SUCCESSFULLY ENTERED")
         })
         .catch( err => {
             console.log("ERROR ENTERING INFORMATION");
@@ -164,40 +160,40 @@ class ContactInfoForm extends Component {
           <Field name="e_1_contact_phone" type="text" component={this.renderTextField} label="Phone Number"/>
           <Field name="e_1_contact_email" type="email" component={this.renderTextField} label="Email"/>
           <div>
-							<Field name="e_1_contact_relationship" component={this.renderSelectField} label="Relationship">
-								<MenuItem value={'Father'} primaryText="Father"/>
-								<MenuItem value={'Mother'} primaryText="Mother"/>
-								<MenuItem value={'Step-Father'} primaryText="Step-Father"/>
-								<MenuItem value={'Step-Mother'} primaryText="Step-Mother"/>
-								<MenuItem value={'Sibling'} primaryText="Sibling"/>
-								<MenuItem value={'Legal Guardian'} primaryText="Legal Guardian"/>
-								<MenuItem value={'Friend'} primaryText="Friend"/>
-								<MenuItem value={'Spouse'} primaryText="Spouse"/>
-                <MenuItem value={'Child'} primaryText="Child"/>
-                <MenuItem value={'Grandparent'} primaryText="Grandparent"/>
-                <MenuItem value={'Other'} primaryText="Other"/>
-							</Field>
-						</div>
+            <Field name="e_1_contact_relationship" component={this.renderSelectField} label="Relationship">
+              <MenuItem value={'Father'} primaryText="Father"/>
+              <MenuItem value={'Mother'} primaryText="Mother"/>
+              <MenuItem value={'Step-Father'} primaryText="Step-Father"/>
+              <MenuItem value={'Step-Mother'} primaryText="Step-Mother"/>
+              <MenuItem value={'Sibling'} primaryText="Sibling"/>
+              <MenuItem value={'Legal Guardian'} primaryText="Legal Guardian"/>
+              <MenuItem value={'Friend'} primaryText="Friend"/>
+              <MenuItem value={'Spouse'} primaryText="Spouse"/>
+              <MenuItem value={'Child'} primaryText="Child"/>
+              <MenuItem value={'Grandparent'} primaryText="Grandparent"/>
+              <MenuItem value={'Other'} primaryText="Other"/>
+            </Field>
+          </div>
           <h4>EMERCENGY CONTACT (2)</h4>
           <Field name="e_2_contact_first" type="text" component={this.renderTextField} label="First Name"/>
           <Field name="e_2_contact_last" type="text" component={this.renderTextField} label="Last Name"/>
           <Field name="e_2_contact_phone" type="text" component={this.renderTextField} label="Phone Number"/>
           <Field name="e_2_contact_email" type="email" component={this.renderTextField} label="Email"/>
           <div>
-							<Field name="e_2_contact_relationship" component={this.renderSelectField} label="Relationship">
-								<MenuItem value={'Father'} primaryText="Father"/>
-								<MenuItem value={'Mother'} primaryText="Mother"/>
-								<MenuItem value={'Step-Father'} primaryText="Step-Father"/>
-								<MenuItem value={'Step-Mother'} primaryText="Step-Mother"/>
-								<MenuItem value={'Sibling'} primaryText="Sibling"/>
-								<MenuItem value={'Legal Guardian'} primaryText="Legal Guardian"/>
-								<MenuItem value={'Friend'} primaryText="Friend"/>
-								<MenuItem value={'Spouse'} primaryText="Spouse"/>
-                <MenuItem value={'Child'} primaryText="Child"/>
-                <MenuItem value={'Grandparent'} primaryText="Grandparent"/>
-                <MenuItem value={'Other'} primaryText="Other"/>
-							</Field>
-						</div>
+            <Field name="e_2_contact_relationship" component={this.renderSelectField} label="Relationship">
+              <MenuItem value={'Father'} primaryText="Father"/>
+              <MenuItem value={'Mother'} primaryText="Mother"/>
+              <MenuItem value={'Step-Father'} primaryText="Step-Father"/>
+              <MenuItem value={'Step-Mother'} primaryText="Step-Mother"/>
+              <MenuItem value={'Sibling'} primaryText="Sibling"/>
+              <MenuItem value={'Legal Guardian'} primaryText="Legal Guardian"/>
+              <MenuItem value={'Friend'} primaryText="Friend"/>
+              <MenuItem value={'Spouse'} primaryText="Spouse"/>
+              <MenuItem value={'Child'} primaryText="Child"/>
+              <MenuItem value={'Grandparent'} primaryText="Grandparent"/>
+              <MenuItem value={'Other'} primaryText="Other"/>
+            </Field>
+          </div>
           {error && <strong>{error}</strong>}
           <div className="formBtns clearfix">
             <div>{this.getStepContent()}</div>
