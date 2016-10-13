@@ -10,7 +10,7 @@ module.exports = {
           if(err){
             reject(err)
           }
-          bcrypt.hash(pwd, salt, null, (err, hash)=>{
+          bcrypt.hash(pwd, salt, null, (err, hash)=>{ //progress
             if(err){
               reject(err)
             }
