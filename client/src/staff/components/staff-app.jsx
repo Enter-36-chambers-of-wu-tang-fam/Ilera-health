@@ -3,7 +3,7 @@ import React, { Component, PropTypes } from 'react';
 import { connect } from 'react-redux';
 import * as actions from '../../auth-shared/actions/actions.js';
 // Components
-import Signin from '../../auth-shared/components/signin-component.js';
+import Signin from '../../auth-shared/components/signin-component.jsx';
 import Header from '../../auth-shared/components/header.jsx';
 // PatientApp
 

@@ -44,15 +44,3 @@ module.exports = {
   // }
 
 };
-// physician
-// py.id, py.betterDoctorUID, py.first, py.last, py.email, py.phone_number, py.photo_path, py.specialty
-// patient_medication
-// m.id, m.drug_name, m.dosage, m.id_medication, m.id_physician, m.id_patient, m.start_date, m.end_date
-
-// SELECT m.id, m.drug_name, m.dosage, m.id_medication,
-//   m.id_physician, m.id_patient, m.start_date, m.end_date, py.id,
-//   py.betterDoctorUID, py.first, py.last, py.email, py.phone_number,
-//   py.photo_path, py.specialty
-//   FROM patient_medication m
-//   JOIN physician py ON py.id = m.id_physician
-//   WHERE m.id_patient=7 LIMIT 40;
