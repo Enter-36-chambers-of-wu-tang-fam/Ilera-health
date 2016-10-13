@@ -3,20 +3,24 @@
 import React from 'react';
 
 const WelcomeTeam = () => {
-	return (    
+	return (
 		<section id='team' className="teamSec">
 			<div className="introPhotos introTeam">
 				<h2>Your Team</h2>
 			</div>
 			<div className="wrapper">
-				<h3>Ilera means 'health'in Yoruba. And your health, privacy, and something are our priority.</h3>
+				<h3>Ilera means 'health'in Yoruba. And your health, privacy,
+					and something are our priority.
+				</h3>
 				<ul className="team">
 					<li>
 						<img src="../../styles/background_images/neekon.png" alt=""/>
 						<div className="teamProfile">
 							<h4>Neekon Etemad</h4>
 							<h5>Software Engineer</h5>
-							<p>Life long learner | Basketball player | Full stack engineer</p>
+							<p>Life long learner | Basketball player |
+								Full stack engineer
+							</p>
 						</div>
 					</li>
 					<li>
@@ -32,7 +36,10 @@ const WelcomeTeam = () => {
 						<div className="teamProfile">
 							<h4>Yara Tercero-Parker</h4>
 							<h5>Software Engineer</h5>
-							<p>Programmer | Traveler | Little Sister | Geographically Confused | Dog Parent | Feel free to contact!</p>
+							<p>Programmer | Traveler | Little Sister |
+								Geographically Confused | Dog Parent | Feel free
+								to contact!
+							</p>
 						</div>
 					</li>
 					<li>
@@ -40,7 +47,10 @@ const WelcomeTeam = () => {
 						<div className="teamProfile">
 							<h4>Michael Olorunnisola</h4>
 							<h5>Software Engineer</h5>
-							<p>Front-end ninja, back-end sage. Basketball is my love and music is my muse. Feel free to contact me anytime!</p>
+							<p>Front-end ninja, back-end sage. Basketball is my
+								love and music is my muse. Feel free to contact
+								me anytime!
+							</p>
 						</div>
 					</li>
 				</ul>

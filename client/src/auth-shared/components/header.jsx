@@ -36,22 +36,30 @@ class Header extends Component {
 
   signOut() {
     let userType = localStorage.getItem('userType');
-    localStorage.removeItem('uid');          
+    localStorage.removeItem('uid');
     localStorage.removeItem('userType');
     this.props.authenticateUser(userType, null, "logout"); //(User type, data , form of authentication)
-  }   
+  }
 
   render() {
     return (
       <header>
         <h1><a href="/"><img src="/styles/logos/myilera_large.png" /></a></h1>
-        <div className='mobileBurger' onClick={this.handleClick.bind(this)}><i className="fa fa-bars fa-2x" aria-hidden="true"></i></div>
-          <ul className={this.state.burgerPlease ? 'showBurger' : 'noBurger'}>
+        <div
+          className='mobileBurger'
+          onClick={this.handleClick.bind(this)}>
+          <i className="fa fa-bars fa-2x" aria-hidden="true"></i>
+          </div>
+          <ul
+            className={this.state.burgerPlease ?
+              'showBurger' : 'noBurger'}
+              >
             <li>
-              <FlatButton label="Home" 
+              <FlatButton label="Home"
                 backgroundColor={buttonStyles.backgroundColor}
-                href={localStorage.getItem('userType') === 'patient' ? "/patient/dashboard" : "/provider/dashboard"}
-                hoverColor={buttonStyles.hoverColor} 
+                href={localStorage.getItem('userType') === 'patient' ?
+                  "/patient/dashboard" : "/provider/dashboard"}
+                hoverColor={buttonStyles.hoverColor}
                 style={buttonStyles.styles}
                 labelStyle={buttonStyles.labelStyle}
                 rippleColor={buttonStyles.rippleColor}
@@ -59,10 +67,11 @@ class Header extends Component {
               />
             </li>
             <li>
-              <FlatButton label="Messages" 
+              <FlatButton label="Messages"
                 backgroundColor={buttonStyles.backgroundColor}
-                href={localStorage.getItem('userType') === 'patient' ? "/patient/messages" : "/provider/messages"}
-                hoverColor={buttonStyles.hoverColor} 
+                href={localStorage.getItem('userType') === 'patient' ?
+                  "/patient/messages" : "/provider/messages"}
+                hoverColor={buttonStyles.hoverColor}
                 style={buttonStyles.styles}
                 labelStyle={buttonStyles.labelStyle}
                 rippleColor={buttonStyles.rippleColor}
@@ -70,10 +79,13 @@ class Header extends Component {
               />
             </li>
             <li>
-              <FlatButton label={localStorage.getItem('userType') === 'patient' ? "My Physicians" : "My Patients"}
+              <FlatButton label={localStorage
+                  .getItem('userType') === 'patient' ?
+                  "My Physicians" : "My Patients"}
                 backgroundColor={buttonStyles.backgroundColor}
-                hoverColor={buttonStyles.hoverColor} 
-                href={localStorage.getItem('userType') === 'patient' ? "/patient/physicians" : "/provider/patients"}
+                hoverColor={buttonStyles.hoverColor}
+                href={localStorage.getItem('userType') === 'patient' ?
+                  "/patient/physicians" : "/provider/patients"}
                 style={buttonStyles.styles}
                 labelStyle={buttonStyles.labelStyle}
                 rippleColor={buttonStyles.rippleColor}
@@ -81,25 +93,26 @@ class Header extends Component {
               />
             </li>
             <li>
-              <FlatButton label="Profile" 
+              <FlatButton label="Profile"
                 backgroundColor={buttonStyles.backgroundColor}
-                href={localStorage.getItem('userType') === 'patient' ? "/patient/profile" : "/provider/profile"}
-                hoverColor={buttonStyles.hoverColor} 
+                href={localStorage.getItem('userType') === 'patient' ?
+                  "/patient/profile" : "/provider/profile"}
+                hoverColor={buttonStyles.hoverColor}
                 style={buttonStyles.styles}
                 labelStyle={buttonStyles.labelStyle}
                 rippleColor={buttonStyles.rippleColor}
               />
             </li>
             <li>
-              <FlatButton label="Log Out" 
+              <FlatButton label="Log Out"
                 backgroundColor={buttonStyles.backgroundColor}
-                hoverColor={buttonStyles.hoverColor} 
+                hoverColor={buttonStyles.hoverColor}
                 style={buttonStyles.styles}
                 labelStyle={buttonStyles.labelStyle}
                 rippleColor={buttonStyles.rippleColor}
                 onTouchTap={this.signOut.bind(this)}
               />
-            </li>               
+            </li>
         </ul>
       </header>
     );

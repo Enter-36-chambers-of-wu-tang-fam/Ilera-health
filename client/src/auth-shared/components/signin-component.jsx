@@ -3,7 +3,7 @@
 import React, { Component, PropTypes } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-// Redux Form 
+// Redux Form
 import { Field, reduxForm } from 'redux-form';
 // Actions
 import { authenticateUser } from '../actions/actions.js';
@@ -26,7 +26,7 @@ const validate = values => {
 }
 
 class SigninForm extends Component {
-  
+
   constructor(props){
     super(props);
     this.state = {
@@ -49,7 +49,7 @@ class SigninForm extends Component {
 
   renderTextField (props) {
     return(
-      <TextField 
+      <TextField
         hintText={props.label}
         floatingLabelText={props.label}
         fullWidth={true}
@@ -64,32 +64,36 @@ class SigninForm extends Component {
     return (
       <div>
         <h2>{this.state.userType} Sign In</h2>
-        <p className="errorMsg">{ this.state.message ? this.state.message : '' }</p>
-        <form onSubmit={ handleSubmit(props => this.onSubmit(props)) }>
+        <p className="errorMsg">
+          { this.state.message ? this.state.message : '' }
+        </p>
+        <form
+          onSubmit={ handleSubmit(props => this.onSubmit(props)) }
+        >
           <div>
-            <Field 
-              name="email" 
-              type="text" 
-              component={this.renderTextField} 
+            <Field
+              name="email"
+              type="text"
+              component={this.renderTextField}
               label="Username (Email)"/>
           </div>
           <div>
-            <Field 
-              name="password" 
-              type="password" 
-              component={this.renderTextField} 
+            <Field
+              name="password"
+              type="password"
+              component={this.renderTextField}
               label="Password"/>
           </div>
           {error && <strong>{error}</strong>}
-          <RaisedButton 
-            label="Sign In" 
-            type='submit' 
-            className='btn' 
+          <RaisedButton
+            label="Sign In"
+            type='submit'
+            className='btn'
             style={{ width: '100%', margin: '20px 0 0 0' }}/>
         </form>
       </div>
     );
-  };   
+  };
 };
 
 SigninForm = reduxForm({

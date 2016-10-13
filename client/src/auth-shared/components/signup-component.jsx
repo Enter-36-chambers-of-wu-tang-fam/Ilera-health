@@ -71,7 +71,8 @@ class SignupForm extends Component {
         floatingLabelText={props.label}
         fullWidth={true}
         errorText={props.touched && props.error}
-        {...props} />
+        {...props}
+      />
     )
   }
 
@@ -82,28 +83,60 @@ class SignupForm extends Component {
         <h2>{this.props.title} Sign Up</h2>
         <form onSubmit={ handleSubmit(props => this.onSubmit(props)) }>
           <div>
-            <Field name="first" type="text" component={this.renderTextField} label="First"/>
+            <Field
+              name="first"
+              type="text"
+              component={this.renderTextField}
+              label="First"
+            />
           </div>
           <div>
-            <Field name="last" type="text" component={this.renderTextField} label="Last"/>
+            <Field
+              name="last"
+              type="text"
+              component={this.renderTextField}
+              label="Last"
+            />
           </div>
           <div>
-            <Field name="email" type="text" component={this.renderTextField} label="Email"/>
+            <Field
+              name="email"
+              type="text"
+              component={this.renderTextField}
+              label="Email"
+            />
           </div>
-          <div className={userType === 'physician' ? 'showPReset' : 'hidePReset'}>
-            <Field name="betterUID" type="text" component={this.renderTextField} label="Better Doctor UID"/>
+          <div
+            className={userType === 'physician' ? 'showPReset' : 'hidePReset'}
+          >
+            <Field
+              name="betterUID"
+              type="text"
+              component={this.renderTextField}
+              label="Better Doctor UID"
+            />
           </div>
           <div>
-            <Field name="password" type="password" component={this.renderTextField} label="Password"/>
+            <Field
+              name="password"
+              type="password"
+              component={this.renderTextField}
+              label="Password"
+            />
           </div>
           <div>
-            <Field name="reTypePassword" type="password" component={this.renderTextField} label="Re-Type Password"/>
+            <Field
+              name="reTypePassword"
+              type="password"
+              component={this.renderTextField}
+              label="Re-Type Password"
+            />
           </div>
           {error && <strong>{error}</strong>}
-          <RaisedButton 
-            label="Sign Up" 
-            type='submit' 
-            className='btn' 
+          <RaisedButton
+            label="Sign Up"
+            type='submit'
+            className='btn'
             style={{ width: '100%', margin: '20px 0 0 0' }}/>
         </form>
       </div>
