@@ -1,3 +1,4 @@
+'use strict'
 const jwt = require('jsonwebtoken');
 const config = require('../config');
 const Physician = require('../models/physician-helpers.js');
@@ -17,9 +18,9 @@ module.exports = (req, res, next) => {
       } else {
         Physician.getPhysicianInfoByID({ uid: decoded.id }, (err,data) =>{
           if (data.length === 0) res.status(404).json({ error: 'No such user'});
-          
+
           //Account taken for variation in id naming
-          
+
           req.body.uid ? req.body.uid = decoded.id : undefined;
           req.params.uid ? req.params.uid = decoded.id : undefined;
           req.params.userid ? req.params.userid = decoded.id : undefined;
