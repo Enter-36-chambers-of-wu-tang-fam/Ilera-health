@@ -73,8 +73,8 @@ class ProfileMeds extends Component {
                                             </li>
                                             <li>{med.dosage}</li>
                                             <li>{med.first} {med.last}</li>
-                                            <li>{med.start_date}</li>
-                                            <li>{med.end_date}</li>
+                                            <li>{med.start_date.slice(0,10)}</li>
+                                            <li>{med.end_date.slice(0,10)}</li>
                                         </ul>
                                     </div>
                         })}
@@ -85,7 +85,7 @@ class ProfileMeds extends Component {
                     open={this.state.openMeds}
                     onRequestClose={this.handleOpenMedsClose.bind(this)}
                 >
-                    <AddMedForm />
+                    <AddMedForm patId={this.props.patId} />
                 </Dialog>
             </div>
         );

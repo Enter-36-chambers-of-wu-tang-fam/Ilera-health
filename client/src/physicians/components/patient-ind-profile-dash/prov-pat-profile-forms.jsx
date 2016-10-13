@@ -92,7 +92,7 @@ class PatientProfileTabs extends Component {
 					</Tab>
 					<Tab onClick={this.handleChange.bind(this, 'g')} label="Meds" style={styles.tab} value="g">
 						<div>
-							<ProfileMeds user={user} medications={medications}/>
+							<ProfileMeds user={user} patId={this.props.user.id} medications={medications}/>
 						</div>
 					</Tab>
 				</Tabs>

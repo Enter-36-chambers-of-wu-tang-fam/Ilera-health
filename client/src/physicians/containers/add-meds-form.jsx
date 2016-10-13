@@ -10,6 +10,7 @@ import RaisedButton from 'material-ui/RaisedButton';
 import FlatButton from 'material-ui/FlatButton';
 import SelectField from 'material-ui/SelectField'
 import MenuItem from 'material-ui/MenuItem';
+import normalizeDate from '../../patients/components/medical-history-dash/normalizeDate.js'
 import {
   TextField
 } from 'redux-form-material-ui';
@@ -83,9 +84,8 @@ class AddMedForm extends Component {
     let id = localStorage.getItem('uid');
     let code  = CryptoJS.AES.decrypt(id.toString(), 'key'); //need to change key
     prop.id_physician = code.toString(CryptoJS.enc.Utf8);
-    prop.id_patient = 21; // will need to change
+    prop.id_patient = this.props.patId; // will need to change
     // store form data
-    console.log("YOU ARE HERE 1")
       axios.post('/api/patient/medications', prop)
         .then( found => {
           console.log("I'm WORKING!!!!")
@@ -117,8 +117,8 @@ class AddMedForm extends Component {
         <form onSubmit={handleSubmit(props => this.submitMe(props))}>
             <Field name="drug_name" type="text" component={this.renderTextField} label="Medication*"/>
             <Field name="dosage" type="text" component={this.renderTextField} label="Dosage*"/>
-            <Field name="start_date" type="text" component={this.renderTextField} label="Start Date*"/>
-            <Field name="end_date" type="text" component={this.renderTextField} label="End Date"/>
+            <Field name="start_date (YYYY-MM-DD)" type="text" component={this.renderTextField} label="Start Date*" normalize={normalizeDate}/>
+            <Field name="end_date (YYYY-MM-DD)" type="text" component={this.renderTextField} label="End Date" normalize={normalizeDate}/>
             
             <RaisedButton label="Save" type='submit' className='btn' style={{
                 width: '100%',
