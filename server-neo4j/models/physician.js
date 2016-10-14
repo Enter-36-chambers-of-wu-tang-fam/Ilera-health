@@ -49,6 +49,7 @@ module.exports = {
         RETURN py',
       {paremail:req.body.email })
       .then((data)=>{
+        gdb.close();
         console.log(data, data.records[0]._fields[0].properties.email);
         bcrypt.compare(passwordz, data.records[0]._fields[0].properties.password, (error, result) => {
           if(result){
@@ -65,7 +66,6 @@ module.exports = {
           //   res.status(401).send("That email and/or password was not found");
           // }
         })
-        // gdb.close();
       })
       .catch((err)=>{
         console.log(err);
@@ -142,5 +142,5 @@ module.exports = {
         console.log(err);
       })
     }
-    
+
 };
