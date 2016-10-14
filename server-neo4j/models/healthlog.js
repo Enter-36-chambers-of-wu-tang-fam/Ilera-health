@@ -4,59 +4,53 @@ const gdb = require('../graphDb/graphConnect.js').graphdb;
 module.exports = {
   getOne_healthLog: (req, res) => {
     gdb
-      .run('MATCH (hl:health_log) WHERE id(hl)={parid} RETURN hl', {parid:req.body.id })
+      .run('MATCH (hl:health_log) \
+        WHERE id(hl)={parid} \
+        RETURN hl',
+        {parid:req.body.id })
       .then(data => {
-        if(data.records.length <= 0){
-          hashHelp.hashPassword(req.body.password)
-          .then(hashed =>{
-
-          })
-      }
-        // res.status(409).send("The email address you specified is already in use.");
         console.log(data);
-        // gdb.close();
-    })
-    .catch((err)=>{
-      console.log(err)
-    })
+        gdb.close();
+        res.json(data)
+      })
+      .catch(err=>{
+        console.error(err);
+        res.status(409).send("The email address you specified is already in use.");
+      })
   },
-
-  // getOne_healthLog: (req, res){
-  //   gdb
-  //     .run()
-  //     .then()
-  //     .catch()
-  // },
-
-
-
-
-
-  // getAll_healthLogsBy_patientPhysician_id: (req, res){
-  //   gdb
-  //     .run()
-  //     .then()
-  //     .catch()
-  // },
-
 
   add_healthLog: (req, res) => {
     var passwordz = req.body.password;
     gdb
-      .run('CREATE (hl:health_log {physician_date:{date}, \
+      .run('CREATE (hl:health_log {physician_date:{date}}, \
         physician_notes:{pynotes}, physician_photo_path:{pyphoto}, \
         RETURN hl', {date:req.body.physician_date,
         pynotes:req.body.physician_notes, pyphoto:req.body.physician_photo_path })
-      .then(data =>{
-        console.log(data, data.records[0]._fields[0].properties.physician_notes);
+      .then(infoId=>{
+        console.log(infoId);
+        gdb
+          .run('MATCH (hl:health_log{id:{appointmentID}}), \
+            (n:patient {id:{patientID}}) \
+            CREATE (n)-[ma:medicalAppointment]->(hl) \
+            RETURN hl',
+          {healthlogID:infoId.id, patientID:req.body.id_patient})
+          .then(hlid => {
+            gdb.close()
+            console.log(hlid);
+            gdb
+              .run('MATCH (a:appointment{id:{appointmentID}}), \
+                (py:physician {id:{physicianID}}) \
+                CREATE (py)-[ma:medicalAppointment]->(a) \
+                RETURN a',
+              {healthlogID:hlid.id, physicianID:req.body.uid})
+              .then(data => {
+                gdb.close();
+                res.json(data);
+              })
 
-        // gdb.close();
+          })
       })
-      .catch(err=>{
-        console.log(err);
-      })
-
-
+      .catch(console.error)
   },
 
   patient_update_healthLog: (req, res) => {
@@ -85,6 +79,20 @@ module.exports = {
       })
 
   }
+
+  // getOne_healthLog: (req, res){
+  //   gdb
+  //     .run()
+  //     .then()
+  //     .catch()
+  // },
+
+  // getAll_healthLogsBy_patientPhysician_id: (req, res){
+  //   gdb
+  //     .run()
+  //     .then()
+  //     .catch()
+  // },
 
   // physician_update_healthLog: (req, res){
   //   gdb

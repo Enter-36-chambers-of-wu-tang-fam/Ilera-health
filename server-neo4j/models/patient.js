@@ -145,7 +145,8 @@ module.exports = {
 
   initform_patient_contact: (req, res) => {
     gdb
-      .run('MATCH (n:patient) WHERE id(n)={parid} \
+      .run('MATCH (n:patient) \
+        WHERE id(n)={parid} \
         SET n.address={para}, \
         n.state={parstate}, n.city={city}, \
         n.zip={zip}, n.primary_phone_number={primary_phone_number}, \

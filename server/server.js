@@ -23,7 +23,7 @@ const multer = require('multer');
 const crypto = require('crypto');
 const mime = require('mime');
 
-const storage = require('./storage_paths/document_storage_paths.js')
+const storage = require('./storage_paths/document_storage_paths.js');
 const uploadProfile = multer({ storage: storage.profile});
 const uploadRecords = multer({storage: storage.oldRecords});
 const uploadAppointment = multer({storage: storage.appointment});
