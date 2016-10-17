@@ -39,7 +39,7 @@ module.exports = {
 
       if(error){ console.log(error);}
 
-      if(data.length > 0){
+      if(data){
         res.status(409).send("The email address you specified is already in use.");
       } else {
         hashHelp.hashPassword(req.body.password)
