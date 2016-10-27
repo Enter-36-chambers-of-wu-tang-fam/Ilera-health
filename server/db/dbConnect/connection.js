@@ -7,11 +7,10 @@ const dbConnection = mysql.createConnection({
   database:'Ilera'
 });
 
-dbConnection.connect(function(err){
-  if(err){
-    console.error("Did Not connect to the Database so FiX it");
-  }
-  console.log("Connected to the Database and as a result you have received a Wu Tang stamp of approval");
+dbConnection.connect(err => {
+  err ?
+    console.error("Did Not connect to the Database so FiX it") :
+    console.log("Connected to the Database and as a result you have received a Wu Tang stamp of approval");
 })
 
 module.exports = dbConnection;

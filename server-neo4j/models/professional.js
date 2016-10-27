@@ -8,7 +8,10 @@ const hashHelp = require('../security/hash.js');
 module.exports = {
   signUp: (req, res) => {
     gdb
-    .run('MATCH (ip:professional) WHERE ip.email={paremail} RETURN ip', {paremail:req.body.email })
+    .run('MATCH (ip:professional) \
+      WHERE ip.email={paremail} \
+      RETURN ip',
+      {paremail:req.body.email })
     .then(data => {
       if(data.records.length <= 0){
         hashHelp.hashPassword(req.body.password)
@@ -49,7 +52,9 @@ module.exports = {
   signIn: (req, res) => {
     var passwordz = req.body.password;
     gdb
-      .run('MATCH (ip:professional) WHERE ip.email={paremail} RETURN ip',
+      .run('MATCH (ip:professional) \
+        WHERE ip.email={paremail} \
+        RETURN ip',
         {paremail:req.body.email })
       .then(data =>{
         console.log(data, data.records[0]._fields[0].properties.email);
@@ -79,7 +84,9 @@ module.exports = {
 
   put_init_form: (req, res) => {
     gdb
-      .run('MATCH (ip:patient) WHERE id(ip)={parid} SET ip.company_name={pardob}, \
+      .run('MATCH (ip:patient) \
+        WHERE id(ip)={parid} \
+        SET ip.company_name={pardob}, \
         ip.username={para}, ip.email={paremail}, ip.phone_number={parpn}, \
         ip.photo_path={parpp}',
         {parid:req.body.uid,

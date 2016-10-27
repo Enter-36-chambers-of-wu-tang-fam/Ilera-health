@@ -9,7 +9,7 @@ const DashboardMeds = () => {
 			<h3>Meds</h3>
 			<i className="fa fa-medkit" aria-hidden="true"></i>
 			<p className="sneakPeak">
-				Never lose track agains
+				Never lose track again
 			</p>
 		</div>
 	);
