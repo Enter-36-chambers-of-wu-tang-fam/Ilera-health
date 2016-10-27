@@ -17,12 +17,18 @@ const gdb = require('../graphDb/graphConnect.js').graphdb;
 
 module.exports = {
 
-
+  // MATCH (n)-[r:ppRelation]->(py{first: "neekon"}) return py, n
   getAll_physician_institutions: (req, res) => {
     gdb
-      .run()
-      .then()
-      .catch()
+      .run('MATCH (py)-[r:pyiRelation]->(in{inst_name:{inst_name}}) \
+        RETURN py, in',
+        {inst_name:req.body.inst_name})
+      .then(data => {
+        console.log(data.records[0]._fields[0]);
+        gdb.close();
+        res.json(data.records[0]._fields[0])
+      })
+      .catch(console.error)
 
   }
 

@@ -13,9 +13,9 @@ module.exports = {
         CREATE (py)-[r:ppRelation]->(n) \
         RETURN r', {patId:req.body.id_patient, phyId:req.body.id_physician})
         .then(data => {
-          console.log(data);
+          console.log(data.records[0]._fields[0]);
           gdb.close();
-          res.json(data)
+          res.json(data.records[0]._fields[0])
         })
       })
       .catch(console.error)
@@ -30,16 +30,28 @@ module.exports = {
 
   getAll_patients_of_Physician: (req, res) => {
     gdb
-      .run()
-      .then()
-      .catch()
+      .run('MATCH (n)-[r:ppRelation]->(py{betterDoctorUID={BdUId}}) \
+        RETURN py, n',
+        {BdUId:req.body.betterDoctorUID})
+      .then(data => {
+        console.log(data.records[0]._fields[0]);
+        gdb.close();
+        res.json(data.records[0]._fields[0])
+      })
+      .catch(console.error)
   },
 
   getAll_physicians_of_patient: (req, res) => {
     gdb
-      .run()
-      .then()
-      .catch()
+      .run('MATCH (py)-[r:ppRelation]->(n{email={email}}) \
+        RETURN py, n',
+        {email:req.body.email})
+      .then(data => {
+        console.log(data.records[0]._fields[0]);
+        gdb.close();
+        res.json(data.records[0]._fields[0])
+      })
+      .catch(console.error)
   }
 
 

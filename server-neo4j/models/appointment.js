@@ -18,7 +18,7 @@ module.exports = {
             (n:patient {id:{patientID}}) \
             CREATE (n)-[ma:medicalAppointment]->(a) \
             RETURN a',
-          {appointmentID:infoId.id, patientID:req.body.uid})
+            {appointmentID:infoId.id, patientID:req.body.uid})
           gdb.close();
           .then(aid => {
             console.log(aid);
@@ -27,10 +27,10 @@ module.exports = {
                 (py:physician {id:{physicianID}}) \
                 CREATE (py)-[ma:medicalAppointment]->(a) \
                 RETURN a',
-              {appointmentID:aid.id, physicianID:req.body.id_physician})
+                {appointmentID:aid.id, physicianID:req.body.id_physician})
               .then(data => {
                 gdb.close();
-                res.json(data);
+                res.json(data.records[0]._fields[0]);
               })
 
           })
@@ -41,9 +41,14 @@ module.exports = {
 
   getOne_AppointmentByPat_id: (req, res) => {
     gdb
-      .run()
-      .then()
-      .catch()
+      .run('MATCH (a:appointment{id:{appointmentID}}) \
+        RETURN a',
+        {appointmentID:infoId.id, patientID:req.body.uid})
+      .then(data => {
+        gdb.close();
+        res.json(data.records[0]._fields[0]);
+      })
+      .catch(console.error)
 
   },
 
