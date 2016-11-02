@@ -1,5 +1,6 @@
-import {GET_RECORDS_REQUEST, GET_RECORDS_SUCCESS, GET_RECORDS_FAILURE,
-DELETE_RECORDS_REQUEST, DELETE_RECORDS_SUCCESS, DELETE_RECORDS_FAILURE
+import {
+  GET_RECORDS_REQUEST, GET_RECORDS_SUCCESS, GET_RECORDS_FAILURE,
+  DELETE_RECORDS_REQUEST, DELETE_RECORDS_SUCCESS, DELETE_RECORDS_FAILURE
 } from '../../patients/actions/action-constants.js';
 
 const initialState = {
@@ -22,7 +23,7 @@ export default function recordsReducer(state = initialState, action) {
         return { ...state, isFetching: action.isFetching }
     case DELETE_RECORDS_FAILURE:
         return { ...state, isFetching: action.isFetching}
-        
+
     default:
       return state;
   }
