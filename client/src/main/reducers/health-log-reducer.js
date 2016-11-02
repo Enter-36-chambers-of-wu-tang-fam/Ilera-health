@@ -3,8 +3,7 @@ import * as types from '../../patients/actions/action-constants';
 const initialState = {
   isFetching: false,
   loaded: false,
-  healthLogs: [],
-
+  healthLogs: []
 }
 
 export default function healthLogsReducer(state = initialState, action){
@@ -12,13 +11,21 @@ export default function healthLogsReducer(state = initialState, action){
     case types.HEALTH_LOG_FETCH_REQUEST:
       return {
         ...state,
-        loaded: true,
-        healthlogs: action.payload
+        loaded: false,
+        isFetching: true
       }
     case types.HEALTH_LOG_FETCH_REQUEST_FAILURE:
       return {
         ...state,
+        isFetching: false,
         loaded: false
+      }
+    case types.HEALTH_LOG_FETCH_REQUEST_SUCCESS:
+      return {
+        ...state,
+        isFetching: false,
+        loaded: true,
+        healthLogs: action.payload 
       }
     default:
       return state;
