@@ -1,5 +1,5 @@
 import axios from 'axios';
-import * as types './action-constants';
+import * as types from './action-constants';
 
 const fetchHealthLogs = (healthlogs) => {
   return {

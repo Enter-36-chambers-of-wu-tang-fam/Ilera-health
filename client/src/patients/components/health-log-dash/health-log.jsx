@@ -1,25 +1,69 @@
-import React, { Component } from 'react';
-import { connect } from 'react-redux';
-import healthLogs from '../../../main/reducers/health-log-reducer';
+import React, { Component, PropTypes } from 'react';
 
-export default class HealthLog extends Component {
+import HealthLogContainer from '../../containers/health-log/health-log-container.jsx';
 
-    constructor (props){
-      super(props)
-    }
+export default class healthLog extends Component {
+  constructor(props){
+    super(props);
 
-    render() {
-      return (
-          <div>
-          Hello from HealthLog!
-          </div>
-      );
-    }
-}
+  }
 
-const mapStateToProps = (state) => {
-  console.log(state.healthLogsReducer())
-  return {
-    healthLogs: state.healthLogsReducer()
+  render(){
+    return(
+      <div>
+        <HealthLogContainer/>
+      </div>
+    )
   }
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// import React, { Component } from 'react';
+// import { connect } from 'react-redux';
+// import healthLogs from '../../../main/reducers/health-log-reducer';
+
+// export default class HealthLog extends Component {
+//
+//     constructor (props){
+//       super(props)
+//     }
+//
+//     render() {
+//       return (
+//           <div>
+//           Hello from HealthLog!
+//           </div>
+//       );
+//     }
+// }
+//
+// const mapStateToProps = (state) => {
+//   console.log(state.healthLogsReducer())
+//   return {
+//     healthLogs: state.healthLogsReducer()
+//   }
+// }
