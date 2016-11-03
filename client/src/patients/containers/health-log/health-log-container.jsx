@@ -6,9 +6,9 @@ import CryptoJS from 'crypto-js';
 import * as actions from '../../actions/health-log.js';
 
 
-class HealthLogContainer{
+class HealthLogContainer extends Component{
   constructor(props){
-    super(props)
+    super(props);
     this.state = {
       uid: '',
       Logs: [],
@@ -16,27 +16,28 @@ class HealthLogContainer{
       infoChosenLog: {}
     }
   }
-  const { dispatch } = this.props;
-  let id = localStorage.getItem('uid');
-  let code  = CryptoJS.AES.decrypt(id.toString(), 'key');
-  const uid = code.toString(CryptoJS.enc.Utf8);
-  dispatch(actions.getAllPatientMedication(uid));
 
-  componentWillMount(){
-    const { dispatch } = this.props;
-    let id = localStorage.getItem('uid');
-    let code = CryptoJS.AES.decrypt(id.toString(), 'key');
-    const uid = code.toString(CryptoJS.enc.Utf8);
-    dispatch(actions.fetchAllHealhlogsPatient(uid))
-  }
+  // componentWillMount(){
+  //   const { dispatch } = this.props;
+  //   let id = localStorage.getItem('uid');
+  //   let code = CryptoJS.AES.decrypt(id.toString(), 'key');
+  //   const uid = code.toString(CryptoJS.enc.Utf8);
+  //   dispatch(actions.fetchAllHealhlogsPatient(uid));
+  // }
 
-  componentWillReceiveProps(nextProps){
-
-  }
+  // componentWillReceiveProps(nextProps){
+  //
+  // }
 
   render(){
     return (
-
+      <div>
+        <h1>Hello</h1>
+      </div>
     )
   }
 }
+
+export default connect(state => ({
+  Logs: state.Logs
+}))(HealthLogContainer);
