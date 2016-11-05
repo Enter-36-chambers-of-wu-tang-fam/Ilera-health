@@ -35,19 +35,18 @@ module.exports = {
   },
 
   signUp: (req, res) => {
-    Patient.checkPatient(req.body,(error,data)=> {
+
+		Patient.checkPatient(req.body,(error,data)=> {
 
       if(error){ console.log(error);}
 
-      if(data){
+      if(data.length > 0){
         res.status(409).send("The email address you specified is already in use.");
       } else {
         hashHelp.hashPassword(req.body.password)
         .then(hashed=>{
           req.body.password = hashed;
-
           Patient.signUp(req.body, (error, data) => {
-    
             if(error) console.log(error);
             
             // const token = jwt.sign({

@@ -7,6 +7,7 @@ const checkIfFile = (file, cb) => {
   fs.stat(file, function fsStat(err, stats) {
     if (err) {
       if (err.code === 'ENOENT') {
+				console.log("what's going on??", err)
         return cb(null, false);
       } else {
         return cb(err);
@@ -120,10 +121,11 @@ module.exports = {
       FROM patient \
       WHERE id='+params.uid;
     db.query(queryString,(error, results)=> {
-      checkIfFile(`../client/${results[0].photo_path}`, (err,stats) => {
+      checkIfFile(__dirname + `/${results[0].photo_path}`, (err,stats) => {
+				console.log("I'm called!!!", err,stats)
         if(err) console.log(err);
         if(stats){
-          fs.unlink(`../client/${results[0].photo_path}`, (erro) =>
+          fs.unlink(__dirname + `/${results[0].photo_path}`, (erro) =>
           erro ? console.log(erro) : console.log("Successful Delete"));
         }
           const nullQuery ='UPDATE patient \
@@ -262,3 +264,4 @@ module.exports = {
 // `sender_id` INTEGER UNSIGNED DEFAULT NULL,
 // `receiver_id` INTEGER UNSIGNED DEFAULT NULL,
 // PRIMARY KEY (`id`)
+
