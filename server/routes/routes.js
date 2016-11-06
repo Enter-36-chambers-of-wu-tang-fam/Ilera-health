@@ -1,5 +1,4 @@
-const db = require('.././db/dbConnect/connection.js');
-const Mj = require('.././controller/major-joins.js');
+// const Mj = require('.././controller/major-joins.js'); //Remove on following clean-up when final decision to not be moved is made
 
 const Appointment = require('./subRoutes/appointment.js');
 const EmergencyContact = require('./subRoutes/emergency-contact.js');
@@ -15,6 +14,7 @@ const PatientMedications = require('./subRoutes/patient-medications.js');
 const Physician = require('./subRoutes/physician.js');
 const Relation_PatPhy = require('./subRoutes/Relation-Pat-Phy.js');
 const Staff = require('./subRoutes/staff.js');
+const Uploads = require('./subRoutes/uploads.js');
 
 module.exports = app => {
   Appointment(app);
@@ -31,5 +31,6 @@ module.exports = app => {
   Physician(app);
   Relation_PatPhy(app);
   Staff(app);
+	Uploads(app);
 
 };

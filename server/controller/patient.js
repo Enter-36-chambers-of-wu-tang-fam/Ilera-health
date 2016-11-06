@@ -35,7 +35,8 @@ module.exports = {
   },
 
   signUp: (req, res) => {
-    Patient.checkPatient(req.body,(error,data)=> {
+
+		Patient.checkPatient(req.body,(error,data)=> {
 
       if(error){ console.log(error);}
 
@@ -45,9 +46,7 @@ module.exports = {
         hashHelp.hashPassword(req.body.password)
         .then(hashed=>{
           req.body.password = hashed;
-
           Patient.signUp(req.body, (error, data) => {
-    
             if(error) console.log(error);
             
             // const token = jwt.sign({

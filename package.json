@@ -1,18 +1,19 @@
 {
-  "name": "greenfield",
+  "name": "ilera-health",
   "version": "1.0.0",
-  "description": "yolo",
-  "main": "./server/server.js",
+  "description": "A patient mediated health exchange application",
+  "main": "./client/src/index.js",
   "scripts": {
+    "start": "nodemon server/server.js",
     "test": "mocha --compilers js:babel-core/register './client/spec/**/*test.js'",
-    "build": "webpack -p"
+    "build": "webpack --w"
   },
   "repository": {
     "type": "git",
     "url": "https://github.com/Enter-36-chambers-of-wu-tang-fam/Ilera-health"
   },
   "contributors": [
-    "harris Lee",
+    "Harris Lee",
     "Dan James Wirz",
     "Roo",
     "Yara Tercero-Parker",
@@ -27,31 +28,22 @@
   "homepage": "https://github.com/Enter-36-chambers-of-wu-tang-fam/Ilera-health",
   "dependencies": {
     "axios": "^0.14.0",
-    "babel-loader": "^6.2.5",
-    "babel-preset-es2015": "^6.14.0",
-    "babel-preset-react": "^6.11.1",
-    "babel-preset-stage-1": "^6.13.0",
     "bcrypt-nodejs": "0.0.3",
     "bluebird": "^3.4.6",
     "body-parser": "1.14.1",
-    "chai": "^3.5.0",
     "crypto-js": "^3.1.6",
     "expect": "^1.20.2",
     "express": "^4.13.3",
     "express-session": "^1.14.1",
-    "fs": "0.0.2",
     "http": "0.0.0",
     "jquery": "^3.1.0",
     "jsonwebtoken": "^7.1.9",
-    "lodash": "^4.16.2",
     "material-ui": "^0.15.4",
     "mime": "^1.3.4",
-    "mocha": "^3.1.0",
     "moment": "^2.15.1",
     "multer": "^1.1.0",
     "mysql": "^2.11.1",
     "neo4j-driver": "^1.0.4",
-    "path": "^0.12.7",
     "react": "^15.3.2",
     "react-addons-test-utils": "^15.3.2",
     "react-datagrid": "^2.1.1",
@@ -71,12 +63,14 @@
     "session": "^0.1.0",
     "socket.io": "^1.4.8",
     "socket.io-client": "^1.4.8",
-    "superagent": "^2.3.0",
-    "webpack": "^1.13.2",
-    "webpack-dev-middleware": "^1.8.1",
-    "webpack-hot-middleware": "^2.12.2"
+    "superagent": "^2.3.0"
   },
   "devDependencies": {
+    "babel-core": "^6.18.2",
+    "babel-loader": "^6.2.5",
+    "babel-preset-es2015": "^6.14.0",
+    "babel-preset-react": "^6.11.1",
+    "babel-preset-stage-1": "^6.13.0",
     "chai": "^3.5.0",
     "grunt": "^1.0.1",
     "grunt-contrib-concat": "^1.0.1",
@@ -84,6 +78,10 @@
     "grunt-contrib-jshint": "^1.0.0",
     "grunt-contrib-uglify": "^2.0.0",
     "grunt-contrib-watch": "^1.0.0",
-    "supertest": "^2.0.0"
+    "mocha": "^3.1.0",
+    "supertest": "^2.0.0",
+    "webpack": "^1.13.2",
+    "webpack-dev-middleware": "^1.8.1",
+    "webpack-hot-middleware": "^2.12.2"
   }
 }
