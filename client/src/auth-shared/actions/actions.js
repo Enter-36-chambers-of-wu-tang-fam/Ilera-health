@@ -2,17 +2,19 @@
 import axios from 'axios';
 import CryptoJS from 'crypto-js';
 import { browserHistory } from 'react-router'
+
+// Need to make updates to server upload routing as JWT is currently negatively impacting uploads
+
 // import setAuthorizationToken from '../../../utils/setAuthorizationToken.js'
 // import jwt from 'jsonwebtoken';
 import * as types from './action-constants';
 
-
 ////////////////////////// SIGN IN && SIGN UP /////////////////////////////////
 const requestAuth = ( creds ) => {
-  return {
-    type: types.AUTH_REQUEST,
-    payload: creds,
-    userType: null
+	return {
+  	type: types.AUTH_REQUEST,
+  	payload: creds,
+  	userType: null
   };
 };
 
@@ -40,12 +42,14 @@ export function authenticateUser( userType,data,reqType ) {
       dispatch( requestAuth(null) );
       axios.post(`/api/${userType}/signin`, data)
         .then( found => {
+					
+					//Reinstate once server side upload is fixed
 
           // const token = found.data.id;
           // localStorage.setItem("jwtToken", token);
           // setAuthorizationToken(token);
 
-          var encodedId = CryptoJS.AES.encrypt(String(found.data.id), 'key'); //need to change key
+          var encodedId = CryptoJS.AES.encrypt(String(found.data.id), 'key'); //need to change key t
           
           localStorage.setItem('first', found.data.first);
           localStorage.setItem('last', found.data.last);
@@ -63,6 +67,9 @@ export function authenticateUser( userType,data,reqType ) {
       dispatch( requestAuth(data) );
       axios.post(`/api/${userType}/signup`, data)
       .then(registered => {
+
+				//Reinstate once server side upload is fixed
+				
         // const token = registered.data.id;
         // localStorage.setItem("jwtToken", token);
         // setAuthorizationToken(token);
