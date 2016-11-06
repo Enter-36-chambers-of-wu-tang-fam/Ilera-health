@@ -20,7 +20,6 @@ module.exports = (req, res, next) => {
         if(req.params.senderType === "patient" || req.body.sender_type === "patient"){
           Patient.getPatientInfoByID({ uid: decoded.id }, (err,data) =>{
             if (data.length === 0) res.status(404).json({ error: 'No such user'});
-            console.log("DECODEDPatient!!!",decoded.id)
             req.params.userid ? req.params.userid = decoded.id : undefined;
             req.body.userid ? req.body.userid = decoded.id : undefined;
             req.body.sender_id ? req.body.sender_id = decoded.id : undefined;
@@ -29,11 +28,9 @@ module.exports = (req, res, next) => {
         }else if(req.params.senderType === "physician" || req.body.sender_type === "physician"){
           Physician.getPhysicianInfoByID({ uid: decoded.id }, (err,data) =>{
           if (data.length === 0) res.status(404).json({ error: 'No such user'});
-          console.log("DECODEDPhysician!!!",decoded.id)
           req.params.userid ? req.params.userid = decoded.id : undefined;
           req.body.userid ? req.body.userid = decoded.id : undefined;
           req.body.sender_id ? req.body.sender_id = decoded.id : undefined;
-          console.log("VERIFIED REQ BODY", req.body);
           next();
           })
         }

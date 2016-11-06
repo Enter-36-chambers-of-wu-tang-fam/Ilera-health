@@ -14,6 +14,8 @@ const socketEvents = require('./sockets/socket-events')(io);
 const getAll = require('./controller/allPatient.js');
 
 
+//Need to create secure JWT key and move to ENV variable
+
 //JWT authentication
 // const authenticate = require('./middlewares/authenticate');
 // const physAuth = require('./middlewares/physician_authenticate');
@@ -31,7 +33,7 @@ app.use(session({
 router(app);
 
 
-//app.get('/api/allPatient/:userid', getAll.get_patient); //Call to the massive join //-> Remove if not needed anymore on front-end update
+//app.get('/api/allPatient/:userid', getAll.get_patient); //Call to join //-> Remove if not needed anymore on front-end update
 
 
 
